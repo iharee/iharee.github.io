@@ -46,20 +46,28 @@ text {
 <!-- 顶部公式 -->
 <!-- ===================== -->
 
-<text x="300" y="40" class="formula">
+<style>
+  .math-formula {
+    font-family: "Latin Modern Math", "Cambria Math", serif;
+    font-size: 24px;
+    text-anchor: middle;
+  }
+  .subscript {
+    font-size: 16px;
+    baseline-shift: sub;
+  }
+</style>
 
-h<tspan baseline-shift="sub">t</tspan>
-=
-φ(
-W<tspan baseline-shift="sub">h</tspan>
-h<tspan baseline-shift="sub">t−1</tspan>
-+
-W<tspan baseline-shift="sub">x</tspan>
-x<tspan baseline-shift="sub">t</tspan>
-+
-b
-)
-
+<text x="300" y="50" class="math-formula">
+  h<tspan class="subscript">t</tspan>
+  = φ(
+  W<tspan class="subscript">h</tspan>
+  h<tspan class="subscript">t−1</tspan>
+  + 
+  W<tspan class="subscript">x</tspan>
+  x<tspan class="subscript">t</tspan>
+  + b
+  )
 </text>
 
 

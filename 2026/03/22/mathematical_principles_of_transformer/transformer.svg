@@ -159,7 +159,7 @@
     <text x="600" y="57" class="text-main">Softmax</text>
     <polyline points="600,100 600,80" class="line" marker-end="url(#arrow)" />
 
-    <polyline points="600,705 730,705 730,555 680,555" class="line" marker-end="url(#arrow)" />
+    <polyline points="250,360 250,300 480,300 480,490" class="line" />
     <polyline points="600,520 730,520 730,380 680,380" class="line" marker-end="url(#arrow)" />
     <polyline points="600,340 730,340 730,200 680,200" class="line" marker-end="url(#arrow)" />
 
