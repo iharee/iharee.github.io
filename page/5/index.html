@@ -198,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/28/Spring%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/07/23/pjskcapture/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/arthurstat.png">
@@ -212,7 +212,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2025/05/28/Spring%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/" class="post-title-link" itemprop="url">Spring 框架学习研究札记</a>
+            <a href="/2025/07/23/pjskcapture/" class="post-title-link" itemprop="url">PJSK 证书抓包教程</a>
         </h2>
 
         <div class="post-meta">
@@ -223,14 +223,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2025-05-28 03:29:00" itemprop="dateCreated datePublished" datetime="2025-05-28T03:29:00+08:00">2025-05-28</time>
+              <time title="创建时间：2025-07-23 06:03:18" itemprop="dateCreated datePublished" datetime="2025-07-23T06:03:18+08:00">2025-07-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-08-27 12:57:56" itemprop="dateModified" datetime="2025-08-27T12:57:56+08:00">2025-08-27</time>
+                <time title="修改时间：2025-10-04 18:16:42" itemprop="dateModified" datetime="2025-10-04T18:16:42+08:00">2025-10-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,7 +238,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                  <a href="/categories/PJSK/" itemprop="url" rel="index"><span itemprop="name">PJSK</span></a>
                 </span>
             </span>
 
@@ -255,608 +255,15 @@
       
 
       
-          <!--
-
-学习视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV14WtLeDEit">尚硅谷最新版SSM教程，基于AI的全新ssm框架实战</a>，强烈推荐！
-
--->
-<p>这篇文档仅仅是我自己的笔记。比如，我会整理 Spring
-框架常见的容器相关注解，但不会对容器注解本身做进一步解释，也不会解释 IoC
-的概念，只起目录与导航的作用——因为这些内容的详情要么在官方文档中可以很轻松地查到，要么十分基础。但对于
-Bean 的生命周期这类比较重要的关键点，我将重点分析并记录。</p>
-<blockquote>
-<p>Spring Boot 3.3.3</p>
-<p>Spring Framework 6.1.6</p>
-<p>JDK 17</p>
-</blockquote>
-<h1 id="spring-core-aop">Spring Core &amp; AOP</h1>
-<h2 id="ioc-di">IoC &amp; DI</h2>
-<p>控制反转（Inversion of
-Control）是一种设计原则，指对象的创建、销毁与依赖关系不再由用户负责，而是将对象的生命周期交由容器统一管理。</p>
-<p>依赖注入（Dependency Injection）是控制反转的最常见实现方式。</p>
-<h3 id="spring-bean-接口与注解">Spring Bean 接口与注解</h3>
-<ul>
-<li><p><code>@Configuration</code></p></li>
-<li><p><code>@ComponentScan</code>、<code>@Import</code></p></li>
-<li><p><code>@Bean</code></p></li>
-<li><p><code>@Component</code></p>
-<ul>
-<li><code>@Controller</code>（<code>@RestController</code>），<code>@Service</code>，<code>@Repository</code></li>
-</ul></li>
-<li><p><code>@Scope</code></p></li>
-<li><p><code>@Lazy</code></p></li>
-<li><p>接口 <code>FactoryBean</code></p></li>
-<li><p><code>@Conditional</code>、接口 <code>Conditional</code>
-及一系列派生注解</p>
-<ul>
-<li><code>@Profile</code></li>
-</ul>
-<p>Spring Boot 如此强大，最主要的原因就是其在底层广泛而灵活地使用了
-<code>@Conditional</code>。如果说最初基于 XML 配置的 Spring
-设计哲学是配置优于代码，那么后来基于注解的 Spring
-为我们大幅减少甚至几乎完全消灭了冗长繁琐的 XML 配置，而 Spring Boot
-在这基础上更进一步，通过让约定优于配置，让一个刚入门的开发者也能够轻松上手。</p></li>
-<li><p><code>@Autowired</code>，<code>@Resource</code></p>
-<p>在源码中，<code>@Autowired</code> 实际上是由
-<code>AutowiredAnnotationBeanPostProcessor</code>
-实现的，这是一个专门用于处理 <code>@Autowired</code> 的一种特殊的
-<code>BeanPostProcessor</code>，在每个 Bean 或组件被创建后调用其特殊的
-<code>postProcessProperties</code> 方法或
-<code>postProcessBeforeInitialization</code> 方法，通过反射分析目标 Bean
-的全部注解、字段、方法、构造器等等，然后对具有 <code>@Autowired</code>
-注解修饰的对象尝试在容器中进行匹配，如果匹配成功则注入依赖。</p>
-<p><code>@Autowired</code> 与 <code>@Resource</code>
-均能实现自动的依赖注入，但 <code>@Autowired</code> 是 Spring
-框架的实现，而 <code>@Resource</code> 是 Java 标准规范 JSR-250
-所定义的。如果不存在其他注解，例如 <code>@Qualifier</code>，则
-<code>@Autowired</code>
-默认按类型匹配，类型不唯一时尝试按名称匹配。<code>@Resource</code>
-则默认按名称匹配。</p></li>
-<li><p><code>@Qualifier</code>，<code>@Primary</code></p></li>
-<li><p>接口 <code>...Aware</code></p></li>
-<li><p><code>@Value</code></p></li>
-<li><p><code>@PropertySource</code></p></li>
-<li><p>接口 <code>InitializingBean</code> 与
-<code>DisposableBean</code></p></li>
-<li><p><code>@PreConstruct</code>，<code>@PreDestory</code></p></li>
-<li><p>接口 <code>BeanPostProcessor</code></p></li>
-</ul>
-<p>各注解的作用与具体用法请查询 <a target="_blank" rel="noopener" href="https://spring.io/">Spring
-官方文档</a>。</p>
-<h3 id="spring-bean-生命周期">Spring Bean 生命周期</h3>
-<p><strong>Bean 生命周期：</strong></p>
-<ol type="1">
-<li>初始化容器自身，加载配置类、解析元数据，随后初始化、创建 Bean；</li>
-<li>创建阶段，在创建的过程中容器调用被初始化 Bean
-的构造器，在这一阶段中待被依赖对象进入运行阶段后，被
-<code>@Autowired</code> 与 <code>@Resource</code>
-修饰的对象由容器为其进行依赖注入（这里可能触发递归初始化）；</li>
-<li>初始化阶段及其前置、后置拦截处理，优先初始化
-<code>BeanPostProcessor</code>，接着是其他 Bean 与组件：
-<ul>
-<li>一个配置类中若显式注册了被 <code>@Bean</code> 修饰、返回类型为
-<code>BeanPostProcessor</code> 的方法，且该方法应返回一个重写了
-<code>postProcessBeforeInitialization</code> 方法的
-<code>BeanPostProcessor</code>
-类的一个实例（注册至容器），则后续创建的所有 Bean 与组件均会在这一步调用
-<code>postProcessBeforeInitialization</code> 方法，而且
-<code>BeanPostProcessor</code> 方法自身虽然被 <code>@Bean</code>
-修饰但会被容器特殊对待，不会被其他 <code>BeanPostProcessor</code>
-处理；</li>
-<li>初始化阶段，流程为：
-<ol type="1">
-<li>若返回类具有被 <code>@PostConstruct</code>
-修饰的方法，则调用该方法；</li>
-<li>若返回类实现了接口 <code>InitializingBean</code> 的
-<code>afterPropertiesSet</code> 方法，则调用该方法；</li>
-<li>调用 <code>@Bean</code> 注解的属性 <code>initMethod</code>
-所指定的方法，该方法可以在其他类中；</li>
-</ol></li>
-<li>一个配置类中若显式注册了被 <code>@Bean</code> 修饰、返回类型为
-<code>BeanPostProcessor</code> 的方法，且该方法应返回一个实现了
-<code>postProcessAfterInitialization</code> 方法的
-<code>BeanPostProcessor</code>
-类的一个实例（注册至容器），则后续创建的所有 Bean 与组件均会在这一步调用
-<code>postProcessAfterInitialization</code> 方法，而且
-<code>BeanPostProcessor</code> 方法自身虽然被 <code>@Bean</code>
-修饰但会被容器特殊对待，不会被其他 <code>BeanPostProcessor</code>
-处理。</li>
-</ul></li>
-<li>运行阶段；</li>
-<li>销毁阶段：
-<ul>
-<li>若返回类具有被 <code>@PreDestory</code>
-修饰的方法，则调用该方法；</li>
-<li>若返回类实现了接口 <code>DisposableBean</code> 的
-<code>destroy</code> 方法，则调用该方法；</li>
-<li>调用 <code>@Bean</code> 注解的属性 <code>destroyMethod</code>
-所指定的方法，该方法可以在其他类中；</li>
-<li>销毁容器自身。</li>
-</ul></li>
-</ol>
-<hr>
-<p><strong>Component 生命周期：</strong></p>
-<ol type="1">
-<li>初始化容器自身，加载配置类、解析元数据，随后初始化、创建组件；</li>
-<li>创建阶段，在创建的过程中容器调用被初始化组件的构造器，在这一阶段中待被依赖对象进入运行阶段后，被
-<code>@Autowired</code> 与 <code>@Resource</code>
-修饰的对象由容器为其进行依赖注入（这里可能触发递归初始化）；</li>
-<li>初始化阶段及其前置、后置拦截处理，优先初始化
-<code>BeanPostProcessor</code>，接着是其他 Bean 与组件：
-<ul>
-<li>一个组件若实现了接口 <code>BeanPostProcessor</code> 的方法
-<code>postProcessBeforeInitialization</code>（注册至容器），则后续创建的所有
-Bean 与组件均会在这一步调用 <code>postProcessBeforeInitialization</code>
-方法；</li>
-<li>初始化阶段，流程为：
-<ol type="1">
-<li>调用组件中被 <code>@PostConstruct</code> 修饰的方法；</li>
-<li>调用被组件实现的接口 <code>InitializingBean</code> 的
-<code>afterPropertiesSet</code> 方法；</li>
-</ol></li>
-<li>一个组件若实现了接口 <code>BeanPostProcessor</code> 的方法
-<code>postProcessAfterInitialization</code>（注册至容器），则后续创建的所有
-Bean 与组件均会在这一步调用 <code>postProcessAfterInitialization</code>
-方法。</li>
-</ul></li>
-<li>运行阶段；</li>
-<li>销毁阶段：
-<ul>
-<li>调用组件中被 <code>@PreDestory</code> 修饰的方法；</li>
-<li>调用被组件实现的接口 <code>DisposableBean</code> 的
-<code>destroy</code> 方法；</li>
-<li>销毁容器自身。</li>
-</ul></li>
-</ol>
-<hr>
-<p>Bean
-与组件（Component）其实没有区别，均为容器中的对象，上文中做区分只是为区别注解
-<code>@Bean</code> 与 <code>@Component</code> 的使用方式。下文不再区分
-Bean 与组件。</p>
-<p>Spring Bean
-默认均为单实例（Singleton），即在容器初始化完成后便存在于容器中，全局唯一，任何请求获得的都是同一个
-Spring Bean。如果不考虑懒加载 <code>@Lazy</code> 的
-Bean，则容器初始化完成后单实例 Bean 就已经存在于容器中了。反之，通过指定
-<code>@Scope("prototype")</code> 可以让 Spring Bean
-成为原型（Prototype），只有当请求者向容器请求 Bean
-时容器才会通过工厂方法创建一个新对象并返回。</p>
-<h3 id="三级缓存模型">三级缓存模型</h3>
-<p>Spring 三级缓存的主要设计目的是为了解决（如果没有三级缓存）两个单实例
-Spring Bean
-一旦存在循环依赖则将造成无限递归调用的问题。实际上，如果不考虑
-AOP，则只需要两级缓存并使用二级缓存存储早期引用即可，设计第三级缓存是为了支持
-AOP
-的动态代理特性，通过第三级缓存以延迟代理的生成，避免直接注入目标对象。</p>
-<p>注意，Spring 默认不允许循环引用（自 Spring Boot 2.6+
-开始默认禁止），需要在配置文件中明确
-<code>spring.main.allow-circular-references=true</code>
-以允许循环依赖的存在。</p>
-<p>Spring 的三级缓存，实际上是三个
-<code>ConcurrentHashMap</code>，分别为</p>
-<ol type="1">
-<li><p>一级缓存
-<code>ConcurrentHashMap&lt;String, Object&gt; singletonObjects</code></p>
-<p>负责存储初始化完毕的单例 Spring Bean</p></li>
-<li><p>二级缓存
-<code>ConcurrentHashMap&lt;String, Object&gt; earlySingletonObjects</code></p>
-<p>负责临时存放已实例化但未初始化的 Spring Bean，供依赖方使用</p></li>
-<li><p>三级缓存
-<code>ConcurrentHashMap&lt;String, ObjectFactory&lt;?&gt;&gt; singletonFactories</code></p>
-<p>存储 Spring Bean 的工厂对象，用于生成早期引用</p></li>
-</ol>
-<p>假设有两个需要初始化的单实例对象 A、B 且 A、B
-间存在循环依赖，则在三级缓存机制下 Spring 将按下述流程初始化 A：</p>
-<ol type="1">
-<li><p><strong>Spring 启动并开始实例化 A</strong></p>
-<ul>
-<li>Spring 检测到 A 是单例 Bean，开始初始化。</li>
-<li>在实例化 A 后（调用构造方法），将 A
-的原始对象（未填充属性）放入三级缓存。</li>
-</ul></li>
-<li><p><strong>发现 A 依赖 B，尝试注入 B</strong></p>
-<ul>
-<li>Spring 解析 A 的依赖，发现需要注入 B。</li>
-<li>检查一级缓存中是否存在 B，若不存在则开始初始化 B。</li>
-</ul></li>
-<li><p><strong>实例化 B 并发现其依赖 A</strong></p>
-<ul>
-<li><p>实例化 B 后，将 B 的原始对象放入三级缓存。</p></li>
-<li><p>解析 B 的依赖时，发现需要注入 A，此时：</p>
-<ul>
-<li><p>检查一级缓存：不存在 A。</p></li>
-<li><p>检查二级缓存：不存在 A。</p></li>
-<li><p>对当前 Bean A
-的名称加<strong>同步锁</strong>（<code>synchronized ("bean_name_of_A")</code>），然后：</p>
-<ul>
-<li><p>再次检查二级缓存，通过双重检查锁避免并发时重复生成。</p></li>
-<li><p>从三级缓存获取 A 的 <code>ObjectFactory</code>，调用
-<code>getObject()</code>
-生成早期引用（可能是代理，也可能是原始对象）。</p></li>
-<li><p>将生成的早期引用放入二级缓存，并立即从三级缓存移除 A 的
-<code>ObjectFactory</code>。</p></li>
-</ul></li>
-<li><p>释放同步锁。</p></li>
-</ul></li>
-</ul></li>
-<li><p><strong>将 A 的早期引用注入 B</strong></p>
-<ul>
-<li>B 成功获得 A 的早期引用，继续完成 B 的初始化（填充其他属性、执行
-<code>@PostConstruct</code> 等）。</li>
-<li>初始化完成后，将完全初始化的 B
-放入一级缓存，如果二级缓存与三级缓存中存在
-B，则移除二级缓存与三级缓存中的 B。</li>
-</ul></li>
-<li><p><strong>返回并完成 A 的初始化</strong></p>
-<ul>
-<li>此时 A 的依赖 B 已存在于一级缓存中，Spring 将 B 注入 A。</li>
-<li>继续完成 A 的初始化（填充其他属性、执行
-<code>@PostConstruct</code>）。</li>
-<li>将 A 放入一级缓存，如果二级缓存中存在 A，则在二级缓存中移除 A。</li>
-</ul></li>
-</ol>
-<p>上述描述的流程可以在 Spring 源码中得到验证。</p>
-<hr>
-<p>在施加同步锁逻辑的源码中有一个有趣的细节——双检查锁机制。类
-<code>org.springframework.beans.factory.support.DefaultSingletonBeanRegistry</code>
-的 <code>getSingleton</code> 方法正是产生单实例 Bean
-逻辑的关键方法，反编译结果如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">protected</span> Object <span class="title function_">getSingleton</span><span class="params">(String beanName, <span class="type">boolean</span> allowEarlyReference)</span> &#123;</span><br><span class="line">    <span class="type">Object</span> <span class="variable">singletonObject</span> <span class="operator">=</span> <span class="built_in">this</span>.singletonObjects.get(beanName);</span><br><span class="line">    <span class="keyword">if</span> (singletonObject == <span class="literal">null</span> &amp;&amp; <span class="built_in">this</span>.isSingletonCurrentlyInCreation(beanName)) &#123;</span><br><span class="line">        singletonObject = <span class="built_in">this</span>.earlySingletonObjects.get(beanName);</span><br><span class="line">        <span class="keyword">if</span> (singletonObject == <span class="literal">null</span> &amp;&amp; allowEarlyReference) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(<span class="built_in">this</span>.singletonObjects) &#123;</span><br><span class="line">                singletonObject = <span class="built_in">this</span>.singletonObjects.get(beanName);</span><br><span class="line">                <span class="keyword">if</span> (singletonObject == <span class="literal">null</span>) &#123;</span><br><span class="line">                    singletonObject = <span class="built_in">this</span>.earlySingletonObjects.get(beanName);</span><br><span class="line">                    <span class="keyword">if</span> (singletonObject == <span class="literal">null</span>) &#123;</span><br><span class="line">                        ObjectFactory&lt;?&gt; singletonFactory = (ObjectFactory)<span class="built_in">this</span>.singletonFactories.get(beanName);</span><br><span class="line">                        <span class="keyword">if</span> (singletonFactory != <span class="literal">null</span>) &#123;</span><br><span class="line">                            singletonObject = singletonFactory.getObject();</span><br><span class="line">                            <span class="built_in">this</span>.earlySingletonObjects.put(beanName, singletonObject);</span><br><span class="line">                            <span class="built_in">this</span>.singletonFactories.remove(beanName);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> singletonObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>将以上反编译源码以更接近自然语言的 Python 伪代码改写，结果如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">getSingleton</span>(<span class="params">beanName, allowEarlyReference</span>):</span><br><span class="line">    <span class="comment"># 第一次检查：常规单例缓存</span></span><br><span class="line">    bean = cacheFirst.get(beanName)</span><br><span class="line">    <span class="comment"># isCreating() 检查 Bean 是否处于生命周期的创建阶段</span></span><br><span class="line">    <span class="keyword">if</span> bean <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> isCreating(beanName):</span><br><span class="line">        <span class="comment"># 第二次检查：早期单例缓存</span></span><br><span class="line">        bean = cacheSecond.get(beanName)</span><br><span class="line">        <span class="keyword">if</span> bean <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> allowEarlyReference:</span><br><span class="line">            <span class="keyword">with</span> synchronized(cacheFirst):</span><br><span class="line">                <span class="comment"># 第三次检查：同步块内再次检查常规缓存</span></span><br><span class="line">                bean = cacheFirst.get(beanName)</span><br><span class="line">                <span class="keyword">if</span> bean <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    <span class="comment"># 第四次检查：同步块内再次检查早期缓存</span></span><br><span class="line">                    bean = cacheSecond.get(beanName)</span><br><span class="line">                    <span class="keyword">if</span> bean <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                        <span class="comment"># 从工厂获取实例（第三级缓存）</span></span><br><span class="line">                        factory = cacheThird.get(beanName)</span><br><span class="line">                        <span class="keyword">if</span> factory <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                            bean = factory.create()</span><br><span class="line">                            cacheSecond.put(beanName, bean)</span><br><span class="line">                            cacheThird.remove(beanName)</span><br><span class="line">    <span class="keyword">return</span> bean</span><br></pre></td></tr></table></figure>
-<p>不难看出，由于三级缓存的存在，双检查锁机制实际上在加锁的前后一共进行了四重检查，分别为两次常规检查与两次早期检查。通过双检查锁机制，保证了并发系统只会有唯一一个线程负责创建
-Bean，避免重复。</p>
-<h3 id="ioc-容器初始化流程">IoC 容器初始化流程</h3>
-<p>十分推荐：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/tanghaorong/p/13497223.html">Spring详解（五）——Spring
-IOC容器的初始化过程</a></p>
-<h2 id="aop">AOP</h2>
-<p>面向切面编程（AOP，Aspect Oriented
-Programming）是面向对象编程（OOP，Object Oriented
-Programming）的补充，以解决横切关注点代码重复冗余的问题，例如日志系统与事务系统。</p>
-<h3 id="动态代理">动态代理</h3>
-<p>面向切面编程的根基是动态代理（Dynamic
-Proxy）——有别于硬编码与静态代理。动态代理在底层则是依靠类似拦截器的机制（通常是回调）实现的，接口的动态代理由
-JDK 利用反射在运行时提供原生支持（利用方法
-<code>Proxy.newProxyInstance</code> 与
-<code>InvocationHandler.invoke</code>），类的动态代理由 CGLIB
-通过字节码在运行时提供支持。</p>
-<p>在 Spring
-中并不需要用户自己实现代理，用户只需要定义切面（Aspect）的通知方法（Advice）。对象方法在纵向执行自身的业务逻辑时，将在不同的阶段暴露出若干连接点（Join
-Point），例如方法调用前、方法返回后、抛出异常时与方法结束后。切面在通知方法中定义具体的增强逻辑，利用注解为通知方法绑定我们所感兴趣的一部分连接点，即切入点（Pointcut），同时通过切入点表达式（Pointcut
-Expression）匹配目标方法，进而确定 AOP
-框架需要在哪些连接点处进行拦截。随后，AOP
-框架将在运行时（动态代理）或编译时（字节码增强）将切面中定义的增强逻辑织入（Weave）到目标方法中（对
-Spring AOP
-而言，主要是运行时的动态代理），最终实现横切关注点（Cross-Cutting
-Concerns）与核心业务逻辑的解耦。</p>
-<p>在 Spring AOP
-的底层实现中，容器将为被切面切入的组件创建动态代理对象，代理对象中保存了由底层的
-AOP 代理工厂 <code>ProxyFactory</code>
-自动生成的增强器调用链——增强器链。增强器（Advisor）是 Spring
-进一步封装通知方法的产物，增强器中除了增强逻辑以外还包含了通知方法何时何处生效的信息。增强器链（Advisor
-Chain）则是用以存放增强器的集合。目标方法被调用时，将按顺序执行增强器链中的增强器所蕴含的通知方法。</p>
-<h3 id="spring-aop-切面注解">Spring AOP 切面注解</h3>
-<p>切面类通过注解 <code>@Aspect</code>
-显式标记。由于切面类也应是容器中的一个组件，所以注解
-<code>@Aspect</code> 一般需要配合注解 <code>@Component</code> 使用。</p>
-<p>切面类具有若干通知方法，这些通知方法中定义了具体需要被织入的逻辑。除环绕切面
-<code>@Around</code> 外，通知方法要么无形参，要么只能有
-<code>JoinPoint</code>
-类型的形参，要么允许其他类型形参的存在但其他类型的形参必须被注入或绑定（例如
-<code>@AfterReturning</code> 通过属性 <code>returning</code>
-将返回值注入至同名形参中）。<code>JoinPoint</code>
-类型的形参封装了当前通知方法被调用时关于调用的全部信息。返回值、通知方法名称通常是无关紧要的。</p>
-<p>通知方法的通知类型注解决定通知方法何时生效，切面表达式决定通知方法何处生效。</p>
-<p>常见的通知类型注解：</p>
-<ul>
-<li><code>@Before</code></li>
-<li><code>@AfterReturning</code></li>
-<li><code>@AfterThrowing</code></li>
-<li><code>@After</code></li>
-</ul>
-<p>修饰空方法的通知类型注解，仅用作抽取切面表达式：</p>
-<ul>
-<li><code>@Pointcut</code>，其他注解通过
-<code>value = "空方法名称()"</code> 复用切面表达式</li>
-</ul>
-<p>环绕通知注解：</p>
-<ul>
-<li><code>@Around</code></li>
-</ul>
-<p>切面表达式以字符串的形式作为通知类型注解的属性而发挥作用，切面表达式的匹配类型包括</p>
-<ol type="1">
-<li><u><code>execution</code></u></li>
-<li><code>within</code></li>
-<li><code>this</code></li>
-<li><code>target</code></li>
-<li><code>args</code></li>
-<li><code>@args</code></li>
-<li><u><code>@annotation</code></u></li>
-<li><code>bean</code></li>
-</ol>
-<p>切面表达式的不同匹配类型间可以通过 Java 的逻辑运算符连接，例如
-<code>&amp;&amp;</code> 与 <code>||</code>。以匹配类型
-<code>execution</code> 为例，<code>execution</code> 表达式的格式为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">execution(</span><br><span class="line">    [modifier-pattern]</span><br><span class="line">    return-type-pattern</span><br><span class="line">    [method-signature] / name-pattern (param-pattern)</span><br><span class="line">    [throws-pattern])</span><br></pre></td></tr></table></figure>
-<p>例如，一个完整的切面类的通知方法的注解为
-<code>@Before("execution(public long com.arth.picloud.service.impl.UserServiceImpl.userRegister(String, String, String)) throws BackendException")</code>，常简写为
-<code>@Before("execution(long userRegister(String, String, String))")</code>。</p>
-<p>切面表达式支持通配符 <code>*</code> 与任意参数 <code>..</code>，例如
-<code>@Before("execution(* *(*, String, ..))")</code>。如果将方法签名仅使用一个通配符
-<code>*</code>
-替代很可能将匹配到意料之外的底层方法从而导致错误，常见的用法是对指定包名下的所有方法使用通配符，例如
-<code>@Before("execution(* com.arth.picloud.service.impl.UserServiceImpl.*(..))")</code>。</p>
-<hr>
-<p>多个切面默认按名称字典序决定调用顺序。配合 <code>@Aspect</code>
-使用注解 <code>@Order(n)</code> 指定优先级，<code>n</code>
-越小优先级越高。即使是多个切面，Spring AOP
-也只会生成一个完整的增强器调用链。</p>
-<hr>
-<p>环绕切面 <code>@Around</code> 是 Spring AOP
-中最为灵活与强大的一种通知类型。相比于其他通知类型仅起到感知的作用，它允许我们在目标方法执行前后完全控制其行为（不单单是执行前或执行后，这是“环绕”最直接的体现），甚至可以阻止方法的执行或修改方法返回值，因此有必要单独在此整理环绕切面的内容。实际上，环绕通知在底层也是通过动态代理实现的。</p>
-<p>被环绕通知注解 <code>@Around</code> 修饰的通知方法必须有
-<code>ProceedingJoinPoint</code>
-类型的形参（可继续执行目标方法的切点），而且返回值类型应当是
-<code>Object</code>。记 <code>ProceedingJoinPoint</code>
-类型的形参变量名为 <code>pjp</code>，<code>pjp</code>
-有如下常用的方法：</p>
-<ul>
-<li><code>pjp.getArgs()</code>，返回目标方法的参数数组，返回类型为
-<code>Object[]</code></li>
-<li><code>pjp.proceed(args)</code>，继续执行目标方法，返回目标方法的返回值</li>
-</ul>
-<p>环绕通知方法的返回值将被视为动态代理的返回值。</p>
-<h2 id="spring-事务管理">Spring 事务管理</h2>
-<p>相比编程式的事务管理，Spring
-框架更倾向于让开发者使用声明式的事务管理。</p>
-<p><strong>Spring 事务注解</strong></p>
-<p>使用注解 <code>@EnableTransactionManagement</code>
-显式启用基于注解的自动化事务管理，为需要事务功能的类或方法添加注解
-<code>@Transactional</code> 即可使用自动化的事务管理功能。</p>
-<p>注解 <code>@Transactional</code> 的常用属性：</p>
-<ul>
-<li><code>timeout</code>，属性值类型为 <code>int</code>，默认
-<code>-1</code>（不启用），计时范围为从事务获取数据库连接开始至最后一次数据库操作结束或触发回滚时。</li>
-<li><code>readOnly</code>，属性值类型为 <code>boolean</code>，默认
-<code>false</code>，置为 <code>true</code>
-以提示框架与数据库应进行只读优化。例如，MyBatis
-将对只读操作跳过缓存刷新逻辑，MySQL 将减少锁开销且不会为只读操作分配事务
-ID。因此，建议对简单单次 <code>SELECT</code>
-以外的查询操作均显式添加注解
-<code>@Transactional(readOnly=true)</code>。</li>
-</ul>
-<p>Spring 默认对非受检异常（Unchecked
-Exception，不可预期的程序错误，范围为
-<code>RuntimeException</code>、<code>Error</code>
-及二者的子类）触发回滚，对受检异常（Checked
-Exception，可预期的业务逻辑错误，包括 <code>IOException</code>
-等编译时已声明或处理过的异常）不触发回滚但仍提交事务。</p>
-<ul>
-<li><code>rollbackFor</code>，属性值类型为 <code>Throwable</code>
-及其子类的字节码对象数组，出现指定异常时触发回滚。
-<ul>
-<li><code>rollbackForClassName</code>，属性值类型为 <code>String</code>
-数组，应填入全类名字符串，用法同上。</li>
-</ul></li>
-<li><code>noRollbackFor</code>，属性值类型为 <code>Throwable</code>
-及其子类的字节码对象数组，出现指定异常时不触发回滚。
-<ul>
-<li><code>noRollbackForClassName</code>，属性值类型为
-<code>String</code> 数组，应填入全类名字符串，用法同上。</li>
-</ul></li>
-</ul>
-<p><strong>隔离级别注解</strong></p>
-<p>Spring 支持为每个事务指定隔离级别，只需要为 <code>isolation</code>
-属性赋值相应 <code>Isolation</code>
-的枚举类即可。一共有五个可选的枚举类：</p>
-<ul>
-<li><code>Isolation.DEFAULT</code></li>
-<li><code>Isolation.READ_UNCOMMITTED</code></li>
-<li><code>Isolation.READ_COMMITTED</code></li>
-<li><code>Isolation.REPEATABLE_READ</code></li>
-<li><code>Isolation.SERIALIZABLE</code></li>
-</ul>
-<p><strong>传播行为注解</strong></p>
-<p>Spring 还支持为每个事务指定传播行为，通过为 <code>propagation</code>
-属性赋值相应 <code>Propagation</code> 的枚举类以指定。</p>
-<table>
-<colgroup>
-<col style="width: 35%">
-<col style="width: 64%">
-</colgroup>
-<thead>
-<tr>
-<th style="text-align: left;">Propagation 枚举类</th>
-<th style="text-align: left;">传播行为解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><u><code>Propagation.REQUIRED</code></u></td>
-<td style="text-align: left;">需要当前事务，若当前存在事务则并入，若当前无事务则新建事务。<br><br>此为默认的事务传播行为。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>Propagation.SUPPORTS</code></td>
-<td style="text-align: left;">支持当前事务，若当前存在事务则并入，若当前无事务则无事务地执行。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>Propagation.MANDATORY</code></td>
-<td style="text-align: left;">强制支持当前事务，若当前存在事务则并入，若当前无事务则抛出异常。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><u><code>Propagation.REQUIRES_NEW</code></u></td>
-<td style="text-align: left;">新建事务并执行，若当前存在事务则挂起事务，优先执行新事务。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>Propagation.NOT_SUPPORTED</code></td>
-<td style="text-align: left;">无事务地执行，若当前存在事务则挂起事务，优先无事务执行。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>Propagation.NEVER</code></td>
-<td style="text-align: left;">强制无事务地执行，若当前存在事务则抛出异常。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>Propagation.NESTED</code></td>
-<td style="text-align: left;">如果当前存在事务则嵌套执行事务，若无事务则新建事务。<br><br>嵌套事务的特点是在外层事务的上下文中执行并通过保存点实现部分回滚。若外层事务不存在，则行为与
-<code>Propagation.REQUIRED</code>
-相同。该传播行为特性要求数据库的存储引擎支持保存点，否则任何情况下与
-<code>Propagation.REQUIRED</code> 完全相同。</td>
-</tr>
-</tbody>
-</table>
-<p>在传播机制下，</p>
-<ul>
-<li>事务合并时，外层事务除超时时间以外的设置将覆盖内层事务的设置，即使外层事务的部分设置为未显式声明的默认设置。针对超时时间设置，Spring
-将取外层事务与内层事务的超时时间的最小值作为合并后事务的超时时间；</li>
-<li>新建事务时，内层事务的设置将完全独立生效。</li>
-</ul>
-<hr>
-<p><strong>Spring 事务的原理</strong></p>
-<p>具体如何实现回滚由各数据库与缓存负责，Spring
-框架仅定义抽象的逻辑，例如何时开启一个事务、何时触发回滚。Spring
-依靠事务管理器 <code>PlatformTransactionManager</code> 与事务拦截器
-<code>TransactionInterceptor</code>
-实现回滚——这两个对象也隶属于容器，本质上均为 Spring Bean。</p>
-<p><code>PlatformTransactionManager</code> 是 Spring
-事务抽象的核心顶层接口，不同的数据访问技术有该接口的不同实现。例如 JDBC
-默认使用实现类 <code>DataSourceTransactionManager</code>
-作为事务管理器的实现，其中定义了
-<code>commit</code>、<code>getTransaction</code> 与
-<code>rollback</code> 三个方法。也就是说，Spring
-通过事务管理器定义事务的行为。</p>
-<p><code>TransactionInterceptor</code>
-是一个编程式实现的切面，能够感知方法的调用时机，能够控制事务创建、提交与回滚的时机。具体而言，切面类
-<code>TransactionInterceptor</code> 继承自父类
-<code>TransactionAspectSupport</code> 的方法
-<code>completeTransactionAfterThrowing(txInfo, ex)</code> 与
-<code>commitTransactionAfterReturning(txInfo)</code>，前者负责感知回滚时机并触发回滚，后者负责感知事务提交时机并触发提交。</p>
-<h1 id="spring-mvc">Spring MVC</h1>
-<p>Spring MVC 是 Spring 框架的 Web 模块，负责处理 HTTP
-请求与响应。Spring MVC 基于 Servlet API，运行在 Servlet 容器上，Spring
-Boot 默认集成了轻量级开源 Web 服务器、Servlet 容器 Tomcat，使 Spring MVC
-开发更加简便。</p>
-<p>## 基本请求与响应</p>
-<ul>
-<li><p><code>@Controller</code></p></li>
-<li><p><code>@ResponseBody</code></p>
-<p>为控制层组件或组件内的方法添加注解 <code>@ResponseBody</code>
-后，Spring MVC
-将把返回值自动转换为响应体，否则视为传统的视图路径——在如今广泛采取前后端分离的开发模式下，这种用法已经十分少见了。</p>
-<p>在 <code>@RequestMapping</code> 的属性 <code>produces</code>
-中可进一步指定响应体的类型，Spring Boot 默认为 JSON。</p></li>
-<li><p><code>@RequestBody</code></p></li>
-<li><p><code>@ResController</code></p></li>
-<li><p><code>@RequestMapping</code></p>
-<ul>
-<li><code>@GetMapping</code>，<code>@PostMapping</code>，<code>@PutMapping</code>
-...</li>
-</ul></li>
-<li><p><code>@RequestParam</code></p>
-<p>除基本用法外（Key-Value 数据与 JSON 数据），形参类型
-<code>MultipartFile</code> 与 <code>MultipartFile[]</code> 往往需要结合
-<code>@RequestParam</code> 使用。</p></li>
-<li><p><code>@RequestHeader</code></p></li>
-<li><p><code>@CookieValue</code></p></li>
-<li><p><code>@PathVariable</code></p></li>
-<li><p><code>@JsonFormat</code>（Jackson，序列化与反序列化，伴随潜在的格式转换）
-/ <code>@DateTimeFormat</code>（Spring，转换与绑定）</p>
-<p>二者均可以通过特殊的配置类实现全局的默认日期格式处理方案</p></li>
-<li><p>后端声明跨域访问规则注解 <code>@CrossOrigin</code></p></li>
-<li><p>方法的形参类型 <code>MultipartFile</code></p></li>
-<li><p>方法的形参类型 <code>HttpEntity&lt;T&gt;</code></p></li>
-<li><p>传统 Servlet API 类型均可作为方法形参并传入值， 例如
-<code>HttpServletRequest</code>、<code>HttpServletResponse</code>、<code>HttpSession</code>
-等。</p></li>
-<li><p>响应文件下载的例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileDownloadController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/download&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;Resource&gt; <span class="title function_">downloadFile</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> <span class="string">&quot;心做し.flac&quot;</span>;</span><br><span class="line">            <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> Paths.get(fileName).toAbsolutePath().toFile();</span><br><span class="line">            <span class="type">String</span> <span class="variable">encodedName</span> <span class="operator">=</span> UriUtils.encode(fileName, UTF_8);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!file.exists()) <span class="keyword">return</span> ResponseEntity.notFound().build();</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> ResponseEntity.ok()</span><br><span class="line">                    .contentType(MediaType.APPLICATION_OCTET_STREAM)</span><br><span class="line">                    .contentLength(file.length())</span><br><span class="line">                    .header(HttpHeaders.ACCEPT_RANGES, <span class="string">&quot;bytes&quot;</span>)</span><br><span class="line">                    .header(HttpHeaders.CONTENT_DISPOSITION, </span><br><span class="line">                            <span class="string">&quot;attachment; filename*=UTF-8&#x27;&#x27;&quot;</span> + encodedName)</span><br><span class="line">                    .body(<span class="keyword">new</span> <span class="title class_">FileSystemResource</span>(file));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">return</span> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>如果存在服务端渲染的需求，Spring Boot 推荐使用 Thymeleaf 作为
-Spring MVC
-的模板引擎，尽管在前后端分离的设计模式下该需求已较为罕见（直接或间接通过
-ModelAndView 由后端动态生成前端内容）。</p></li>
-</ul>
-<p>各注解、参数与模板的作用与具体用法请查询 <a target="_blank" rel="noopener" href="https://spring.io/">Spring 官方文档</a>。Spring MVC
-对数据类型的支持是十分广泛的，但使用频繁的只有极小一部分。</p>
-<h2 id="拦截器异常处理与数据校验">拦截器、异常处理与数据校验</h2>
-<p><strong>拦截器</strong></p>
-<p>拦截器与动态代理和 Spring AOP 均没有关系，拦截器的逻辑硬编码在 MVC
-中，专门为 Controller 的请求处理流程提供拦截点。拦截器用于在 MVC
-体系下取代 Servlet API 的 Filter，更加契合 Spring 框架。</p>
-<p>一个完整的拦截器定义如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThisIsAHandlerInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 在 Controller 执行前调用，返回 true 则放行请求，false 则中断请求</span></span><br><span class="line">        <span class="keyword">return</span> condition;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 在 Controller 执行完毕但视图未渲染时调用，若启用该方法常用于修改 ModelAndView，使用频率极低</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 在整个请求完成后、视图已渲染时调用，无论 Controller 是否抛出异常，一般用于资源清理与日志记录</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>拦截器的执行顺序如下所示：</p>
-<p><img src="/2025/05/28/Spring%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/HandlerInterceptor.svg" title="HandlerInterceptor执行顺序示意图" alt="HandlerInterceptor执行顺序图示"></p>
-<p>定义拦截器后，要使拦截器生效，还需要对拦截器进行配置。一个基本的拦截器配置如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ThisIsAMvcConfiguration</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> HandlerInterceptor thisIsAHandlerInterceptor;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123;</span><br><span class="line">        registry.addInterceptor(ThisIsAHandlerInterceptor)</span><br><span class="line">                .addPathPatterns(<span class="string">&quot;/**&quot;</span>);  <span class="comment">// 路由 &quot;/**&quot; 拦截所有请求</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><strong>异常处理</strong></p>
-<p>相较于经典的 try-catch 与 throw 的编程式异常处理，Spring MVC
-更推荐声明式异常处理。</p>
-<ul>
-<li><p><code>@ExceptionHandler(Class&lt;? extends Exception&gt;)</code>
-或
-<code>@ExceptionHandler(Class&lt;? extends Exception&gt;[])</code></p>
-<p>修饰一个 Controller 的方法，若该 Controller 未被
-<code>@ControllerAdvice</code> 修饰，则该方法将捕获并处理 Controller
-中业务方法所抛出的特定异常。</p></li>
-<li><p><code>@ControllerAdvice</code></p>
-<p>修饰一个类，使该类成为 Spring MVC 全局异常处理器组件。任何 Controller
-所抛出的特定异常均将被全局异常处理器中 <code>@ExceptionHandler</code>
-所修饰的特定方法处理。精确异常处理优先。</p>
-<ul>
-<li><code>@ResControllerAdvice</code></li>
-</ul></li>
-</ul>
-<p>如果抛出的异常没有被任何异常处理器处理，Spring Boot
-将自适应地处理该异常，按照客户端类型返回相应格式的错误信息。</p>
-<hr>
-<p><strong>数据校验</strong></p>
-<p>数据校验注解应当修饰 POJO 的字段以通知 Spring MVC
-在合适的时机进行相应的数据校验。更准确地说，此处 POJO 扮演的是 DTO 或 VO
-的角色。</p>
-<ul>
-<li><code>@Null</code>，<code>@NotNull</code></li>
-<li><code>@NotEmpty</code></li>
-<li><code>@NotBlank</code></li>
-<li><code>@AssertTrue</code>，<code>@AssertFalse</code></li>
-<li><code>@Max</code>，<code>@Min</code>，<code>@DecimalMax</code>，<code>@DecimalMin</code></li>
-<li><code>@Size</code></li>
-<li><code>@Digits</code></li>
-<li><code>@Email</code></li>
-<li><code>@Future</code>，<code>@Past</code></li>
-<li><code>@Pattern</code>（正则表达式校验）</li>
-</ul>
-<p>POJO 作为 Controller 方法的参数时，使用注解 <code>@Valid</code> 或
-<code>@Validated</code> 以通知 Spring MVC 针对该方法的 POJO
-接收参数应当按照给定的规则进行数据校验。</p>
-<p>Java 标准 JSR-303 规定了注解 <code>@Valid</code>，使用注解
-<code>@Valid</code> 后可以在 Controller 方法的参数中添加类型为
-<code>BindingResult</code> 的形参，该参数封装了 <code>@Valid</code>
-数据校验的结果。更常见的做法是使用全局异常处理器捕获并统一处理参数校验异常
-<code>org.springframework.web.bind.MethodArgumentNotValidException</code>，该异常能够通过
-<code>getBindingResult()</code> 方法获得相应的
-<code>BindingResult</code>（而不是在 Controller 的方法的形参中显式给定
-<code>BindingResult</code>），进而更高效地获取并处理错误信息。</p>
-<p><code>@Validated</code> 是 Spring 提供的扩展注解，在
-<code>@Valid</code> 的基础上额外支持分组校验。</p>
-<p>只要遵从规范，我们可以轻松地实现一个可用的自定义数据校验注解。不过，数据校验的逻辑实际上由校验器负责执行，因此要自定义数据校验注解，需要实现相应的自定义校验器。</p>
-<p>以下为一个标准的自定义数据校验注解示例，除了校验器不同以外，同其他数据校验注解没有任何本质上的不：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Constraint(validateBy = &#123;ExtensionValidator.class&#125;)</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.FIELD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> CheckExtension &#123;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">message</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;Not Support Extension&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">Payload</span>&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以下是相应的自定义校验器：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExtensionValidator</span> <span class="keyword">implements</span> <span class="title class_">ConstraintValidator</span>&lt;CheckExtension, String&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String value, ConstraintValidatorContext conetxt)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> value != <span class="literal">null</span> &amp;&amp; Pattern.matches(<span class="string">&quot;.*\\.(mp3|flac|m4a)$&quot;</span>, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="dispatcherservlet">DispatcherServlet</h2>
-<p>待补充……</p>
-<h2 id="spring-mvc-流程">Spring MVC 流程</h2>
-<p>待补充……</p>
-<h1 id="spring-boot">Spring Boot</h1>
-<p>嗯……如果 Spring Framework
-是一堆未组装的汽车零件，比如发动机和变速器，那 Spring Boot
-大概就是一辆装配了自动驾驶系统、开箱即用的电动汽车。自动配置（简化 XML
-配置、约定大于配置）、内嵌 Tomcat、starter
-场景启动器等等特性，大幅提升开发效率。</p>
-<p>待补充……</p>
-<p>这里有一份实现了（且只实现了）用户模块功能的 Spring Boot
-项目源码，同时包含了用户模块测试用的 Vue
-前端。如有需要，可以<a href="./picloud.zip">在此下载</a>。</p>
-
+          <p>游戏《世界计划：缤纷舞台！》（《初音未来：缤纷舞台！》）用户资产数据抓包的详细流程。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/07/23/pjskcapture/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -874,7 +281,7 @@ ModelAndView 由后端动态生成前端内容）。</p></li>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -942,7 +349,7 @@ ModelAndView 由后端动态生成前端内容）。</p></li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
