@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>高等数学 on 二三事</title><link>https://iharee.github.io/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/</link><description>Recent content in 高等数学 on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Tue, 16 May 2023 13:17:56 +0000</lastBuildDate><atom:link href="https://iharee.github.io/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>考研数学（微积分）（下）</title><link>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%EF%BC%88%E5%BE%AE%E7%A7%AF%E5%88%86%EF%BC%89%EF%BC%88%E4%B8%8B%EF%BC%89/</link><pubDate>Tue, 16 May 2023 13:17:56 +0000</pubDate><guid>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%EF%BC%88%E5%BE%AE%E7%A7%AF%E5%88%86%EF%BC%89%EF%BC%88%E4%B8%8B%EF%BC%89/</guid><description>&lt;p&gt;  part Ⅱ主要内容为 &lt;b&gt;不等式&lt;/b&gt;、&lt;b&gt;常微分方程 (ODE)&lt;/b&gt;、&lt;b&gt;级数理论&lt;/b&gt; 和 &lt;b&gt;多元函数微积分&lt;/b&gt;，包括工具定理、计算方法与部分证明，以例题辅助解释。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;hr&gt;
+&lt;h1 id="常用常数"&gt;常用常数&lt;/h1&gt;
+&lt;p&gt;任何正数的任意根次之值$\sqrt[k]{a}=x_0\Leftrightarrow f(x_0)=x^k_0-a=0$都可以用牛顿-辛普森优化算法计算：$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}=\frac1k\left((k-1)x_n+\frac a{x^{k-1}_n}\right)$，特别的对于二次根式$\sqrt{a}=x$有$x_{n+1}=\frac12\left(x_n+\frac a{x_n}\right)$；非多项式函数不方便笔算，也可以类似地考虑切线法、不动点法等其他优化算法计算其数值解（要是有计算机，利用已有的库现写一个BFGS算法也不是难事）。不过简便起见，本文提供一些常见的常数以供查阅，略去计算的步骤。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\pi\approx3.141593$；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;&lt;summary&gt;&lt;font color="#0099ff"&gt;展开/收起&amp;nbsp;π&amp;nbsp;的一些极限/级数式&lt;/font&gt;&lt;/summary&gt;
+$$
+\pi=\lim\limits_{\,n\to\infty}n\sin\frac{180\degree}{n}
+$$$$
+\pi=\lim\limits_{n\to\infty}2^n\underbrace{\sqrt{2-\sqrt{2+\sqrt{2+\sqrt{2+\cdots+\sqrt2}}}}}_{n-1\text{ squre roots}}
+$$&lt;img src="https://iharee.github.io/images/考研数学（微积分）（下）/Pi1.jpg" alt="Pi1" style="zoom: 40%;" /&gt;
+&lt;img src="https://iharee.github.io/images/考研数学（微积分）（下）/Pi2.jpg" alt="Pi2" style="zoom: 40%;" /&gt;
+&lt;/details&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;$e=\lim\limits_{n\to\infty}\left(1+\frac1n\right)^n\approx2.718282$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\gamma=\lim\limits_{n\to\infty}\left(\sum\limits^n_{k=1}\frac1k-\ln n\right)=\lim\limits_{n\to\infty}\left(\displaystyle{\int^1_0\frac{1-x^n}{1-x}\mathrm{d}x-\ln n}\right)\approx0.577216$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\pi^2\approx8.824978$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$e^2=7.389056$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\sqrt2\approx1.414214$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\sqrt{e}=1.648721$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\sqrt3\approx1.732051$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\sqrt{\pi}=\displaystyle{\int_{\mathbb{R}}e^{-x^2}\mathrm{d}x=2\,\Gamma\big(\frac12\big)\approx1.772454}$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\sqrt5\approx2.236068$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\sqrt7\approx2.645751$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\sqrt{11}\approx3.316625$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\sqrt{13}\approx3.605551$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\ln2\approx0.693147$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\ln3\approx1.098612$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\ln5\approx1.609438$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$\ln7\approx1.945910$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="不等式综述"&gt;不等式综述&lt;/h1&gt;
+&lt;p&gt;不等式在分析学中是极其重要的，某种意义上，数学分析和实分析是玩弄不等式的艺术。&lt;/p&gt;
+&lt;h2 id="多元不等式"&gt;多元不等式&lt;/h2&gt;
+&lt;p&gt;多元不等式更“普适”、更“普通”，例如柯西不等式和$x&gt;0$时$\sin x\lt x$的区别。&lt;/p&gt;
+&lt;h3 id="排序不等式"&gt;排序不等式&lt;/h3&gt;
+$$
+\text{倒序和 }\leqslant\text{ 乱序和 }\leqslant\text{ 顺序和}
+$$&lt;p&gt;设长度为$n$的有限数列$\{a_i\}$与$\{b_i\}$单调递增，即$a_1\leqslant a_2\leqslant\cdots\leqslant a_n$、$b_1\leqslant b_2\leqslant\cdots\leqslant b_n$，则
+&lt;/p&gt;
+$$
+\sum^n_{i=1}a_ib_{n-i+1}\leqslant\sum^n_{i=1}a_ib_{k_i}\leqslant\sum^n_{i=1}a_ib_i
+$$&lt;p&gt;
+其中$\{b_{k_i}\}$是$\{b_i\}$中元素的任意乱序排列。&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://zhuanlan.zhihu.com/p/296227985"&gt;&lt;font color="#EEAEEE"&gt;排序不等式的证明（配合Abel变换）&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="切比雪夫的和不等式"&gt;切比雪夫的和不等式&lt;/h3&gt;
+&lt;p&gt;切比雪夫不等式的离散形式是排序不等式的推广。&lt;/p&gt;</description></item><item><title>考研数学（微积分）（上）</title><link>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%EF%BC%88%E5%BE%AE%E7%A7%AF%E5%88%86%EF%BC%89%EF%BC%88%E4%B8%8A%EF%BC%89/</link><pubDate>Thu, 06 Apr 2023 18:23:33 +0000</pubDate><guid>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%EF%BC%88%E5%BE%AE%E7%A7%AF%E5%88%86%EF%BC%89%EF%BC%88%E4%B8%8A%EF%BC%89/</guid><description>&lt;p&gt;  想了想，还是写Markdown更容易保存；作为考研高数的完整笔记，内容多了以后电子文档增删查改起来容易些。&lt;/p&gt;
+&lt;p&gt;  part Ⅰ主要内容为 &lt;b&gt;极限&lt;/b&gt; 与 &lt;b&gt;一元微积分&lt;/b&gt;，涉及较多方面。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;hr&gt;
+&lt;p&gt;  只要数学家名称与定理名称较为常见、有广为接受的中文翻译，就都用中文表示了；两篇文章都主要限定在$\mathbb{R}$上讨论，后文不再强调了。&lt;strong&gt;&lt;font color="#CD0000"&gt;移动端阅读体验可能比较糟糕，尤其是用手机浏览长公式时&lt;/font&gt;&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;  如有纰漏，可以邮件联系我以订正。为了不影响主干内容的连贯，部分例题被折叠了起来。&lt;/p&gt;
+&lt;h1 id="注意"&gt;注意&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;可证明，对$f(x)^{g(x)}$形式的式子，是可以直接对$f(x)$与$g(x)$运用泰勒公式的（只要运用正确，精度足够），自然对所谓的“等价无穷小”也是成立的，这在求极限中非常实用、方便；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第一、第二数学归纳法是极其好用的工具，需要熟练掌握并学会灵活运用（实为严格的演绎法）。归纳法不仅能运用在定理证明中，甚至可以配合单调有界定理证明数列极限的存在性。&lt;/p&gt;
+&lt;p&gt;例如设$1\lt a\leqslant e^{\frac1e}$，$x_1=a$，且当$n&gt;1$时有$x_n=a^{x_{n-1}}$，试证极限$\lim\limits_{n\to\infty}x_n$存在。&lt;/p&gt;
+&lt;p&gt;观察到$x_2=a^{x_1}=a^a&gt;a=x_1$，于是猜想$\{x_n\}$可能单调递增；做归纳假设$x_n&gt;x_{n-1}$成立，则有$x_{n+1}=a^{x_n}&gt;a^{x_{n-1}}=x_n$，因此由第一归纳法，数列$\{x_n\}$确为单调递增。下证数列有界，首先有$x_1=a\leqslant e^{\frac1e}\lt e$，再次运用归纳法，假设$\forall n\lt k,\ x_n\lt e$，则$x_{n+1}=a^{x_n}\lt a^e\leqslant e$，同时容易知道$\forall n,\ x_n&gt;1$，因此数列有界；最后，根据单调有界定理可知，该数列极限存在。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;font color='red'&gt;在点$x_0$处使用泰勒公式的条件：$f(x)$在含点$x_0$的某个开区间$(a,b)$内有$n+1$阶导数，则$f(x)$可以按$(x-x_0)$展开到$n$阶；&lt;/font&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;font color='red'&gt;求极限$\lim\limits_{x\to a}\frac{f(x)}{g(x)}$时使用洛必达法则的条件：&lt;/font&gt;除了要求分子分母满足不定式条件，&lt;font color='red'&gt;$f(x)$与$g(x)$的导数在$a$的某个邻域内应均存在，且导数比值的极限为一广义常数$A$时&lt;/font&gt;，才有$\lim\limits_{x\to a}\frac{f(x)}{g(x)}=\lim\limits_{x\to a}\frac{f'(x)}{g'(x)}=A$成立；其中$A$可以是无穷大。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不要混淆了记号。$\lim\limits_{x\to {x_0}^+}f(x)$与$f(x_0+0)$均为右极限的记号，定义为：$\forall \varepsilon&gt;0$，$\exists\delta&gt;0$，$s.t.\,\,$当$0\lt x-x_0&lt;\delta$时，有$|f(x)-A|&lt;\varepsilon$，则称$A$为$f(x)$在点$x_0$处的右极限。从实数轴上看，右极限是“从数轴的右侧逼近”、“从数轴的正侧逼近”的单侧极限，与之对应的是左极限。&lt;/p&gt;
+&lt;p&gt;但是一般而言，&lt;font color='red'&gt;导数的右极限$\lim\limits_{x\to {x_0}^+}f(x)$存在不等价于右导数$f'_+(x)$存在！！！导数的左极限与左导数的关系同理。&lt;/font&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数学辅助工具上，个人十分推荐 &lt;a href="https://www.wolfram.com/mathematica/"&gt;Mathematica&lt;/a&gt;：无论是优化问题、矩阵求逆等数值计算，还是不定积分、微分方程、泰勒 / 洛朗级数等符号计算，Mathematica都能处理自如；此外，微软用Python语言开发的 &lt;a href="https://github.com/Z3Prover/z3"&gt;Z3&lt;/a&gt; 也是一个强大的工具。&lt;a href="https://www.wolframalpha.com/calculators/integral-calculator"&gt;Wolfram|Alpha&lt;/a&gt; 是基于Mathematica的，提供了图形化的在线网页界面，可以十分方便地进行常见的运算，让初学者不需要任何代码也可以借助计算机完成一些数学计算。&lt;/p&gt;
+&lt;p&gt;对于函数图像，可以通过 &lt;a href="https://www.desmos.com/calculator"&gt;Desmos&lt;/a&gt; 简单绘制，Desmos同样提供了在线网站，可以便捷得画出简单或复杂函数的图像。如果对一些简单函数如$\arccos x$的图像不熟悉，可以通过Desmos直接画出其图像；对一些相对复杂的函数Desmos也能胜任，甚至还能从中看出函数在间断点的极限。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="初等数学简记"&gt;初等数学简记&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;二项式定理：$\forall n\in\mathbb{N}^+$，$(a+b)^n=\sum\limits^n_{k=0}\binom{n}{k}a^{n-k}b^k$；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$n$次方的差公式：$\forall n\in\mathbb{N}^+$，$a^n-b^n=(a-b)\sum\limits^{n-1}_{k=1}a^{n-k}b^k$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;特别地，平方差公式的一个有趣应用是对根式差极限的处理：$\sqrt{f(x)}-g(x)=\frac{f(x)-g^2(x)}{\sqrt{f(x)}+g(x)}$；&lt;/li&gt;
+&lt;li&gt;当$b=1$时，有：$(x-1)^n=(x-1)(x^{n-1}+x^{n-2}+\cdots+x+1)$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;令上式$b:=-b$则得到$n$次方和公式，注意当$n$为正偶数时$a^n+b^n=0$没有实数根，自然也不能在$\mathbb{R}$内分解因式。当$n$为奇数时，有：$a^n+b^n=(a+b)(a^{n-1}-a^{n-2}b+\cdots-ab^{n-2}+b^{n-1})$；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;特别地，当$b=1$且$n$为奇数时，有：$(x+1)^n=(x+1)(x^{n-1}-x^{n-2}+\cdots+a^2-a+1)$；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;中学数列通项求法大全：&lt;a href="https://zhuanlan.zhihu.com/p/73032201"&gt;&lt;b&gt;&lt;font color="#1E90FF"&gt;高中数学：求数列通项公式的十一种方法（方法全，例子全，归纳细）&lt;/font&gt;&lt;/b&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一般$2$元$2$次方程解法：对于一般的$2$元$2$次方程组，可以将其改写为二次型的形式，
+&lt;/p&gt;
+$$
+ \left\{\begin{aligned}
+ &amp;\ \ \ \ (x,y,1)\boldsymbol{A}\left(\begin{array}{c}x\\y\\1\end{array}\right)=0\\
+ &amp;\ \ \ \ (x,y,1)\boldsymbol{B}\left(\begin{array}{c}x\\y\\1\end{array}\right)=0
+ \end{aligned}\right.
+ $$&lt;p&gt;
+其中$\boldsymbol{A},\boldsymbol{B}$是三阶实对称矩阵，&lt;/p&gt;</description></item></channel></rss>

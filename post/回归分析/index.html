@@ -1,0 +1,717 @@
+<!doctype html><html lang=zh-CN><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>回归分析 — 二三事</title><link rel=icon type=image/png sizes=32x32 href=/favicon.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:opsz@9..40&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css crossorigin=anonymous></head><body><header class=site-header><h1 class=site-title><a href=/>二三事</a></h1><p class=site-subtitle>Hare's Notebook</p><hr class=header-rule></header><nav class=category-nav><a href=/>Articles</a>
+<a href=/friends/>友链</a>
+<a href=/about/>关于</a></nav><div class=post-layout><aside class=post-toc-sidebar id=tocSidebar><div class=toc-header><span class=toc-title>目录</span>
+<button class=toc-toggle-btn id=tocToggleBtn aria-label="Toggle TOC">
+<span class=toc-toggle-icon></span></button></div><nav class=toc-nav id=tocNav><ul><li><a href=#-11-线性回归模型>★ 1.1 线性回归模型</a></li><li><a href=#-12-线性模型的经验回归方程解读>★ 1.2 线性模型的经验回归方程解读</a></li><li><a href=#-13-半对数模型的经验回归方程解读>★ 1.3 半对数模型(<em>Ⅰ</em>)的经验回归方程解读</a></li><li><a href=#-14-半对数模型的经验回归方程解读>★ 1.4 半对数模型(<em>Ⅱ</em>)的经验回归方程解读</a></li><li><a href=#-15-双对数模型的经验回归方程解读>★ 1.5 双对数模型的经验回归方程解读</a></li><li><a href=#-16-多项式回归>★ 1.6 多项式回归</a></li><li><a href=#-17-方差分析简介>★ 1.7 方差分析简介</a></li></ul><ul><li><a href=#-21-矩阵代数向量函数与矩阵函数偏微分>● 2.1 矩阵代数：向量函数与矩阵函数偏微分</a></li><li><a href=#-22-随机向量二次型的期望>● 2.2 随机向量二次型的期望</a></li></ul><ul><li><a href=#-31-ols回归系数>★★★ 3.1 OLS：回归系数</a></li><li><a href=#-32-高斯-马尔可夫定理>★★ 3.2 高斯-马尔可夫定理</a></li><li><a href=#33-稳健标准误>3.3 稳健标准误</a></li><li><a href=#-34-olsσ>★★ 3.4 OLS：σ²</a></li><li><a href=#35-正态假设下的ols>3.5 正态假设下的OLS</a><ul><li><a href=#-351-回归系数与σ的分布>◆ 3.5.1 回归系数与σ²的分布</a></li><li><a href=#352-置信区间与预测区间>3.5.2 置信区间与预测区间</a></li><li><a href=#353-参数的显著性检验>3.5.3 参数的显著性检验</a><ul><li><a href=#𝑭检验>𝑭检验</a></li><li><a href=#𝒕检验>𝒕检验</a></li></ul></li></ul></li><li><a href=#36-中心化模型与标准化模型>3.6 中心化模型与标准化模型</a><ul><li><a href=#361-中心化模型>3.6.1 中心化模型</a></li><li><a href=#352-标准化模型>3.5.2 标准化模型</a></li></ul></li><li><a href=#-37-拟合优度𝑹与调整的拟合优度>★ 3.7 拟合优度𝑹²与调整的拟合优度</a></li><li><a href=#-38-模型解读>▲▲▲ 3.8 模型解读</a></li><li><a href=#-39-cls线性约束的最小二乘估计>▲▲▲ 3.9 CLS（线性约束的最小二乘估计）</a></li><li><a href=#-310-残差向量的性质>★★ 3.10 残差向量$\hat{\boldsymbol\varepsilon}$的性质</a></li><li><a href=#-311-回归诊断>◆◆ 3.11 回归诊断</a><ul><li><a href=#-3111-异方差问题>◆◆ 3.11.1 异方差问题</a></li><li><a href=#-3112-残差图与学生化残差图>◆ 3.11.2 残差图与学生化残差图</a></li><li><a href=#-3113-breusch-pagan检验>◆ 3.11.3 Breusch-Pagan检验</a></li><li><a href=#-3114-white检验>◆ 3.11.4 White检验</a></li></ul></li><li><a href=#-312-cook距离与强影响点异常点>◆ 3.12 Cook距离与强影响点（异常点）</a></li><li><a href=#-313-box-cox变换>◆ 3.13 Box-Cox变换</a></li><li><a href=#-314-多重共线性>★★ 3.14 多重共线性</a><ul><li><a href=#-3141-多重共线性的名词解释>★★ 3.14.1 多重共线性的名词解释</a></li><li><a href=#3142-题外话最小二乘估计家族>3.14.2 题外话：最小二乘估计家族</a></li><li><a href=#-3143-特征根判别法>◆ 3.14.3 特征根判别法</a></li><li><a href=#-3144-vif检验>◆ 3.14.4 VIF检验</a></li></ul></li><li><a href=#315-逐步回归>3.15 逐步回归</a></li><li><a href=#-316-wls加权最小二乘估计>★★ 3.16 WLS（加权最小二乘估计）</a><ul><li><a href=#-3161-一般的wls>★★ 3.16.1 一般的WLS</a></li><li><a href=#-3162-分组的wls>▲▲▲ 3.16.2 分组的WLS</a></li></ul></li><li><a href=#-317-gls广义最小二乘估计>◆ 3.17 GLS（广义最小二乘估计）</a><ul><li><a href=#3171-gls性质>3.17.1 GLS性质</a></li><li><a href=#3172-gls的导出>3.17.2 GLS的导出</a></li></ul></li><li><a href=#-318-岭回归>★ 3.18 岭回归</a><ul><li><a href=#3181-岭回归的性质>3.18.1 岭回归的性质</a></li><li><a href=#-3182-岭迹法>◆ 3.18.2 岭迹法</a></li><li><a href=#3183-确定岭参数其他方法>3.18.3 确定岭参数其他方法</a></li></ul></li><li><a href=#-319-lasso回归>★ 3.19 Lasso回归</a></li><li><a href=#-320-pcr主成分回归>◆ 3.20 PCR（主成分回归）</a></li><li><a href=#321线性回归的james-stein估计>3.21线性回归的James-Stein估计</a></li><li><a href=#322-bayes观点下的线性回归>3.22 Bayes观点下的线性回归</a></li></ul><ul><li><a href=#41-面板数据>4.1 面板数据</a></li><li><a href=#42-工具变量工具变量估计法>4.2 工具变量（工具变量估计法）</a></li><li><a href=#43-遗漏变量>4.3 遗漏变量</a></li><li><a href=#44-内生性问题与2sls二阶段最小二乘法>4.4 内生性问题与2SLS（二阶段最小二乘法）</a></li><li><a href=#45-异方差时的内生性问题与gmm广义矩估计>4.5 异方差时的内生性问题与GMM（广义矩估计）</a></li><li><a href=#46-大样本下ols的性质>4.6 大样本下OLS的性质</a></li><li><a href=#47-三种渐进等价的大样本检验wald检验lr检验与lm检验>4.7 三种渐进等价的大样本检验：Wald检验、LR检验与LM检验</a><ul><li><a href=#471-wald检验>4.7.1 Wald检验</a></li><li><a href=#472-lr检验>4.7.2 LR检验</a></li><li><a href=#473-lm检验>4.7.3 LM检验</a></li></ul></li><li><a href=#48-关于计量经济学>4.8 关于计量经济学</a></li></ul><ul><li><a href=#矩阵行列式引理>矩阵行列式引理</a></li><li><a href=#weinsteinaronszajn恒等式>Weinstein–Aronszajn恒等式</a></li><li><a href=#矩阵求逆引理>矩阵求逆引理</a></li><li><a href=#分块矩阵的逆>分块矩阵的逆</a></li><li><a href=#多元正态分布的条件分布>多元正态分布的条件分布</a></li></ul></nav></aside><main class=post-main><a href=/ class=post-back>返回</a><article><header class=post-header><div class=post-category-label>数学-&-统计学</div><h1 class=post-title-main>回归分析</h1><div class=post-meta>2023.01.08
+&#183; #回归分析</div></header><div class=post-body><p>方便起见，本文用$\Vert\cdot\Vert^2$代表$\Vert\cdot\Vert_2^2$，其中$\Vert\cdot\Vert_2$是$l^2$或$L^2$范数，用RSS或SSE表示残差平方和，用SSR表示回归平方和，用SST表示总平方和，用OLS表示最小二乘法，用MLE表示极大似然估计，并采用下分位数的记号。</p><p>本文最初是作为本科阶段期末考试的复习总结，★代表考试中重要程度，●代表不会刻意作为考点，◆代表只考察解读或名词解释，不考察理论推导与证明，最后▲代表虽然是复习课上明确提到的必考内容，但会做变形或考察类似题目。由于本文作于作者大三时期，且原先的目的也只是系统地总结回归分析考试考点，所以本文不会十分深入地探究太多涉及底层理论的内容；文章侧重点更多的还是线性回归本身的理论，所以一些应用中的处理方法和可能遇到的问题并没有太多诠释。</p><p><u>不过，后来断断续续扩写补充了相当一部分本科课程以外的内容，如果读者仅仅希望将本文作为（西南大学统计系）期末考试的复习笔记，则没有任何记号标记的标题下的内容，均可以忽略。</u></p><p>参考书目有：</p><ul><li>学院的本科授课教材，即王松桂等人所编著的《线性统计模型：线性回归与方差分析》</li><li>同时也参考了茆诗松等编著的《概率论与数理统计教程 (第三版)》与贾俊平等编著的《统计学 (第8版)》</li><li>若干网络资源与Wiki百科</li></ul><p>在此感谢我的回归分析任课教师<a href=http://math.swu.edu.cn/info/1017/2422.htm>徐文昕</a>老师。</p><hr><h1 id=前言>前言</h1><p>最小二乘法有着极为广泛的运用，他的优良性质由高斯-马尔可夫定理所保证；除此之外，如果残差还独立同分布于正态分布，则此时OLS等价于MLE。即便残差并不服从正态分布，只要满足高斯-马尔可夫定理的基本条件，那么OLS就是最优的无偏估计，这说明了线性回归的强大之处。</p><p>然而在许多情形下，相对于一些其他的方法（尤其是非参数方法），OLS在稳健性方面略显疲态。考虑到最小二乘法的损失函数为RSS，一旦样本数据中出现了严重偏离总体的异常点，误差将会在被平方后大幅增加。这种情况下，如果依然希望最小化RSS，可能导致OLS的值因此而发生较大的变化，使得回归曲线偏向于异常点，换句话说：OLS是对异常值十分敏感。</p><p>让我们把目光转向最小一乘法。最小二乘法的损失函数为$\text{RSS}=\Vert y-\hat{y}\Vert^2_2$，而最小一乘法的损失函数为$\Vert y-\hat{y}\Vert_1=\sum\limits^n_{i=1}\vert y_i-\hat{y}_i\vert$，从损失函数的形式上看，如果出现异常值，显然RSS产生的惩罚更严重，而最小一乘法的惩罚则较轻（毕竟，在$\triangle y_i>1$时，$(\triangle y)^2\gg y$），受到的影响相对更小。当然，这也是个比较粗浅的观点，实质上最小一乘回归对应中位数回归，而最小二乘回归对应均值回归——最小一乘回归是一种特殊的分位数回归，分位数取二分位数，即中位数。鉴于本文并不是非参数统计的详解文章，这里就不再赘述最小一乘法的更多性质。写下这些文字，我想表达的是：最小一乘法与最小二乘法之间，本身并无绝对的优劣之分，至于哪种方法表现更好，视情况与需求而定。</p><p>另外，最小二乘线性回归出现较早、结构简单，是一种经典而传统的回归方法，预测能力较差，远远不及SVM等一众现代方法，这是他结构太过简易导致的，尤其是站在大模型正值风口的今天。但是，也正因如此，线性回归时至今日仍有非常广阔的运用，主要原因是其结构简单、模型解释性强，回归参数也有着非常明确的统计意义与现实背景，通常在不以精准预测为目的的数据分析任务中都会看到线性回归的身影——单单是回归系数的符号就已经能说明太多信息，譬如研究课后活动类型与花费时间对学生成绩的影响、探究某组合药物各成分的剂量对实验用小白鼠的影响。</p><p>最后，大名鼎鼎的方差分析也是一种线性回归，不过是较为特殊的线性回归，自变量均为分类数据；既含有离散的分类变量又含有连续的数量变量的线性回归，称为协方差分析。</p><p>方便起见，本文只讨论最基本的线性模型，且不考虑交互项。不过，读者很容易就能把本文的理论推广、扩展到这些内容上去。</p><h1 id=一元线性回归公式速查>一元线性回归公式速查</h1><p><b>由于一些其他的教材针对一元线性回归使用了特别的记号，而在实际的理论和应用中，相当一部分数据以这类教材所采取的记号形式给出。为方便查阅，在此直接给出这种别于本文符号体系下的一元线性回归的全部基本公式，<font color=#8b0000>于下一小节再做详细证明。</font></b></p><p>$^{\ast}$ <em>在有的教材中，针对一元线性回归模型，规定：</em></p>$$
+\left\{\begin{aligned}
+&l_{xx}=\sum(x_i-\bar{x})^2=\sum x^2_i-n{\bar{x}}^2\\
+&l_{yy}=\sum(y_i-\bar{y})^2\ =\sum y^2_i-n{\bar{y}}^2\\
+&l_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=\sum x_iy_i-n\bar{x}\bar{y}
+\end{aligned}\right.
+$$<p><em>于是</em></p>$$
+\hat{\beta}_1=(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y=\frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}=\frac{l_{xy}}{l_{xx}}
+$$$$
+\hat{\beta}_0=\bar{y}-\hat{\beta}_1\bar{x}
+$$<p><em>另外，在高斯-马尔可夫定理的条件下，有</em></p>$$
+\begin{align}&(1)\ \ \ \hat{\beta}_0\sim N\left(\beta_0,\left(\frac1n+\frac{\bar{x}^2}{l_{xx}}\right)\sigma^2\right),\ \ \hat{\beta}_1\sim N(\beta_1,\frac{\sigma^2}{l_{xx}})\\&(2)\ \ \ \mathrm{Cov}(\hat{\beta}_0,\hat{\beta}_1)=-\frac{\bar{x}}{l_{xx}}\sigma^2\\&(3)\ \ \ \hat{y}_0=\hat{\beta}_0+\hat{\beta}_1x_0\sim N\left(\beta_0+\beta_1x_0,\left(\frac1n+\frac{(x_0-\bar{x})^2}{l_{xx}}\right)\sigma^2\right)\\&(4)\ \ \ \hat{\sigma}^2=\frac{SSE}{n-2}\text{，这是无偏估计}\\&(5)\ \ \ \mathbb{E}(SSR)=\sigma^2+\beta^2_1l_{xx},\ \ \mathbb{E}(SSE)=(n-2)\sigma^2\\&(6)\ \ \ \text{当}\beta_1=0\text{，有}\frac{SST}{\sigma^2}\sim\chi^2(n-1),\ \frac{SSR}{\sigma^2}\sim\chi^2(1),\ \frac{SSE}{\sigma^2}\sim\chi^2(n-2)\end{align}
+$$<p><em>相应的，$SST=l_{yy}$，$SSR=\hat{\beta}^2_1l_{xx}=\frac{l^2_{xy}}{l_{xx}}$，$SSE=SST-SSR$，在此一并给出参数显著性检验统计量：</em></p>$$
+F=\frac{(n-2)SSR}{SSE}=\frac{(n-2)l^2_{xy}}{l_{yy}l_{xx}-{l^2_{xy}}}\sim F(1,n-2)
+$$$$
+t=\frac{\sqrt{SSR}}{\hat{\sigma}}=\sqrt{\frac{SSR}{\frac{SSE}{n-2}}}\sim t(n-2)
+$$<p><em>此外，对一元线性回归还有所谓相关系数检验，记$r=\frac{l_{xy}}{\sqrt{l_{xx}l_{yy}}}$为样本Pearson相关系数，置原假设为相关系数$\rho=0$，则</em></p>$$
+r^2\sim\frac{F(1,n-2)}{F(1,n-2)+n-2}
+$$<p><em>对一元线性回归而言，三个检验是等价的。</em></p><p><em>置信区间同理构造：</em></p>$$
+y_0\text{的置信区间：}(\hat{y}_0-\delta_0,\hat{y}_0+\delta_0),\ \ \ \delta_0=t_{1-\frac{\alpha}2}(n-2)\hat{\sigma}\sqrt{\frac1n+\frac{(x_0-\bar{x})^2}{l_{xx}}}
+$$$$
+y_0\text{的预测区间：}(\hat{y}_0-\delta,\hat{y}_0+\delta),\ \ \ \delta=t_{1-\frac{\alpha}2}(n-2)\hat{\sigma}\sqrt{1+\frac1n+\frac{(x_0-\bar{x})^2}{l_{xx}}}
+$$$$
+\beta_0\text{的置信区间：}(\hat{\beta}_0-\xi,\hat{\beta}_0+\xi),\ \ \ \xi=t_{1-\frac{\alpha}2}(n-2)\hat{\sigma}\sqrt{\frac1n+\frac{\bar{x}^2}{l_{xx}}}
+$$$$
+\beta_1\text{的置信区间：}(\hat{\beta}_1-\eta,\hat{\beta}_1+\eta),\ \ \ \eta=t_{1-\frac{\alpha}2}(n-2)\hat{\sigma}\sqrt{\frac1{l_{xx}}}
+$$<p>$y_0$的置信区间与预测区间是有区别的。若记回归模型为$y=f(x)+\varepsilon$，则$y_0$的“置信区间”是$\mathbb{E}(y)|_{x=x_0}=f(x_0)$的置信区间，即平均值的置信区间，是总体的、概括性的区间，而$y_0$的“预测区间”是$y|_{x=x_0}$的置信区间，即考虑了误差项后真实值的置信区间，是单独的、个体的区间，这也是为什么预测区间范围要广于置信区间，因为他包含了置信区间。</p><p>在此重申置信度为$1-\alpha$置信区间的含义：随机抽取$n$组样本，理论上应有$n\times(1-\alpha)$组样本构造的随机区间中包含了参数真实的值。</p><p>对一元线性回归而言，Pearson相关系数的平方$r^2$等价于拟合优度$R^2$。</p><h1 id=一元线性回归非矩阵代数全证明>一元线性回归非矩阵代数全证明</h1><p>后文中对多元线性回归性质的证明都是利用向量代数与矩阵代数进行的，这里不使用向量代数与矩阵代数的方法，仅用最最基本的线性代数基础来完成一元线性回归大部分基本性质的证明。</p><p>同上文，为方便讨论，依然做如下规定：</p>$$
+\left\{\begin{aligned}
+&l_{xx}=\sum^n_{k=1}(x_k-\bar{x})^2=\sum^n_{k=1} x^2_k-n{\bar{x}}^2\\
+&l_{yy}=\sum^n_{k=1}(y_k-\bar{y})^2\ =\sum^n_{k=1} y^2_k-n{\bar{y}}^2\\
+&l_{xy}=\sum^n_{k=1}(x_k-\bar{x})(y_k-\bar{y})=\sum^n_{k=1} x_ky_k-n\bar{x}\bar{y}
+\end{aligned}\right.
+$$<hr><ol><li><p>OLS公式：$\hat{\beta}_1=\frac{l_{xy}}{l_{xx}},\ \hat{\beta}_0=\bar{y}-\bar{x}\hat{\beta}_1$</p><p>证：损失函数为$\mathcal{L}=\sum\limits^n_{k=1}(y_k-\hat{\beta}_0-\hat{\beta}_1x_k)^2$，分别令$\mathcal{L}$对$\hat{\beta}_0,\hat{\beta}_1$的偏导为$0$，有</p>$$
+\left\{\begin{aligned}
+&\frac{\mathrm{d}\mathcal{L}}{\mathrm{d}\hat{\beta}_0}=-2\sum^n_{k=1}(y_k-\hat{\beta}_0-\hat{\beta}_1x_k)=0\\
+&\frac{\mathrm{d}\mathcal{L}}{\mathrm{d}\hat{\beta}_1}=-2\sum^n_{k=1}(y_k-\hat{\beta}_0-\hat{\beta}_1x_k)x_k=0\\
+\end{aligned}\right.
+$$<p>整理即得</p>$$
+\left\{\begin{aligned}
+&\sum^n_{k=1}y_k=n\hat{\beta}_0+\left(\sum^n_{k=1}x_k\right)\hat{\beta_1}\\
+&\sum^n_{k=1}y_kx_k=\left(\sum^n_{k=1}x_k\right)\hat{\beta}_0+\left(\sum^n_{k=1}x^2_k\right)\hat{\beta_1}
+\end{aligned}\right.
+$$<p>这是一个关于未知数$\hat{\beta}_0,\hat{\beta}_1$的二元非齐次线性方程，由克拉默法则解得</p>$$
+\begin{align}\hat{\beta}_1=\frac{\left|\begin{matrix}n&\sum\limits^n_{k=1}y_k\\\sum\limits^n_{k=1}x_k&\sum\limits^n_{k=1}x_ky_k\end{matrix}\right|}{\left|\begin{matrix}n&\sum\limits^n_{k=1}x_k\\\sum\limits^n_{k=1}x_k&\sum\limits^n_{k=1}x^2_k\end{matrix}\right|}&=\frac{n\sum\limits^n_{k=1}x_ky_k-\sum\limits^n_{k=1}x_k\sum\limits^n_{k=1}y_k}{n\sum\limits^n_{k=1}x^2_k-\left(\sum\limits^n_{k=1}x_k\right)^2}\\&=\frac{\sum\limits^n_{k=1}x_ky_k-n\bar{x}\bar{y}}{\sum\limits^n_{k=1}x^2_k-n\bar{x}^2}=\frac{\sum\limits^n_{k=1}(x_k-\bar{x})(y_k-\bar{y})}{\sum\limits^n_{k=1}(x_k-\bar{x})^2}=\frac{l_{xy}}{l_{xx}}\end{align}
+$$<p>对等式$\frac{\mathrm{d}\mathcal{L}}{\mathrm{d}\hat{\beta}_1}=-2\sum\limits^n_{k=1}(y_k-\hat{\beta}_0-\hat{\beta}_1x_k)x_k=0$两边同除$-\frac2n$，得</p>$$
+\hat{\beta}_1=\frac{l_{xy}}{l_{xx}},\ \hat{\beta}_0=\bar{y}-\bar{x}\hat{\beta}_1
+$$</li><li><p>残差和$\sum\limits^n_{k=1}\varepsilon_k=0$</p><p>证：由于$\sum\limits^n_{k=1}\varepsilon_k=\sum\limits^n_{k=1}(y_k-\hat{\beta}_0-\hat{\beta}_1x_k)$，根据等式$\frac{\mathrm{d}\mathcal{L}}{\mathrm{d}\hat{\beta}_0}=-2\sum^n_{k=1}(y_k-\hat{\beta}_0-\hat{\beta}_1x_k)=0$易得。</p></li><li><p>$\sum\limits^n_{k=1}\varepsilon_kx_k=0$</p><p>证：由于$\sum\limits^n_{k=1}\varepsilon_kx_k=\sum\limits^n_{k=1}(y_k-\hat{\beta}_0-\hat{\beta}_1x_k)x_k$，根据等式$\frac{\mathrm{d}\mathcal{L}}{\mathrm{d}\hat{\beta}_1}=-2\sum^n_{k=1}(y_k-\hat{\beta}_0-\hat{\beta}_1x_k)x_k=0$易得。</p></li><li><p>$\hat{\beta}_1\sim N\left(\beta_1,\frac{\sigma^2}{l_{xx}}\right)$（前提：残差服从正态分布，否则只能计算均值与方差）</p><p>证：这里我们把$l_{xx}$视为常数而将$l_{xy}$视为变量，也就是说将$\{x_k\}$认为是人为选取的、是确定的，而将每个$x_k$对应的$y_k$视为包含球形扰动项影响的随机变量，于是由前文推导的估计公式$\hat{\beta}_1=\frac{l_{xy}}{l_{xx}}$，我们只需要讨论$l_{xy}$的性质。</p><p>由于我们只有残差分布的信息，故将$l_{xy}$拆分，直到出现残差：</p>$$
+\begin{align}
+\hat{\beta}_1&=\frac{l_{xy}}{l_{xx}}=\frac1{l_{xx}}\sum\limits^n_{k=1}(x_k-\bar{x})(y_k-\bar{y})\\
+&=\frac1{l_{xx}}\sum\limits^n_{k=1}(x_k-\bar{x})y_k&&\text{Tip: }\bar{y}\sum\limits^n_{k=1}(x_k-\bar{x})=0\\
+&=\frac1{l_{xx}}\left(\sum^n_{k=1}(x_k-\bar{x})(\beta_0+\beta_1x_k+\varepsilon_k)\right)\\
+&=\frac1{l_{xx}}\left(\beta_1\sum^n_{k=1}(x_k-\bar{x})x_k+\sum^n_{k=1}(x_k-\bar{x})\varepsilon_k\right)&&\text{Tip: }\beta_0\sum\limits^n_{k=1}(x_k-\bar{x})=0\\
+&=\beta_1+\frac{\sum\limits^n_{k=1}(x_k-\bar{x})\varepsilon_k}{l_{xx}}&&\text{Tip: }\sum^n_{k=1}(x_k-\bar{x})x_k=l_{xx}
+\end{align}
+$$<p>注意到式中$\beta_1,\ \frac1{l_{xx}}$均为常数，唯一的变量为$\sum\limits^n_{k=1}(x_k-\bar{x})\varepsilon_k$，可见$\hat{\beta}_1$是有限个正态分布的线性组合，因此$\hat{\beta}_1$也服从某个正态分布，即$\hat{\beta}_1$具体的分布由其均值与方差唯一确定，下计算其均值与方差。</p><p>由条件，有</p>$$
+\forall k,\ \ \mathbb{E}(\varepsilon_k)=0,\ \mathrm{Var}(\varepsilon_k)=\sigma^2
+$$$$
+\forall j\neq k,\ \ \mathrm{Cov}(\varepsilon_j,\varepsilon_k)=0
+$$<p>因此，</p>$$
+\mathbb{E}\big(\hat{\beta}_1\big)=\beta_1+\frac1{l_{xx}}\sum\limits^n_{k=1}(x_k-\bar{x})\mathbb{E}(\varepsilon_k)=\beta_1
+$$$$
+\mathrm{Var}\big(\hat{\beta}_1\big)=\frac{\sum\limits^n_{k=1}(x_k-\bar{x})^2}{l^2_{xx}}\mathrm{Var}(\varepsilon_k)=\frac{\sigma^2}{l_{xx}}
+$$<p>综上所述，有</p>$$
+\hat{\beta}_1\sim N\left(\beta_1,\frac{\sigma^2}{l_{xx}}\right)
+$$</li><li><p>$\bar{y}$与$\hat{\beta}_1$相互独立（前提：残差服从正态分布，否则只能保证$\bar{y}$与$\hat{\beta}_1$不相关）</p><p>证：由于$\bar{y}=\beta_0+\bar{x}\beta_1+\bar{\varepsilon}$中仅有球形扰动项样本均值$\bar{\varepsilon}$为变量且服从正态分布，因此$\bar{y}$也服从正态分布。考虑到$\hat{\beta}_1$亦服从正态分布，证明两个正态变量相互独立等价于证明二者不相关，所以证$\mathrm{Cov}(\bar{y},\hat{\beta}_1)=0$即可。</p>$$
+\begin{align}
+\mathrm{Cov}(\bar{y},\hat{\beta}_1)&=\mathbb{E}\big[\big(\bar{y}-\mathbb{E}\bar{y}\big)\big(\hat{\beta}_1-\mathbb{E}\hat{\beta}_1\big)\big]\\
+&=\mathbb{E}\left(\bar{\varepsilon}\cdot\frac{l_{xy}-l_{xx}\beta_1}{l_{xx}}\right)\\
+&=\frac1{l_{xx}}\mathbb{E}(\bar{\varepsilon}\cdot l_{xy})\\
+&=\frac1{l_{xx}}\mathbb{E}\Big(\bar{\varepsilon}\cdot\textstyle\sum\limits^n_{k=1}(x_k-\bar{x})y_k\displaystyle\Big)\\
+&=\frac1{l_{xx}}\mathbb{E}\Big(\bar{\varepsilon}\cdot\textstyle\sum\limits^n_{k=1}(x_k-\bar{x})\varepsilon_k\displaystyle\Big)
+\end{align}
+$$<p>在前文中已证明$\sum\limits^n_{k=1}\varepsilon_kx_k=0$，又已证明$\sum\limits^n_{k=1}\varepsilon_k\bar{x}=\bar{x}\sum\limits^n_{k=1}\varepsilon_k=0$，所以$\sum\limits^n_{k=1}(x_k-\bar{x})\varepsilon_k=0$，从而</p>$$
+\mathrm{Cov}(\bar{y},\hat{\beta}_1)=\frac1{l_{xx}}\mathbb{E}(\varepsilon\cdot0)=0
+$$<p>也就是说，$\bar{y}$与$\hat{\beta}_1$相互独立。</p></li><li><p>$\hat{\beta}_0\sim N\left(\beta_0,\left(\frac1n+\frac{\bar{x}^2}{l_{xx}}\right)\sigma^2\right)$（前提：残差服从正态分布，否则只能计算均值与方差）</p><p>证：由于$\hat{\beta}_0=\bar{y}-\bar{x}\hat{\beta}_1$且在上文已证明$\hat{\beta}_1\sim N\left(\beta_1,\frac{\sigma^2}{l_{xx}}\right)$，因此$\hat{\beta}_0$作为正态分布的线性组合，也服从某个正态分布，下计算其均值与方差。</p>$$
+\mathbb{E}\big(\hat{\beta}_0\big)=\mathbb{E}(\bar{y})-\bar{x}\mathbb{E}\big(\hat{\beta}_1\big)=\beta_0+\bar{x}\beta_1-\bar{x}\beta_1=\beta_0
+$$<p>在上文中已证明$\bar{y}$与$\hat{\beta}_1$相互独立，因此$\mathrm{Cov}(\bar{y},\hat{\beta}_1)=0$，从而有</p>$$
+\mathrm{Var}\big(\hat{\beta}_0\big)=\mathrm{Var}(\bar{y})+\bar{x}\mathrm{Var}\big(\hat{\beta}_1\big)=\mathrm{Var}(\bar{\varepsilon})+\bar{x}^2\frac{\sigma^2}{l_{xx}}=\left(\frac1n+\frac{\bar{x}^2}{l_{xx}}\right)\sigma^2
+$$<p>综上所述，有</p>$$
+\hat{\beta}_0\sim N\left(\beta_0,\left(\frac1n+\frac{\bar{x}^2}{l_{xx}}\right)\sigma^2\right)
+$$</li><li><p>$\mathrm{Cov}\big(\hat{\beta}_0,\hat{\beta}_1\big)=\displaystyle-\frac{\bar{x}}{l_{xx}}\sigma^2$</p><p>证：这里依然需要用到前文已证明的$\bar{y}$与$\hat{\beta}_1$不相关，有</p>$$
+\begin{align}
+\mathrm{Cov}\big(\hat{\beta}_0,\hat{\beta}_1\big)&=\mathrm{Cov}\big(\bar{y}-\bar{x}\hat{\beta}_1,\hat{\beta}_1\big)\\
+&=-\bar{x}\mathrm{Var}\big(\hat{\beta}_1\big)\\
+&=-\frac{\bar{x}}{l_{xx}}\sigma^2
+\end{align}
+$$</li><li><p>$\hat{y}_k\sim N\left(\beta_0+\beta_1x_k,\left(\frac1n+\frac{(x_k-\bar{x})^2}{l_{xx}}\right)\sigma^2\right)$（前提：残差服从正态分布，否则只能计算均值与方差）</p><p>证：由于$\hat{y}_k=\hat{\beta}_0+\hat{\beta}_1x_k$，易知$\hat{y}_k$也服从正态分布，下计算其均值与方差，其中对方差的计算需要用到上文中已证明的$\mathrm{Cov}\big(\hat{\beta}_0,\hat{\beta}_1\big)=-\frac{\bar{x}}{l_{xx}}\sigma^2$。</p>$$
+\mathbb{E}\big(\hat{y}_k\big)=\mathbb{E}\big(\hat{\beta}_0\big)+x_k\mathbb{E}\big(\hat{\beta}_1\big)=\beta_0+\beta_1x_k
+$$$$
+\begin{align}\mathrm{Var}\big(\hat{y}_k\big)=\mathrm{Var}\big(\hat{\beta}_0+x_k\hat{\beta}_1\big)&=\mathrm{Var}\big(\hat{\beta}_0\big)+x^2_k\mathrm{Var}\big(\hat{\beta}_1\big)+2\mathrm{Cov}\big(\hat{\beta}_0,\hat{\beta}_1\big)\\&=\frac{\sigma^2}n+\frac{\bar{x}^2\sigma^2}{l_{xx}}+\frac{x^2_k\sigma^2}{l_{xx}}-\frac{2\bar{x}}{l_{xx}}\sigma^2\\&=\left(\frac1n+\frac{(x_k-\bar{x})^2}{l_{xx}}\right)\sigma^2\end{align}
+$$<p>综上所述，有</p>$$
+\hat{y}_k\sim N\left(\beta_0+\beta_1x_k,\left(\frac1n+\frac{(x_k-\bar{x})^2}{l_{xx}}\right)\sigma^2\right)
+$$</li><li><p>$SST=l_{yy},\ SSR=\hat{\beta}^2_1l_{xx}=\frac{l^2_{xy}}{l_{xx}}$</p><p>证：$SST$为总平方和，$SSR$为回归平方和，$SSE$为残差平方和，</p>$$
+\left\{\begin{aligned}
+&SST=\sum^n_{k=1}(y_k-\bar{y})^2\\
+&SSR=\sum^n_{k=1}(\hat{y}_k-\bar{y})^2\\
+&SSE=\sum^n_{k=1}(y_k-\hat{y}_k)^2
+\end{aligned}\right.
+$$<p>按定义易见$SST=l_{yy}$，下证$SSR=\frac{l^2_{xy}}{l_{xx}}$。</p>$$
+\begin{align}
+SSR&=\sum^n_{k=1}(\hat{y}_k-\bar{y})^2\\
+&=\sum^n_{k=1}(\hat{\beta}_0+\hat{\beta}_1x_k-\bar{y})^2\\
+&=\sum^n_{k=1}\Big(\bar{y}-\bar{x}\frac{l_{xy}}{l_{xx}}+\frac{l_{xy}}{l_{xx}}x_k-\bar{y}\Big)^2\\
+&=\frac{l^2_{xy}}{l^2_{xx}}\sum^n_{k=1}(x_k-\bar{x})^2\\
+&=\frac{l^2_{xy}}{l_{xx}}
+\end{align}
+$$</li><li><p>$\mathbb{E}(SST)=\beta^2_1l_{xx}+(n-1)\sigma^2,\ \mathbb{E}(SSR)=\beta^2_1l_{xx}+\sigma^2$（前提：残差服从正态分布）</p><p>证：这部分的处理是比较复杂的，首先计算$\mathbb{E}(SST)$。在计算$\mathbb{E}(SST)$前，又需要先计算$\mathbb{E}\big[(y_k-\bar{y})^2\big]$。</p>$$
+\begin{align}
+\mathbb{E}\big[(y_k-\bar{y})^2\big]&=\mathbb{E}\big[\big(\beta_1(x_k-\bar{x})+(\varepsilon_k-\hat{\varepsilon})\big)^2\big]\\
+&=\beta^2_1(x_k-\bar{x})^2+\mathbb{E}\big[(\varepsilon_k-\hat{\varepsilon})^2\big]+2\beta_1\underbrace{\mathbb{E}\big[(\beta_1(x_k-\bar{x})(\varepsilon_k-\hat{\varepsilon})\big]}_{\text{it }=\,0}\\
+\end{align}
+$$<p>当残差$\varepsilon_k$服从正态分布$N(0,\sigma^2)$时，$(\varepsilon_k-\hat{\varepsilon})\sim N\big(0,\frac{n-1}{n}\sigma^2\big)$，因此$\frac{(\varepsilon_k-\hat{\varepsilon})^2}{\frac{n-1}{n}\sigma^2}\sim\chi^2(1)$，从而$\mathbb{E}\left(\frac{(\varepsilon_k-\hat{\varepsilon})^2}{\frac{n-1}{n}\sigma^2}\right)=1$，也就是说</p>$$
+\mathbb{E}\big[(y_k-\bar{y})^2\big]=\beta^2_1(x_k-\bar{x})^2+\mathbb{E}\big[(\varepsilon_k-\hat{\varepsilon})^2\big]=\beta^2_1(x_k-\bar{x})^2+\frac{n-1}{n}\sigma^2
+$$<p>从而</p>$$
+\begin{align}
+\mathbb{E}(SST)&=\mathbb{E}\left(\sum^n_{k=1}(y_k-\bar{y})^2\right)\\
+&=\sum^n_{k=1}\mathbb{E}\big[(y_k-\bar{y})^2\big]\\
+&=\beta^2_1\sum^n_{k=1}(x_k-\bar{x})^2+(n-1)\sigma^2\\
+&=\beta^2_1l_{xx}+(n-1)\sigma^2
+\end{align}
+$$<p>接下来计算$\mathbb{E}(SSR)$。如果考虑$SSR=\frac{l^2_{xy}}{l_{xx}}$，则步骤又会像上文计算$\mathbb{E}(SST)$一样繁复了；应当考虑$SSR=\hat{\beta}^2_1l_{xx}$，利用前文已证明的性质快速解决问题。</p>$$
+\mathbb{E}(SSR)=l_{xx}\mathbb{E}\big[\big(\hat{\beta}_1\big)^2\big]
+$$<p>由于$\hat{\beta}_1\sim N\left(\beta_1,\frac{\sigma^2}{l_{xx}}\right)$，所以</p>$$
+\mathbb{E}\big[\big(\hat{\beta}_1\big)^2\big]=\big[\mathbb{E}\big(\hat{\beta}_1\big)\big]^2+\mathrm{Var}(\hat{\beta}_1)=\beta^2_1+\frac{\sigma^2}{l_{xx}}
+$$<p>于是</p>$$
+\mathbb{E}(SSR)=\beta^2_1l_{xx}+\sigma^2
+$$</li><li><p>$SST=SSR+SSE$</p><p>证：这是线性回归的平方和分解公式，</p>$$
+\begin{align}
+SST&=\sum^n_{k=1}(y_k-\bar{y})^2\\
+&=\sum^n_{k=1}(y_k-\hat{y}_k+\hat{y}_k-\bar{y})^2\\
+&=\sum^n_{k=1}(y_k-\hat{y}_k)^2+\sum^n_{k=1}(\hat{y}_k-\bar{y})^2+2\sum^n_{k=1}(y_k-\hat{y}_k)(\hat{y}_k-\bar{y})\\
+&=SSE+SSR+2\sum^n_{k=1}(y_k-\bar{y}_k)(\bar{y}_k-\hat{y}_k)\\
+&=SSE+SSR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \text{Tip: }\forall a,\ a\cdot\!\sum^n_{k=1}(y_k-\bar{y}_k)=0
+\end{align}
+$$</li><li><p>$\hat{\sigma^2}=\frac{SSE}{n-2}$（$\mathbb{E}(SSE)=(n-2)\sigma^2$，前提：残差服从正态分布）</p><p>证：之所以取$\sigma^2$的估计$\hat{\sigma^2}=\frac{SSE}{n-2}$，是因为$\mathbb{E}(\hat{\sigma}^2)=\sigma^2$，所以实际上要证的是$\mathbb{E}(\hat{\sigma}^2)=\sigma^2$。考虑到$SSE$的期望不太好处理，可以利用上文中已证明的平方和分解与已计算的$\mathbb{E}(SST)$、$\mathbb{E}(SSR)$来间接计算$\mathbb{E}(SSE)$。</p>$$
+\begin{align}
+\mathbb{E}(\hat{\sigma^2})&=\frac1{n-2}\mathbb{E}(SSE)\\
+&=\frac1{n-2}\Big(\mathbb{E}(SST)-\mathbb{E}(SSR)\Big)\\
+&=\frac1{n-2}\big[\beta^2_1l_{xx}+(n-1)\sigma^2-\beta^2_1l_{xx}-\sigma^2\big]\\
+&=\sigma^2
+\end{align}
+$$</li><li><p>当$\beta_1=0$，$\frac{SSE}{\sigma^2}\sim\chi^2(n-2),\ \frac{SSR}{\sigma^2}\sim\chi^2(1)$（前提：残差服从正态分布）</p><p>证：先证$\frac{SSR}{\sigma^2}\sim\chi^2(1)$，当$\beta_1=0$时有$\hat{\beta}_1\sim N\left(0,\frac{\sigma^2}{l_{xx}}\right)\ \Rightarrow\ \frac{\hat{\beta}^2_1l_{xx}}{\sigma^2}\sim\chi^2(1)$，从而</p>$$
+\frac{SSR}{\sigma^2}=\frac{\hat{\beta}^2_1l_{xx}}{\sigma^2}\sim\chi^2(1)
+$$<p>接下来证$\frac{SST}{\sigma^2}\sim\chi^2(n-1)$。根据基本的数理统计知识，可以知道</p>$$
+\frac{SST}{\sigma^2}=\frac{\sum\limits^n_{k=1}(y_k-\bar{y})^2}{\sigma^2}=\frac{\sum\limits^n_{k=1}(\varepsilon_k-\bar{\varepsilon})^2}{\sigma^2}\sim\chi^2(n-1)
+$$<p>由于$SSE$是一系列零均值正态分布平方的线性组合，$SSE$理应也服从某个卡方分布。利用平方和分解公式容易知道$SSE$所服从的卡方分布自由度为$n-2$，因此</p>$$
+\frac{SSE}{\sigma^2}\sim\chi^2(n-2)
+$$</li><li><p>至此一元线性回归的大部分基本性质证毕，检验统计量的构造与置信区间便都是显而易见的事情了。这里作一个简单总结，其中$r$为样本的Pearson相关系数，$r=\frac{l_{xy}}{\sqrt{l_{xx}l_{yy}}}$，并设原假设$H_0$为 “$\beta_1=0$”。</p>$$
+F=\frac{(n-2)SSR}{SSE}\overset{H_0}{\sim}F(1,n-2)
+$$$$
+t=\frac{\hat{\beta}_1\sqrt{l_{xx}}}{\hat{\sigma}}\overset{H_0}{\sim}t(n-2),\ \ \,t^2=F
+$$$$
+r\sqrt{\frac{n-2}{1-r^2}}\overset{H_0}{\sim}t(n-2)
+$$$$
+\frac{r^2(n-2)}{1-r^2}\overset{H_0}{\sim}F(1,n-2)
+$$$$
+\beta_0\text{的置信区间：}(\hat{\beta}_0-\xi,\hat{\beta}_0+\xi),\ \ \ \xi=t_{1-\frac{\alpha}2}(n-2)\hat{\sigma}\sqrt{\frac1n+\frac{\bar{x}^2}{l_{xx}}}
+$$$$
+\beta_1\text{的置信区间：}(\hat{\beta}_1-\eta,\hat{\beta}_1+\eta),\ \ \ \eta=t_{1-\frac{\alpha}2}(n-2)\hat{\sigma}\sqrt{\frac1{l_{xx}}}
+$$$$
+y_0\text{的置信区间：}(\hat{y}_0-\delta_0,\hat{y}_0+\delta_0),\ \ \ \delta_0=t_{1-\frac{\alpha}2}(n-2)\hat{\sigma}\sqrt{\frac1n+\frac{(x_0-\bar{x})^2}{l_{xx}}}
+$$$$
+y_0\text{的预测区间：}(\hat{y}_0-\delta,\hat{y}_0+\delta),\ \ \ \delta=t_{1-\frac{\alpha}2}(n-2)\hat{\sigma}\sqrt{1+\frac1n+\frac{(x_0-\bar{x})^2}{l_{xx}}}
+$$</li></ol><h1 id=第一章引论>第一章：引论</h1><p>这里用$p$表示未知变量的个数，则包含截距项的$n$元线性回归中，$p=n+1$。有的文献中，会规定包含截距项的$n$元线性回归中$p=n$，请注意区分。</p><h2 id=-11-线性回归模型>★ 1.1 线性回归模型</h2><p>若$Y$与$\boldsymbol X$（$p-1$维向量）存在线性关系，则可建立$p-1$元线性回归模型</p>$$
+\begin{align}
+Y=\beta_0+\beta_1X_1+\cdots+\beta_{p-1}X_{p-1}+\varepsilon
+\end{align}
+$$<p>称$\beta_0$为截距项，$\beta_1,\beta_2,\cdots,\beta_{p-1}$为回归系数；$\varepsilon$为随机误差，包含了可能影响$Y$取值但不可观测或未被考虑的潜在协变量。</p><p>称$\hat Y=\beta_0+\beta_1\hat X_1+\cdots+\beta_{p-1}\hat X_{p-1}$为经验回归方程。</p><p>另外，线性模型是可加减的，不过这应该毋需多言（可以尝试找出，当条件减弱到何种地步时线性模型不再可以加减？）。</p><hr><h2 id=-12-线性模型的经验回归方程解读>★ 1.2 线性模型的经验回归方程解读</h2>$$
+\hat Y=\hat\beta_0+\hat\beta_1X_1+\hat\beta_2X_2
+$$<p>由于$\hat Y_{X_1+1}-\hat Y_{X_1}=\big(\hat\beta_0+\hat\beta_1(X_1+1)+\hat\beta_2X_2\big)-\big(\hat\beta_0+\hat\beta_1X_1+\hat\beta_2X_2\big)=\hat\beta_1$，所以在$X_2$保持不变的情况下，$X_1$每增加$1$个单位，则$\hat Y$增加$\hat\beta_1$个单位；</p><p>进一步的，在高斯-马尔可夫定理条件下有$\mathbb{E}\hat Y=Y$，因此：<font color=red><strong>$X_2$不变，$X_1$每增加$1$个单位，$Y$平均增加$\hat\beta_1$个单位</strong></font>（对应经济学中“边际”的概念）。</p><p>$\star$ $\hat\beta_2$同理，实际上当$X_2$不变、$X_1$每增加$k$个单位，$Y$平均增加$k\hat\beta_1$个单位；对于$\beta_0$，只需注意到他代表的正是当回归系数都取$0$时$\hat Y$的取值 $\star$</p><hr><h2 id=-13-半对数模型的经验回归方程解读>★ 1.3 半对数模型(<em>Ⅰ</em>)的经验回归方程解读</h2>$$
+\ln\hat Y=\hat\beta_0+\hat\beta_1X_1+\hat\beta_2X_2
+$$<p>该模型在生存分析的语境和条件下也被特称AFT模型，即加速失效模型。</p><p>等价于对因变量做$\lambda=0$的Box-Cox变换的线性模型（能降低原线性模型“异方差”程度），我们有</p>$$
+\begin{align}
+\hat\beta_1=\frac{\partial\ln\hat Y}{\partial X_1}=\frac{\frac{\partial\hat Y}{\hat Y}}{\partial X_1}
+\end{align}
+$$<p>此式意味着在$X_2$保持不变的情况下，$X_1$每增加$1$个单位，则$\hat Y$增加$\hat\beta_1\cdot100\%$；</p><p>由于在高斯-马尔可夫定理的条件下有$\mathbb{E}\hat Y=Y$，所以：<font color=red><strong>$X_2$不变，$X_1$每增加$1$个单位，$Y$平均增加$\hat\beta_1\cdot100\%$</strong></font>。</p><p>$\star$ 对于$\hat\beta_2$同理 $\star$</p><hr><h2 id=-14-半对数模型的经验回归方程解读>★ 1.4 半对数模型(<em>Ⅱ</em>)的经验回归方程解读</h2>$$
+\hat Y=\hat\beta_0+\hat\beta_1\ln X_1+\hat\beta_2\ln X_2
+$$<p>等价于对因变量做$\lambda=0$的Box-Cox变换的线性模型（能降低原线性模型“异方差”程度），我们有</p>$$
+\begin{align}
+\hat\beta_1=\frac{\partial\hat Y}{\partial\ln X_1}=\frac{\partial\hat Y}{\frac{\partial X_1}{X_1}}
+\end{align}
+$$<p>此式意味着在$X_2$保持不变的情况下，$X_1$每增加$100\%$，$Y$平均增加$\hat\beta_1$个单位；</p><p>由于在高斯-马尔可夫定理的条件下有$\mathbb{E}\hat Y=Y$，所以：<font color=red><strong>$X_2$不变，$X_1$每增加$100\%$，$Y$平均增加$\hat\beta_1$个单位</strong></font>。</p><p>$\star$ 对于$\hat\beta_2$同理 $\star$</p><hr><h2 id=-15-双对数模型的经验回归方程解读>★ 1.5 双对数模型的经验回归方程解读</h2>$$
+\ln\hat Y=\hat\beta_0+\hat\beta_1\ln X_1+\hat\beta_2\ln X_2
+$$<p>等价于“不仅对因变量做$\lambda=0$的Box-Cox变换同时对自变量取对数的线性模型”，此举能大幅降低原线性模型“异方差”程度，我们有</p>$$
+\begin{align}
+\hat\beta_1=\frac{\partial\ln\hat Y}{\partial\ln X_1}=\frac{\frac{\partial\hat Y}{\hat Y}}{\frac{\partial X_1}{X_1}}
+\end{align}
+$$<p>此式意味着在$X_2$保持不变的情况下，$X_1$每增加$1\%$，则$\hat Y$增加$\hat\beta_1\%$；</p><p>由于在高斯-马尔可夫定理的条件下有$\mathbb{E}\hat Y=Y$，所以：<font color=red><strong>$X_2$不变，$X_1$每增加$1\%$，$Y$平均增加$\hat\beta_1\%$</strong></font>（对应经济学中“弹性”的概念）。</p><p>$\star$ 对于$\hat\beta_2$同理 $\star$</p><hr><h2 id=-16-多项式回归>★ 1.6 多项式回归</h2><p>p8 例1.1.4：单个变量的多项式回归仍属于线性回归模型，假设$Y$与$X$之间有$Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3+\varepsilon$的关系，令$X_1=X$，$X_2=X^2$，$X_3=X^3$，于是</p>$$
+\begin{align}
+Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\varepsilon
+\end{align}
+$$<p>得到了一个线性模型。</p><p>由此可以看出：线性模型的特征是$Y$关于回归系数$\beta_1$，$\beta_2$，$\cdots$，$\beta_{p-1}$是线性的。</p><h2 id=-17-方差分析简介>★ 1.7 方差分析简介</h2><p>这里主要对单因素方差分析作概括性的简介。实质上，方差分析（ANOVA）是特殊的回归，较之回归分析，方差分析特别针对$Y$为连续型变量、$X$​为离散型变量的情况。</p><p>方差分析的核心与底层逻辑即 “多元正态分布均值的检验”，二者在某些场合下是等价的问题。</p><img src=/images/回归分析/单因素方差分析-1.png alt=单因素方差分析-1 style=zoom:67%>
+<img src=/images/回归分析/单因素方差分析-2.png alt=单因素方差分析-2 style=zoom:67%><p>方差分析是特殊的线性回归，其自变量类型为分类数据；如果线性模型的自变量类型同时包含了分类数据与连续数值数据，则称模型为协方差分析。从某种意义上说，方差分析即是总体均值的检验。</p><p>方差分析和线性回归有着极大的相似，例如他们的$F$检验统计量分别为$\displaystyle{\frac{\frac{SSA}{k-1}}{\frac{SSE}{n-k}}}$和$\displaystyle{\frac{\frac{SSR}{p-1}}{\frac{SSE}{n-p}}}$，本质上其实并无二致。本文不多赘述方差分析，因为方差分析往复杂了说同样需要很大的篇幅，本文更多的还是关于连续数值的线性回归。</p><p>下面给出最简单情形的单因子方差分析过程，多重比较、多因子方差分析等不在此涉及。</p><p>假设数据共计$r$组，每组包括$m$次试验，则</p>$$
+\text{总偏差平方和}\ SST=SSE+SSA=\sum^r_{i=1}\sum^m_{j=1}(y_{ij}-\bar{y})^2,\ \ \ df=n-1
+$$$$
+\text{组内偏差平方和}\ SSE=\sum^r_{i=1}\sum^m_{j=1}(y_{ij}-\bar{y}_i),\ \ \ df=n-r
+$$$$
+\text{组间偏差平方和}\ SSA=m\sum^r_{i=1}(\bar{y}_i-\bar{y})^2,\ \ \ df=r-1
+$$<p>方便起见，下用$S_T$表示$SST$，用$S_e$表示$SSE$，用$S_A$表示$SSA$，用$f$表示自由度$df$，称$MS$为均方，指平均每个自由度上的偏差平方和，如$MS_e=\frac{S_e}{f_e}$。</p><p>构造$F$检验统计量为：</p>$$
+F=\frac{MS_A}{MS_e}=\frac{\frac{S_A}{f_A}}{\ \frac{S_e}{f_e}\ }
+$$<p>拒绝域：$F\geqslant F_{1-\alpha}(f_A,f_e)$</p><p>参数估计：$\hat{\mu}_i=\bar{y}_i$，$\hat{\sigma}^2=MS_e$</p><p>$A_i$的水平均值$\mu_i$的$1-\alpha$置信区间：$\big[\bar{y}_i-t_{1-\frac{\alpha}2}(f_e)\frac{\hat{\sigma}}{\sqrt{m}},\bar{y}_i+t_{1-\frac{\alpha}2}(f_e)\frac{\hat{\sigma}}{\sqrt{m}}\big]$</p><p>称下表为方差分析表：</p>$$
+\begin{array} {c}
+\text{单因子方差分析表}\\\hline
+\begin{array} {cccccc}\hline
+\text{来源} & \text{平方和} & \text{自由度} & \text{均方} & F\text{比} & p\text{值}\\\hline
+\text{因子} & S_A & f_A=r-1 & MS_A=\frac{S_A}{f_A} & F=\frac{MS_A}{MS_e} & p\,\text{-value}\\
+\text{误差} & S_e & f_e=n-r & MS_e=\frac{S_e}{f_e} & &\\\hline
+\text{总和} & S_T & f_T=n-1 & & &\\\hline
+\end{array}\\\hline
+\end{array}
+\nonumber
+$$<p>重复数不等时，将$m$替换为$m_i$​即可。</p><p>至于双因素的方差分析、多因素的方差分析，这里就不深入讨论了。</p><h1 id=第二章随机向量>第二章：随机向量</h1><h2 id=-21-矩阵代数向量函数与矩阵函数偏微分>● 2.1 矩阵代数：向量函数与矩阵函数偏微分</h2><p>同样地有链式法则。</p><p>本文约定按分子布局，即认为分子是列向量、分母是行向量（标量统一被认为是行向量）。</p>$$
+\begin{align}\frac{\partial f(\boldsymbol x)}{\partial\boldsymbol x}=\big(\mathrm{grad} f(\boldsymbol x)\big)^T=\left(\begin{matrix}\frac{\partial f(\boldsymbol x)}{\partial\boldsymbol x_1}\\\frac{\partial f(\boldsymbol x)}{\partial\boldsymbol x_2}\\ \cdots\\\frac{\partial f(\boldsymbol x)}{\partial\boldsymbol x_n}\end{matrix}\right)\end{align}
+$$$$
+\begin{align}\frac{\partial(\boldsymbol a\boldsymbol x^T)}{\partial\boldsymbol x}=\frac{\partial(\boldsymbol x\boldsymbol a^T)}{\partial\boldsymbol x}=\boldsymbol a\end{align}
+$$$$
+\begin{align}\frac{\partial(\boldsymbol x^T\boldsymbol x)}{\partial\boldsymbol x}=2\boldsymbol x\end{align}
+$$$$
+\begin{align}\frac{\partial(\boldsymbol x^T\boldsymbol{Ax})}{\partial\boldsymbol x}=\boldsymbol{Ax}+\boldsymbol A^T\boldsymbol x\end{align}
+$$$$
+\begin{align}\frac{\partial(\boldsymbol a^T\boldsymbol x\boldsymbol x^T\boldsymbol b)}{\partial\boldsymbol x}=\boldsymbol a\boldsymbol b^T\boldsymbol x+\boldsymbol b\boldsymbol a^T\boldsymbol x\end{align}
+$$$$
+\begin{align}\frac{\partial f(\boldsymbol X)}{\partial\boldsymbol X}=\left[\begin{matrix}\frac{\partial f(\boldsymbol X)}{\partial x_{11}}&\frac{\partial f(\boldsymbol X)}{\partial x_{12}}&\cdots&\frac{\partial f(\boldsymbol X)}{\partial x_{1n}}\\\frac{\partial f(\boldsymbol X)}{\partial x_{21}}&\frac{\partial f(\boldsymbol X)}{\partial x_{22}}&\cdots&\frac{\partial f(\boldsymbol X)}{\partial x_{2n}}\\\vdots&\vdots&&\vdots\\\frac{\partial f(\boldsymbol X)}{\partial x_{m1}}&\frac{\partial f(\boldsymbol X)}{\partial x_{m2}}&\cdots&\frac{\partial f(\boldsymbol X)}{\partial x_{mn}}\\\end{matrix}\right]\end{align}
+$$$$
+\begin{align}\frac{\partial(\boldsymbol a^T\boldsymbol X\boldsymbol b)}{\partial\boldsymbol X}=\boldsymbol b\boldsymbol a^T\end{align}
+$$$$
+\begin{align}\frac{\partial(\boldsymbol a^T\boldsymbol X\boldsymbol X^T\boldsymbol b)}{\partial\boldsymbol X}=\boldsymbol a\boldsymbol b^T\boldsymbol X+\boldsymbol b\boldsymbol a^T\boldsymbol X\end{align}
+$$$$
+\begin{align}\frac{\partial(\boldsymbol a^T\boldsymbol X^T\boldsymbol X\boldsymbol b)}{\partial\boldsymbol X}=\boldsymbol X\boldsymbol a\boldsymbol b^T+\boldsymbol X\boldsymbol b\boldsymbol a^T\end{align}
+$$<p>题外话：在我们对OLS各种性质的推导中，要利用好$\boldsymbol X^T\boldsymbol X=\boldsymbol X\boldsymbol X^T$一定是对称的半正定矩阵.</p><h2 id=-22-随机向量二次型的期望>● 2.2 随机向量二次型的期望</h2><p>记$\mathbb{E}(\boldsymbol x)=\boldsymbol\mu$、$\mathrm{Cov}(\boldsymbol x)=\boldsymbol\Sigma$，$\boldsymbol A$为对称阵，有</p>$$
+\begin{align}\mathbb{E}(\boldsymbol x^T\boldsymbol{Ax})=\boldsymbol\mu^T\boldsymbol{A\mu}+\mathrm{tr}(\boldsymbol{A\Sigma})\end{align}
+$$<p>证明思路：称为$\boldsymbol x^T\boldsymbol{Ax}$随机向量$\boldsymbol x$的二次型，由于</p>$$
+\begin{align}
+\boldsymbol x^T\boldsymbol{Ax}&=(\boldsymbol x-\boldsymbol\mu+\boldsymbol\mu)^T\boldsymbol A(\boldsymbol x-\boldsymbol\mu+\boldsymbol\mu)\\
+&=(\boldsymbol x-\boldsymbol\mu)^T\boldsymbol A(\boldsymbol x-\boldsymbol\mu)+\boldsymbol\mu^T\boldsymbol A(\boldsymbol x-\boldsymbol\mu)+(\boldsymbol x-\boldsymbol\mu)^T\boldsymbol{A\mu}+\boldsymbol\mu^T\boldsymbol{A\mu}
+\end{align}
+$$<p>注意到</p>$$
+\left\{
+\begin{aligned}
+\mathbb{E}\big(\boldsymbol\mu^T\boldsymbol A(\boldsymbol x-\boldsymbol\mu)\big)&=\mathbb{E}(\boldsymbol\mu^T\boldsymbol A\boldsymbol x)-\boldsymbol\mu^T\boldsymbol A\boldsymbol\mu\\
+&=\boldsymbol\mu^T\boldsymbol A\mathbb{E}(\boldsymbol x)-\boldsymbol\mu^T\boldsymbol A\boldsymbol\mu\\
+&=0\\
+&\\
+\mathbb{E}\big((\boldsymbol x-\boldsymbol\mu)^T\boldsymbol{A\mu}\big)&=\Big(\mathbb{E}\big(\boldsymbol\mu^T\boldsymbol A(\boldsymbol x-\boldsymbol\mu)\big)\Big)^T\\
+&=0
+\end{aligned}
+\right.
+$$<p>因此</p>$$
+\begin{align}
+\mathbb{E}(\boldsymbol x^T\boldsymbol{Ax})&=\mathbb{E}\big((\boldsymbol x-\boldsymbol\mu)^T\boldsymbol A(\boldsymbol x-\boldsymbol\mu)\big)+\boldsymbol\mu^T\boldsymbol{A\mu}\\
+&=\mathbb{E}\big(\mathrm{tr}(\boldsymbol x-\boldsymbol\mu)^T\boldsymbol A(\boldsymbol x-\boldsymbol\mu)\big)+\boldsymbol\mu^T\boldsymbol{A\mu}\\
+&=\mathbb{E}\Big(\mathrm{tr}\big[\boldsymbol A(\boldsymbol x-\boldsymbol\mu)(\boldsymbol x-\boldsymbol\mu)^T\big]\Big)+\boldsymbol\mu^T\boldsymbol{A\mu}\\
+&=\mathrm{tr}\Big(\boldsymbol A\mathbb{E}\big[(\boldsymbol x-\boldsymbol\mu)(\boldsymbol x-\boldsymbol\mu)^T\big]\Big)+\boldsymbol\mu^T\boldsymbol{A\mu}\\
+&=\mathrm{tr}(\boldsymbol{A\Sigma})+\boldsymbol\mu^T\boldsymbol{A\mu}
+\end{align}
+$$<h1 id=第三章回归参数的估计>第三章：回归参数的估计</h1><h2 id=-31-ols回归系数>★★★ 3.1 OLS：回归系数</h2><p>OLS的原理是使残差平方和最小，因此在$\boldsymbol X$列满秩的情况下有损失函数$\mathcal{L}=\sum\limits^n_{i=1}(y_i-\hat y_i)^2=\Vert\boldsymbol y-\boldsymbol{X\beta}\Vert^2$，容易看出$\mathcal{L}$是一个凸函数，因此具有唯一的全局最优解，于是令$\mathcal{L}$对$\boldsymbol\beta$偏导为$0$</p>$$
+\begin{align}
+\mathcal{L}&=\Vert\boldsymbol y-\boldsymbol{X\beta}\Vert^2\\
+&=(\boldsymbol y-\boldsymbol{X\beta})^T(\boldsymbol y-\boldsymbol{X\beta})\\
+&=\boldsymbol y^T\boldsymbol y-\boldsymbol\beta^T\boldsymbol X^T\boldsymbol y-\boldsymbol y^T\boldsymbol{X\beta}+\boldsymbol\beta^T\boldsymbol X^T\boldsymbol X\boldsymbol\beta
+\end{align}
+$$<p>注意到$\boldsymbol\beta^T\boldsymbol X^T\boldsymbol y$与$\boldsymbol y^T\boldsymbol{X\beta}$都是实数且有$\boldsymbol\beta^T\boldsymbol X^T\boldsymbol y=\boldsymbol y^T\boldsymbol{X\beta}$，因此当$\boldsymbol X$可逆时，有</p>$$
+\begin{align}
+&\frac{\partial\mathcal{L}}{\partial\boldsymbol\beta}=-2\boldsymbol X^T\boldsymbol y+2\boldsymbol X^T\boldsymbol{X\beta}\overset{let}{=}0\\
+\Rightarrow\,&\hat{\boldsymbol\beta}=(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y
+\end{align}
+$$<p>在此我们得到$\hat{\boldsymbol\beta}$了的解析解，称$\boldsymbol X(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T$为帽子矩阵，记为$\boldsymbol H$；称$\boldsymbol I-\boldsymbol H$为Annihilator矩阵（消灭矩阵），二者可以视为对$\boldsymbol y$的线性变换，分别将$\boldsymbol y$映射到观测向量空间与残差向量空间。对于$\boldsymbol X$而言，有</p>$$
+\left\{
+\begin{aligned}
+\text{观测向量}\,\hat{\boldsymbol y}&=\boldsymbol X\hat{\boldsymbol\beta}=\boldsymbol X(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y=\boldsymbol{Hy}\\
+\text{残差向量}\,\hat{\boldsymbol\varepsilon}&=\boldsymbol y-\hat{\boldsymbol y}=(\boldsymbol I-\boldsymbol H)\boldsymbol y
+\end{aligned}
+\right.
+$$<p>而且$\hat{\boldsymbol y}$与$\hat{\boldsymbol\varepsilon}$还是互相正交的（欧氏空间意义下），</p>$$
+\begin{align}
+\hat{\boldsymbol y}^T\hat{\boldsymbol\varepsilon}&=\hat{\boldsymbol y}^T\boldsymbol y-\hat{\boldsymbol y}^T\hat{\boldsymbol y}\\
+&=\boldsymbol y^T\boldsymbol H\boldsymbol y-\boldsymbol y^T\boldsymbol H\boldsymbol H\boldsymbol y\\
+&=\boldsymbol y^T\boldsymbol H\boldsymbol y-\boldsymbol y^T\boldsymbol H\boldsymbol y=\boldsymbol0
+\end{align}
+$$<p>实质上这是$\boldsymbol H$与$\boldsymbol I-\boldsymbol H$均为对称幂等阵的原因，或者说作为线性变换$\boldsymbol H$与$\boldsymbol I-\boldsymbol H$将$\boldsymbol y$映射为两个互相正交的向量。</p><p>此外，从式$\hat{\boldsymbol\varepsilon}=(\boldsymbol I-\boldsymbol H)\boldsymbol y$能看出，$RSS=\hat{\boldsymbol\varepsilon}^T\hat{\boldsymbol\varepsilon}=\boldsymbol y^T(\boldsymbol I-\boldsymbol H)\boldsymbol y=\boldsymbol y^T\boldsymbol y-(\boldsymbol X\hat{\boldsymbol\beta})^T\boldsymbol y$，即 $\text{残差平方和}=\text{总平方和}-\text{回归平方和}$；在后文中我们将证明这个式子。</p><p>考虑到很多情况下$\boldsymbol X$行空间与列空间维数可能较大，造成计算中的维数灾难，这时解析解的求解不易，通常我们从最“原始”的问题——一个理想的$\boldsymbol\beta$估计应使RSS最小，并通过优化方法求数值解这个问题，即</p>$$
+\begin{align}\hat{\boldsymbol\beta}={\arg\min\limits_{\boldsymbol{\beta}}}\ \Vert\boldsymbol y-\boldsymbol{X\beta}\Vert^2\end{align}
+$$<p>得益于最小化$RSS=\boldsymbol\varepsilon^T\boldsymbol\varepsilon$问题是一个凸优化问题，因此局部最优解等价于全局最优解，我们可以用许多适用于凸优化的算法迭代求解$\hat{\boldsymbol\beta}$。尽管解析解在理论推导中举足轻重，很“精确”也很漂亮，<strong>但实际应用中，解析解是没有必要的而且需要大量的算力（主要体现在求高维矩阵的逆），所以更多的是通过上式利用优化函数求数值解</strong>。</p><p>通常用MSE评价估计的优劣，对于OLS而言，有</p>$$
+\mathrm{MSE}(\hat{\boldsymbol\beta})=\mathbb{E}\Vert\hat{\boldsymbol\beta}-\boldsymbol\beta\Vert^2=\mathbb{E}\Vert\hat{\boldsymbol\beta}\Vert-\hat{\boldsymbol\beta}^T\hat{\boldsymbol\beta}=\mathrm{tr}\big(\mathrm{Cov(\hat{\boldsymbol\beta})}\big)+\Vert\mathbb{E}(\hat{\boldsymbol\beta})-\boldsymbol\beta\Vert^2
+$$<p>可以看出，OLS的MSE可以被分解为回归系数估计的方差之和与偏差平方和。</p><p>值得一提的是，尽管我们求OLS的出发点是使RSS最小，但在推导过程中可以特别导出OLS的另一个性质：使得残差之和为$0$，或者等价地说残差的样本均值为$0$。证明这个性质只需要将前文中损失函数$\mathcal{L}=RSS$对$\boldsymbol\beta$的偏导改为对$\boldsymbol\beta_0$的偏导（实际上，从这里我们可以知道这个性质是极其自然的，源自于我们推导OLS中所设的$\frac{\partial\mathcal{L}}{\partial\boldsymbol\beta}=\boldsymbol0$）：首先需要明确由最小二乘原理，可以得到</p>$$
+\begin{align}\frac{\partial\mathcal{L}}{\partial\boldsymbol\beta}=\boldsymbol0\,\Rightarrow\,\frac{\partial\mathcal{L}}{\partial\boldsymbol\beta_0}=0\end{align}
+$$<p>又注意到$\hat{\boldsymbol\varepsilon}=\boldsymbol y-\boldsymbol X\hat{\boldsymbol \beta}=\boldsymbol y-(\boldsymbol\beta_0\boldsymbol1+\boldsymbol\beta_1\boldsymbol x_{1}+\cdots+\boldsymbol\beta_{p-1}\boldsymbol x_{p-1})$，于是</p>$$
+\begin{align}
+\frac{\partial\mathcal{L}}{\partial\boldsymbol\beta_0}&=\frac{\partial\hat{\boldsymbol\varepsilon}^T\hat{\boldsymbol\varepsilon}}{\partial\boldsymbol\beta_0}\\
+&=\frac{\partial\hat{\boldsymbol\varepsilon}^T\hat{\boldsymbol\varepsilon}}{\partial\hat{\boldsymbol\varepsilon}}\frac{\partial\hat{\boldsymbol\varepsilon}}{\partial\boldsymbol\beta_0}\\
+&=2\hat{\boldsymbol\varepsilon}\frac{\partial}{\partial\boldsymbol\beta_0}\Big(\boldsymbol y-(\boldsymbol\beta_0\boldsymbol1+\boldsymbol\beta_1\boldsymbol x_{1}+\cdots)\Big)\\
+&=-2\hat{\boldsymbol\varepsilon}\boldsymbol1^T\\
+&\overset{let}=0
+\end{align}
+$$<p>得到最终的式子</p>$$
+\begin{align}\frac{\partial\mathcal{L}}{\partial\boldsymbol\beta_0}=0\Leftrightarrow\hat{\boldsymbol\varepsilon}\boldsymbol1^T=0\Leftrightarrow\sum^n_{i=1}(y_i-\hat{y}_i)=0\end{align}
+$$<p>最后，我们联合上文已证明的$\hat{\boldsymbol y}$与$\hat{\boldsymbol\varepsilon}$互相正交，可以总结出：</p>$$
+\left\{
+\begin{aligned}
+&\sum^n_{i=1}(y_i-\hat{y}_i)=0\\
+&\sum^n_{i=1}\hat{y}_i(y_i-\hat{y}_i)=0
+\end{aligned}
+\right.
+$$<p>对于需要预测的新数据集$\boldsymbol X_{pre}$，预测值的解析解$\hat{\boldsymbol y}_{pre}=\boldsymbol X_{pre}\hat{\boldsymbol\beta}=\boldsymbol X_{pre}(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y$​.</p><p>注：当误差独立同分布时，截距项与回归系数的OLS与广义矩法估计等价，均为$\hat{\boldsymbol\beta}=(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y$。</p><h2 id=-32-高斯-马尔可夫定理>★★ 3.2 高斯-马尔可夫定理</h2><p>在大前提条件</p><ul><li><p>$Y$对回归系数是<u>线性</u>的，即要求回归参数均为常数，以后简称为线性假定；</p></li><li><p>样本$\boldsymbol{X}$必须是以某种方式<u>随机抽样</u>得到的，且不应存在严格多重共线性；</p></li></ul><p>下，若还有</p><ul><li><p>弱外生性（<u>零均值</u>）：$\forall i,\,\,\mathbb E(\varepsilon_i|\boldsymbol X_i)=\boldsymbol 0\Rightarrow\mathbb{E}(\varepsilon_i)=0$；</p></li><li><p>球形扰动项 1（<u>同方差</u>）：$\forall i,\,\,\mathrm{Var}(\varepsilon_i|\boldsymbol X_i)=\sigma^2$；</p></li><li><p>球形扰动项 2（<u>不相关</u>、不存在自相关）：$\forall i,j,\,\,\mathrm{Cov}(\varepsilon_i,\varepsilon_j)=0$.</p></li></ul><p>则有</p><p>  1). 无偏性与可计算的协方差阵：$\forall\boldsymbol c,\,\,\mathbb E(\boldsymbol c^T\hat{\boldsymbol\beta})=\boldsymbol c^T\boldsymbol\beta$，且$\mathrm{Cov}(\boldsymbol c^T\hat{\boldsymbol\beta})=\sigma^2\boldsymbol c^T\big((\boldsymbol X^T\boldsymbol X)^{-1}\big)\boldsymbol c$；</p><p>  2). 线性无偏估计：由于$\boldsymbol c^T\hat{\boldsymbol\beta}=\boldsymbol c^T(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y$是$y$的线性变换，再加(1)因此$\boldsymbol c^T\hat{\boldsymbol\beta}$是线性无偏估计；</p><p>  3). BLUE：$\boldsymbol c^T\hat{\boldsymbol\beta}$是所有$\boldsymbol c^T\boldsymbol\beta$的线性无偏估计里方差最小的，是最佳线性无偏估计.</p><p>注：由严格外生性$\forall i,\,\,\mathbb E(\varepsilon_i|\boldsymbol X)=\boldsymbol 0$可以导出弱外生性。</p><p>证明思路：利用$\hat{\boldsymbol\beta}=(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y$与$\boldsymbol y=\boldsymbol{X\beta}$，于是可证无偏性</p>$$
+\begin{align}
+\mathbb E(\boldsymbol c^T\hat{\boldsymbol\beta})&=\mathbb E\big(\boldsymbol c^T(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y\big)\\
+&=\boldsymbol c^T(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T(\boldsymbol{X\beta})\\
+&=\boldsymbol c^T\boldsymbol\beta
+\end{align}
+$$<p>对于估计的协方差阵，利用上文证明的无偏性$\mathbb E(\hat{\boldsymbol\beta})=\boldsymbol\beta$与高斯-马尔可夫定理条件$\mathrm{Cov}(\boldsymbol y)=\mathrm{Cov}(\boldsymbol e)=\sigma^2\boldsymbol I$，于是可证</p>$$
+\begin{align}
+\mathrm{Cov}(\boldsymbol c^T\hat{\boldsymbol\beta})&=\boldsymbol c^T\mathrm{Cov}(\hat{\boldsymbol\beta})\boldsymbol c\\
+&=\boldsymbol c^T\mathrm{Cov}\big((\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y\big)\boldsymbol c\\
+&=\boldsymbol c^T(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\mathrm{Cov}(\boldsymbol y)\boldsymbol X(\boldsymbol X\boldsymbol X^T)^{-1}\boldsymbol c\\
+&=\boldsymbol c^T(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\sigma^2\boldsymbol I\boldsymbol X(\boldsymbol X\boldsymbol X^T)^{-1}\boldsymbol c\\
+&=\sigma^2\boldsymbol c^T\big((\boldsymbol X^T\boldsymbol X)^{-1}\big)\boldsymbol c
+\end{align}
+$$<p>只需要注意到在最后一步中$(\boldsymbol X^T\boldsymbol X)^{-1}$一定是对称正定矩阵，有$(\boldsymbol X^T\boldsymbol X)^{-1}=(\boldsymbol X\boldsymbol X^T)^{-1}$​。</p><h2 id=33-稳健标准误>3.3 稳健标准误</h2><p>标准差是用以衡量总体离散情况的，而标准误是用以衡量样某样本均值有效性的，即这个样本均值的方差。<strong>针对不同的问题，选用相应的标准误</strong>，是求出OLS在不太理想情况下真实标准误的办法之一（所以叫“稳健”）。</p><p>如果数据存在一定的多重共线性或自相关性，且坚持应用线性回归模型，则可考虑更换标准误、更改模型GLS或进行准差分。</p><p>① 值得一提的是，证明中导出了$\mathrm{Cov}(\hat{\boldsymbol\beta})=(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\mathrm{Cov}(\boldsymbol y)\boldsymbol X(\boldsymbol X\boldsymbol X^T)^{-1}$，在高斯-马尔可夫定理条件下进一步导出的最终结果$\mathrm{Cov}(\hat{\boldsymbol\beta})=\sigma^2\big((\boldsymbol X^T\boldsymbol X)^{-1}\big)$是我们进行估计参数的显著性检验的基础，这时认为$\mathrm{Cov}(\boldsymbol y)=\sigma^2\boldsymbol I$，称$\sqrt{\sigma^2\big((\boldsymbol X^T\boldsymbol X)^{-1}\big)_{ii}}$为$\hat{\boldsymbol\beta}_i$的<strong>同方差稳健标准误</strong>。</p><p>② 当$\mathrm{Var}(e_i)$不尽相同但$\{\varepsilon_i\}^n_i$间无关，假设时由于不满足$\mathrm{Cov}(\boldsymbol y)=\sigma^2\boldsymbol I$，这时便没有了$\mathrm{Cov}(\hat{\boldsymbol\beta})=\sigma^2(\boldsymbol X^T\boldsymbol X)^{-1}$，导致原先的t检验、F检验都会失效，若仍打算采用OLS作为我们的估计且需要对估计参数进行显著性检验，在随机误差$\{\varepsilon_i\}^n_i$间无关的条件仍成立下可以用$\mathbf{\Omega}=\mathrm{diag}\big(\mathrm{Var}(\varepsilon_1),\mathrm{Var}(\varepsilon_2),\cdots,\mathrm{Var}(\varepsilon_n)\big)$代替$\sigma^2\boldsymbol I$，于是可以得到$\mathrm{Cov}(\hat{\boldsymbol\beta})=(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\mathbf{\Omega}\boldsymbol X(\boldsymbol X\boldsymbol X^T)^{-1}$，这样有了理论上的$\mathrm{Cov}(\hat{\boldsymbol\beta})$我们才得以进行后续的分析，并称$\sqrt{\big((\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\mathbf{\Omega}\boldsymbol X(\boldsymbol X\boldsymbol X^T)^{-1}\big)_{ii}}$为为$\hat{\boldsymbol\beta}_i$的<strong>异方差稳健标准误</strong>，对于t检验、F检验等一众假设检验，只需要将同方差稳健标准误替换为异方差标准误便能继续进行。</p><p>③ 与此同时，要注意到这只是针对OLS导出的概念，对于WLS并不适用，记WLS的权重矩阵为$\boldsymbol W$，则</p>$$
+\begin{align}\mathrm{Cov}(\hat{\boldsymbol\beta}_{WLS})=\left(\boldsymbol{X}^T\boldsymbol{WX}\right)^{-1}\boldsymbol{X}^T\boldsymbol{W}\hat{\mathbf{\Omega}}\boldsymbol{W}^T\boldsymbol{X}\left(\boldsymbol{X}^T\boldsymbol{WX}\right)^{-1}\end{align}
+$$<p>当取权重矩阵$\boldsymbol W$为$\mathbf{\Omega}^{-1}$，即主对角线第$i$项皆为$\frac{1}{\mathrm{Var}(\varepsilon_i)}$，这时$\mathrm{Cov}(\hat{\boldsymbol\beta}_{WLS})=\left(\boldsymbol{X}^T\boldsymbol{WX}\right)^{-1}=\left(\boldsymbol{X}^T\mathbf{\Omega}^{-1}\boldsymbol{X}\right)^{-1}$，我们能得到WLS各系数估计在理论上的准确的方差，可以看出异方差稳健标准误对于WLS是没有什么意义的。实质上WLS可以说就是为“异方差”但“不相关”问题而生，Alexander Aitken证明了对于“异方差”但“不相关”问题WLS才是BLUE，而不是OLS。针对WLS，我们有<strong>White稳健标准误</strong>，他的取值为$\sqrt{\mathrm{Var}(\hat{\boldsymbol\beta}_{WLS})}$，替代OLS的多种检验中的同方差标准误以达到对估计参数进行显著性检验的目的。</p><p>④ 当$\mathrm{Var}(\varepsilon_i)$不尽相同且随机误差间相关性与类相关，同类的$\varepsilon_i$与$\varepsilon_j$不相关，不同类的$\varepsilon_i$与$\varepsilon_j$无关，这时需要进一步用到聚类稳健标准误的概念，直观上看是针对不同的类分别求异方差稳健标准误，如此一来我们可以把异方差稳健标准误的概念推广到<strong>聚类稳健标准误</strong>来。</p><p>⑤ 如果不仅$\mathrm{Var}(\varepsilon_i)$不尽相同，而且任意随机误差之间都是相关的（或相关性无法判断，也是任意的），这时并没有“一个万能的稳健标准误”，自然也没有什么好办法进行OLS参数估计的显著性检验。</p><h2 id=-34-olsσ>★★ 3.4 OLS：σ²</h2>$$
+\begin{align}\hat\sigma^2=\frac{RSS}{n-p}\end{align}
+$$<p>当满足高斯-马尔可夫定理的前四个条件时，$\hat\sigma^2$是$\sigma^2$的一个无偏估计。也就是说，即使不满足高斯-马尔可夫定理的第五个条件$\forall i,j,\,\,\mathrm{Cov}(\varepsilon_i,\varepsilon_j)=0$，$\frac{RSS}{n-p}$也是$\sigma^2$的无偏估计；只不过，当条件$\forall i,j,\,\,\mathrm{Cov}(\varepsilon_i,\varepsilon_j)=0$时，进一步有$\mathrm{Cov}(\hat{\boldsymbol{\beta}}|\boldsymbol{X})=\sigma^2(\boldsymbol X^T\boldsymbol X)^{-1}$，而这在前文中是已证明的。</p><p>证明思路：对于无偏性，只需要说明为什么RSS除自由度$n-p$后使得$\hat\sigma^2$同$\boldsymbol\beta$的OLS一样具有无偏性；首先证明$RSS=\boldsymbol y^T(\boldsymbol I-\boldsymbol H)\boldsymbol y$与帽子矩阵的一些性质，注意到$\boldsymbol H^T=\boldsymbol X(\boldsymbol X\boldsymbol X^T)^{-1}\boldsymbol X^T=\boldsymbol X(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T=\boldsymbol H$，即$\boldsymbol H$是对称阵，而且还是幂等的</p>$$
+\begin{align}
+\boldsymbol H^T\boldsymbol H&=\boldsymbol H^2\\
+&=\boldsymbol X(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol X(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\\
+&=\boldsymbol X(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\\
+&=\boldsymbol H
+\end{align}
+$$<p>于是</p>$$
+\begin{align}
+RSS&=\hat{\boldsymbol\varepsilon}^T\hat{\boldsymbol\varepsilon}\\
+&=\boldsymbol y^T(\boldsymbol I-\boldsymbol H)^T(\boldsymbol I-\boldsymbol H)\boldsymbol y\\
+&=\boldsymbol y^T(\boldsymbol I-2\boldsymbol H+\boldsymbol H^2)\boldsymbol y\\
+&=\boldsymbol y^T\big(\boldsymbol I-\boldsymbol H\big)\boldsymbol y
+\end{align}
+$$<p>有了RSS解析式与帽子矩阵的性质，注意到前文中我们推导的随机向量二次型期望公式——$\forall \boldsymbol x\in\mathbb R^{n\times1}$与对称阵$\boldsymbol A$，皆有$\mathbb{E}(\boldsymbol x^T\boldsymbol{Ax})=\boldsymbol\mu^T\boldsymbol{A\mu}+\mathrm{tr}(\boldsymbol{A\Sigma})$，同时需要强调的是我们这里把$\boldsymbol y$视为一个服从模型$\boldsymbol y=\boldsymbol{X\beta}+\boldsymbol e$分布的随机变量，所以</p>$$
+\mathbb E(\boldsymbol y)=\boldsymbol{X\beta}+\mathbb E(\boldsymbol e)=\boldsymbol{X\beta}
+$$<p>综上所述，这时有</p>$$
+\begin{align}
+\mathbb E(\hat\sigma^2)&=\mathbb E\Big(\frac{RSS}{n-p}\Big)\\
+&=\frac{\mathbb E\big[\boldsymbol y^T(\boldsymbol I-\boldsymbol H)\boldsymbol y\big]}{n-p}\\
+&=\frac{(\boldsymbol{X\beta})^T(\boldsymbol I-\boldsymbol H)\boldsymbol{X\beta}+\mathrm{tr}\big((\boldsymbol I-\boldsymbol H)\sigma^2\boldsymbol I\big)}{n-p}\\
+&=\frac{0+n\sigma^2-\sigma^2\mathrm{tr}(\boldsymbol H)}{n-p}\\
+&=\frac{\big(n-\mathrm{tr}(\boldsymbol H)\big)\sigma^2}{n-p}
+\end{align}
+$$<p>这里需要观察到$\mathrm{tr}(\boldsymbol H)=\mathrm{tr}\big(\boldsymbol X(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\big)=\mathrm{tr}\big((\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X\boldsymbol X^T\big)=p$，所以</p>$$
+\begin{align}\mathbb E(\hat\sigma^2)=\frac{\big(n-\mathrm{tr}(\boldsymbol H)\big)\sigma^2}{n-p}=\sigma^2\end{align}
+$$<p>至此证明了当满足高斯-马尔可夫定理的前四个条件时$\hat\sigma^2$是$\sigma^2$的无偏估计。</p><h2 id=35-正态假设下的ols>3.5 正态假设下的OLS</h2><h3 id=-351-回归系数与σ的分布>◆ 3.5.1 回归系数与σ²的分布</h3><p>由前文的推导，容易知道：</p><ul><li><p>当误差独立服从零均值的正态分布时，$\hat{\boldsymbol\beta}_{MLE}$与OLS相同，且$\hat{\boldsymbol\beta}_{MLE}\sim N\big(\boldsymbol{\beta},\sigma^2(\boldsymbol X^T\boldsymbol X)^{-1}\big)$；</p></li><li><p>这时$\sigma^2$的MLE为$\frac{RSS}{n}$，这是一个有偏估计；</p></li><li><p>$\frac{RSS}{\sigma^2}\sim\chi^2_{n-p}$；</p></li><li><p>在模型线性关系不显著的条件下，$\frac{SSR}{\sigma^2}\sim\chi^2_{p-1}$；</p></li><li><p>$\hat{\boldsymbol\beta}_{MLE}$​与RSS独立；</p></li><li><p>估计在Cramér–Rao下界的意义下是渐进有效的。</p></li></ul><p>这为最小二乘法提供了一个非常“传统统计”的解释（即不考虑历史因素，为什么最小二乘法比最小一乘法更常见）：在满足高斯-马尔可夫定理条件时，若误差还独立同分布于零均值的正态分布，则此刻OLS等价于MLE，<strong>这时回归系数的最小二乘估计正是极大似然估计</strong>。</p><p>当不确定误差的分布或误差不服从正态分布时，一般也会优先考虑OLS而非MLE，因为MLE的数值优化常常是非凸的，优化问题会棘手一些。</p><h3 id=352-置信区间与预测区间>3.5.2 置信区间与预测区间</h3><p>在高斯-马尔可夫定理成立、误差服从正态分布与$1-\alpha$的置信水平下，若记$c_{ii}$为矩阵$(\boldsymbol X^T\boldsymbol X)^{-1}$的第$i$行第$i$列的值、$h_{ii}$为帽子矩阵$\boldsymbol{X}(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol{X}^T$的第$i$行第$i$列的值、$\hat{\sigma}^2=\frac{RSS}{n-p}$，则：</p><p>$\sigma^2$的置信区间为</p>$$
+\Big[\hat{\sigma}^2+\frac{RSS}{\chi^2_{\frac{\alpha}2}(n-p)},\,\ \hat{\sigma}^2+\frac{RSS}{\chi^2_{1-\frac{\alpha}2}(n-p)}\Big]
+$$<p>$\beta_{i}$的置信区间为</p>$$
+\big[\hat{\beta}_{i}+t_{\frac{\alpha}2}(n-p)\hat{\sigma}\sqrt{c_{ii}},\,\ \hat{\beta}_{i}+t_{1-\frac{\alpha}2}(n-p)\hat{\sigma}\sqrt{c_{ii}}\big]
+$$<p>$y$的置信区间为</p>$$
+\big[\hat{y}+t_{\frac{\alpha}2}(n-p)\hat{\sigma}\sqrt{h_{ii}},\,\ \hat{y}+t_{1-\frac{\alpha}2}(n-p)\hat{\sigma}\sqrt{h_{ii}}\big]
+$$<p>$y$的预测区间为</p>$$
+\big[\hat{y}+t_{\frac{\alpha}2}(n-p)\hat{\sigma}\sqrt{1+h_{ii}},\,\ \hat{y}+t_{1-\frac{\alpha}2}(n-p)\hat{\sigma}\sqrt{1+h_{ii}}\big]
+$$<p>预测区间较之置信区间会更宽一点。</p><p>当样本量$n$较大且模型合理时，帽子矩阵近似为$\boldsymbol{O}$，即$\sqrt{1+h_{ii}}$近似于$1$，所以有$y$的近似预测区间为</p>$$
+\big[\hat{y}+t_{\frac{\alpha}2}(n-p)\hat{\sigma},\,\ \hat{y}+t_{1-\frac{\alpha}2}(n-p)\hat{\sigma}\big]
+$$<p>以上估计区间构造的前提条件均为未知$\sigma^2$。如果$\sigma^2$已知，则将$t$分布改为正态分布、将$\hat{\sigma}$替换为$\sigma$后，可以得到更精确的估计区间。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-R data-lang=R><span style=display:flex><span><span style=color:#a6e22e>library</span>(ggplot2)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>data</span>(diamonds)
+</span></span><span style=display:flex><span>df <span style=color:#f92672>&lt;-</span> diamonds[1<span style=color:#f92672>:</span><span style=color:#ae81ff>20</span>,]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>model <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>lm</span>(price <span style=color:#f92672>~</span> carat, data <span style=color:#f92672>=</span> df)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>p <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>ggplot</span>(data <span style=color:#f92672>=</span> df, <span style=color:#a6e22e>aes</span>(x <span style=color:#f92672>=</span> carat, y <span style=color:#f92672>=</span> price)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_ribbon</span>(<span style=color:#a6e22e>aes</span>(ymin <span style=color:#f92672>=</span> <span style=color:#a6e22e>predict</span>(model, newdata <span style=color:#f92672>=</span> df, interval <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;confidence&#34;</span>)[,<span style=color:#ae81ff>2</span>], ymax <span style=color:#f92672>=</span> <span style=color:#a6e22e>predict</span>(model, newdata <span style=color:#f92672>=</span> df, interval <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;confidence&#34;</span>)[,<span style=color:#ae81ff>3</span>], fill <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Confidence&#34;</span>), alpha <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.5</span>) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_ribbon</span>(<span style=color:#a6e22e>aes</span>(ymin <span style=color:#f92672>=</span> <span style=color:#a6e22e>predict</span>(model, newdata <span style=color:#f92672>=</span> df, interval <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;prediction&#34;</span>)[,<span style=color:#ae81ff>2</span>], ymax <span style=color:#f92672>=</span> <span style=color:#a6e22e>predict</span>(model, newdata <span style=color:#f92672>=</span> df, interval <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;prediction&#34;</span>)[,<span style=color:#ae81ff>3</span>], fill <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Prediction&#34;</span>), alpha <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.2</span>) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_line</span>(<span style=color:#a6e22e>aes</span>(y <span style=color:#f92672>=</span> <span style=color:#a6e22e>predict</span>(model)), color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;#1E90FF&#34;</span>, linewidth <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.8</span>) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>labs</span>(title <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Linear Regression of Price on Carat&#34;</span>, x <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Carat&#34;</span>, y <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Price (US Dollars)&#34;</span>) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_point</span>(alpha <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.8</span>) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>theme_bw</span>() <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>theme</span>(
+</span></span><span style=display:flex><span>        plot.title <span style=color:#f92672>=</span> <span style=color:#a6e22e>element_text</span>(size <span style=color:#f92672>=</span> <span style=color:#ae81ff>14</span>, face <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bold&#34;</span>),
+</span></span><span style=display:flex><span>        axis.title.x <span style=color:#f92672>=</span> <span style=color:#a6e22e>element_text</span>(size <span style=color:#f92672>=</span> <span style=color:#ae81ff>12</span>),
+</span></span><span style=display:flex><span>        axis.title.y <span style=color:#f92672>=</span> <span style=color:#a6e22e>element_text</span>(size <span style=color:#f92672>=</span> <span style=color:#ae81ff>12</span>),
+</span></span><span style=display:flex><span>        panel.grid.major.x <span style=color:#f92672>=</span> <span style=color:#a6e22e>element_blank</span>(),
+</span></span><span style=display:flex><span>        panel.grid.minor.x <span style=color:#f92672>=</span> <span style=color:#a6e22e>element_blank</span>(),
+</span></span><span style=display:flex><span>        panel.grid.major.y <span style=color:#f92672>=</span> <span style=color:#a6e22e>element_line</span>(color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;grey80&#34;</span>),
+</span></span><span style=display:flex><span>        panel.grid.minor.y <span style=color:#f92672>=</span> <span style=color:#a6e22e>element_line</span>(color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;grey90&#34;</span>),
+</span></span><span style=display:flex><span>        plot.margin <span style=color:#f92672>=</span> <span style=color:#a6e22e>margin</span>(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, <span style=color:#e6db74>&#34;cm&#34;</span>)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>scale_x_continuous</span>(expand <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(<span style=color:#ae81ff>0.01</span>, <span style=color:#ae81ff>0.01</span>)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>scale_y_continuous</span>(expand <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(<span style=color:#ae81ff>0.01</span>, <span style=color:#ae81ff>0.01</span>)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>scale_fill_manual</span>(values <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(<span style=color:#e6db74>&#34;Confidence&#34;</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;lightblue&#34;</span>, <span style=color:#e6db74>&#34;Prediction&#34;</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;lightgreen&#34;</span>), name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Interval&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>plot</span>(p)
+</span></span><span style=display:flex><span><span style=color:#75715e># ggsave(&#34;interval.svg&#34;, plot = p)</span>
+</span></span></code></pre></div><p>将置信区间和预测区间可视化：</p><img src=/images/回归分析/interval.svg style=zoom:100%><p>为什么预测区间要比置信区间更宽呢？在回归模型中，误差通常包括两个方面：不可以减少的误差（偏差）和可以减少的误差（方差），预测区间衡量的模型参数完美存在的不可以减少的误差还衡量可以通过回归减少的误差，而置信区间仅仅衡量了可以减少的误差。</p>$$
+\mathbb{E}(Y-\hat{Y})^2=\underbrace{\underbrace{\big[f(X)-\hat{f}(X)\big]^2}_{reducible}+\underbrace{\mathrm{Var}(\varepsilon)}_{irreducible}}_{error\ (MSE)}
+$$<h3 id=353-参数的显著性检验>3.5.3 参数的显著性检验</h3><p>用以推断是否可以认为参数为$0$的假设检验，如果检验的p-value很低，说明这些参数显著地不为$0$，是有效的，那么理论上就不应从模型中删掉这些变量，起码$y$与这些参数们理应有较明显的线性关系。当然，这是比较传统的方法，历史上曾通过逐步回归（从无开始，逐步增加参数个数并做显著性检验，排除未通过者；或反之，从考虑所有的参数开始，逐步减少参数个数）来确定参数的选择，个人认为在大数据与计算机的时代，应该直接以优化的目标函数为最终目的，只要加上某参数能使得RSS明显降低，那么就不应该将其删除。注意，由于潜在的多重共线性，完全可能当两个变量同时存在时RSS值较大，但删去其中一个变量后RSS显著降低。</p><p>要注意，除了显著性$\alpha$，还要考虑检验的势（power）$\beta$；因此，如果p-value$>\alpha$，则只能得出不能拒绝原假设的结论，但这不代表就要接受原假设——这是很基础的内容，不再赘述。可以参考《Scientific method: Statistical errors》，由Regina Nuzzo于2014年发表于《Nature》。</p><p>参考链接：<a href=https://www.nature.com/articles/506150a>Scientific method: Statistical errors</a></p><p>中文翻译版本（果壳译）：<a href=https://www.guokr.com/article/438043/>统计学里“P”的故事：蚊子、皇帝的新衣和不育的风流才子</a></p><h4 id=𝑭检验>𝑭检验</h4><p>F检验是对模型整体显著性的检验，有别于t检验仅仅是针对单个回归系数的检验。对一元线性回归而言，二者等价。</p><ul><li><p>$H_0$：$(\beta_1,\beta_2,\cdots,\beta_{p-1})^T=\boldsymbol{0}$；</p></li><li><p>$H_1$：$(\beta_1,\beta_2,\cdots,\beta_{p-1})^T\neq\boldsymbol{0}$.</p></li></ul><p>则在$H_0$成立的条件下，有</p>$$
+\begin{align}F=\frac{\frac{RSS_{H_0}-RSS}{p-1}}{\frac{RSS}{n-p}}\sim F(p-1,n-p)\end{align}
+$$<p>其中$\text{RSS}$为模型实质上的残差平方和，$\text{RSS}_{H_0}$为在原假设成立情况下的“预设”模型的残差平方和，很显然，当原假设接近“真”时，二者差距应该较小，这时$F$统计量的值较小，所以拒绝域为$\{F>F_\alpha\}$，p-value为$P(F\lt F_\alpha)$。如果$F$检验的结果表明线性关系显著，即检验的p-value小于显著性水平$\alpha$或$F$统计量的值落入拒绝域，则拒绝$H_0$，认为模型整体上的线性关系成立，也就是至少有一个自变量与因变量之间的线性关系显著。</p><p>前文已经证明，当高斯-马尔可夫定理的条件成立时有$\hat\sigma^2=\frac{RSS}{n-p}$，那么$F$统计量的导出就十分显然了。$F$统计量通常被用来检验两正态分布的均值是否相等，实质上利用的是两个样本集合的方差估计值构造统计量进行假设检验，这正是方差分析的思想。</p><p>这里的$F$检验统计量也在承担一个类似方差分析的中检验统计量的角色，因为在高斯-马尔可夫定理的条件成立时有$\hat\sigma^2=\frac{RSS}{n-p}$，于是分母服从分布$\chi^2(n-p)$；再结合线性模型的可加减性易知分子服从分布$\chi^2(p-1)$，这就是$F$检验统计量的构造思想和推导过程。</p><p>有趣的是，容易证明总是存在$\text{RSS}_{H_0}\geqslant\text{RSS}$（这有一个很通俗的解释，但也可以严谨地证明，读者不妨一试）。</p><p>最后，$F$检验中假设为$0$的参数们可以根据需要进行调整，如果有$k$个值被假定为$0$，只需要将$p-1$替换为$k$即可；另外，也能够对$(\beta_i,\beta_j,\cdots,\beta_{k})^T=\boldsymbol{c}$进行检验，这等价于检验$(\hat{\beta}_i-c_i,\cdots,\hat{\beta}_k-c_k)=\boldsymbol{0}$。</p><h4 id=𝒕检验>𝒕检验</h4><p>t检验是对单个回归系数显著性的检验，有别于针对模型整体显著性的F检验。对一元线性回归而言，二者等价。</p><ul><li><p>$H_0$：$\beta_j=0$；</p></li><li><p>$H_1$：$\beta_j\neq0$.</p></li></ul><p>则在$H_0$成立的条件下，有</p>$$
+\begin{align}t=\frac{\hat{\beta}_j}{\hat{\mathrm{SE}}(\hat{\beta}_j)}\sim t(n-2)\end{align}
+$$<p>其中$\hat{\mathrm{SE}}(\hat{\beta}_j)$是$\hat{\beta}_j$的标准误估计，该公式的含义是“标准化为t分布”，因为在高斯-马尔可夫条件与$H_0$皆成立时有$t=\frac{\hat{\beta}_j-0}{\sqrt{\hat{\mathrm{Var}}(\hat{\beta}_j)}}$（枢轴变量），消除了量纲的影响；当分母为标准差时，在高斯-马尔可夫条件下检验统计量$t$应该服从标准正态分布，又由于分母本身是一个服从$\sqrt{\chi^2}(n-2)$的估计，故根据$t$分布的定义，$t$的自由度为$n-2$。检验的拒绝域为$\{\vert t\vert>t_\frac{\alpha}{2}\}$，p-value为$P(\vert t\vert\lt t_\frac{\alpha}{2})$。如果$t$检验的结果表明p-value小于显著性水平$\alpha$或$t$统计量的值落入拒绝域，则拒绝$H_0$，认为被检验的回归系数的自变量与因变量之间的线性关系显著。</p><p>对一元线性回归而言，$t$检验等价于$F$检验（毕竟在只有一个回归系数的情况下，对回归系数做检验和对模型本身的线性关系做检验没有区别），$t$检验统计量的平方即为$F$检验统计量 （这也符合$t(n)$同分布于$F(1,n)$的特征）。</p><p>更进一步地，$t$检验也可以用以检验$\beta_j=c$的假设，只需要等价地检验$\beta_j-c=0$即可，这实质上是构造了统计量$t=\frac{\hat{\beta}_j-c}{\sqrt{\hat{\mathrm{Var}}(\hat{\beta}_j)}}$。</p><p>当模型明显不满足高斯-马尔可夫定理的条件，如存在严重的多重共线性时，$F$检验将不再可用，而$t$检验在加以改造后却仍有效：可以将$\hat{\mathrm{SE}}(\hat{\beta}_j)$替换为其他可用的稳健标准误估计，$t$检验便可以继续执行。</p><p>最后，我想简单阐述一下，p-value很小不代表该回归系数能正确反应真实模型。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-R data-lang=R><span style=display:flex><span><span style=color:#a6e22e>library</span>(ggplot2)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>library</span>(svglite)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>set.seed</span>(<span style=color:#ae81ff>123</span>)
+</span></span><span style=display:flex><span>x1 <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>rnorm</span>(<span style=color:#ae81ff>50</span>)
+</span></span><span style=display:flex><span>y1 <span style=color:#f92672>&lt;-</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>3</span> <span style=color:#f92672>*</span> x1 <span style=color:#f92672>+</span> <span style=color:#a6e22e>rnorm</span>(<span style=color:#ae81ff>50</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>set.seed</span>(<span style=color:#ae81ff>321</span>)
+</span></span><span style=display:flex><span>x2 <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>rnorm</span>(<span style=color:#ae81ff>50</span>)
+</span></span><span style=display:flex><span>y2 <span style=color:#f92672>&lt;-</span> <span style=color:#ae81ff>8</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>3</span> <span style=color:#f92672>*</span> x2 <span style=color:#f92672>+</span> <span style=color:#a6e22e>rnorm</span>(<span style=color:#ae81ff>50</span>)
+</span></span><span style=display:flex><span>data <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>data.frame</span>(x <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(x1, x2), y <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(y1, y2), group <span style=color:#f92672>=</span> <span style=color:#a6e22e>factor</span>(<span style=color:#a6e22e>rep</span>(<span style=color:#a6e22e>c</span>(<span style=color:#e6db74>&#34;A&#34;</span>, <span style=color:#e6db74>&#34;B&#34;</span>), each <span style=color:#f92672>=</span> <span style=color:#ae81ff>50</span>)))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>g <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>ggplot</span>(data, <span style=color:#a6e22e>aes</span>(x <span style=color:#f92672>=</span> x, y <span style=color:#f92672>=</span> y)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_point</span>(<span style=color:#a6e22e>aes</span>(color <span style=color:#f92672>=</span> group, shape <span style=color:#f92672>=</span> group)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_smooth</span>(
+</span></span><span style=display:flex><span>        formula <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;y ~ x&#39;</span>,
+</span></span><span style=display:flex><span>        method <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;lm&#34;</span>,
+</span></span><span style=display:flex><span>        se <span style=color:#f92672>=</span> <span style=color:#66d9ef>FALSE</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>aes</span>(color <span style=color:#f92672>=</span> group)
+</span></span><span style=display:flex><span>    ) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># scale_color_npg(palette=&#34;nrc&#34;) +</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>scale_color_manual</span>(values <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(<span style=color:#e6db74>&#34;#D4B9F0&#34;</span>, <span style=color:#e6db74>&#34;#A8C000&#34;</span>)) <span style=color:#f92672>+</span>    <span style=color:#75715e># Lavender: #D4B9F0</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>theme_bw</span>() <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>labs</span>(
+</span></span><span style=display:flex><span>        title <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Linear Regression&#34;</span>,
+</span></span><span style=display:flex><span>        x <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;X&#34;</span>,
+</span></span><span style=display:flex><span>        y <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;y&#34;</span>
+</span></span><span style=display:flex><span>    ) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_smooth</span>(
+</span></span><span style=display:flex><span>        formula <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;y ~ x&#39;</span>,
+</span></span><span style=display:flex><span>        method <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;lm&#34;</span>,
+</span></span><span style=display:flex><span>        se <span style=color:#f92672>=</span> <span style=color:#66d9ef>FALSE</span>,
+</span></span><span style=display:flex><span>        color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;#A52A2A&#34;</span>
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>plot</span>(g)
+</span></span><span style=display:flex><span><span style=color:#75715e># ggsave(&#34;Linear_Regression.svg&#34;, plot = g)</span>
+</span></span></code></pre></div><p>可视化结果如下：</p><img src=/images/回归分析/Linear_Regression.svg style=zoom:80%><p>进行显著性检验：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-R data-lang=R><span style=display:flex><span><span style=color:#a6e22e>summary</span>(<span style=color:#a6e22e>lm</span>(y<span style=color:#f92672>~</span>x, data))
+</span></span></code></pre></div><p>结果表明回归系数高度显著，但显然的是这个模型从最初的假设开始就是错误的（关于结果解读见下文）。所以，只根据显著性检验结果完全地判断模型好坏与决定参数筛选是不合理的行为，有些时候即使某个回归系数没有通过显著性检验，但它能使RSS大幅降低，那么它亦是应该被保留的。</p><img src=/images/回归分析/result.png alt=result style=zoom:67%><p>这些检验统计量的构造背后的统计思想非常有趣，环环相扣、精彩绝伦。</p><h2 id=36-中心化模型与标准化模型>3.6 中心化模型与标准化模型</h2><h3 id=361-中心化模型>3.6.1 中心化模型</h3><p>由于通常我们只关心回归系数的值，下面将证明这种情况下将模型中心化是可取的操作。</p><p>设原本的回归模型为$y_i=\beta_0+\beta_1x_{i1}+\cdots+\beta_{p-1}x_{i,p-1}+\varepsilon_i$，即$\boldsymbol y=\boldsymbol{X\beta}+\boldsymbol\varepsilon$，现将设计矩阵$\boldsymbol X$与其第一列分离，转写为$\boldsymbol y=\boldsymbol\beta_0\boldsymbol1+\boldsymbol{X}''_c\boldsymbol\beta_{coef}+\boldsymbol\varepsilon$，其中</p>$$
+\begin{align}\boldsymbol{X}''_c=\left(\begin{matrix}x_{11}&x_{12}&\cdots&x_{1,p-1}\\x_{21}&x_{22}&\cdots&x_{2,p-1}\\\vdots&\vdots&&\vdots\\x_{n1}&x_{n2}&\cdots&x_{n,p-1}\\\end{matrix}\right),\ \,\,\;\boldsymbol\beta_{coef}=\left(\begin{matrix}\beta_1\\\beta_2\\\cdots\\\beta_{p-1}\end{matrix}\right)\end{align}
+$$<p>记$\boldsymbol{X}''_c$中心化后为$\boldsymbol{X}_c$，有</p>$$
+\begin{align}\boldsymbol{X}_c=\left(\begin{matrix}x_{11}-\bar x_1&x_{12}-\bar x_2&\cdots&x_{1,p-1}-\bar x_{p-1}\\x_{21}-\bar x_1&x_{22}-\bar x_2&\cdots&x_{2,p-1}-\bar x_{p-1}\\\vdots&\vdots&&\vdots\\x_{n1}-\bar x_1&x_{n2}-\bar x_2&\cdots&x_{n,p-1}-\bar x_{p-1}\\\end{matrix}\right)\end{align}
+$$$$
+\begin{align}\boldsymbol1^T\boldsymbol{X}_c=\boldsymbol0\end{align}
+$$<p>为保证$\{y_i\}^n_{i=1}$与$\boldsymbol\beta_{coef}$不变，令$\alpha=\beta_0+\sum\limits^{p-1}_{i=1}\bar x_i\beta_i$，于是得到中心化模型</p>$$
+\begin{align}\boldsymbol y=\alpha\boldsymbol1+\boldsymbol{X}_c\boldsymbol\beta_{coef}\end{align}
+$$<p>这仍然是个线性模型，且若原本的回归模型满足高斯-马尔可夫定理条件，容易知道中心化后的模型仍满足高斯-马尔可夫定理条件，这使得模型中心化后依然有各种优良的统计性质，不难导出中心化模型的OLS：</p>$$
+\left\{
+\begin{aligned}
+&\hat{\alpha}=\hat\beta_0+\sum\limits^{p-1}_{i=1}\bar x_i\hat\beta_i=\bar y\\
+&\hat{\boldsymbol\beta}_{coef}=(\boldsymbol{X}_c^T\boldsymbol{X}_c)^{-1}\boldsymbol{X}_c^T\boldsymbol{y}
+\end{aligned}
+\right.
+$$<p>$\hat{\alpha}$、$\hat{\boldsymbol\beta}_{coef}$分别是$\alpha$、$\boldsymbol\beta$的无偏估计，注意到$\boldsymbol X_c\cdot(\frac{1}{n},\frac{1}{n},\cdots,\frac{1}{n})^T=\boldsymbol0^T_{p-1}$，后续不难得到</p>$$
+\begin{align}
+\mathrm{Cov}\left(\begin{matrix}\hat{\alpha}\\\hat{\boldsymbol\beta}_{coef}\end{matrix}\right)&=\mathrm{Cov}\left(\left(\begin{matrix}\frac{1}{n}\boldsymbol1_{p-1}^T\\(\boldsymbol{X}_c^T\boldsymbol{X}_c)^{-1}\boldsymbol{X}_c^T\end{matrix}\right)\boldsymbol{y}\right)\\
+&=\left(\begin{matrix}\frac{1}{n}\boldsymbol1_{p-1}^T\\(\boldsymbol{X}_c^T\boldsymbol{X}_c)^{-1}\boldsymbol{X}_c^T\end{matrix}\right)\mathrm{Cov}(\boldsymbol y)\left(\begin{matrix}\frac{1}{n}\boldsymbol1_{p-1}^T\\(\boldsymbol{X}_c^T\boldsymbol{X}_c)^{-1}\boldsymbol{X}_c^T\end{matrix}\right)^T\\
+&=\left(\begin{matrix}\frac{1}{n}&\boldsymbol0^T_{p-1}\\\boldsymbol0_{p-1}&(\boldsymbol{X}_c^T\boldsymbol{X}_c)^{-1}\\\end{matrix}\right)
+\end{align}
+$$<p>若进一步有随机误差$\boldsymbol\varepsilon\sim N_n(\boldsymbol0,\sigma^2\boldsymbol I)$，则根据正态分布的性质，不仅有$\hat{\alpha}\sim N(\alpha,\frac{\sigma^2}{n})$、$\hat{\boldsymbol\beta}_{coef}\sim N_{p-1}(\boldsymbol\beta,\sigma^2(\boldsymbol{X}_c^T\boldsymbol{X}_c)^{-1})$，而且$\hat{\alpha}$与$\hat{\boldsymbol\beta}_{coef}$还是独立的。</p><h3 id=352-标准化模型>3.5.2 标准化模型</h3><p>唯一值得指出的是若在$\boldsymbol{X}_c$基础上进一步进行标准化，记我们得到的新矩阵为$\boldsymbol{X}_{s}$，不难证明$\boldsymbol{X}_{s}^T\boldsymbol{X}_{s}=\boldsymbol R$，其中$\boldsymbol R$是$\boldsymbol X$不考虑第一列的相关阵。</p><h2 id=-37-拟合优度𝑹与调整的拟合优度>★ 3.7 拟合优度𝑹²与调整的拟合优度</h2>$$
+\begin{align}R^2=\frac{SSR}{SST}=1-\frac{SSE}{SST}\end{align}
+$$<p>SSE与RSS都表示残差平方和，只是记号不同，SSR则代表回归平方和。SSR反映了SST中由于$y$与$x$的线性关系而引起$y$变化的部分，是回归模型可以解释的部分；SSE是$y$与$x$除了线性关系外、由其他因素引起$y$变化的部分，是模型不能解释的部分。易见$R^2$的取值范围为$(0,1)$。</p><p>由此可见，模型越贴切样本，则由$\varepsilon$导致的SSR占比总偏差SST中的部分就应该较多，或者等价地说，预测值与真实值偏差平方和SSE占比总偏差SST应该较少，那么$R^2$就越趋向$1$，所以理论上拟合优度$R^2$越大便说明模型对样本集的拟合就越好。</p><p>同时，也应注意到当参数越多，即使增加的参数并不能很好的解释模型，但更多信息的加入总是不可避免得会使得模型拟合更“优”、SSR占比SST越大，例如将某人一天的碳排放量作为一天全球碳排放量的解释变量，而这就是过拟合的情况，不仅弱化了模型的泛化能力，还使得模型难以解释。造成这种情况的原因是$R^2$只考虑了针对特定样本集的信息，所以如果只以$R^2$为模型的唯一评价指标，则会倾向对于模型选择更多的对因变量影响极小甚至是出于样本的偶然因素才“看上去和因变量有关”的自变量，可能导致严重的过拟合问题与多重共线性，模型的解释性也大幅降低。</p><p>因此提出了调整后的拟合优度$R^2_{adjusted}$：</p>$$
+\begin{align}R^2_{adjusted}=1-\frac{\frac{SSE}{n-(p-1)-1}}{\frac{SST}{n-1}}=1-(1-R^2)\frac{n-1}{n-p}\end{align}
+$$<p>$R^2_{adjusted}$不仅考虑到了SSE与SST的关系，也考虑到了不宜过多的参数个数，在二者之间做了权衡。从公式中可以看出$R^2_{adjusted}$一定小于$R^2$，而且$R^2_{adjusted}$甚至有可能取到负数。实际上，在现实应用场景下，$R^2_{adjusted}$比$R^2$更为常见。</p><h2 id=-38-模型解读>▲▲▲ 3.8 模型解读</h2><p>$R$语言原生的线性回归模型，以下图为例</p><img src=/images/回归分析/R回归结果解读.png alt=R回归结果解读 style=zoom:90%><p>有必要解释一下图中在“Residual standard error”注释中“参数个数”的意思：暂只考虑向量$\boldsymbol X$代表一组无序的名义数据的情况，例如我们所选取的“class”自变量，它包含了$7$种树的种类，作为分类数据（属性数据）在回归中我们需要用一个具有七种取值的向量$\boldsymbol X$分别对应这七个类别，这时$\boldsymbol X$分量个数通常选择六或七个。如若选用六个分量构造$\boldsymbol X$，则取七个向量作为$\boldsymbol X$所有可能的且不同的取值，一般选择$(0,0,0,0,0,0)$、$(1,0,0,0,0,0)$、$(0,1,0,0,0,0)$、$\cdots$、$(0,0,0,0,0,1)$（必须注意到，虽然我们一共仅使用了六个分量，却用六个分量表示了七个线性无关的向量，这实际上对应了七个品种），记$\boldsymbol X=(X_1,X_2,\cdots,X_6)$，则$\forall i,X_i=0\,or\,1$，且$(X_1,X_2,\cdots,X_6)$中至多有一个值取$1$（再次强调，$\boldsymbol X$只能有七种不同的取值）；此时回归模型为：</p>$$
+\begin{align}hwy=\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_6X_6\end{align}
+$$<p>模型中我们有$6$个自变量$\{X_i\}^6_{i=1}$与回归系数$\{\beta_i\}^6_{i=1}$，但自由度却并不为$n-6$：由于我们在回归中实质上使用到了样本均值，故残差标准误自由度为$n-6-1=227$（也可以认为$\beta_0$亦“占用”了一个自由度）；当然还可以用七个变量表示七种种类，记$\boldsymbol X=(X_1,X_2,\cdots,X_7)$，取所有可能的取值为$(1,0,0,0,0,0,0)$、$(0,1,0,0,0,0,0)$、$\cdots$、$(0,0,0,0,0,0,1)$即可。</p><p>再考虑“displ”自变量，这是一个连续取值的自变量，是一个实际数据，因此用一个随机变量$X_7$表示即可，此时回归模型为：</p>$$
+\begin{align}hwy=\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_6X_6+\beta_7X_7\end{align}
+$$<p>其中，当$i<7,X_i=0\,or\,1$，且$(X_1,X_2,\cdots,X_6)$至多有一个分量取$1$，而$X_7$理论上可能取到任何非负值（当然在这个问题中它具有现实意义，取值有一个范围），这时残差标准误自由度为$n-6-1-1=226$。因此，“参数个数”指模型回归系数与截距项个数之和，等价于模型自变量个数加$1$。</p><hr><p>题外话：对于有序的名义数据，仍然可以只使用一个变量$X$表示，譬如考虑调查者的学历水平，取小学及以下学历$X=0$，初中学历$X=1$，高中学历$X=2$，并以此类推。那么，为什么在刚才的例子中“class”自变量我们使用了一个六维向量来表示，而不是只是用一个标量，令其取值分别为$0$、$1$、$\cdots$、$6$来表示“class”的这七种种类呢？</p><p>答案是学历水平在简单实验中可以粗糙地认为是有序数据，而树的种类必然是无序的、线性无关的，否则会出现“用$X$表示树的种类，对樱桃树取$X=2$，对柠檬树取$X=4$，所以柠檬树的种类是樱桃树的两倍”这样错误且荒谬的推论。</p><h2 id=-39-cls线性约束的最小二乘估计>▲▲▲ 3.9 CLS（线性约束的最小二乘估计）</h2><p>考试时会给出公式。</p><p>设有线性约束$\boldsymbol{A\beta}=\boldsymbol b$，则利用Lagrange乘子法可以导出线性约束下的最小二乘估计：</p>$$
+\begin{align}
+\hat{\boldsymbol{\beta}}_{\boldsymbol{c}} &= \hat{\boldsymbol{\beta}} - (\boldsymbol{X}^{T}\boldsymbol{X})^{-1}\boldsymbol{A}^{T}\big(\boldsymbol{A}(\boldsymbol{X}^{T}\boldsymbol{X})^{-1}\boldsymbol{A}^{T}\big)^{-1}(\boldsymbol{A}\hat{\boldsymbol{\beta}} - \boldsymbol{b}) \\
+&= (\boldsymbol{X}^{T}\boldsymbol{X})^{-1}\boldsymbol{X}^{T}\boldsymbol{y} - (\boldsymbol{X}^{T}\boldsymbol{X})^{-1}\boldsymbol{A}^{T}\big(\boldsymbol{A}(\boldsymbol{X}^{T}\boldsymbol{X})^{-1}\boldsymbol{A}^{T}\big)^{-1}\big(\boldsymbol{A}(\boldsymbol{X}^{T}\boldsymbol{X})^{-1}\boldsymbol{X}^{T}\boldsymbol{y} - \boldsymbol{b}\big)
+\end{align}
+$$<img src=/images/回归分析/CLS例子.png alt=CLS例子 style=zoom:60%><h2 id=-310-残差向量的性质>★★ 3.10 残差向量$\hat{\boldsymbol\varepsilon}$的性质</h2><p>若满足高斯-马尔可夫定理的假设，则</p><p>  (1). $\mathbb E(\hat{\boldsymbol\varepsilon})=\boldsymbol 0$；</p><p>  (2). $\mathrm{Cov}(\hat{\boldsymbol\varepsilon})=\sigma^2(\boldsymbol I-\boldsymbol H)$；</p><p>若随机误差还服从正态分布，$\boldsymbol\varepsilon\sim N(\boldsymbol 0,\sigma^2\boldsymbol I)$，则</p><p>  (3). $\hat{\boldsymbol\varepsilon}\sim N\big(\boldsymbol 0,\sigma^2(\boldsymbol I-\boldsymbol H)\big)$</p><h2 id=-311-回归诊断>◆◆ 3.11 回归诊断</h2><p>不涉及绘图的考察，但考察解读。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-R data-lang=R><span style=display:flex><span><span style=color:#a6e22e>library</span>(tidyverse)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>library</span>(tidymodels)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>library</span>(performance)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># use data &#34;MPG&#34;</span>
+</span></span><span style=display:flex><span>fit <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>linear_reg</span>() <span style=color:#f92672>%&gt;%</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>set_engine</span>(<span style=color:#e6db74>&#34;lm&#34;</span>) <span style=color:#f92672>%&gt;%</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fit</span>(hwy <span style=color:#f92672>~</span> displ <span style=color:#f92672>+</span> class, data <span style=color:#f92672>=</span> mpg)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>check_model</span>(fit)
+</span></span></code></pre></div><img src=/images/回归分析/回归诊断.png alt=回归诊断1 style=zoom:60%>
+<img src=/images/回归分析/回归诊断2.png alt=回归诊断2 style=zoom:60%><p>学生化残差图、Q-Q图等图像均可用于初步判断数据正态性、峰度、偏度与趋势。需要说明的是，Q-Q图的斜率为标准差、截距为均值。</p><h3 id=-3111-异方差问题>◆◆ 3.11.1 异方差问题</h3><p>名词解释，要求作图并加以描述：说明是异方差问题？即$\boldsymbol\varepsilon$不满足“同方差”假设，这种情况非常普遍，常常发生在截面数据，如消费对收入的回归、成绩对学习时长的回归，通常认为异方差源于，随机误差的方差与自变量间存在线性或非线性的关系，即</p>$$
+\begin{align}\mathrm{Var}(y_i|X_i)=\mathrm{Var}(\varepsilon_i|X_i)=\sigma^2_i\end{align}
+$$<table><tr><td><img src=/images/回归分析/同方差.png alt=同方差></td><td><img src=/images/回归分析/异方差.jpg alt=异方差 style=zoom:48%></td></tr></table><p>异方差不会影响的：</p><p>  (1). 不改变OLS的无偏性，仍是无偏估计.</p><p>异方差会影响的：</p><p>  (2). OLS有效性大大降低，系数估计的方差大大增加，导致预测的精度降低；</p><p>  (3). 多种对系数估计的显著性检验失效，譬如t检验、F检验.</p><p>值得一提的是，对于问题(3)可以改检验中的标准误为异方差稳健标准误以继续进行假设检验，但对于问题(2)，Alexander Aitken证明了这时BLUE应是WLS而非OLS。</p><p>继续减弱条件至不同的随机误差间可能相关，但我们提前知道样本点的随机误差间的相关阵$\sigma^2\boldsymbol\Sigma$，则这时GLS才是$\boldsymbol\beta$的BLUE，因此可以说WLS是OLS的推广，GLS是WLS的推广，三者对于“同方差”、“不相关”的依赖在逐渐递减，但后者可能不太实用，因为估计一个矩阵$\sigma^2\boldsymbol\Sigma$以今天的方法和算力都是极其困难的。</p><p>通过画$Y$-$X$图加以说明“异方差”的表现，如</p><img src=/images/回归分析/Y-X图.png alt=Y-X图><h3 id=-3112-残差图与学生化残差图>◆ 3.11.2 残差图与学生化残差图</h3><p>不考察学生化残差图。</p><p>在高斯-马尔可夫定理条件下$\hat{\boldsymbol y}$与$\hat{\boldsymbol\varepsilon}$独立，因此以$\hat{\boldsymbol y}$为横坐标、$\hat{\boldsymbol\varepsilon}$为纵坐标的散点图应不会呈现任何趋势，称这个散点图为残差图。</p><img src=/images/回归分析/残差图.png alt=残差图 style=zoom:50%><p>如果存在异方差，则图像应有明显趋势</p><img src=/images/回归分析/存在差方差的残差图.png alt=存在差方差的残差图 style=zoom:60%><h3 id=-3113-breusch-pagan检验>◆ 3.11.3 Breusch-Pagan检验</h3><p>Breusch-Pagan检验简称BP检验，由Trevor Breusch和Adrian Pagan于1979 年提出，原理是对每个可能的$\sigma^2_i$进行方差分析（线性回归），构造如下辅助回归方程</p>$$
+\begin{align}\sigma^2_i=\alpha_0+\sum^{p}_{j=2}\alpha_jx_{ij}+\mu_i\end{align}
+$$<p>$\mu_i$的含义是不可或未观测项，通常包含了模型的随机误差$\varepsilon_i$，$\mu_i$可能与$x_{ij}$无关，也可能代表$\sigma^2_i$与$\{x_{ij}\}^p_{j=2}$间的非线性关系。</p><p>原假设$H_0$为$\forall i,\alpha_i=0$，检验原理是在原假设成立时</p>$$
+\begin{align}F=\frac{\frac{SSR}{p}}{\frac{SSE}{n-p-1}}=\frac{\frac{R^2_{\sigma^2}}{p}}{\frac{1-R_{\sigma^2_i}}{n-p-1}}\overset{L}{\sim}F(p,n-p-1)\end{align}
+$$<p>或由拉格朗日乘子等价地导出</p>$$
+\begin{align}LM=nR^2_{\sigma^2}\overset{L}{\sim}\chi^2(p-1)\end{align}
+$$<p>一般在不能拒绝原假设（$p$值较大）时，可以认为原回归模型满足“同方差”假设。</p><p>注意到如果拒绝原假设，则一定有“异方差”存在，但由于BP检验所假设的辅助模型是一次线性回归（特殊的线性回归，方差分析），这只能表明原模型必然不满足“同方差”假设，而不能说明$\sigma^2_i$与$\{x_{ij}\}^p_{j=2}$间一定存在某个线性关系。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-R data-lang=R><span style=display:flex><span><span style=color:#a6e22e>library</span>(lmtest)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>fit <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>lm</span>(hwy <span style=color:#f92672>~</span> displ <span style=color:#f92672>+</span> class, data <span style=color:#f92672>=</span> mpg)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>bptest</span>(fit)
+</span></span></code></pre></div><img src=/images/回归分析/BP检验结果.png alt=BP检验结果><p>譬如上图的结果，由于$p\mathrm{-}value=0.06185>0.05$，因此没有$95\%$的把握拒绝原假设，模型可能是满足“同方差”假设的。</p><h3 id=-3114-white检验>◆ 3.11.4 White检验</h3><p>White检验可以认为是“BP检验 Plus”，原理是对每个可能的$\sigma^2_i$进行二次回归并考虑交叉项（自由度过小的话我们常常去掉交叉项），构造如下辅助回归方程</p>$$
+\begin{align}\sigma^2_i=\alpha_0+\sum^{p}_{j=2}\gamma_jx_{ij}+\sum^{p}_{k=2}\lambda_kx^2_{ik}+\sum_{u\lt s v}\zeta_{u,v}x_{iu}x_{iv}+\mu_i\end{align}
+$$<p>原假设$H_0$为$\forall i,\ \ \alpha_i,\lambda_i,\zeta_i=0$，检验原理为在原假设成立时</p>$$
+\begin{align}w=nR^2_{\sigma^2}\overset{L}{\sim}\chi^2(2p+C^{p-1}_{2})\end{align}
+$$<p>一般在不能拒绝原假设（$p$值较大）时，可以认为原回归模型满足“同方差”假设。</p><p>注意到如果拒绝原假设，不能说明方差与自变量间一定具有二次关系，因为White检验假设的模型是二次回归，方差与自变量有可能是高次关系或其他非线性关系，这只能表明必然不满足同方差假设，这和BP检验相似。</p><h2 id=-312-cook距离与强影响点异常点>◆ 3.12 Cook距离与强影响点（异常点）</h2><p>强影响点：对模型回归结果有较大影响的样本点，如果不考虑该点会显著改变经验回归方程，即Cook距离较大的点。</p><img src=/images/回归分析/强影响点案例.png alt=强影响点案例 style=zoom:67%><p>Cook距离：记考虑全部的样本点进行回归，得到的参数的OLS为$\hat{\boldsymbol\beta}$，对某一样本点记为$x_i$，去掉该样本点考虑剩下的样本点进行回归，得到的参数的OLS为$\hat{\boldsymbol\beta}_{(i)}$，称$D_i$为$x_i$的Cook距离：</p>$$
+\begin{align}D_i=\frac{1}{p}\frac{\Vert\boldsymbol X\hat{\boldsymbol\beta}-\boldsymbol X\hat{\boldsymbol\beta}_{(i)}\Vert^2}{\hat{\sigma}^2}=\frac{(\hat{\boldsymbol\beta}-\hat{\boldsymbol\beta}_{(i)})^T\boldsymbol X^T\boldsymbol X(\hat{\boldsymbol\beta}-\hat{\boldsymbol\beta}_{(i)})}{p\hat{\sigma}^2}\end{align}
+$$<p><img src=/images/回归分析/强影响点的另一种解读.png alt=强影响点的另一种解读 style=zoom:50%></p><img src=/images/回归分析/强影响点一些判断方法.png alt=强影响点一些判断方法 style=zoom:50%><h2 id=-313-box-cox变换>◆ 3.13 Box-Cox变换</h2><p>只考察名词解释。</p><p>单参数的Box-Cox是对因变量的变换，定义为</p>$$
+Y^{(\lambda)}=\left\{
+\begin{aligned}
+&\frac{Y^\lambda-1}{\lambda},& &\lambda\neq0\\
+&\ln Y,& &\lambda=0
+\end{aligned}
+\right.
+$$<p>常用的Box-Cox变换有$\ln Y$、$\sqrt Y$与$\frac{1}{Y}$，注意Box-Cox变换直接作用于因变量。尤其是$\ln Y$时常被用到，这是因为如此操作，系数仍可以有良好的解释（见上文），也缩小了极端大值与较小值的差异。</p><p>对于右偏分布，取对数通常能让数据更加正态。</p><img src=/images/回归分析/box-cox.png alt=box-cox style=zoom:40%><p>双参数的Box-Cox变换为：</p>$$
+Y^{(\lambda_1,\lambda_2)}=\left\{
+\begin{aligned}
+&\frac{(Y+\lambda_2)^{\lambda_1}-1}{\lambda_1},& &\lambda_1\neq0\,Y>-\lambda_2\\
+&\ln(Y+\lambda_2),& &\lambda_1=0,\,Y>-\lambda_2
+\end{aligned}
+\right.
+$$<h2 id=-314-多重共线性>★★ 3.14 多重共线性</h2><p>如果存在多重共线性，可以直接删掉强线性相关的一些变量或采取后文逐步回归的方法，但这样做并不“优雅”；此时可以考虑一些线性降维手段，例如PCA，或是采用带有正则化项的回归算法，例如岭回归、Lasso回归甚至一些非线性方法等。</p><h3 id=-3141-多重共线性的名词解释>★★ 3.14.1 多重共线性的名词解释</h3><p>名词解释：多重共线性指模型自变量之间存在近似的线性关系，例如</p>$$
+\text{某产品销量}=\beta_0+\beta_1\text{市场满意度}+\beta_2\text{销售价格}+\beta_3\text{研发费用}+\beta_4\text{宣传费用}+\beta_5\text{总投入费用}+\varepsilon
+$$<p>在这个例子中，“研发费用”、“宣传费用”与“总投入费用”之间便可能存在较强的复共线性关系，严格成立</p>$$
+\text{总投入费用}=\alpha_0+\alpha_1\text{研发费用}+\alpha_2\text{宣传费用}+\varepsilon_\alpha
+$$<p>可能带来的影响有：</p><p> ① 设计矩阵$\boldsymbol X$不列满秩；</p><p> ② OLS的方差过大，参数的置信区间过大；</p><p> ③ 显著性检验（F检验、t检验）失去意义；</p><p> ④ 回归系数的平均长度远大于实际长度，并可能伴随符号与现实意义相背离；</p><p> ⑤ 结合以上几点，导致模型的预测失效。</p><p>其中第 ④ 点将在后文“特征根判别法”中作推导。</p><h3 id=3142-题外话最小二乘估计家族>3.14.2 题外话：最小二乘估计家族</h3><p>高斯-马尔可夫定理条件下OLS是最优无偏估计，但高斯-马尔可夫定理条件通常过强：</p><p>削减“同方差”我们可以从OLS导出WLS，再削减“不相关”我们可以从WLS导出GLS。</p><p>削减“解释变量的样本有波动，即没有自变量是常数，也没有自变量之间具有完全共线性”，可以导出岭估计、Lasso估计与Elastic Net回归等多种OLS的推广。</p><p>这样看来，数学家和统计学家在做的事就是基于已有的东西，想法设法让今天的“推广”变成明天条件更弱情况下的“特例”。</p><h3 id=-3143-特征根判别法>◆ 3.14.3 特征根判别法</h3><p>特征根判别法的推导过程对理解线性回归非常重要，甚至可以由此引出岭回归、Lasso回归。</p><p>首先假设设计矩阵$\boldsymbol{X}$列满秩，记$\boldsymbol X_{std}$为不含第一列且已标准化的设计矩阵，这时$\boldsymbol X_{std}^T\boldsymbol X_{std}$便是自变量的样本相关阵，由此可以看出两两自变量之间的线性关系；若要考察多个自变量间的线性关系，理论上“多个自变量间具有相关性”与“$\boldsymbol X_{std}^T\boldsymbol X_{std}$存在较小的特征值”等价。</p><p>设$\boldsymbol X_{std}^T\boldsymbol X_{std}$的特征值为$\lambda_1,\lambda_2,\cdots,\lambda_n>0$（$\boldsymbol X_{std}^T\boldsymbol X_{std}$是正定阵），记第$i$个特征值$\lambda_i$对应的特征向量为$\boldsymbol{\xi}_i$，如果存在一个接近于$0$的特征值$\lambda_k$，则</p>$$
+\begin{align}
+\lambda_k\approx0&\Leftrightarrow\boldsymbol X_{std}^T\boldsymbol X_{std}\boldsymbol{\xi}_k=\lambda_k\boldsymbol{\xi}_k\approx\boldsymbol0\\
+&\Leftrightarrow\big\Vert\boldsymbol X_{std}^T\boldsymbol X_{std}\boldsymbol{\xi}_k\big\Vert=\left\Vert\frac1{\Vert\boldsymbol{\xi}_k\Vert}\boldsymbol X_{std}^T\boldsymbol X_{std}\boldsymbol{\xi}_k\right\Vert=\lambda_k\approx0\\
+&\Leftrightarrow\Vert\boldsymbol X_{std}\boldsymbol{\xi}_k\Vert^2=\lambda_k\approx0\\
+&\Leftrightarrow\boldsymbol X_{std}\boldsymbol{\xi}_k\approx\boldsymbol0\\
+&\Leftrightarrow\sum^{p-1}_{j=1}\xi_{k_j}\boldsymbol{x}_j\approx\boldsymbol0
+\end{align}
+$$<p>由此可以导出，如果存在多重共线性，$\boldsymbol X_{std}$与$\boldsymbol X$表现出强烈的列相关。因此可以用最大特征值比最小特征值，即$\omega=\frac{\max \lambda}{\min\lambda}$来初步衡量共线性，经验上认为若$\omega<100$则认为存在一定的共线性，$\omega>1000$则认为共线性极强。</p><p>基于此，可以进一步说明为何多重共线性会导致OLS偏大，记$\hat{\boldsymbol{\beta}}_{std}$为标准化模型的OLS，也就是消除了量纲影响的OLS，又由于$\boldsymbol X_{std}^T\boldsymbol X_{std}$是正定矩阵，所以一定存在$p$维正交矩阵$\boldsymbol{P}$使得$\boldsymbol P^T\boldsymbol X_{std}^T\boldsymbol X_{std}\boldsymbol P=\mathrm{diag}(\lambda_1,\lambda_2,\cdots,\lambda_p)$，于是有</p>$$
+\begin{align}
+\mathbb{E}\Vert\hat{\boldsymbol{\beta}}_{std}\Vert^2&=\Vert\boldsymbol{\beta}_{std}\Vert^2+\mathrm{MSE}(\hat{\boldsymbol{\beta}}_{std})\\
+&=\Vert\boldsymbol{\beta}_{std}\Vert^2+\mathrm{tr}\big(\mathrm{Cov}(\hat{\boldsymbol{\beta}}_{std})\big)+0\\
+&=\Vert\boldsymbol{\beta}_{std}\Vert^2+\sigma^2\mathrm{tr}\big((\boldsymbol X_{std}^T\boldsymbol X_{std})^{-1}\big)\\
+&=\Vert\boldsymbol{\beta}_{std}\Vert^2+\sigma^2\mathrm{tr}\left[\boldsymbol{P}\left(\begin{matrix}\lambda_1&&&\\&\lambda_2&&\\&&&\ddots&\\&&&&\lambda_p\end{matrix}\right)\boldsymbol{P}^T\right]^{-1}\\
+&=\Vert\boldsymbol{\beta}_{std}\Vert^2+\sigma^2\mathrm{tr}\left[\left(\begin{matrix}\frac1{\lambda_1}&&&\\&\frac1{\lambda_2}&&\\&&&\ddots&\\&&&&\frac1{\lambda_p}\end{matrix}\right)\boldsymbol{P}\boldsymbol{P}^T\right]\\
+&=\underbrace{\Vert\boldsymbol{\beta}_{std}\Vert^2}_{real\ length}+\underbrace{\sigma^2\sum^p_{i=1}\frac1{\lambda_i}}_{deviation}
+\end{align}
+$$<p>由于存在多重共线性时$\lambda_k$较小，由上文的推导知此时$\mathbb{E}\Vert\hat{\boldsymbol{\beta}}_{std}\Vert$相距$\Vert\boldsymbol{\beta}_{std}\Vert$会有一个很大的偏差，这就是为什么多重共线性会导致估计值异常大。</p><h3 id=-3144-vif检验>◆ 3.14.4 VIF检验</h3><p>同样地，本文作为课程复习不做详细推导，在此只说明原理。</p><p>原理：将每个$X_j$对剩余的$p-2$个自变量建立回归模型</p>$$
+\begin{align}X_j=\alpha_0+\alpha_1X_1+\cdots+\alpha_{j-1}X_{j-1}+\alpha_{j+1}X_{j+1}+\cdots+\alpha_{p-1}X_{p-1}+\varepsilon_j\end{align}
+$$<p>使用OLS估计参数，记$X_j$作因变量回归模型的拟合优度为$R^2_j$，称${VIF}_j=\frac{1}{1-R^2_j}$为$X_j$的方差膨胀因子。</p><p>容易看出，如果$R^2_j$较大说明自变量间的线性关系的确存在，等价于$VIF$较大，因此经验上认为$VIF>5$则存在较强的复共线性；自变量较多时，认为$VIF>10$则存在较强的复共线性。</p><h2 id=315-逐步回归>3.15 逐步回归</h2><img src=/images/回归分析/逐步回归.jpg alt=逐步回归 style=zoom:35%><h2 id=-316-wls加权最小二乘估计>★★ 3.16 WLS（加权最小二乘估计）</h2><h3 id=-3161-一般的wls>★★ 3.16.1 一般的WLS</h3><p>称$\hat{\boldsymbol\beta}'=(\boldsymbol X^T\mathbf\Omega^{-1}\boldsymbol X)^{-1}\boldsymbol X^T\mathbf\Omega^{-1}\boldsymbol y$为WLS。作为OLS的一种改进，WLS是针对异方差情况而提出的，弱化了OLS要求同方差的条件。</p><p>注意，通常取WLS的权重矩阵$\boldsymbol W$为对角阵$\mathbf{\Omega}=\mathrm{diag}\big(\mathrm{Var}(\varepsilon_1),\mathrm{Var}(\varepsilon_2),\cdots,\mathrm{Var}(\varepsilon_n)\big)$的逆，这里对二者不加区分。</p><p>WLS通过加权损失函数$\mathcal{L}=\big\Vert\mathbf{\Omega}^{-\frac{1}{2}}(\boldsymbol y-\boldsymbol{X\beta})\big\Vert^2=(\boldsymbol{y}-\boldsymbol{X\beta})^T\mathbf{\Omega}^{-1}(\boldsymbol{y}-\boldsymbol{X\beta})$导出，其步骤与OLS的推导相同。</p><p>$\mathcal{L}$实质是经加权的RSS，可以等价地写作$\sum\limits^n_{i=1}\frac{1}{\sigma^2_i}(y_i-\hat y_i)^2=\sum\limits^n_{i=1}\frac{1}{\sigma^2_i}(y_i-\beta_0-\beta_1x_{i1}-\cdots-\beta_px_{i,p-1})^2$。</p><img src=/images/回归分析/FWLS.png alt=FWLS style=zoom:50%><h3 id=-3162-分组的wls>▲▲▲ 3.16.2 分组的WLS</h3><img src=/images/回归分析/分组WLS-1.png alt=分组WLS（1) style=zoom:50%>
+<img src=/images/回归分析/分组WLS-2.png alt=分组WLS（2) style=zoom:50%><h2 id=-317-gls广义最小二乘估计>◆ 3.17 GLS（广义最小二乘估计）</h2><p>只考察GLS性质的掌握。</p><p>此外还有FGLS，即“可行广义最小二乘估计”，可以参考：</p><ul><li><a href=https://www.mathworks.com/help/econ/fgls.html>mathworks: FGLS</a></li><li><a href=https://en.wikipedia.org/wiki/Generalized_least_squares>Wiki: Generalized_least_squares</a></li></ul><h3 id=3171-gls性质>3.17.1 GLS性质</h3><p>当$\mathbb{E}(\boldsymbol\varepsilon)=\boldsymbol0$、$\mathrm{Cov}(\boldsymbol\varepsilon)=\sigma^2\boldsymbol\Sigma$且$\hat{\boldsymbol\beta}^\ast$是模型$\boldsymbol y=\boldsymbol{X\beta}+\boldsymbol\varepsilon$的GLS，则</p><p>  (1). $\hat{\boldsymbol\beta}^\ast$是无偏估计，$\mathbb E(\hat{\boldsymbol\beta}^\ast)=\boldsymbol\beta$；</p><p>  (2). $\mathrm{Cov}(\hat{\boldsymbol\beta}^\ast)=\sigma^2(\boldsymbol X^T\boldsymbol\Sigma^{-1}\boldsymbol X)^{-1}$；</p><p>  (3). $\forall\boldsymbol c\in\mathbb{R}^p$，$\boldsymbol c^T\hat{\boldsymbol\beta}^\ast$是$\boldsymbol c^T\boldsymbol\beta$的BLUE.</p><p>记OLS为$\hat{\boldsymbol\beta}$，则任何情况下都有$\mathrm{Var}(\hat{\boldsymbol\beta}^\ast)\leqslant\mathrm{Var}(\hat{\boldsymbol\beta})$。</p><h3 id=3172-gls的导出>3.17.2 GLS的导出</h3><p>思路是将$\boldsymbol\Sigma$对角化再运用OLS。设$\mathrm{Cov}(\boldsymbol e)=\sigma^2\boldsymbol\Sigma$且$\boldsymbol\Sigma$正定并已知，记$\boldsymbol Z=\boldsymbol\Sigma^{-\frac{1}{2}}\boldsymbol y$，$\boldsymbol U=\boldsymbol\Sigma^{-\frac{1}{2}}\boldsymbol X$，$\boldsymbol\epsilon=\boldsymbol\Sigma^{-\frac{1}{2}}\boldsymbol\varepsilon$，则有</p>$$
+\left\{
+\begin{aligned}
+&\boldsymbol{Z} = \boldsymbol{U}\boldsymbol{\beta}_{\boldsymbol{Z}} + \boldsymbol{\epsilon} \\
+&\mathbb{E}(\boldsymbol{\epsilon}) = \boldsymbol{0} \\
+&\mathrm{Cov}(\boldsymbol{\epsilon}) = \sigma^{2}\boldsymbol{I}
+\end{aligned}
+\right.
+$$<p>因此可以得到OLS：$\hat{\boldsymbol{\beta}}_{\boldsymbol{Z}}$，对于模型$\boldsymbol{Z}=\boldsymbol{U}\boldsymbol{\beta}_{\boldsymbol{Z}}+\boldsymbol{\epsilon}$与模型参数$\boldsymbol{\beta}_{\boldsymbol{Z}}$，$\hat{\boldsymbol{\beta}}_{\boldsymbol{Z}}$具有高斯-马尔可夫定理条件下一切性质，再者</p>$$
+\begin{aligned}
+\hat{\boldsymbol{\beta}}^{\ast}=(\boldsymbol{U}^{T}\boldsymbol{U})^{-1}\boldsymbol{U}^{T}\boldsymbol{z}=(\boldsymbol{X}^{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{y}
+\end{aligned}
+$$<p>于是$\hat{\boldsymbol{\beta}}^{\ast}$对于模型$\boldsymbol{Y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}$与模型的参数$\boldsymbol{\beta}$也是无偏的，且$\mathrm{Cov}(\hat{\boldsymbol{\beta}}^{\ast})=\sigma^{2}(\boldsymbol{X}^{T}\boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1}$。</p><h2 id=-318-岭回归>★ 3.18 岭回归</h2><img src=/images/回归分析/岭估计的几何直观.png alt=岭估计的几何直观 style=zoom:50%><h3 id=3181-岭回归的性质>3.18.1 岭回归的性质</h3><p>岭回归由Hoerl和Kennard于1970年首次提出，考试可能考察岭估计的推导。</p><p>前文“特征根判别法”有推导到，在多重共线性的影响下OLS可能异常的大：</p>$$
+\mathbb{E}\Vert\hat{\boldsymbol{\beta}}_{std}\Vert^2=\Vert\boldsymbol{\beta}_{std}\Vert^2+\sigma^2\sum^p_{i=1}\frac1{\lambda_i}
+$$<p>因此岭估计的初衷就是限制估计的长度$\Vert\hat{\boldsymbol{\beta}}\Vert^2=\beta_1^2+\beta_2^2+\cdots+\beta_{p-1}^2$，这就是为什么说岭估计是带有$l^2$范数约束的最小二乘估计，因为岭估计通过在损失中加入$l^2$正则化来均衡取舍残差平方和的最小化与正常范围的估计长度；类似的Lasso回归采取了$l^1$正则化。实际上，在$l^1$正则化下通过优化算法得到的系数要比$l^2$正则化下得到的系数更为稀疏，这一点将在后文再作说明。下文给出的岭回归损失函数中，岭参数$k$就是长度的$\Vert\hat{\boldsymbol{\beta}}\Vert^2$的权重：$k$越大，$\Vert\hat{\boldsymbol{\beta}}\Vert^2$对损失贡献越大，对异常长度的惩罚越大，得到的岭估计与OLS的差值越大。</p><p>岭估计证明思路：从岭回归（Ridge Regression）模型出发，</p>$$
+\left\{
+\begin{aligned}
+&Y=\beta_0+\beta_1X_1+\cdots+\beta_{p-1}X_{p-1}+\varepsilon\\
+&\beta_1^2+\beta_2^2+\cdots+\beta_{p-1}^2\leqslant k
+\end{aligned}
+\right.
+$$<p>其广义拉格朗日函数为$\mathcal{L}= RSS+k\Vert\boldsymbol\beta\Vert^2=(\boldsymbol y-\boldsymbol{\beta X})^T(\boldsymbol y-\boldsymbol{\beta X})+k\boldsymbol\beta^T\boldsymbol\beta$（这就是他的损失函数），当$\boldsymbol X$可逆时令$\mathcal{L}$对$\boldsymbol\beta$偏导为$\boldsymbol{0}$，</p>$$
+\begin{align}
+\frac{\partial\mathcal{L}}{\partial\boldsymbol\beta}&=\frac{\partial}{\partial\boldsymbol\beta}\big(\boldsymbol y^T\boldsymbol y-2\boldsymbol y^T\boldsymbol{X\beta}+\boldsymbol\beta^T\boldsymbol X^T\boldsymbol{X\beta}+k\boldsymbol\beta^T\boldsymbol\beta\big)\\
+&=-2\boldsymbol X^T\boldsymbol y+2\boldsymbol X^T\boldsymbol X\boldsymbol{\beta}+2k\boldsymbol\beta\\
+&=\boldsymbol0
+\end{align}
+$$<p></p>$$
+\Rightarrow\hat{\boldsymbol\beta}=\arg\min\limits_{\boldsymbol{\beta}}\mathcal{L}=(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}\boldsymbol X^T\boldsymbol y
+$$<p>至多考察验证岭估计为何有偏。</p><p>证明思路：已知岭估计的解析解为$\hat{\boldsymbol\beta}(k)=(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}\boldsymbol X^T\boldsymbol y$，在高斯-马尔可夫定理中随机误差的“零均值”、“同方差”、“不相关”假设下有$\mathbb E(\boldsymbol y)=\boldsymbol{X\beta}$，则</p>$$
+\begin{align}
+\mathbb E\big(\hat{\boldsymbol\beta}(k)\big)&=\mathbb E\big((\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}\boldsymbol X^T\boldsymbol y\big)\\
+&=(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}\boldsymbol X^T\boldsymbol{X\beta}\end{align}
+$$<p>我们知道，任何一个可逆方阵的逆是唯一的，既然$\boldsymbol X^T\boldsymbol X$的逆是$(\boldsymbol X^T\boldsymbol X)^{-1}$，那么对于$\forall k\neq0$，一定有$(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}\neq(\boldsymbol X^T\boldsymbol X)^{-1}$，否则$\boldsymbol X^T\boldsymbol X+k\boldsymbol I=\boldsymbol X^T\boldsymbol X$。因此，$(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}$必然不是$\boldsymbol X^T\boldsymbol X$的逆，然而当且仅当$\boldsymbol X^T\boldsymbol X$左乘其逆$(\boldsymbol X^T\boldsymbol X)^{-1}$时结果为单位阵$\boldsymbol I$，也只有此时有</p>$$
+\begin{align}(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol{X\beta}=\boldsymbol{I\beta}=\boldsymbol\beta\end{align}
+$$<p>所以，对于任何非零的$\lambda$，必定有$\mathbb E\big(\hat{\boldsymbol\beta}(\lambda)\big)=(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}\boldsymbol X^T\boldsymbol{X\beta}\neq\boldsymbol\beta$成立，即：岭估计一定是有偏估计。</p><p>进一步地，有</p>$$
+\mathrm{Cov}\big(\hat{\boldsymbol\beta}(\lambda)\big)=\sigma^2(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}\boldsymbol X^T\boldsymbol X(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}
+$$<p>岭估计还有一些性质，读者可以自行证明：</p><ul><li>$\exists k>0$，使得岭估计的MSE小于OLS的MSE；</li><li>岭估计是一种压缩估计，$\forall k>0$，岭估计的长度均小于OLS的长度；</li></ul><hr><p>题外话：关于逆矩阵的唯一性，既可以说明$\boldsymbol A=\frac{1}{\det(\boldsymbol A)}\boldsymbol A^{\ast}$，容易知道$\det(\boldsymbol A)$、$\boldsymbol A^{\ast}$由$\boldsymbol A$唯一确定，也可以假设$\boldsymbol B$、$\boldsymbol C$都是$\boldsymbol A$的逆，必有$\boldsymbol B=\boldsymbol B(\boldsymbol A\boldsymbol C)=(\boldsymbol B\boldsymbol A)\boldsymbol C=\boldsymbol C$，这本应该是无需多言的。</p><h3 id=-3182-岭迹法>◆ 3.18.2 岭迹法</h3><p>只考察原理。</p><p>  (1). 检验是否存在复共线性；</p><p>  (2). 作岭图，对每个回归系数在$\lambda$尽可能小的前提下找到一个使得岭迹稳定的$\lambda$.</p><p>选择适合的$\lambda$的标准：</p><p>  1. 保证岭大体稳定，$\hat{\boldsymbol\beta}_i(\lambda)$不会随$\lambda$增大而显著变化，并且符号合理；</p><p>  2. 在保证1.的前提下尽量选取较小的$\lambda$.</p><img src=/images/回归分析/岭迹图.png alt=岭迹图 style=zoom:80%><h3 id=3183-确定岭参数其他方法>3.18.3 确定岭参数其他方法</h3><p>有没有一个通用的分析方法，使得我们总能确定岭估计的最适参数、找到那个最合适的$k$而使得岭估计最“优”呢？</p><p>事实上，直到今天，人们都没有找到一个通用的办法。岭迹法也只是一个经验法则。但除了岭迹法，统计学家还提出了一些其他的经验法则：</p><ul><li><p>Hoerl-Kennard公式</p><p>该公式于1970年被首次提出，设$\hat{\boldsymbol{\alpha}}$为标准化模型的最小二乘估计，提倡用$\displaystyle{\hat{k}=\frac{\hat{\sigma}^2}{\hat{\boldsymbol{\alpha}}^T\hat{\boldsymbol{\alpha}}}}$或$\displaystyle{\frac{\hat{\sigma}^2}{\max\limits_{0\lt j\lt p}\hat{\alpha}_j}}$作为$k$的参数值。</p></li><li><p>VIF法</p><p>由$\mathrm{Cov}\big(\hat{\boldsymbol\beta}(\lambda)\big)=\sigma^2(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}\boldsymbol X^T\boldsymbol X(\boldsymbol X^T\boldsymbol X+k\boldsymbol I)^{-1}=\sigma^2VIF$得出，$VIF_i$与$k$呈反比例关系，所以可以考虑选择一个合适$k$使得所有的$VIF$均小于某一可容忍的常数$j$。常用的经验数字譬如$j=10$。</p></li><li><p>双$h$公式</p></li></ul><h2 id=-319-lasso回归>★ 3.19 Lasso回归</h2><p>“岭估计与Lasso估计的关联和区别也是重点”</p><p>Lasso估计于1986年被首次提出，1996年Robert Tibshirani独立发现并推广了Lasso回归。</p>$$
+\left\{
+\begin{aligned}
+&Y=\beta_0+\beta_1X_1+\cdots+\beta_{p-1}X_{p-1}+\varepsilon\\
+&|\beta_1|+|\beta_2|+\cdots+|\beta_{p-1}|\leqslant \lambda
+\end{aligned}
+\right.
+$$<p>Lasso估计没有解析解，他也是一种压缩估计，损失函数为$\mathcal{L}=RSS+\lambda\Vert\boldsymbol\beta\Vert_1$，即$\sum\limits^n_{i=1}(y_i-\hat{y}_i)^2+\lambda\sum\limits^n_{i=1}|\beta_i|$。</p><img src=/images/回归分析/lasso.svg alt=lasso style=zoom:60%><p>$l^1$范数允许Lasso估计中某一系数为$0$，所以相较于岭估计他可以选择参数——回归系数更为稀疏。有关这一点的具体说明与推理，请参考本章的最后一个小节。</p><p>简单地讲，岭估计通过在OLS基础上添加了回归系数的$L^2$范数的约束来限制回归系数的平均长度，一定程度上缓轻了多重共线性使得估计平均长度偏大、符号与现实意义背离的问题；由于采用回归系数的$L^2$范数作约束，这仍是一个连续的凸函数，因此与OLS一样仍可用梯度下降法进行优化；</p><p>而Lasso估计通过在OLS基础上添加了回归系数的$L^1$范数的约束来限制回归系数的平均长度，与岭估计一样减轻了多重共线性带来的糟糕影响，此外由于$L^1$范数的特点，使得Lasso回归还具有变量选择的功能；不过$L^1$范数的解析性质较差，梯度下降法不再适用，可以另行考虑坐标下降法、最小角回归等方法优化求解。</p><p>Elastic Net回归综合使用了岭回归的$l^2$正则化与Lasso回归的$l^1$正则化。</p><h2 id=-320-pcr主成分回归>◆ 3.20 PCR（主成分回归）</h2><p>只考察名词解释。</p><img src=/images/回归分析/PCR-1.png alt=PCR-1 style=zoom:50%>
+<img src=/images/回归分析/PCR-2.png alt=PCR-2 style=zoom:50%>
+<img src=/images/回归分析/PCR-3.png alt=PCR-3 style=zoom:50%><h2 id=321线性回归的james-stein估计>3.21线性回归的James-Stein估计</h2><p>参考另一篇文章：<a href="/2023/04/26/images/The James-Stein Estimator/#more">the James-Stein Estimator</a>。</p><h2 id=322-bayes观点下的线性回归>3.22 Bayes观点下的线性回归</h2><p>在这里我就只做介绍了，这是个非常有趣的观点。但是如果让我做科普性介绍，我仍然会从多重共线性与结构风险、经验风险和正则化惩罚的观点来做解释。</p><ol><li>普通线性回归可以通过正态分布及MLE解释（原因与推导在文中有所提及）；</li><li>岭回归可以通过正态分布及MAP（最大后验估计）解释，直接推导即可；</li><li>Lasso回归可以通过Laplace分布及MAP解释.</li></ol><p>对于2.、3.在此我就不推导了，直接贴知乎上的回答：</p><table><tr><td><img src=/images/回归分析/Ridge.jpg alt=Ridge style=zoom:35%></td><td><img src=/images/回归分析/LASSO.jpg alt=LASSO style=zoom:35%></td></tr></table>## 3.23 Bayes观点下的正则化<p>请移步至视频：<a href=https://www.bilibili.com/video/BV1BBBwYuEqm>L1正则化为什么具有稀疏功能？</a>。这部分想要形象地说明的话，仅依靠图文还不够充分，而这部视频则弥补了这一点，因此直接参考这部视频即可。</p><p>这一视频的前一半形象地讲解了为何$l^1$正则化较之$l^2$对参数的选择更为稀疏，后一半则在Bayest统计的框架下进行了公式的推导，诠释得非常棒。</p><h1 id=第四章计量经济学初究>第四章：计量经济学初究</h1><h2 id=41-面板数据>4.1 面板数据</h2><p>何谓面板数据（panel data）？面板数据是指不同对象在不同时间上的指标数据，在计量经济学和实际生活中广泛存在，与时间序列对立却又互相有着千丝万缕的联系。粗糙地说，面板数据是截面数据的时间序列。把全部数据想象一个面包，面包的长度想象成时间，在面包任意一处切下一片薄片，不同的薄片上的有着一组相同属性的信息，薄片上的纹理孔洞就是一组数据，研究面板数据就是在研究每片面包片上不同的纹理孔洞的关系。</p><p>通常，面板数据有如下优点：</p><ul><li>有助于解决遗漏变量的问题：一般来说，遗漏变量是由个体的差异造成的，若这种差异并不随时间变化而变化，则面板数据是解决此问题的一大利器；</li><li>提供更多个体动态行为的信息；</li><li>样本容量较大.</li></ul><p>然而，面板数据也有一定的缺点：</p><ul><li>往往同一个个体不同时刻的扰动自相关；</li><li>数据获取难度相对较大.</li></ul><h2 id=42-工具变量工具变量估计法>4.2 工具变量（工具变量估计法）</h2><p>当有变量与模型中随机解释变量高度相关、互为因果（内生），但却不与随机误差项相关，那么就可以用此变量的估计替代模型中内生变量得到一个一致估计量，这个变量就称为工具变量（IV），这种方法就叫工具变量法。换句话说，当感兴趣的的解释变量与误差项相关、互为因果，就会使用工具变量代替内生变量。</p><p>面对内生自变量，OLS会产生有偏且不相合的估计值。但是如果有可用的工具变量，则仍然可以获得相合估计。工具变量本身不属于解释方程，但与内生解释变量相关，条件是其他协变量的值。</p><img src=/images/回归分析/IV.png alt=IV><p>作为工具变量，要求只能通过工具变量影响被替代变量，必须满足：</p><ul><li><strong>与所替的内生解释变量高度相关</strong>；</li><li><strong>与随机误差项不相关</strong>；</li><li>与模型中其他解释变量不相关；</li><li>同一模型中需要引入多个工具变量时，这些工具变量之间不相关.</li></ul><p>工具变量的外生性检验可以考虑Sargan检验与Basmann检验。此外，还可用不可识别检验或通过偏$R^2$判断，关于偏相关的理论可以参考<a href="https://zhuanlan.zhihu.com/p/489560322?utm_id=0">半偏相关、偏相关、R方该变量及偏R方的关系</a>。</p><p>下文将提到的2SLS就是一种工具变量法。</p><p>在这里通过一个例子，来说明工具变量法估计的用法：对一阶需求方程，有$q_t=\alpha+\beta p_t+u_t$，等式两变同时对工具变量$z_t$求协方差，有</p>$$
+\mathrm{Cov}(q_t,z_t)=\beta\mathrm{Cov}(p_t,z_t)\ \Rightarrow\ \beta=\frac{\mathrm{Cov}(q_t,z_t)}{\mathrm{Cov}(p_t,z_t)}
+$$<p>故而有</p>$$
+\hat{\beta}_{IV}=\frac{\mathrm{Cov}(q_t,z_t)}{\mathrm{Cov}(p_t,z_t)}=\frac{\sum(q_t-\bar{q})(z_t-\bar{z})}{\sum(p_t-\bar{p})(z_t-\bar{z})}\overset{p}{\to}\beta
+$$<p>欲检验工具变量是否具有外生性，可以考虑过度识别检验，这需要用后文提到的2SLS，所以在2SLS的部分再做讲解。</p><p>最后的问题是，如何找到工具变量呢？</p><p>  1 step: 列出尽可能多的与内生自变量相关的变量；</p><p>  2 step: 剔除上一步找得的变量中与扰动项相关的.</p><p>通常来说，可以从以下角度出发寻找第一步中的变量：</p><ul><li>内生变量的滞后项；</li><li>自然因素；</li><li>历史因素；</li><li>生理因素；</li><li>外生性政策冲击.</li></ul><h2 id=43-遗漏变量>4.3 遗漏变量</h2><p>存在遗漏变量，且该变量与解释变量不相关，则不影响OLS的相合性；但若该变量与解释变量相关，则此时OLS不再相合。</p><p>解决办法：</p><ul><li>加入尽可能多的控制变量；</li><li>代理变量法；</li><li>随机实验、自然实验；</li><li>工具变量法；</li><li>使用面板数据.</li></ul><p>在这里，需要对比一下核心变量与控制变量。之所以加入控制变量，是为了控制住那些对被解释变量有影响的遗漏变量；即使显著性极强也不能就此做出因果关系的判断。</p><p>作为代理变量，必须满足：</p><ul><li>多余性：仅通过遗漏变量作用于因变量；</li><li>剩余独立性：遗漏变量中不受代理变量影响的部分，应当与因变量独立.</li></ul><h2 id=44-内生性问题与2sls二阶段最小二乘法>4.4 内生性问题与2SLS（二阶段最小二乘法）</h2><p>内生性（endogeneity）问题指模型中存在与误差项（或者说因变量）有相关关系的解释变量，导致高斯-马尔可夫定理假设中的外生性条件得不到满足。个人认为，内生性问题比多重共线性问题更严重、更难处理，也更负面，其中后者是自变量之间具有相关关系。在这里暂不考虑异方差下的内生性问题。</p><p>内生性会破坏估计的相合性，除了由自变量测量误差所引起（因变量的测量误差不会导致内生性问题），理论上通常还有以下原因：</p><ul><li><p>内生性问题 1：自相关性会导致内生性，自相关性检验可考虑的有BG检验、Box-Pierce检验、LM检验与DW检验；</p></li><li><p>内生性问题 2：若遗漏变量与解释变量相关，则此时OLS不再相合。对变量的筛选可以考虑逐步回归，在R语言中可以通过下述代码分别在AIC与BIC准则下实现逐步回归：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-R data-lang=R><span style=display:flex><span><span style=color:#75715e># dataset &#34;df&#34;</span>
+</span></span><span style=display:flex><span>model <span style=color:#f92672>=</span> <span style=color:#a6e22e>lm</span>(Y<span style=color:#f92672>~</span>., data<span style=color:#f92672>=</span>df)
+</span></span><span style=display:flex><span>model_AIC <span style=color:#f92672>=</span> <span style=color:#a6e22e>step</span>(model, trace<span style=color:#f92672>=</span>F)
+</span></span><span style=display:flex><span>model_BIC <span style=color:#f92672>=</span> <span style=color:#a6e22e>step</span>(model, trace<span style=color:#f92672>=</span>F, k<span style=color:#f92672>=</span><span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>nrow</span>(df)))
+</span></span></code></pre></div></li><li><p>内生性问题 3：若自变量与因变量存在双向影响问题，即互为因果。可以考虑<strong>二阶段最小二乘法（2SLS）</strong>，不过这需要一定的样本量。该方法步骤为：预估或采取分析方法判断出内生变量后，第一阶段取$k$个工具变量与外生变量，记为$\{\boldsymbol{z}_i\}^k_{i=1}$，将他们作为自变量、将内生变量作为因变量进行线性回归得到OLS，即对于内生变量列$\{\boldsymbol{x}_1,\boldsymbol{x}_2,\cdots,\boldsymbol{x}_j\}$得到其估计列$\{\hat{\boldsymbol{x}}_1,\hat{\boldsymbol{x}}_2,\cdots,\hat{\boldsymbol{x}}_j\}$，其中$\hat{\boldsymbol{x}}_i=(\boldsymbol Z^T\boldsymbol Z)^{-1}\boldsymbol Z^T\boldsymbol x_i$；第二阶段，用内生变量的估计替代内生变量，再对因变量进行线性回归得到OLS，有$\hat{\boldsymbol{\beta}}_{IV}=(\widehat{\boldsymbol X}^T\widehat{\boldsymbol X})^{-1}\boldsymbol X^T\boldsymbol y$。应注意，该方法需要满足阶条件：工具变量与外生变量数目不得少于内生变量数（即2SLS要求不能不可识别，且同方差；若异方差，则考虑GMM），换句话说，不能不可识别。</p><p>如果模型满足同方差条件时且恰好识别，则广义矩估计（GMM）等价于2SLS。</p><p>另外，满足阶条件时，2SLS产生的IV估计是相合的。</p></li></ul><p>利用2SLS，可以进行过度识别检验，这是一种检验工具变量是否具有外生性的方法。原假设为所有的工具变量都外生，对模型</p>$$
+\begin{aligned}
+y=\beta_0+
+\underbrace{\beta_1 x_1+\cdots+\beta_{(p-1)-k}}_{\text{外生}} & +\underbrace{\cdots+\beta_{p-1}x_{p-1}}_{\text{内生}}+\varepsilon
+\end{aligned}
+$$<p>利用2SLS的残差$\varepsilon_{IV}$考察工具变量与扰动项的相关性</p>$$
+\varepsilon_{IV}=r_0+r_1x_1\cdots+r_{(p-1)-k}x_{(p-1)-k}+\delta_1z_1+\cdots+\delta_m z_m+error
+$$<p>$H_0$等价于$\delta_1=\delta_2=\cdots=\delta_m=0$，在$H_0$成立的条件下有$nR^2\overset{d}{\to}\chi^2(m-r)$。</p><p>关于过度识别检验更形象、更具象的例子，可以参考：<a href="https://www.zhihu.com/question/50079920?utm_id=0#">如何理解计量经济学中的「检验过度识别约束」？</a>。</p><p>检验解释变量是否存在内生性可以考虑Hausman检验与DWH检验。Hausman检验的原假设为所有的自变量均外生，记OLS为$\hat{\boldsymbol{\beta}}_{OLS}$、2SLS中工具变量的估计为$\hat{\boldsymbol{\beta}}_{IV}$，令$\boldsymbol{D}=\widehat{\mathrm{Cov}(\hat{\boldsymbol{\beta}}_{IV}-\hat{\boldsymbol{\beta}}_{OLS})}$，用$\boldsymbol{D}^-$表示$\boldsymbol{D}$的广义逆矩阵，则在原假设成立的条件下应有$(\hat{\boldsymbol{\beta}}_{IV}-\hat{\boldsymbol{\beta}}_{OLS})^T\boldsymbol{D}^-(\hat{\boldsymbol{\beta}}_{IV}-\hat{\boldsymbol{\beta}}_{OLS})\overset{d}{\to}\chi^2(p-1)$，其中$p-1$为内生自变量数量。其中$\boldsymbol{D}$的求法不适用于异方差的情况，异方差时可以考虑用Bootstrap方法求$\boldsymbol{D}$。</p><p>DWH检验可以应对异方差情况，所以较之Hausman检验更稳健：所以如果异方差便很少考虑继续使用Hausman检验了。这里便不赘述DWH检验的原理了。</p><h2 id=45-异方差时的内生性问题与gmm广义矩估计>4.5 异方差时的内生性问题与GMM（广义矩估计）</h2><p>首先，何谓广义矩估计？不严谨地说，GMM是矩估计与WLS的结合体。首先，矩估计的相合性是由大数律保证的，当样本量足够大，样本距与总体矩间的差为一个无穷小量。通过某些阶的矩，可以得到矩估计——这其实是Glivenko定理所保证的，实质上是经验分布函数的功劳（但不保证无偏）。</p><p>GMM的想法是自然的，例如，对于正态分布，总体均值就是一阶原点矩、总体方差就是二阶中心矩，自然地想到用样本一阶原点矩与二阶中心矩作为他们的点估计。不过，正态分布有无穷阶矩，而且都是可计算的，那可不可以用更多的矩进行估计呢？当然可以，这就是GMM的思想。譬如同样地估计一元正态分布均值与方差，对一阶矩（考虑均值）有$\mu=\mathbb{E}(X)$，对二阶矩（考虑方差）有$\sigma^2=\mathbb{E}X^2-\mu^2$，对三阶矩有$\mathbb{E}\big[(X-\mu)\big]^3=\mathbb{E}(X^3)-3\mu\mathbb{E}(X^2)+3\mu^2\mathbb{E}(X)-\mu^3$，取将其联立为向量函数</p>$$
+\boldsymbol{g}\big(x_i,\boldsymbol{\theta}=\{\mu,\sigma^2\}\big)=\big[x_i-\mu,\ x^2_i-\mu^2-\sigma^2,\ x^3_i-\mu^3-3\mu\sigma^2\big]^T
+$$<p>易见$\mathbb{E}\big[\boldsymbol{g}(x_i,\boldsymbol{\theta})\big]=\boldsymbol0$，用样本矩代替总体矩，得到$\boldsymbol{g}(x_i,\hat{\boldsymbol{\theta}})$，再综合考虑各个样本，解方程$\boldsymbol{g}(\boldsymbol{X},\hat{\boldsymbol{\theta}})=\frac{1}{n}\sum\limits^n_{i=1}\boldsymbol{g}(x_i,\hat{\boldsymbol{\theta}})=\boldsymbol0$即可。注意此时这里有三个方程，但只有两个未知数，由于样本总是有限的、不理想的，故不能保证方程组一定有解，于是效仿加权最小二乘法，构造加权损失函数，把使得损失函数最小的参数作为估计，这便是GMM：</p>$$
+\hat{\boldsymbol{\theta}}_{\text{GMM}} = \arg\min\limits_{\boldsymbol{\theta}} \big[\boldsymbol{g}(\boldsymbol{X},\hat{\boldsymbol{\theta}})\big]^{T}\boldsymbol{W}\boldsymbol{g}(\boldsymbol{X},\hat{\boldsymbol{\theta}})
+$$<p>其中权重矩阵$\boldsymbol{W}$应是一个正定矩阵，可证明最佳权重应该是$\Big[\mathbb{E}\big(\boldsymbol{g}(\boldsymbol{X},\hat{\boldsymbol{\theta}})\boldsymbol{g}(\boldsymbol{X},\hat{\boldsymbol{\theta}})^T\big)\Big]^{-1}$。当方程组只取前两个方差、权重矩阵取$\boldsymbol{I}$，得到的正是普通矩估计。</p><p>关于GMM更形象、更具象的观点，可参考：<a href=https://www.zhihu.com/question/41312883/answer/91484566>如何用简单的例子解释什么是 Generalized Method of Moments (GMM)？</a>。</p><p>下面主要讨论在<strong>工具变量法</strong>中GMM的运用。广义矩估计作为矩估计的推广，可以有效的在<strong>异方差与过度识别</strong>情况下解决工具变量的问题。如果同方差且恰好识别或过度识别，则GMM等价于2SLS。</p><p>为什么在工具变量的估计问题中需要GMM方法？这是因为应用普通矩估计的话，通过矩条件$\mathbb{E}(\varepsilon_iz_i)=\mathbb{E}\big[(y_i-x_i\boldsymbol{\beta})z_i\big]=0$得到的方程$\frac{1}{n}\sum(y_i-x_i\boldsymbol{\beta})z_i=0$在不可识别时有无穷个解，恰好识别时具有唯一解，而当过度识别时无解，因此要解决过度识别的问题，就会考虑GMM——原方程组的限制太强了，导致了无解。通过构造统计量（损失）$n\hat{g}_n(\boldsymbol\beta)^T\boldsymbol{W}\hat{g}_n(\boldsymbol\beta)$，得到GMM。</p><p>GMM需要一些前提条件才能使用，</p><ul><li>线性假定；</li><li>记$\boldsymbol{z}_i$为$k$维的工具变量，$\boldsymbol{w}_i=\{\boldsymbol{y}_i,\boldsymbol{x}_i,\boldsymbol{z}_i\}$由不重复的变量组成，则$\{\boldsymbol{w}_i\}$应渐近独立；</li><li>工具变量$\boldsymbol{z}_i$与同期的扰动项相互正交；</li><li>秩条件：$\forall i,\ \ \boldsymbol{\Sigma}_{\boldsymbol{ZX}_i}=\mathbb{E}(\boldsymbol{z}_i\boldsymbol{x}^T_i)$列满秩；</li><li>$\forall i$，令$\boldsymbol{g}_i=\varepsilon_i\cdot\boldsymbol{z}_i$，则$\{\boldsymbol{g}_i\}$是鞍差分序列（即与过去的所有变量的条件期望为零），且$\mathbb{E}[\boldsymbol{g}_i\boldsymbol{g}_i^T]$非退化；</li><li>$\mathbb{E}[x_{ik}z_i]^2$存在.</li></ul><h2 id=46-大样本下ols的性质>4.6 大样本下OLS的性质</h2><p>大样本下OLS有一些特别的、很好的性质，且条件较为宽松。若满足下述大样本OLS假定：</p><ul><li>线性假定；</li><li>$k+1$维的随机过程$\{y_i,x_{i1},x_{i2},\cdots,x_{ik}\}$为渐进独立的严平稳过程；</li><li>前定解释变量：$\forall i,k$, $\ \ \mathbb{E}(x_{ik}\varepsilon_i)\Rightarrow \mathrm{Cov}(x_{il},\varepsilon_i)\ \ when\ \ \mathbb{E}(\varepsilon_i|X_i)=0$；</li><li>秩条件：设计矩阵$\boldsymbol X$列满秩；</li><li>$\forall i$，令$\boldsymbol{g}_i=\varepsilon_i\cdot\boldsymbol{x}_i$，则$\{\boldsymbol{g}_i\}$是鞍差分序列（即与过去的所有变量的条件期望为零），且$\mathbb{E}[\boldsymbol{g}_i\boldsymbol{g}_i^T]$非退化.</li></ul><center>· 注意，最后一个条件中$\boldsymbol{x}_i$是设计矩阵$\boldsymbol{X}$的一个列<b>向量</b>。</center><p>则有</p><p>  1). 一致估计（弱相合估计）：估计是依概率收敛的，$\hat{\boldsymbol{\beta}}\overset{P}{\to}\boldsymbol{\beta}$；</p><p>  2). 渐进正态性：$\ln(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})\overset{P}{\to}N_p\big(\boldsymbol0,\mathrm{Cov}(\hat{\boldsymbol{\beta}})\big)$；</p><p>  3). $\mathrm{Var}(\hat{\boldsymbol{\beta}}|\boldsymbol{X})=(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T$；</p><p>  4). $\widehat{\mathrm{Var}(\boldsymbol{\varepsilon}|\boldsymbol{X})}\overset{P}{\to}\mathrm{Var}(\hat{\boldsymbol{\beta}}|\boldsymbol{X})$.</p><p>此时$\widehat{\mathrm{Var}(\boldsymbol{\varepsilon}|\boldsymbol{X})}$即White稳健标准误，</p>$$
+\widehat{\mathrm{Var}(\boldsymbol{\varepsilon}|\boldsymbol{X})}=\frac{n}{n-(p-1)}\cdot\left(\begin{matrix}\sigma_1^2&&&\\&\sigma_2^2&&\\&&\ddots&\\&&&\sigma_n^2\\\end{matrix}\right)
+$$<h2 id=47-三种渐进等价的大样本检验wald检验lr检验与lm检验>4.7 三种渐进等价的大样本检验：Wald检验、LR检验与LM检验</h2><p>三种检验都是用以检验约束是否显著的，Engel证明在大样本下三者渐进等价。LR检验的中文译名即大名鼎鼎的似然比检验，LM检验常被译为拉格朗日乘子检验。他们的原假设都是约束成立，备择假设为约束不成立；与此同时，三者的检验统计量的渐进分布都为$\chi^2(J)$，其中$J$为维数的个数，或者说约束函数$f$的维数。</p><p>说到这里，不得不提提三种检验与F检验的异同，F检验是针对线性约束（最常见的用法是检验系数是否显著为零）且扰动项必须独立同分布于正态分布条件进行的，如果要检验模型是非线性约束的，或者随机扰动不满足正态分布，F检验便失效了，这时应当考虑这一系列大样本检验方法。</p><p>三种检验计算的复杂度相差可能是较大的，一般LR检验最繁琐，Wald检验次之，LM检验最易计算。</p><h3 id=471-wald检验>4.7.1 Wald检验</h3><p>Wald检验代表着一种区别于似然比检验与Rao得分检验的思路。Wald检验会直接检验约束模型回归系数的MLE与原假设模型（无约束模型）的差异。</p><p>当样本独立同分布且$0\neq\mathbb{E}(x_ix^T_i)<\infty$，假设有线性约束$\boldsymbol{R}\hat{\boldsymbol{\beta}}=\boldsymbol{q}$，则Wald检验的统计量$\boldsymbol{W}$有</p>$$
+\boldsymbol{W}=(\boldsymbol{R}\hat{\boldsymbol{\beta}}-\boldsymbol{q})^T\big[\boldsymbol{R}\boldsymbol{s}^2(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{R}^T\big]^{-1}(\boldsymbol{R}\hat{\boldsymbol{\beta}}-\boldsymbol{q})
+$$<p>其中$\boldsymbol{s}^2$是对残差（协）方差的估计，$\boldsymbol{W}$可以被看作$\sqrt{n}(\boldsymbol{R}\hat{\boldsymbol{\beta}}-\boldsymbol{q})$的二次型，某种意义上，可以讲这样操作目的是标准化。根据$\sqrt{n}(\boldsymbol{R}\hat{\boldsymbol{\beta}}-\boldsymbol{q})$的渐进正态性，$\boldsymbol{W}$应当渐进服从$\chi^2(J)$，其中$J$是约束的个数。</p><p>更一般地，对满足条件的非线性约束，原假设为$f(\boldsymbol{\beta})=\boldsymbol{0}$，首先计算出$\mathrm{Cov}(\boldsymbol{\beta})$，接着利用the Delta method（见附录与另一篇文章：<a href=/2023/03/11/重要统计学定理的证明/#more>重要统计学定理的证明</a>）计算$\mathrm{Cov}\big[f(\boldsymbol{\beta})\big]$，于是$\boldsymbol{W}$统计量可以被构造：</p>$$
+\boldsymbol{W}=f(\boldsymbol{\beta})^T\Big[\mathrm{Cov}\big[f(\boldsymbol{\beta})\big]\Big]^{-1}f(\boldsymbol{\beta})\overset{L}{\to}\chi^2(J)
+$$<p>其中$J$是约束的个数、$f$的维数。</p><h3 id=472-lr检验>4.7.2 LR检验</h3><p>似然比检验（likelihood ratio test）通过似然比统计量进行假设检验。与更广泛的、数理统计中的似然比检验一样，其思想是如果原假设成立，显然假设模型与真实模型的似然应该相近，似然比$\Lambda$应该接近$1$，则服从$\chi^2(J)$分布的$-2\ln\Lambda$接近$0$，若偏离$0$，则应该拒绝原假设。</p><h3 id=473-lm检验>4.7.3 LM检验</h3><p>拉格朗日乘子检验（Lagrange multiplier (score) test）通过估计约束模型与辅助回归模型，这让约束后模型形式变得简单的情况下，LM检验更方便计算。在线性回归中，LM检验通常还会建立一个辅助回归模型来计算LM检验统计量的值。</p><ul><li><p>首选确定LM辅助回归式的因变量。用OLS法估计问题的约束模型，得到残差，将残差作为LM辅助回归的因变量；</p></li><li><p>其次确定LM辅助回归式的自变量，并建立辅助回归模型。将约束模型中的线性式中残差与因变量对调，即写成$\varepsilon_i=y_i-\beta_0-\cdots$的形式，再对回归系数进行最小二乘估计，得到辅助模型的拟合优度$R^2$；</p></li><li><p>得到LM检验统计量$LM=nR^2$，在原假设成立的情况下，记$J$为约束的个数，有</p>$$
+LM=nR^2\overset{L}{\to}\chi^2(J)
+$$</li></ul><p>这部分内容都可以参考<a href=https://www.jianshu.com/p/558a0c5491a8/>高级计量经济学 13：最大似然估计(下)</a>，涉及高级计量经济学，但介绍与证明都较为详细。</p><h2 id=48-关于计量经济学>4.8 关于计量经济学</h2><p>计量经济学里，关于线性回归还有很多内容，例如随机效应模型、差分法与混合模型等，限于篇幅，更是限于能力，没法一一剖析。本文关于中级计量经济学的内容只能介绍到这里，即使连冰山一角都算不上，也算记录了一点我的所思所想。</p><center>深刻感受到，最“简单”的模型线性回归，根本没那么“简单”！</center><h1 id=附录-mse均方误差>附录：★★ MSE（均方误差）</h1><p>设$\hat{\boldsymbol\theta}$是$\boldsymbol\theta$的估计（不一定无偏），则</p>$$
+\begin{align}\mathrm{MSE}(\hat{\boldsymbol\theta})=\mathbb E\Vert\hat{\boldsymbol\theta}-\boldsymbol\theta\Vert^2\end{align}
+$$<p>容易知道，当$\hat{\boldsymbol\theta}$是$\boldsymbol\theta$的无偏估计、即$\mathbb E(\hat{\boldsymbol\theta})=\boldsymbol\theta$时，$\mathrm{MSE}(\hat{\boldsymbol\theta})=\mathbb E\big\Vert\hat{\boldsymbol\theta}-\mathbb E(\hat{\boldsymbol\theta})\big\Vert^2=\mathbb{E}\big[\big(\hat{\boldsymbol{\theta}}-\mathbb E(\hat{\boldsymbol\theta})\big)^T\big(\hat{\boldsymbol{\theta}}-\mathbb E(\hat{\boldsymbol\theta})\big)\big]=\mathrm D(\hat{\boldsymbol\theta})$；</p><p>此外，有</p>$$
+\begin{align}\mathrm{MSE}(\hat{\boldsymbol\theta})&=\mathbb E\Vert\hat{\boldsymbol\theta}-\boldsymbol\theta\Vert^2\\&=\mathrm{tr}\big(\mathrm{Cov}(\hat{\boldsymbol\theta})\big)+\Vert\mathbb E\hat{\boldsymbol\theta}-\hat{\boldsymbol\theta}\Vert^2\\&=\sum^k_{i=1}\mathrm{Var}(\hat{\boldsymbol\theta}_i)+\sum^k_{i=1}(\mathbb E\hat{\boldsymbol\theta}-\hat{\boldsymbol\theta})^2\end{align}
+$$<p>于是，MSE综合了方差与偏差（实质上是直接取方差和与偏差平方和的整体和），同时考虑了无偏性与有效性的水平，是一种不错的衡量估计“好坏”的准则。可以认为，MSE是无偏估计有效性的推广，在MSE的准则下可以进行有偏估计与无偏估计“好坏”的比较。</p><p>其实MSE被广泛运用还有一定的历史原因，早期统计学发展时由于MSE具有光滑、易计算等良好的性质，因此常常被统计学家用来比较估计，后世沿用了这个方法；但这不能说明MSE准则普遍比其他准则更佳。</p><h1 id=附录渐进理论the-delta-method>附录：渐进理论：the Delta method</h1><p>the Delta method可以将渐进分布的随机变量$a$转化为随机变量$b$，从而求$b$的样本均值、样本矩函数与协方差等等。</p><p>如果$\sqrt{n}(\boldsymbol{X}_n-\boldsymbol{\theta})\overset{L}{\to}N(\boldsymbol{0},\boldsymbol{\Sigma})$且$g(X_n)$在$\theta$处连续，则有</p>$$
+\sqrt{n}\big[g(\boldsymbol{X}_n)-g(\boldsymbol{\theta})\big]\overset{L}{\to}N\left(\boldsymbol{0},\nabla g(\boldsymbol{\theta})^T\boldsymbol{\Sigma}\nabla g(\boldsymbol{\theta})\right)
+$$<p>用一阶泰勒公式证明。</p><h1 id=附录多元统计分析部分理论的证明>附录：多元统计分析部分理论的证明</h1><p>研究统计学，首先一定要具备充分的线性代数能力；作为工具书、课程复习总结，太过基础的内容恕不记叙。</p><h2 id=矩阵行列式引理>矩阵行列式引理</h2><p>矩阵行列式引理（Matrix determinant lemma）：设$\boldsymbol A$是可逆方阵，$\boldsymbol a$、$\boldsymbol b$是列向量，则：</p>$$
+\begin{align}\det(\boldsymbol A+\boldsymbol{ab}^T)=(1+\boldsymbol{b}^T\boldsymbol{Aa})\cdot\det(\boldsymbol A)\end{align}
+$$<h2 id=weinsteinaronszajn恒等式>Weinstein–Aronszajn恒等式</h2><p>设$\boldsymbol A$是$n\times m$矩阵、$\boldsymbol B$是$m\times n$矩阵（$m$与$n$可以是无穷），则：</p>$$
+\begin{align}\det(\boldsymbol I_n+\boldsymbol{AB})=\det(\boldsymbol I_m+\boldsymbol{BA})\end{align}
+$$<p>利用矩阵行列式引理证明。</p><h2 id=矩阵求逆引理>矩阵求逆引理</h2><p>设$\boldsymbol A$是$n\times n$可逆方阵、$\boldsymbol C$是$m\times m$可逆方阵、$\boldsymbol U$是$n\times m$方阵、$\boldsymbol V$是$m\times n$方阵，则：</p>$$
+\begin{align}(\boldsymbol A+\boldsymbol{UCV})^{-1}=\boldsymbol A^{-1}-\boldsymbol A^{-1}\boldsymbol U(\boldsymbol C^{-1}+\boldsymbol V\boldsymbol A^{-1}\boldsymbol U)\boldsymbol V\boldsymbol A^{-1}\end{align}
+$$<p>结论可以推广到一般的环中。</p><h2 id=分块矩阵的逆>分块矩阵的逆</h2><p>设$\boldsymbol A$是$n\times n$可逆阵、$\boldsymbol B$是$n\times m$矩阵、$\boldsymbol C$是$m\times n$矩阵、$\boldsymbol D$是$m\times m$矩阵，且$\boldsymbol D-\boldsymbol C\boldsymbol A^{-1}\boldsymbol B$是$m\times m$可逆阵，记其逆为$\boldsymbol W=(\boldsymbol D-\boldsymbol C\boldsymbol A^{-1}\boldsymbol B)^{-1}$，则：</p>$$
+\begin{align}\left[\begin{matrix}\boldsymbol{A}&\boldsymbol{B}\\\boldsymbol{C}&\boldsymbol{D}\\\end{matrix}\right]^{-1}=\left[\begin{matrix}\boldsymbol{A}^{-1}+\boldsymbol{A}^{-1}\boldsymbol{BWC}\boldsymbol{A}^{-1}&-\boldsymbol{A}^{-1}\boldsymbol{BW}\\-\boldsymbol{WC}\boldsymbol{A}^{-1}&\boldsymbol{W}\\\end{matrix}\right]\end{align}
+$$<p>推导是容易的，设$\left[\begin{matrix}\boldsymbol{A}&\boldsymbol{B}\\\boldsymbol{C}&\boldsymbol{D}\\\end{matrix}\right]$的逆为$\left[\begin{matrix}\boldsymbol{E}&\boldsymbol{F}\\\boldsymbol{G}&\boldsymbol{H}\\\end{matrix}\right]$，利用矩阵乘其逆为$\boldsymbol I_{n+m}$列出方程，再解出未知元素即可。</p><p>当$\boldsymbol A=\boldsymbol I_n$，或$\boldsymbol B=\boldsymbol O$，或$\boldsymbol C=\boldsymbol O$，或$\boldsymbol D=\boldsymbol O$，这个式子有极其简单的形式，而恰好在统计学中这样的情况更多见，比如下文中对多维正态分布的条件分布推导中，我们对协方差阵利用了该式$\boldsymbol B=\boldsymbol O$的情形以求其逆；譬如：</p><p>  ① 当$\boldsymbol A=\boldsymbol I_n$，有$\widetilde{\boldsymbol W}=(\boldsymbol D-\boldsymbol C\boldsymbol B)^{-1}$：</p>$$
+\begin{align}\left[\begin{matrix}\boldsymbol I_n&\boldsymbol{B}\\\boldsymbol{C}&\boldsymbol{D}\\\end{matrix}\right]^{-1}=\left[\begin{matrix}\boldsymbol I_n+\boldsymbol {B}\widetilde{\boldsymbol W}\boldsymbol{C}&-\boldsymbol {B}\widetilde{\boldsymbol W}\\-\widetilde{\boldsymbol W}\boldsymbol{C}&\widetilde{\boldsymbol W}\\\end{matrix}\right]\end{align}
+$$<p>  ② 当$\boldsymbol B=\boldsymbol O$：</p>$$
+\begin{align}\left[\begin{matrix}\boldsymbol{A}&\boldsymbol O\\\boldsymbol{C}&\boldsymbol{D}\\\end{matrix}\right]^{-1}=\left[\begin{matrix}\boldsymbol{A}^{-1}&\boldsymbol{O}\\-\boldsymbol{D}^{-1}\boldsymbol{C}\boldsymbol{A}^{-1}&\boldsymbol{D}^{-1}\\\end{matrix}\right]\end{align}
+$$<p>此外，即使矩阵$\boldsymbol A$、$\boldsymbol B$、$\boldsymbol C$、$\boldsymbol D$的形状与可逆性并非如上所述，逆也是可以计算的。</p><p>当$\boldsymbol A$是$n\times n$矩阵、$\boldsymbol B$是$n\times m$矩阵、$\boldsymbol C$是$m\times n$矩阵、$\boldsymbol D$是$m\times m$可逆阵，且$\boldsymbol A-\boldsymbol B\boldsymbol D^{-1}\boldsymbol C$是$m\times m$可逆阵，记$\boldsymbol W=(\boldsymbol A-\boldsymbol B\boldsymbol D^{-1}\boldsymbol C)^{-1}$：</p>$$
+\begin{align}\left[\begin{matrix}\boldsymbol{A}&\boldsymbol{B}\\\boldsymbol{C}&\boldsymbol{D}\\\end{matrix}\right]^{-1}=
+\left[\begin{matrix}
+\boldsymbol{W}&
+-\boldsymbol{WB}\boldsymbol{D}^{-1}\\
+-\boldsymbol{D}^{-1}\boldsymbol{CW}&
+\boldsymbol{D}^{-1}+\boldsymbol{D}^{-1}\boldsymbol{CWB}\boldsymbol{D}^{-1}\\\end{matrix}\right]\end{align}
+$$<p>当$\boldsymbol A$是$n\times m$矩阵、$\boldsymbol B$是$n\times n$可逆阵、$\boldsymbol C$是$m\times m$矩阵、$\boldsymbol D$是$m\times n$矩阵，且$\boldsymbol C-\boldsymbol D\boldsymbol B^{-1}\boldsymbol A$是$m\times m$可逆阵，记$\boldsymbol W=(\boldsymbol C-\boldsymbol D\boldsymbol B^{-1}\boldsymbol A)^{-1}$：</p>$$
+\begin{align}\left[\begin{matrix}\boldsymbol{A}&\boldsymbol{B}\\\boldsymbol{C}&\boldsymbol{D}\\\end{matrix}\right]^{-1}=
+\left[\begin{matrix}
+-\boldsymbol{WD}\boldsymbol{B}^{-1}&
+\boldsymbol{W}\\
+\boldsymbol{B}^{-1}+\boldsymbol{B}^{-1}\boldsymbol{AWD}\boldsymbol{B}^{-1}&
+-\boldsymbol{B}^{-1}\boldsymbol{AW}\\\end{matrix}\right]\end{align}
+$$<p>当$\boldsymbol A$是$n\times m$矩阵、$\boldsymbol B$是$n\times n$矩阵、$\boldsymbol C$是$m\times m$可逆阵、$\boldsymbol D$是$m\times n$矩阵，且$\boldsymbol B-\boldsymbol A\boldsymbol C^{-1}\boldsymbol D$是$n\times n$可逆阵，记$\boldsymbol W=(\boldsymbol B-\boldsymbol A\boldsymbol C^{-1}\boldsymbol D)^{-1}$：</p>$$
+\begin{align}\left[\begin{matrix}\boldsymbol{A}&\boldsymbol{B}\\\boldsymbol{C}&\boldsymbol{D}\\\end{matrix}\right]^{-1}=
+\left[\begin{matrix}
+-\boldsymbol{C}^{-1}\boldsymbol{DW}&
+\boldsymbol{C}^{-1}+\boldsymbol{C}^{-1}\boldsymbol{DWA}\boldsymbol{C}^{-1}\\
+\boldsymbol{W}&
+-\boldsymbol{WA}\boldsymbol{C}^{-1}\\\end{matrix}\right]\end{align}
+$$<h2 id=多元正态分布的条件分布>多元正态分布的条件分布</h2><p>设$\boldsymbol X$服从一个$p$维多元正态分布$N_p(\boldsymbol\mu,\boldsymbol\Sigma)$，有</p>$$
+\begin{align}\boldsymbol X=\left(\begin{matrix}\boldsymbol X^{(1)}_r\\\boldsymbol X^{(2)}_{p-r}\end{matrix}\right)\sim N_p\left(\bigg[\begin{matrix}\boldsymbol\mu^{(1)}\\\boldsymbol\mu^{(2)}\end{matrix}\bigg],\bigg[\begin{matrix}\boldsymbol\Sigma_{11}&\boldsymbol\Sigma_{12}\\\boldsymbol\Sigma_{21}&\boldsymbol\Sigma_{22}\\\end{matrix}\bigg]\right)\end{align}
+$$<p>在此提出一个重要的变换$\boldsymbol\Phi$（将在后文解释$\Phi$的构造），变换后能分离解耦两个随机向量：使得$\boldsymbol X^{(1)}$变换后与$\boldsymbol X^{(2)}$协方差阵为零矩阵而$\boldsymbol X^{(2)}$在变换后不变，由此可以导出多元正态分布的条件分布$(\boldsymbol X^{(1)}|\boldsymbol X^{(2)})$，记：</p>$$
+\begin{align}\boldsymbol\Phi=\left(\begin{array}{c:c}
+\boldsymbol I_{r\times r}&
+-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\\
+\hdashline
+\boldsymbol O_{(p-r)\times r}&
+\boldsymbol I_{(p-r)\times (p-r)}\\
+\end{array}\right)\end{align}
+$$<p>记$\boldsymbol{Y}=\left(\begin{matrix}\boldsymbol Y^{(1)}\\\boldsymbol Y^{(2)}\end{matrix}\right)=\boldsymbol\Phi\left(\begin{matrix}\boldsymbol X^{(1)}\\\boldsymbol X^{(2)}\end{matrix}\right)$，容易验证：</p>$$
+\begin{align}
+\boldsymbol{Y}&=
+\left[\begin{matrix}\boldsymbol
+X^{(1)}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol X^{(2)}\\\boldsymbol X^{(2)}\end{matrix}\right]
+\\&\sim
+N_p\left(\bigg[\begin{matrix}
+\boldsymbol\mu^{(1)}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol\mu^{(2)}\\
+\boldsymbol\mu^{(2)}
+\end{matrix}\bigg],\bigg[\begin{matrix}
+\boldsymbol\Sigma_{11}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol\Sigma_{21}&
+\boldsymbol O\\
+\boldsymbol O&
+\boldsymbol\Sigma_{22}\\
+\end{matrix}\bigg]\right)
+\end{align}
+$$<p>因此$\boldsymbol Y^{(1)}$与$\boldsymbol Y^{(2)}$相互独立$\Leftrightarrow f_{\boldsymbol{Y}}(\boldsymbol{y}^{(1)},\boldsymbol{y}^{(2)}) = f_{\boldsymbol{Y}^{(1)}}(\boldsymbol{y}^{(1)}) \cdot f_{\boldsymbol{Y}^{(2)}}(\boldsymbol{y}^{(2)})$，于是：</p>$$
+\begin{align}
+&\ \,\;\;\,\,\;f_{\boldsymbol Y}(\boldsymbol y^{(1)},\boldsymbol y^{(2)})=f_{\boldsymbol Y^{(1)}}(\boldsymbol y^{(1)})\cdot f_{\boldsymbol Y^{(2)}}(\boldsymbol y^{(2)})\\
+&\Leftrightarrow f_{\boldsymbol Y}(\boldsymbol\Phi\boldsymbol x)\Big\vert\frac{\partial\boldsymbol y}{\partial\boldsymbol x}\Big\vert=f_{\boldsymbol Y^{(1)}}(\boldsymbol x^{(1)}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol x^{(2)})\cdot f_{\boldsymbol Y^{(2)}}(\boldsymbol x^{(2)})\\
+&\Leftrightarrow f_{\boldsymbol X}(\boldsymbol x^{(1)},\boldsymbol x^{(2)})=f_{\boldsymbol Y^{(1)}}(\boldsymbol x^{(1)}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol x^{(2)})\cdot f_{\boldsymbol X^{(2)}}(\boldsymbol x^{(2)})
+\end{align}
+$$<p>其中$\vert\frac{\partial\boldsymbol y}{\partial\boldsymbol x}\vert=\det(\boldsymbol\Phi^T)=1$；</p><p>由上式可解出$f_{\boldsymbol X^{(2)}}(\boldsymbol x^{(2)})$；记$\boldsymbol\Sigma_{11\ast2}=\boldsymbol\Sigma_{11}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol\Sigma_{21}$与$\boldsymbol\mu_{1\ast2}=\boldsymbol\mu^{(1)}+\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}(\boldsymbol x^{(2)}-\boldsymbol\mu^{(2)})$，注意到：</p>$$
+\begin{align}
+f_{\boldsymbol{X}^{(1)}|\boldsymbol{X}^{(2)}}(\boldsymbol{x}^{(1)}|\boldsymbol{x}^{(2)}) &= \frac{f_{\boldsymbol{X}}(\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)})}{f_{\boldsymbol{X}^{(2)}}(\boldsymbol{x}^{(2)})} \\
+&= f_{\boldsymbol{Y}^{(1)}}(\boldsymbol{x}^{(1)} - \boldsymbol{\Sigma}_{12}\boldsymbol{\Sigma}_{22}^{-1}\boldsymbol{x}^{(2)}) \\
+&= \frac{1}{(2\pi)^{\frac{r}{2}}\vert\boldsymbol{\Sigma}_{11\ast2}\vert^{\frac{1}{2}}}
+\exp\left(-\frac{1}{2}(\boldsymbol{x}^{(1)} - \boldsymbol{\mu}_{1\ast2})^{T}
+\boldsymbol{\Sigma}_{11\ast2}^{-1}(\boldsymbol{x}^{(1)} - \boldsymbol{\mu}_{1\ast2})\right)
+\end{align}
+$$<p>所以$(\boldsymbol X^{(1)}|\boldsymbol X^{(2)})\sim N_r(\boldsymbol\mu_{1\ast2},\boldsymbol\Sigma_{11\ast2})$，证毕。</p><p>特别地，二元正态分布的条件分布：</p>$$
+\begin{align}f(x_1|x_2)=\frac{1}{\sqrt{2\pi}\sigma_1\sqrt{1-\rho^2}}\exp\bigg\{-\frac{1}{2(1-\rho^2)\sigma^2_1}\cdot\Big[x_1-\big(\mu_1+\rho\frac{\sigma_1}{\sigma_2}(x_2-\mu_2)\big)\Big]^2\bigg\}\end{align}
+$$<p>换句话说，$(X_1|X_2)\sim N_1\big(\mu_1+\rho\frac{\sigma_1}{\sigma_2}(x_2-\mu_2),\sigma^2_1(1-\rho^2)\big)$。</p><p>推论：$\boldsymbol X^{(2)}$与$\boldsymbol X^{(1)}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol X^{(2)}$相互独立；上述一切结论把序号$1$、$2$轮换后仍成立。</p><p>题外话：更本质的，提出$\boldsymbol{\Phi}$的思路是想办法类对角化$\boldsymbol\Sigma$：下做初等变换，</p>$$
+\begin{align}
+\boldsymbol\Sigma&=\bigg[\begin{matrix}\boldsymbol\Sigma_{11}&\boldsymbol\Sigma_{12}\\\boldsymbol\Sigma_{21}&\boldsymbol\Sigma_{22}\\\end{matrix}\bigg]\\
+&=\bigg[\begin{matrix}\boldsymbol I_{r}&-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol I_{p-r}\\\boldsymbol O_{(p-r)\times r}&\boldsymbol I_{p-r}\\\end{matrix}\bigg]^{-1}\bigg[\begin{matrix}
+\boldsymbol\Sigma_{11}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol\Sigma_{21}&
+\boldsymbol O\\
+\boldsymbol\Sigma_{21}&
+\boldsymbol\Sigma_{22}\\
+\end{matrix}\bigg]\\
+&=\bigg[\begin{matrix}\boldsymbol I_{r}&\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\\\boldsymbol O_{(p-r)\times r}&\boldsymbol I_{p-r}\\\end{matrix}\bigg]\bigg[\begin{matrix}
+\boldsymbol\Sigma_{11}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol\Sigma_{21}&
+\boldsymbol O\\
+\boldsymbol O&
+\boldsymbol\Sigma_{22}\\
+\end{matrix}\bigg]\bigg[\begin{matrix}\boldsymbol I_{r}&\boldsymbol O_{(p-r)\times r}\\-\boldsymbol\Sigma_{21}\boldsymbol\Sigma^{-1}_{22}\boldsymbol I_{p-r}&\boldsymbol I_{p-r}\\\end{matrix}\bigg]^{-1}\\
+&=\boldsymbol A\bigg[\begin{matrix}
+\boldsymbol\Sigma_{11}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol\Sigma_{21}&
+\boldsymbol O\\
+\boldsymbol O&
+\boldsymbol\Sigma_{22}\\
+\end{matrix}\bigg]\boldsymbol A^T
+\end{align}
+$$<p>其中$\boldsymbol A=\bigg[\begin{matrix}\boldsymbol I_{r}&\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\\\boldsymbol O_{(p-r)\times r}&\boldsymbol I_{p-r}\\\end{matrix}\bigg]$，上文中提到到变换矩阵$\boldsymbol\Phi=\boldsymbol A^{-1}=\bigg[\begin{matrix}\boldsymbol I_{r}&-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\\\boldsymbol O_{(p-r)\times r}&\boldsymbol I_{p-r}\\\end{matrix}\bigg]$，于是</p>$$
+\begin{align}\boldsymbol\Phi\boldsymbol\Sigma\boldsymbol\Phi^T=\bigg[\begin{matrix}
+\boldsymbol\Sigma_{11}-\boldsymbol\Sigma_{12}\boldsymbol\Sigma^{-1}_{22}\boldsymbol\Sigma_{21}&
+\boldsymbol O\\
+\boldsymbol O&
+\boldsymbol\Sigma_{22}\\
+\end{matrix}\bigg]\end{align}
+$$<p>如此一来，我们便将$\boldsymbol\Sigma$对角化了：若$\boldsymbol Y=\boldsymbol\Phi\boldsymbol X$，则$\boldsymbol{\Sigma}_{\boldsymbol{Y}} = \boldsymbol{\Phi}\boldsymbol{\Sigma}_{\boldsymbol{X}}\boldsymbol{\Phi}^{T}$是类对角化的。</p><h1 id=抛砖引玉>抛砖引玉</h1><p>这篇文章到了尾声，实际上回归的算法千千万万，实在难以一言以蔽之。仅论广义线性回归，还有（针对计数数据的）泊松回归等一众常用线性回归我还没有提到，至于机器学习与非参数回归——那就更多了，比如针对常规数据的k-近邻回归、随机森林回归、LOWESS稳健回归与局部多项式回归，针对生存分析的AFT算法、Cox模型，乃至Booting系列算法、神经网络算法与深度学习算法。限于能力与精力，没办法在这篇文章中涉猎更多内容，如果以后有机会，再写一些吧！不过，应该是没有这份机会了。看起来，毕业后我所从事的行业，可能令我不会再用到这些知识。</p></div></article></main></div><footer class=site-footer><p class=footer-text>&copy; <span id=this-year></span> Arth &#183; built with care</p></footer><script src=/js/main.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".post-body");e&&(e.innerHTML=e.innerHTML.replace(/(\$\$)([\s\S]*?)(\$\$)/g,function(e,t,n,s){return t+n.replace(/(^|\n)[ \t]*(?:&gt;|>)[ \t]?/gm,"$1")+s})),renderMathInElement(document.querySelector(".post-body"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script></html>

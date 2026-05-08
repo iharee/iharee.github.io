@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>回归分析 on 二三事</title><link>https://iharee.github.io/tags/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</link><description>Recent content in 回归分析 on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 08 Jan 2023 18:11:25 +0000</lastBuildDate><atom:link href="https://iharee.github.io/tags/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml"/><item><title>回归分析</title><link>https://iharee.github.io/post/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</link><pubDate>Sun, 08 Jan 2023 18:11:25 +0000</pubDate><guid>https://iharee.github.io/post/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</guid><description>&lt;p&gt;方便起见，本文用$\Vert\cdot\Vert^2$代表$\Vert\cdot\Vert_2^2$，其中$\Vert\cdot\Vert_2$是$l^2$或$L^2$范数，用RSS或SSE表示残差平方和，用SSR表示回归平方和，用SST表示总平方和，用OLS表示最小二乘法，用MLE表示极大似然估计，并采用下分位数的记号。&lt;/p&gt;
+&lt;p&gt;本文最初是作为本科阶段期末考试的复习总结，★代表考试中重要程度，●代表不会刻意作为考点，◆代表只考察解读或名词解释，不考察理论推导与证明，最后▲代表虽然是复习课上明确提到的必考内容，但会做变形或考察类似题目。由于本文作于作者大三时期，且原先的目的也只是系统地总结回归分析考试考点，所以本文不会十分深入地探究太多涉及底层理论的内容；文章侧重点更多的还是线性回归本身的理论，所以一些应用中的处理方法和可能遇到的问题并没有太多诠释。&lt;/p&gt;
+&lt;p&gt;&lt;u&gt;不过，后来断断续续扩写补充了相当一部分本科课程以外的内容，如果读者仅仅希望将本文作为（西南大学统计系）期末考试的复习笔记，则没有任何记号标记的标题下的内容，均可以忽略。&lt;/u&gt;&lt;/p&gt;
+&lt;p&gt;参考书目有：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;学院的本科授课教材，即王松桂等人所编著的《线性统计模型：线性回归与方差分析》&lt;/li&gt;
+&lt;li&gt;同时也参考了茆诗松等编著的《概率论与数理统计教程 (第三版)》与贾俊平等编著的《统计学 (第8版)》&lt;/li&gt;
+&lt;li&gt;若干网络资源与Wiki百科&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在此感谢我的回归分析任课教师&lt;a href="http://math.swu.edu.cn/info/1017/2422.htm"&gt;徐文昕&lt;/a&gt;老师。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id="前言"&gt;前言&lt;/h1&gt;
+&lt;p&gt;最小二乘法有着极为广泛的运用，他的优良性质由高斯-马尔可夫定理所保证；除此之外，如果残差还独立同分布于正态分布，则此时OLS等价于MLE。即便残差并不服从正态分布，只要满足高斯-马尔可夫定理的基本条件，那么OLS就是最优的无偏估计，这说明了线性回归的强大之处。&lt;/p&gt;
+&lt;p&gt;然而在许多情形下，相对于一些其他的方法（尤其是非参数方法），OLS在稳健性方面略显疲态。考虑到最小二乘法的损失函数为RSS，一旦样本数据中出现了严重偏离总体的异常点，误差将会在被平方后大幅增加。这种情况下，如果依然希望最小化RSS，可能导致OLS的值因此而发生较大的变化，使得回归曲线偏向于异常点，换句话说：OLS是对异常值十分敏感。&lt;/p&gt;
+&lt;p&gt;让我们把目光转向最小一乘法。最小二乘法的损失函数为$\text{RSS}=\Vert y-\hat{y}\Vert^2_2$，而最小一乘法的损失函数为$\Vert y-\hat{y}\Vert_1=\sum\limits^n_{i=1}\vert y_i-\hat{y}_i\vert$，从损失函数的形式上看，如果出现异常值，显然RSS产生的惩罚更严重，而最小一乘法的惩罚则较轻（毕竟，在$\triangle y_i&gt;1$时，$(\triangle y)^2\gg y$），受到的影响相对更小。当然，这也是个比较粗浅的观点，实质上最小一乘回归对应中位数回归，而最小二乘回归对应均值回归——最小一乘回归是一种特殊的分位数回归，分位数取二分位数，即中位数。鉴于本文并不是非参数统计的详解文章，这里就不再赘述最小一乘法的更多性质。写下这些文字，我想表达的是：最小一乘法与最小二乘法之间，本身并无绝对的优劣之分，至于哪种方法表现更好，视情况与需求而定。&lt;/p&gt;
+&lt;p&gt;另外，最小二乘线性回归出现较早、结构简单，是一种经典而传统的回归方法，预测能力较差，远远不及SVM等一众现代方法，这是他结构太过简易导致的，尤其是站在大模型正值风口的今天。但是，也正因如此，线性回归时至今日仍有非常广阔的运用，主要原因是其结构简单、模型解释性强，回归参数也有着非常明确的统计意义与现实背景，通常在不以精准预测为目的的数据分析任务中都会看到线性回归的身影——单单是回归系数的符号就已经能说明太多信息，譬如研究课后活动类型与花费时间对学生成绩的影响、探究某组合药物各成分的剂量对实验用小白鼠的影响。&lt;/p&gt;
+&lt;p&gt;最后，大名鼎鼎的方差分析也是一种线性回归，不过是较为特殊的线性回归，自变量均为分类数据；既含有离散的分类变量又含有连续的数量变量的线性回归，称为协方差分析。&lt;/p&gt;
+&lt;p&gt;方便起见，本文只讨论最基本的线性模型，且不考虑交互项。不过，读者很容易就能把本文的理论推广、扩展到这些内容上去。&lt;/p&gt;
+&lt;h1 id="一元线性回归公式速查"&gt;一元线性回归公式速查&lt;/h1&gt;
+&lt;p&gt;&lt;b&gt;由于一些其他的教材针对一元线性回归使用了特别的记号，而在实际的理论和应用中，相当一部分数据以这类教材所采取的记号形式给出。为方便查阅，在此直接给出这种别于本文符号体系下的一元线性回归的全部基本公式，&lt;font color="#8b0000"&gt;于下一小节再做详细证明。&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;$^{\ast}$ &lt;em&gt;在有的教材中，针对一元线性回归模型，规定：&lt;/em&gt;
+&lt;/p&gt;
+$$
+\left\{\begin{aligned}
+&amp;l_{xx}=\sum(x_i-\bar{x})^2=\sum x^2_i-n{\bar{x}}^2\\
+&amp;l_{yy}=\sum(y_i-\bar{y})^2\ =\sum y^2_i-n{\bar{y}}^2\\
+&amp;l_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=\sum x_iy_i-n\bar{x}\bar{y}
+\end{aligned}\right.
+$$&lt;p&gt;
+&lt;em&gt;于是&lt;/em&gt;
+&lt;/p&gt;
+$$
+\hat{\beta}_1=(\boldsymbol X^T\boldsymbol X)^{-1}\boldsymbol X^T\boldsymbol y=\frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}=\frac{l_{xy}}{l_{xx}}
+$$$$
+\hat{\beta}_0=\bar{y}-\hat{\beta}_1\bar{x}
+$$&lt;p&gt;&lt;em&gt;另外，在高斯-马尔可夫定理的条件下，有&lt;/em&gt;
+&lt;/p&gt;
+$$
+\begin{align}&amp;(1)\ \ \ \hat{\beta}_0\sim N\left(\beta_0,\left(\frac1n+\frac{\bar{x}^2}{l_{xx}}\right)\sigma^2\right),\ \ \hat{\beta}_1\sim N(\beta_1,\frac{\sigma^2}{l_{xx}})\\&amp;(2)\ \ \ \mathrm{Cov}(\hat{\beta}_0,\hat{\beta}_1)=-\frac{\bar{x}}{l_{xx}}\sigma^2\\&amp;(3)\ \ \ \hat{y}_0=\hat{\beta}_0+\hat{\beta}_1x_0\sim N\left(\beta_0+\beta_1x_0,\left(\frac1n+\frac{(x_0-\bar{x})^2}{l_{xx}}\right)\sigma^2\right)\\&amp;(4)\ \ \ \hat{\sigma}^2=\frac{SSE}{n-2}\text{，这是无偏估计}\\&amp;(5)\ \ \ \mathbb{E}(SSR)=\sigma^2+\beta^2_1l_{xx},\ \ \mathbb{E}(SSE)=(n-2)\sigma^2\\&amp;(6)\ \ \ \text{当}\beta_1=0\text{，有}\frac{SST}{\sigma^2}\sim\chi^2(n-1),\ \frac{SSR}{\sigma^2}\sim\chi^2(1),\ \frac{SSE}{\sigma^2}\sim\chi^2(n-2)\end{align}
+$$&lt;p&gt;
+&lt;em&gt;相应的，$SST=l_{yy}$，$SSR=\hat{\beta}^2_1l_{xx}=\frac{l^2_{xy}}{l_{xx}}$，$SSE=SST-SSR$，在此一并给出参数显著性检验统计量：&lt;/em&gt;
+&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>James-Stein估计 on 二三事</title><link>https://iharee.github.io/tags/james-stein%E4%BC%B0%E8%AE%A1/</link><description>Recent content in James-Stein估计 on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 26 Apr 2023 16:15:23 +0000</lastBuildDate><atom:link href="https://iharee.github.io/tags/james-stein%E4%BC%B0%E8%AE%A1/index.xml" rel="self" type="application/rss+xml"/><item><title>The James-Stein Estimator</title><link>https://iharee.github.io/post/images/The%20James-Stein%20Estimator/</link><pubDate>Wed, 26 Apr 2023 16:15:23 +0000</pubDate><guid>https://iharee.github.io/post/images/The%20James-Stein%20Estimator/</guid><description>&lt;p&gt;  本人没有能力开拓什么，只能综合前辈们的观点尽量感悟；没有打算、更没有能力深入研究收缩估计，不过是对Stein&amp;rsquo;s paradox的奇怪现象感到诧异，来了兴趣，所以查阅多手资料后写下了本文。&lt;/p&gt;
+&lt;hr&gt;
+&lt;center&gt;&lt;font size="5.5"&gt;本文主要参考文献&lt;/font&gt;&lt;/center&gt;&lt;br&gt;&lt;center&gt;把他们列在文首，只因为我看来这些文章比本文更有价值，推荐参考&lt;/center&gt;
+&lt;p&gt;&lt;a href="https://projecteuclid.org/proceedings/berkeley-symposium-on-mathematical-statistics-and-probability/Proceedings-of-the-Fourth-Berkeley-Symposium-on-Mathematical-Statistics-and/Chapter/Estimation-with-Quadratic-Loss/bsmsp/1200512173"&gt;Estimation with Quadratic Loss&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.stat.yale.edu/~hz68/619/Stein-1961.pdf"&gt;ESTIMATION WITH QUADRATIC LOSS - Yale University&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;1961年Willard James与Charles Stein的文章，在这里James-Stein估计被首次提出，&lt;a href="https://projecteuclid.org/download/pdf_1/euclid.bsmsp/1200512173"&gt;&lt;strong&gt;点击此处下载论文&lt;/strong&gt;&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://bayes-stat.github.io/download/chapte1.pdf"&gt;大规模推断讨论班：经验贝叶斯与 James-Stein 估计量 - GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这篇文章非常系统地从经验Bayes观点引出了Stein理论与Robbins理论，读完后收获颇丰，本文也有所参考。也说明了，所谓“频率学派”、“贝叶斯学派”的对立，“贝叶斯世界观”等描述并不准确，频率方法和Bayes方法不是水火不容的，统计学发展到今天，他们本身的界限就比较模糊。&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://kns.cnki.net/kcms2/article/abstract?v=3uoqIhG8C447WN1SO36whBaOoOkzJ23ELn_-3AAgJ5enmUaXDTPHrIcIlNbh3Sl6oanm3Ad1bmCfNH2zv_XmZ-BUCKN-oEs7&amp;amp;uniplatform=NZKPT"&gt;赵世舜. 矩阵加权估计及James-Stein估计的再研究 [D]. 吉林：吉林大学，2006.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;感谢这篇博士论文为我提供的帮助，第二章定理证明的思路是源自于这份文献的；好像在2017年赵已经在吉林大学数学学院升任教授职务了。由于知网下载文献得付费，我用学校的渠道下载了下来并上传到了网站，&lt;a href="%E7%9F%A9%E9%98%B5%E5%8A%A0%E6%9D%83%E4%BC%B0%E8%AE%A1%E5%8F%8AJames-Stein%E4%BC%B0%E8%AE%A1%E7%9A%84%E5%86%8D%E7%A0%94%E7%A9%B6_%E8%B5%B5%E4%B8%96%E8%88%9C.pdf"&gt;点击此处查看这篇论文&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;~~本文不是正经的论文，懒得划出具体的引用😊~~以上文献本身亦引用了较多文献，如果有兴趣，不妨也读一读。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;本文用到了一些缩写：MLE指极大似然估计，UMVUE指一致最小方差无偏估计，MSE指均方误差，G-M定理指高斯-马尔可夫定理。&lt;/p&gt;
+&lt;h2 id="the-james-stein-estimator"&gt;the James-Stein Estimator&lt;/h2&gt;
+&lt;p&gt;众所周知，$p$元正态分布总体$N_p(\boldsymbol{\mu},\sigma^2\boldsymbol{I}_p)$数学期望的MLE是样本均值，即$\hat{\boldsymbol{\mu}}^{(MLE)}=\bar{\boldsymbol{X}}=\sum\limits^n_{i=1}\frac{\boldsymbol{X}_i}{n}$，是一个十分符合直觉且自然的统计量，由于他的简单直接，通常多数人也会采取他为总体期望的估计。事实上，由于正态分布族系指数族，并且$\bar{\boldsymbol{X}}$是$\boldsymbol{\mu}$是充分完备统计量，故根据Lehmann–Scheffé定理，样本均值是总体期望的UMVUE——这意味着，在无偏估计中样本均值的方差是最小的，可见样本均值是一个性质优良的估计。进一步地，$\mathrm{Var}(\bar{\boldsymbol{X}})$达到了Cramer-Rao下界。&lt;/p&gt;
+&lt;p&gt;但是，这并不意味着样本均值在任何意义下都是最“好”的！1961年由Willard James和Charles Stein基于1956年Charles Stein提出的早期版本所改进得到的James-Stein estimator（下简称JSE）就是这样一个例子，当用$\mathrm{SE}$表示的样本均值的标准误时，有
+&lt;/p&gt;
+$$
+\hat{\boldsymbol{\mu}}^{(JSE)}=\left(1-\frac{(p-2)\cdot\mathrm{SE}}{\bar{\boldsymbol{X}}^T\bar{\boldsymbol{X}}}\right)\cdot\bar{\boldsymbol{X}}\tag{1}
+$$&lt;p&gt;
+$(1)$式可视为样本量$n=1$的推广，如果只有一个样本，则$(1)$退化为
+&lt;/p&gt;
+$$
+\hat{\boldsymbol{\mu}}^{(JSE)}_{n=1}=\left(1-\frac{(p-2)\cdot\sigma^2}{\Vert \boldsymbol{X}\Vert^2}\right)\cdot\boldsymbol{X}\tag{2}
+$$&lt;p&gt;
+相较于样本均值，JSE的方差显著减小了；尽管失去了无偏性，但渐进无偏，最重要的是在$p\geqslant3$情况下其MSE严格小于样本均值，这时JSE严格一致优于样本均值，这一现象也被称为Stein&amp;rsquo;s paradox。&lt;del&gt;当p=2时显然JSE等价于样本均值。&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;这个结论第一眼看起来真的出人意料！这似乎违背经验，毕竟在我们的印象中，寻找、构造UMVUE一直都是统计学家的“毕生追求”，然而JSE的出现却表明，在非无偏估计家族中、在某些情况下，我们或许有比UMVUE更好的选择（这具体取决于我们在特定情境下如何定义“损失”标准）。&lt;/p&gt;
+&lt;p&gt;这也深刻地说明了，UMVUE其实并没有设想的那般“绝对的好”，当我们把眼光放宽到无偏估计，可能还有更“好”的估计在等着我们发掘。JSE就揭示了，**当维数大于2，样本均值作为UMVUE就未必还是最好的估计！**换句话说，在低维可容许的样本均值，在高维是不可容许的，这侧面印证了低维直觉放在高维中很可能是错误的，高维统计中还有很多这样的例子。&lt;/p&gt;
+&lt;p&gt;Tip: 由于正态分布的样本均值仍服从正态分布，为简便起见，后文中如若未做特别说明，则只考虑$n=1$的情况，不再区分$\bar{\boldsymbol{X}}$与$\boldsymbol{X}$。&lt;/p&gt;
+&lt;h2 id="james-stein型估计的风险"&gt;James-Stein型估计的风险&lt;/h2&gt;
+&lt;p&gt;这里将按照赵世舜在其&lt;a href="%E7%9F%A9%E9%98%B5%E5%8A%A0%E6%9D%83%E4%BC%B0%E8%AE%A1%E5%8F%8AJames-Stein%E4%BC%B0%E8%AE%A1%E7%9A%84%E5%86%8D%E7%A0%94%E7%A9%B6_%E8%B5%B5%E4%B8%96%E8%88%9C.pdf"&gt;博士学位论文&lt;/a&gt;中所给出的，仿照1981年Stein、1990年Brandwein与Strawderman给出的较为简单的证明，证明当$0&lt;a&lt;2(p-2)$、$p&gt;2$且$b\geqslant0$时，&lt;strong&gt;James-Stein型估计&lt;/strong&gt;$\left(1-\frac{a\sigma^2}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)\boldsymbol{X}$的风险一致小于$\boldsymbol{X}$的；并且，当$a=p-2$时，估计的风险达到最小，若进一步$b=0$，这时估计正是JSE，即$\hat{\delta}_{p-2,0}=\hat{\boldsymbol{\mu}}^{(JSE)}$。&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;看过1961年Willard James与Charles Stein的论文原文，这部分没有看懂，所以不按那最古老的方法证明风险一致地小了。&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;font size="5"&gt;引理 1    &lt;/font&gt;&lt;/b&gt;(成平 等，1985) 当$X\sim N(\mu,\sigma^2)$，$h(x)$可微且$\lim\limits_{x\to\infty}\frac{h(x)}{e^{\frac12(x-\mu)^2}}$，有
+&lt;/p&gt;
+$$
+\mathbb{E}\big[(h(X)(X-\mu)\big]=\mathrm{Cov}\big(X,h(Y)\big)=\sigma^2\mathbb{E}\big[h'(X)\big]\tag{3}
+$$&lt;p&gt;
+在后文的证明中只会用到$\sigma^2=1$的情形。&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;font size="5"&gt;定理 1    &lt;/font&gt;&lt;/b&gt;以二次损失定义风险，设$\boldsymbol{X}\sim N_p(\boldsymbol{\mu},\sigma^2\boldsymbol{I}_p)$，则当$0&lt;a&lt;2(p-2)$、$p\geqslant3$且$b\geqslant0$时，估计$\hat{\delta}_{a,b}=\left(1-\frac{a\sigma^2}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)\boldsymbol{X}$的风险均小于$\boldsymbol{X}$的风险，且$\hat{\delta}_{a,b}$的风险为
+&lt;/p&gt;</description></item></channel></rss>

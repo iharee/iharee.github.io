@@ -1,1 +1,0 @@
-python -B aaa_convert.py
