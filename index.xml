@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>二三事</title><link>https://iharee.github.io/</link><description>Recent content on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 22 Mar 2026 22:55:00 +0000</lastBuildDate><atom:link href="https://iharee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>经典注意力与经典 Transformer 的数学基础</title><link>https://iharee.github.io/post/images/mathematical_principles_of_transformer/</link><pubDate>Sun, 22 Mar 2026 22:55:00 +0000</pubDate><guid>https://iharee.github.io/post/images/mathematical_principles_of_transformer/</guid><description>&lt;p&gt;* 本文的部分示意图使用了 AI 辅助创作，其余有明确标注的示意图则引用自参考文献。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>二三事</title><link>https://iharee.github.io/</link><description>Recent content on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 22 Mar 2026 22:55:00 +0000</lastBuildDate><atom:link href="https://iharee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>经典注意力与经典 Transformer 的数学基础</title><link>https://iharee.github.io/%E7%AE%97%E6%B3%95/mathematical_principles_of_transformer/</link><pubDate>Sun, 22 Mar 2026 22:55:00 +0000</pubDate><guid>https://iharee.github.io/%E7%AE%97%E6%B3%95/mathematical_principles_of_transformer/</guid><description>&lt;p&gt;* 本文的部分示意图使用了 AI 辅助创作，其余有明确标注的示意图则引用自参考文献。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;若无特别说明，本文中的单个向量默认视为列向量。比如，在 RNN、BPTT 与 Bahdanau Attention 部分，$\boldsymbol{x}_t,\boldsymbol{h}_t,\boldsymbol{s}_t,\boldsymbol{a}_t$ 等单个向量都按列向量书写。&lt;/p&gt;
 &lt;p&gt;而在 attention 与 Transformer 章节的矩阵记号中，为便于书写整段序列的矩阵乘法，序列矩阵统一按行堆叠：若第 $i$ 个 token 的表示向量为列向量 $\boldsymbol{x}_i$，则矩阵 $\boldsymbol{X}$ 的第 $i$ 行为 $\boldsymbol{x}_i^T$。相应地，$\boldsymbol{Q},\boldsymbol{K},\boldsymbol{V}$ 的第 $i$ 行分别记为 $\boldsymbol{q}_i^T,\boldsymbol{k}_i^T,\boldsymbol{v}_i^T$。&lt;/p&gt;
@@ -18,7 +18,7 @@
 &lt;/ol&gt;
 &lt;h2 id="基本结构"&gt;基本结构&lt;/h2&gt;
 &lt;p&gt;RNN 的核心公式是如下的递归表达式，
-&lt;/p&gt;</description></item><item><title>昨夜闲潭梦落花</title><link>https://iharee.github.io/post/images/%E6%98%A8%E5%A4%9C%E9%97%B2%E6%BD%AD%E6%A2%A6%E8%90%BD%E8%8A%B1/</link><pubDate>Wed, 07 Jan 2026 23:33:55 +0000</pubDate><guid>https://iharee.github.io/post/images/%E6%98%A8%E5%A4%9C%E9%97%B2%E6%BD%AD%E6%A2%A6%E8%90%BD%E8%8A%B1/</guid><description>&lt;hr&gt;
+&lt;/p&gt;</description></item><item><title>昨夜闲潭梦落花</title><link>https://iharee.github.io/%E9%9A%8F%E7%AC%94--%E6%9D%82%E6%96%87/%E6%98%A8%E5%A4%9C%E9%97%B2%E6%BD%AD%E6%A2%A6%E8%90%BD%E8%8A%B1/</link><pubDate>Wed, 07 Jan 2026 23:33:55 +0000</pubDate><guid>https://iharee.github.io/%E9%9A%8F%E7%AC%94--%E6%9D%82%E6%96%87/%E6%98%A8%E5%A4%9C%E9%97%B2%E6%BD%AD%E6%A2%A6%E8%90%BD%E8%8A%B1/</guid><description>&lt;hr&gt;
 &lt;p&gt;　　过去一年也发生了许多事。&lt;/p&gt;
 &lt;p&gt;　　去年相当长一部分时间我都在疗养，所以并没有复学。由于治疗基本上每月只会经历一次，一次治疗过程又只占用两天时间，因此上半年的主旋律就是窝在家里想办法给自己找事情做，好让自己不要胡思乱想。&lt;/p&gt;
 &lt;p&gt;　　一直在家的日子，我在经常在很长一段时间内都不会出门，似乎身体都要因为长期晒不到太阳而生霉。与学校和社会都脱节太久，这种感觉真令人不安。那些无聊的时间里，我通过网课自学了数据结构、计算机网络和操作系统。同时也学习了一些 Java 知识，比如 Spring 开发。&lt;/p&gt;
@@ -54,7 +54,7 @@
 &lt;p&gt;这里就要说明一下，我大一大二时有着顶级建模，入学时室友李见我第一面就跟我说 “你好好看！”。然而考研那半年给我考成了肥🐖，直到近几个月、来上海后通过刻意控制饮食才终于减了一些回去，虽然离当初的身材差得依然还多。&lt;/p&gt;
 &lt;p&gt;而我会在 2025 年末出 cos 这一点，可能主要是被江波害的。不过，我本就很愿意尝试一下未曾尝试的事物。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;　　现在，我正在得物工作，主要内容是做 AI 中台的建设。虽然目前只入职了一周，但没有了在上家的那种让人窒息的压抑感。这是我的第一段互联网研发实习，我会认真对待的。更重要的是，在这里做的也不再是低级无趣的工作，能真切感受到成长，也不会再有被整个环境所轻视的感觉。&lt;/p&gt;</description></item><item><title>PJSK 证书抓包教程</title><link>https://iharee.github.io/post/images/pjskcapture/</link><pubDate>Wed, 23 Jul 2025 06:03:18 +0000</pubDate><guid>https://iharee.github.io/post/images/pjskcapture/</guid><description>&lt;h1&gt;&lt;div style="color: #B22222;"&gt;25 / 10 / 4 更：本文不再更新&lt;/div&gt;&lt;/h1&gt;
+&lt;p&gt;　　现在，我正在得物工作，主要内容是做 AI 中台的建设。虽然目前只入职了一周，但没有了在上家的那种让人窒息的压抑感。这是我的第一段互联网研发实习，我会认真对待的。更重要的是，在这里做的也不再是低级无趣的工作，能真切感受到成长，也不会再有被整个环境所轻视的感觉。&lt;/p&gt;</description></item><item><title>PJSK 证书抓包教程</title><link>https://iharee.github.io/%E9%9A%8F%E7%AC%94--%E6%9D%82%E6%96%87/pjskcapture/</link><pubDate>Wed, 23 Jul 2025 06:03:18 +0000</pubDate><guid>https://iharee.github.io/%E9%9A%8F%E7%AC%94--%E6%9D%82%E6%96%87/pjskcapture/</guid><description>&lt;h1&gt;&lt;div style="color: #B22222;"&gt;25 / 10 / 4 更：本文不再更新&lt;/div&gt;&lt;/h1&gt;
 &lt;div style="color: #DC143C;"&gt;&lt;strong&gt;本文不再更新。&lt;/strong&gt;&lt;/div&gt;
 &lt;br&gt;
 &lt;div style="color: #DC143C;"&gt;&lt;strong&gt;这篇文章将被保留并归档，但不会再进行任何更新。如果你看到这篇文章时本文仍对你有所帮助，那么我此刻选择将本文保留而不是删除，大概就是有意义的吧？&lt;/strong&gt;&lt;/div&gt;
@@ -83,7 +83,7 @@
 &lt;/ul&gt;
 &lt;p&gt;注：截止至 2025 年 7 月，主流安卓模拟器内核版本均低于 5.5，eCapture 在这些设备上无法正常工作。经研究，可能是在低于 5.5 版本的内核上 &lt;code&gt;bpf_probe_read_user&lt;/code&gt; 无法读取用户态数据导致的，因此本文主要介绍证书抓包的方法。持有实体安卓设备的用户可以考虑 eCapture。&lt;/p&gt;
 &lt;h2 id="准备工作"&gt;准备工作&lt;/h2&gt;
-&lt;p&gt;软件：&lt;/p&gt;</description></item><item><title>Spring 框架学习研究札记</title><link>https://iharee.github.io/post/images/Spring%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</link><pubDate>Wed, 28 May 2025 03:29:00 +0000</pubDate><guid>https://iharee.github.io/post/images/Spring%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</guid><description>&lt;!--
+&lt;p&gt;软件：&lt;/p&gt;</description></item><item><title>Spring 框架学习研究札记</title><link>https://iharee.github.io/%E5%85%B6%E4%BB%96/spring-%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</link><pubDate>Wed, 28 May 2025 03:29:00 +0000</pubDate><guid>https://iharee.github.io/%E5%85%B6%E4%BB%96/spring-%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</guid><description>&lt;!--
 
 学习视频：&lt;a href="https://www.bilibili.com/video/BV14WtLeDEit"&gt;尚硅谷最新版SSM教程，基于AI的全新ssm框架实战&lt;/a&gt;，强烈推荐！
 
@@ -133,7 +133,7 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;@Autowired&lt;/code&gt;，&lt;code&gt;@Resource&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;在源码中，&lt;code&gt;@Autowired&lt;/code&gt; 实际上是由 &lt;code&gt;AutowiredAnnotationBeanPostProcessor&lt;/code&gt; 实现的，这是一个专门用于处理 &lt;code&gt;@Autowired&lt;/code&gt; 的一种特殊的 &lt;code&gt;BeanPostProcessor&lt;/code&gt;，在每个 Bean 或组件被创建后调用其特殊的 &lt;code&gt;postProcessProperties&lt;/code&gt; 方法或 &lt;code&gt;postProcessBeforeInitialization&lt;/code&gt; 方法，通过反射分析目标 Bean 的全部注解、字段、方法、构造器等等，然后对具有 &lt;code&gt;@Autowired&lt;/code&gt; 注解修饰的对象尝试在容器中进行匹配，如果匹配成功则注入依赖。&lt;/p&gt;</description></item><item><title>MLP 与 BP 算法的数学基础</title><link>https://iharee.github.io/post/images/computational_graphs_and_mlp/</link><pubDate>Sun, 08 Dec 2024 06:10:23 +0000</pubDate><guid>https://iharee.github.io/post/images/computational_graphs_and_mlp/</guid><description>&lt;p&gt;关于自动微分机制的数学证明放在文末，首先给出自动微分的程序实现。因为是我笔算进行推导的，可能存在谬误。&lt;/p&gt;
+&lt;p&gt;在源码中，&lt;code&gt;@Autowired&lt;/code&gt; 实际上是由 &lt;code&gt;AutowiredAnnotationBeanPostProcessor&lt;/code&gt; 实现的，这是一个专门用于处理 &lt;code&gt;@Autowired&lt;/code&gt; 的一种特殊的 &lt;code&gt;BeanPostProcessor&lt;/code&gt;，在每个 Bean 或组件被创建后调用其特殊的 &lt;code&gt;postProcessProperties&lt;/code&gt; 方法或 &lt;code&gt;postProcessBeforeInitialization&lt;/code&gt; 方法，通过反射分析目标 Bean 的全部注解、字段、方法、构造器等等，然后对具有 &lt;code&gt;@Autowired&lt;/code&gt; 注解修饰的对象尝试在容器中进行匹配，如果匹配成功则注入依赖。&lt;/p&gt;</description></item><item><title>MLP 与 BP 算法的数学基础</title><link>https://iharee.github.io/%E7%AE%97%E6%B3%95/computational_graphs_and_mlp/</link><pubDate>Sun, 08 Dec 2024 06:10:23 +0000</pubDate><guid>https://iharee.github.io/%E7%AE%97%E6%B3%95/computational_graphs_and_mlp/</guid><description>&lt;p&gt;关于自动微分机制的数学证明放在文末，首先给出自动微分的程序实现。因为是我笔算进行推导的，可能存在谬误。&lt;/p&gt;
 &lt;pre&gt;&lt;div style="font-family: Consolas, 'Courier New', monospace;"&gt;Python version: 3.12.4
 numpy version: 1.26.4
 sklearn version: 1.3.0&lt;/div&gt;&lt;/pre&gt;
@@ -284,7 +284,7 @@ sklearn version: 1.3.0&lt;/div&gt;&lt;/pre&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; loss &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;mean(np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;log(output_batch[range(batch_size), y_batch] &lt;span style="color:#f92672"&gt;+&lt;/span&gt; epsilon))
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; lossRecord&lt;span style="color:#f92672"&gt;.&lt;/span&gt;append(loss)
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(&lt;span style="color:#e6db74"&gt;f&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;Step &lt;/span&gt;&lt;span style="color:#e6db74"&gt;{&lt;/span&gt;step&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#e6db74"&gt;, Loss: &lt;/span&gt;&lt;span style="color:#e6db74"&gt;{&lt;/span&gt;loss&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;打印：&lt;/p&gt;</description></item><item><title>考研感想</title><link>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%84%9F%E6%83%B3/</link><pubDate>Mon, 25 Dec 2023 00:23:45 +0000</pubDate><guid>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%84%9F%E6%83%B3/</guid><description>&lt;h1 id="考后感想"&gt;考后感想&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;打印：&lt;/p&gt;</description></item><item><title>考研感想</title><link>https://iharee.github.io/%E9%9A%8F%E7%AC%94--%E6%9D%82%E6%96%87/%E8%80%83%E7%A0%94%E6%84%9F%E6%83%B3/</link><pubDate>Mon, 25 Dec 2023 00:23:45 +0000</pubDate><guid>https://iharee.github.io/%E9%9A%8F%E7%AC%94--%E6%9D%82%E6%96%87/%E8%80%83%E7%A0%94%E6%84%9F%E6%83%B3/</guid><description>&lt;h1 id="考后感想"&gt;考后感想&lt;/h1&gt;
 &lt;p&gt;  走出考场、回到宿舍，对着手机发了一会呆，恍恍惚惚，若有所失。毕竟是为之努力了半年的目标，一时间不知道接下来做什么好。虽然，好像我并不怎么努力。&lt;/p&gt;
 &lt;p&gt;  我觉得我不算一个勤奋努力的考生，用这个词用形容我显然是不合适的；身边一些朋友都觉得我很努力在准备，然而他们距离我毕竟还是太遥远了。哪个考研的人会在备考时玩手机刷视频到凌晨五六点呢？我也没有用功到卸载所有游戏、所有社交软件，甚至在考研的前几周买了一部东方ip的模拟经营游戏《东方夜雀食堂》，短短两天时间内足足玩了15小时——我平常学习两天下来的时间都没这么多。&lt;/p&gt;
 &lt;p&gt;  再者，十月底时，我连着几天把EVA旧TV版26话全看完了，最后一晚甚至通宵看了好几集；十一月的时候我的iPhone日均屏幕时间是十一个小时，连我都觉得不可思议：我是怎么做到的？以上已经能说明我是以一个什么状态在复习了。&lt;/p&gt;
@@ -420,7 +420,7 @@ $$
 &lt;p&gt;相似必然合同，但合同不一定相似&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;在欧氏空间中，合同变换体现为在平面到自身的一一变换下，任意线段的长和它的像的长总相等&lt;/p&gt;</description></item><item><title>考研数学（微积分）（下）</title><link>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%EF%BC%88%E5%BE%AE%E7%A7%AF%E5%88%86%EF%BC%89%EF%BC%88%E4%B8%8B%EF%BC%89/</link><pubDate>Tue, 16 May 2023 13:17:56 +0000</pubDate><guid>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%EF%BC%88%E5%BE%AE%E7%A7%AF%E5%88%86%EF%BC%89%EF%BC%88%E4%B8%8B%EF%BC%89/</guid><description>&lt;p&gt;  part Ⅱ主要内容为 &lt;b&gt;不等式&lt;/b&gt;、&lt;b&gt;常微分方程 (ODE)&lt;/b&gt;、&lt;b&gt;级数理论&lt;/b&gt; 和 &lt;b&gt;多元函数微积分&lt;/b&gt;，包括工具定理、计算方法与部分证明，以例题辅助解释。&lt;/p&gt;
+&lt;p&gt;在欧氏空间中，合同变换体现为在平面到自身的一一变换下，任意线段的长和它的像的长总相等&lt;/p&gt;</description></item><item><title>考研数学（微积分）（下）</title><link>https://iharee.github.io/%E6%95%B0%E5%AD%A6--%E7%BB%9F%E8%AE%A1%E5%AD%A6/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%8B/</link><pubDate>Tue, 16 May 2023 13:17:56 +0000</pubDate><guid>https://iharee.github.io/%E6%95%B0%E5%AD%A6--%E7%BB%9F%E8%AE%A1%E5%AD%A6/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%8B/</guid><description>&lt;p&gt;  part Ⅱ主要内容为 &lt;b&gt;不等式&lt;/b&gt;、&lt;b&gt;常微分方程 (ODE)&lt;/b&gt;、&lt;b&gt;级数理论&lt;/b&gt; 和 &lt;b&gt;多元函数微积分&lt;/b&gt;，包括工具定理、计算方法与部分证明，以例题辅助解释。&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;hr&gt;
 &lt;h1 id="常用常数"&gt;常用常数&lt;/h1&gt;
@@ -501,7 +501,7 @@ $$&lt;p&gt;
 其中$\{b_{k_i}\}$是$\{b_i\}$中元素的任意乱序排列。&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://zhuanlan.zhihu.com/p/296227985"&gt;&lt;font color="#EEAEEE"&gt;排序不等式的证明（配合Abel变换）&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id="切比雪夫的和不等式"&gt;切比雪夫的和不等式&lt;/h3&gt;
-&lt;p&gt;切比雪夫不等式的离散形式是排序不等式的推广。&lt;/p&gt;</description></item><item><title>The James-Stein Estimator</title><link>https://iharee.github.io/post/images/The%20James-Stein%20Estimator/</link><pubDate>Wed, 26 Apr 2023 16:15:23 +0000</pubDate><guid>https://iharee.github.io/post/images/The%20James-Stein%20Estimator/</guid><description>&lt;p&gt;  本人没有能力开拓什么，只能综合前辈们的观点尽量感悟；没有打算、更没有能力深入研究收缩估计，不过是对Stein&amp;rsquo;s paradox的奇怪现象感到诧异，来了兴趣，所以查阅多手资料后写下了本文。&lt;/p&gt;
+&lt;p&gt;切比雪夫不等式的离散形式是排序不等式的推广。&lt;/p&gt;</description></item><item><title>The James-Stein Estimator</title><link>https://iharee.github.io/%E6%95%B0%E5%AD%A6--%E7%BB%9F%E8%AE%A1%E5%AD%A6/the-james-stein-estimator/</link><pubDate>Wed, 26 Apr 2023 16:15:23 +0000</pubDate><guid>https://iharee.github.io/%E6%95%B0%E5%AD%A6--%E7%BB%9F%E8%AE%A1%E5%AD%A6/the-james-stein-estimator/</guid><description>&lt;p&gt;  本人没有能力开拓什么，只能综合前辈们的观点尽量感悟；没有打算、更没有能力深入研究收缩估计，不过是对Stein&amp;rsquo;s paradox的奇怪现象感到诧异，来了兴趣，所以查阅多手资料后写下了本文。&lt;/p&gt;
 &lt;hr&gt;
 &lt;center&gt;&lt;font size="5.5"&gt;本文主要参考文献&lt;/font&gt;&lt;/center&gt;&lt;br&gt;&lt;center&gt;把他们列在文首，只因为我看来这些文章比本文更有价值，推荐参考&lt;/center&gt;
 &lt;p&gt;&lt;a href="https://projecteuclid.org/proceedings/berkeley-symposium-on-mathematical-statistics-and-probability/Proceedings-of-the-Fourth-Berkeley-Symposium-on-Mathematical-Statistics-and/Chapter/Estimation-with-Quadratic-Loss/bsmsp/1200512173"&gt;Estimation with Quadratic Loss&lt;/a&gt;&lt;/p&gt;
@@ -540,7 +540,7 @@ $$
 $$&lt;p&gt;
 在后文的证明中只会用到$\sigma^2=1$的情形。&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;&lt;font size="5"&gt;定理 1    &lt;/font&gt;&lt;/b&gt;以二次损失定义风险，设$\boldsymbol{X}\sim N_p(\boldsymbol{\mu},\sigma^2\boldsymbol{I}_p)$，则当$0&lt;a&lt;2(p-2)$、$p\geqslant3$且$b\geqslant0$时，估计$\hat{\delta}_{a,b}=\left(1-\frac{a\sigma^2}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)\boldsymbol{X}$的风险均小于$\boldsymbol{X}$的风险，且$\hat{\delta}_{a,b}$的风险为
-&lt;/p&gt;</description></item><item><title>考研数学（微积分）（上）</title><link>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%EF%BC%88%E5%BE%AE%E7%A7%AF%E5%88%86%EF%BC%89%EF%BC%88%E4%B8%8A%EF%BC%89/</link><pubDate>Thu, 06 Apr 2023 18:23:33 +0000</pubDate><guid>https://iharee.github.io/post/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%EF%BC%88%E5%BE%AE%E7%A7%AF%E5%88%86%EF%BC%89%EF%BC%88%E4%B8%8A%EF%BC%89/</guid><description>&lt;p&gt;  想了想，还是写Markdown更容易保存；作为考研高数的完整笔记，内容多了以后电子文档增删查改起来容易些。&lt;/p&gt;
+&lt;/p&gt;</description></item><item><title>考研数学（微积分）（上）</title><link>https://iharee.github.io/%E6%95%B0%E5%AD%A6--%E7%BB%9F%E8%AE%A1%E5%AD%A6/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%8A/</link><pubDate>Thu, 06 Apr 2023 18:23:33 +0000</pubDate><guid>https://iharee.github.io/%E6%95%B0%E5%AD%A6--%E7%BB%9F%E8%AE%A1%E5%AD%A6/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%8A/</guid><description>&lt;p&gt;  想了想，还是写Markdown更容易保存；作为考研高数的完整笔记，内容多了以后电子文档增删查改起来容易些。&lt;/p&gt;
 &lt;p&gt;  part Ⅰ主要内容为 &lt;b&gt;极限&lt;/b&gt; 与 &lt;b&gt;一元微积分&lt;/b&gt;，涉及较多方面。&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;hr&gt;
@@ -601,7 +601,7 @@ $$
  &amp;\ \ \ \ (x,y,1)\boldsymbol{B}\left(\begin{array}{c}x\\y\\1\end{array}\right)=0
  \end{aligned}\right.
  $$&lt;p&gt;
-其中$\boldsymbol{A},\boldsymbol{B}$是三阶实对称矩阵，&lt;/p&gt;</description></item><item><title>回归分析</title><link>https://iharee.github.io/post/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</link><pubDate>Sun, 08 Jan 2023 18:11:25 +0000</pubDate><guid>https://iharee.github.io/post/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</guid><description>&lt;p&gt;方便起见，本文用$\Vert\cdot\Vert^2$代表$\Vert\cdot\Vert_2^2$，其中$\Vert\cdot\Vert_2$是$l^2$或$L^2$范数，用RSS或SSE表示残差平方和，用SSR表示回归平方和，用SST表示总平方和，用OLS表示最小二乘法，用MLE表示极大似然估计，并采用下分位数的记号。&lt;/p&gt;
+其中$\boldsymbol{A},\boldsymbol{B}$是三阶实对称矩阵，&lt;/p&gt;</description></item><item><title>回归分析</title><link>https://iharee.github.io/%E6%95%B0%E5%AD%A6--%E7%BB%9F%E8%AE%A1%E5%AD%A6/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</link><pubDate>Sun, 08 Jan 2023 18:11:25 +0000</pubDate><guid>https://iharee.github.io/%E6%95%B0%E5%AD%A6--%E7%BB%9F%E8%AE%A1%E5%AD%A6/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</guid><description>&lt;p&gt;方便起见，本文用$\Vert\cdot\Vert^2$代表$\Vert\cdot\Vert_2^2$，其中$\Vert\cdot\Vert_2$是$l^2$或$L^2$范数，用RSS或SSE表示残差平方和，用SSR表示回归平方和，用SST表示总平方和，用OLS表示最小二乘法，用MLE表示极大似然估计，并采用下分位数的记号。&lt;/p&gt;
 &lt;p&gt;本文最初是作为本科阶段期末考试的复习总结，★代表考试中重要程度，●代表不会刻意作为考点，◆代表只考察解读或名词解释，不考察理论推导与证明，最后▲代表虽然是复习课上明确提到的必考内容，但会做变形或考察类似题目。由于本文作于作者大三时期，且原先的目的也只是系统地总结回归分析考试考点，所以本文不会十分深入地探究太多涉及底层理论的内容；文章侧重点更多的还是线性回归本身的理论，所以一些应用中的处理方法和可能遇到的问题并没有太多诠释。&lt;/p&gt;
 &lt;p&gt;&lt;u&gt;不过，后来断断续续扩写补充了相当一部分本科课程以外的内容，如果读者仅仅希望将本文作为（西南大学统计系）期末考试的复习笔记，则没有任何记号标记的标题下的内容，均可以忽略。&lt;/u&gt;&lt;/p&gt;
 &lt;p&gt;参考书目有：&lt;/p&gt;
@@ -643,6 +643,23 @@ $$
 $$&lt;p&gt;
 &lt;em&gt;相应的，$SST=l_{yy}$，$SSR=\hat{\beta}^2_1l_{xx}=\frac{l^2_{xy}}{l_{xx}}$，$SSE=SST-SSR$，在此一并给出参数显著性检验统计量：&lt;/em&gt;
 &lt;/p&gt;</description></item><item><title>关于</title><link>https://iharee.github.io/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/about/</guid><description>&lt;p&gt;一只硕士生。&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/iharee"&gt;GitHub&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://leetcode.cn/u/6racious-vaughanr63/"&gt;LeetCode&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="mailto:arthur-stat@stu.cqu.edu.cn"&gt;Email&lt;/a&gt;&lt;/p&gt;</description></item><item><title>友链</title><link>https://iharee.github.io/friends/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/friends/</guid><description/></item></channel></rss>
+&lt;div class="about-links"&gt;
+ &lt;a class="about-link" href="https://github.com/iharee"&gt;
+ &lt;span class="about-link-icon"&gt;
+ &lt;svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"&gt;&lt;path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/&gt;&lt;/svg&gt;
+ &lt;/span&gt;
+ GitHub
+ &lt;/a&gt;
+ &lt;a class="about-link" href="https://leetcode.cn/u/6racious-vaughanr63/"&gt;
+ &lt;span class="about-link-icon"&gt;
+ &lt;svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"&gt;&lt;path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831a6.233 6.233 0 0 0-1.811-.886 6.003 6.003 0 0 0-1.245-.27 5.98 5.98 0 0 0-.755-.53z"/&gt;&lt;/svg&gt;
+ &lt;/span&gt;
+ LeetCode
+ &lt;/a&gt;
+ &lt;a class="about-link" href="mailto:arthur-stat@stu.cqu.edu.cn"&gt;
+ &lt;span class="about-link-icon"&gt;
+ &lt;svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;rect x="2" y="4" width="20" height="16" rx="2"/&gt;&lt;path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/&gt;&lt;/svg&gt;
+ &lt;/span&gt;
+ Email
+ &lt;/a&gt;
+&lt;/div&gt;</description></item><item><title>友链</title><link>https://iharee.github.io/friends/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/friends/</guid><description/></item></channel></rss>

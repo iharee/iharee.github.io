@@ -43,7 +43,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
-  font-size: 17px;
+  font-size: 16px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -525,7 +525,7 @@ img { max-width: 100%; height: auto; display: block; }
 .post-back::before { content: '\2190'; font-size: 0.85rem; }
 
 .post-header {
-  margin-bottom: var(--gap-xl);
+  margin-bottom: var(--gap-md);
 }
 
 .post-category-label {
@@ -568,14 +568,14 @@ img { max-width: 100%; height: auto; display: block; }
 .post-body h2 {
   font-size: 1.25rem;
   font-weight: 600;
-  margin: var(--gap-xl) 0 var(--gap-sm);
+  margin: var(--gap-lg) 0 var(--gap-xs);
   color: var(--ink);
 }
 
 .post-body h3 {
   font-size: 1.05rem;
   font-weight: 600;
-  margin: var(--gap-lg) 0 var(--gap-xs);
+  margin: var(--gap-md) 0 var(--gap-xs);
   color: var(--ink-soft);
 }
 
@@ -587,7 +587,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .post-body p {
-  margin-bottom: var(--gap-md);
+  margin-bottom: var(--gap-sm);
 }
 
 .post-body a {
@@ -600,7 +600,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .post-body ul, .post-body ol {
-  margin-bottom: var(--gap-md);
+  margin-bottom: var(--gap-sm);
   padding-left: var(--gap-lg);
 }
 
@@ -621,7 +621,7 @@ img { max-width: 100%; height: auto; display: block; }
   padding: var(--gap-md);
   border-radius: 6px;
   overflow-x: auto;
-  margin-bottom: var(--gap-md);
+  margin-bottom: var(--gap-sm);
   font-size: 0.82rem;
   line-height: 1.6;
 }
@@ -633,7 +633,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 .post-body blockquote {
   border-left: 2px solid var(--vermilion);
-  margin: var(--gap-md) 0;
+  margin: var(--gap-sm) 0;
   padding: var(--gap-xs) var(--gap-md);
   color: var(--ink-soft);
   font-style: italic;
@@ -642,17 +642,17 @@ img { max-width: 100%; height: auto; display: block; }
 .post-body hr {
   border: none;
   border-top: 1px solid var(--border);
-  margin: var(--gap-xl) 0;
+  margin: var(--gap-md) 0;
 }
 
 .post-body img {
   border-radius: 4px;
-  margin: var(--gap-md) auto;
+  margin: var(--gap-sm) auto;
 }
 
 /* KaTeX display math */
 .post-body .katex-display {
-  margin: var(--gap-lg) 0;
+  margin: var(--gap-md) 0;
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -665,7 +665,7 @@ img { max-width: 100%; height: auto; display: block; }
 .post-body table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: var(--gap-md);
+  margin-bottom: var(--gap-sm);
 }
 
 .post-body th,
