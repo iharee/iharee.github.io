@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on 二三事</title><link>https://iharee.github.io/categories/others/</link><description>Recent content in Others on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 28 May 2025 03:29:00 +0000</lastBuildDate><atom:link href="https://iharee.github.io/categories/others/index.xml" rel="self" type="application/rss+xml"/><item><title>Spring 框架学习研究札记</title><link>https://iharee.github.io/others/spring-%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</link><pubDate>Wed, 28 May 2025 03:29:00 +0000</pubDate><guid>https://iharee.github.io/others/spring-%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</guid><description>&lt;!--
+
+学习视频：&lt;a href="https://www.bilibili.com/video/BV14WtLeDEit"&gt;尚硅谷最新版SSM教程，基于AI的全新ssm框架实战&lt;/a&gt;，强烈推荐！
+
+--&gt;
+&lt;p&gt;这篇文档仅仅是我自己的笔记。比如，我会整理 Spring 框架常见的容器相关注解，但不会对容器注解本身做进一步解释，也不会解释 IoC 的概念，只起目录与导航的作用——因为这些内容的详情要么在官方文档中可以很轻松地查到，要么十分基础。但对于 Bean 的生命周期这类比较重要的关键点，我将重点分析并记录。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Spring Boot 3.3.3&lt;/p&gt;
+&lt;p&gt;Spring Framework 6.1.6&lt;/p&gt;
+&lt;p&gt;JDK 17&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id="spring-core--aop"&gt;Spring Core &amp;amp; AOP&lt;/h1&gt;
+&lt;h2 id="ioc--di"&gt;IoC &amp;amp; DI&lt;/h2&gt;
+&lt;p&gt;控制反转（Inversion of Control）是一种设计原则，指对象的创建、销毁与依赖关系不再由用户负责，而是将对象的生命周期交由容器统一管理。&lt;/p&gt;
+&lt;p&gt;依赖注入（Dependency Injection）是控制反转的最常见实现方式。&lt;/p&gt;
+&lt;h3 id="spring-bean-接口与注解"&gt;Spring Bean 接口与注解&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;@Configuration&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;@ComponentScan&lt;/code&gt;、&lt;code&gt;@Import&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;@Bean&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;@Component&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;@Controller&lt;/code&gt;（&lt;code&gt;@RestController&lt;/code&gt;），&lt;code&gt;@Service&lt;/code&gt;，&lt;code&gt;@Repository&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;@Scope&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;@Lazy&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接口 &lt;code&gt;FactoryBean&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;@Conditional&lt;/code&gt;、接口 &lt;code&gt;Conditional&lt;/code&gt; 及一系列派生注解&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;@Profile&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Spring Boot 如此强大，最主要的原因就是其在底层广泛而灵活地使用了 &lt;code&gt;@Conditional&lt;/code&gt;。如果说最初基于 XML 配置的 Spring 设计哲学是配置优于代码，那么后来基于注解的 Spring 为我们大幅减少甚至几乎完全消灭了冗长繁琐的 XML 配置，而 Spring Boot 在这基础上更进一步，通过让约定优于配置，让一个刚入门的开发者也能够轻松上手。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;@Autowired&lt;/code&gt;，&lt;code&gt;@Resource&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;在源码中，&lt;code&gt;@Autowired&lt;/code&gt; 实际上是由 &lt;code&gt;AutowiredAnnotationBeanPostProcessor&lt;/code&gt; 实现的，这是一个专门用于处理 &lt;code&gt;@Autowired&lt;/code&gt; 的一种特殊的 &lt;code&gt;BeanPostProcessor&lt;/code&gt;，在每个 Bean 或组件被创建后调用其特殊的 &lt;code&gt;postProcessProperties&lt;/code&gt; 方法或 &lt;code&gt;postProcessBeforeInitialization&lt;/code&gt; 方法，通过反射分析目标 Bean 的全部注解、字段、方法、构造器等等，然后对具有 &lt;code&gt;@Autowired&lt;/code&gt; 注解修饰的对象尝试在容器中进行匹配，如果匹配成功则注入依赖。&lt;/p&gt;</description></item></channel></rss>

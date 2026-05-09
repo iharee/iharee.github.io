@@ -1,0 +1,942 @@
+<!doctype html><html lang=zh-CN><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>考研数学（微积分）（上） — 二三事</title><link rel=icon type=image/png sizes=32x32 href=/favicon.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:opsz@9..40&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css crossorigin=anonymous></head><body><header class=site-header><h1 class=site-title><a href=/>二三事</a></h1><p class=site-subtitle>Hare's Notebook</p><hr class=header-rule></header><nav class=category-nav><a href=/>Articles</a>
+<a href=/friends/>友链</a>
+<a href=/about/>关于</a></nav><div class=post-layout><aside class=post-toc-sidebar id=tocSidebar><div class=toc-header><span class=toc-title>目录</span>
+<button class=toc-toggle-btn id=tocToggleBtn aria-label="Toggle TOC">
+<span class=toc-toggle-icon></span></button></div><nav class=toc-nav id=tocNav><ul><li><a href=#三角函数关系助记>三角函数关系助记</a></li><li><a href=#三角函数相关公式>三角函数相关公式</a></li></ul><ul><li><a href=#收敛性>收敛性</a></li><li><a href=#数列极限的计算>数列极限的计算</a><ul><li><a href=#级数收敛性>级数收敛性</a></li><li><a href=#线性递推式-通项公式>线性递推式 (通项公式)</a></li><li><a href=#幂级数-累和数列极限>幂级数 (累和数列极限)</a></li><li><a href=#黎曼积分定义-累和数列极限>黎曼积分定义 (累和数列极限)</a></li><li><a href=#夹逼准则-累和数列极限>夹逼准则 (累和数列极限)</a></li><li><a href=#夹逼准则进阶>夹逼准则进阶</a></li><li><a href=#o-stolz定理>O&rsquo; Stolz定理</a></li><li><a href=#toeplitz定理-累和数列极限>Toeplitz定理 (累和数列极限)</a></li><li><a href=#海涅定理与中值定理>海涅定理与中值定理</a></li></ul></li><li><a href=#递推数列极限存在性>递推数列极限存在性</a><ul><li><a href=#从单调性出发>从单调性出发</a><ul><li><a href=#函数局部增时-单调有界定理>函数局部增时: 单调有界定理</a></li><li><a href=#函数局部减时-上下极限>函数局部减时: 上下极限</a></li></ul></li><li><a href=#压缩映射原理-banach不动点原理>压缩映射原理 (Banach不动点原理)</a></li></ul></li></ul><ul><li><a href=#极限性质与洛必达法则>极限性质与洛必达法则</a></li><li><a href=#泰勒公式>泰勒公式</a></li><li><a href=#重要补充>重要补充</a></li><li><a href=#中值定理处理函数极限>中值定理处理函数极限</a></li><li><a href=#幂指型函数极限>幂指型函数极限</a></li><li><a href=#渐近线>渐近线</a></li></ul><ul><li><a href=#可导性与可积性>可导性与可积性</a></li><li><a href=#反函数求导>反函数求导</a></li><li><a href=#变限积分的导数>变限积分的导数</a></li><li><a href=#无穷小的阶>无穷小的阶</a></li><li><a href=#复杂函数快速微分法>复杂函数快速微分法</a><ul><li><a href=#对数求导法示例>对数求导法示例</a></li><li><a href=#定义求导法示例>定义求导法示例</a></li><li><a href=#其他方法>其他方法</a></li></ul></li><li><a href=#参数方程求导>参数方程求导</a></li><li><a href=#高阶导数>高阶导数</a></li><li><a href=#极值充分条件与必要条件>极值充分条件与必要条件</a></li><li><a href=#凸性与拐点>凸性与拐点</a></li><li><a href=#拐点充分条件与必要条件>拐点充分条件与必要条件</a></li><li><a href=#导数在经济学的应用>导数在经济学的应用</a></li><li><a href=#罗尔中值定理>罗尔中值定理</a></li><li><a href=#广义罗尔中值定理>广义罗尔中值定理</a></li><li><a href=#罗尔定理重要推论>罗尔定理重要推论</a></li><li><a href=#拉格朗日中值定理>拉格朗日中值定理</a></li><li><a href=#柯西中值定理>柯西中值定理</a></li><li><a href=#泰勒中值定理>泰勒中值定理</a></li><li><a href=#达布定理>达布定理</a></li></ul><ul><li><a href=#等式存在性-1分析还原法>等式存在性 1：分析还原法</a><ul><li><a href=#单变量微分方程解的存在性问题>单变量微分方程解的存在性问题</a></li><li><a href=#多变量微分方程解的存在性问题>多变量微分方程解的存在性问题</a></li></ul></li><li><a href=#等式存在性-2微分方程法>等式存在性 2：微分方程法</a></li><li><a href=#等式存在性-3费马引理与介值定理零点定理等>等式存在性 3：费马引理与介值定理(零点定理)等</a></li><li><a href=#泰勒公式证明不等式存在性>泰勒公式证明不等式存在性</a></li></ul><ul><li><a href=#三角函数相关积分专题>三角函数相关积分专题</a><ul><li><a href=#三角函数与其𝑛次方的不定积分>三角函数与其𝑛次方的不定积分</a></li><li><a href=#三角函数有理分式积分>三角函数有理分式积分</a></li><li><a href=#𝑛𝑥相关三角积分-黎曼引理>𝑛𝑥相关三角积分 (黎曼引理)</a></li><li><a href=#wallis公式stirling公式及推论>Wallis公式、Stirling公式及推论</a></li><li><a href=#复合反三角函数积分>复合反三角函数积分</a></li><li><a href=#三角函数积分杂例>三角函数积分杂例</a></li></ul></li><li><a href=#分部积分表格法>分部积分表格法</a></li><li><a href=#区间再现>区间再现</a></li><li><a href=#有理分式积分>有理分式积分</a><ul><li><a href=#通用算法-分式分解>通用算法 (分式分解)</a></li><li><a href=#倒代换法>倒代换法</a></li></ul></li><li><a href=#简单无理式的积分>简单无理式的积分</a><ul><li><a href=#基本无理式积分表>基本无理式积分表</a></li><li><a href=#简单无理式积分技巧举例>简单无理式积分技巧举例</a></li><li><a href=#特殊无理式积分>特殊无理式积分</a></li></ul></li><li><a href=#积分中值定理>积分中值定理</a><ul><li><a href=#第一积分中值定理>第一积分中值定理</a></li><li><a href=#第二积分中值定理>第二积分中值定理</a></li></ul></li><li><a href=#普遍的积分不等式>普遍的积分不等式</a></li><li><a href=#特殊的积分不等式>特殊的积分不等式</a></li><li><a href=#反常积分及其敛散性>反常积分及其敛散性</a><ul><li><a href=#比较判别法及其延伸>比较判别法及其延伸</a></li><li><a href=#柯西收敛准则>柯西收敛准则</a></li><li><a href=#迪利克雷判别法>迪利克雷判别法</a></li><li><a href=#阿贝尔判别法>阿贝尔判别法</a></li><li><a href=#欧拉积分简介>欧拉积分简介</a></li></ul></li><li><a href=#留数定理计算实积分暂略>留数定理计算实积分（暂略）</a></li><li><a href=#积分之猜的经验>积分之“猜”的经验</a></li></ul></nav></aside><main class=post-main><a href=/ class=post-back>返回</a><article><header class=post-header><div class=post-category-label>math-statistics</div><h1 class=post-title-main>考研数学（微积分）（上）</h1><div class=post-meta>2023.04.06
+&#183; #高等数学</div></header><div class=post-body><p>  想了想，还是写Markdown更容易保存；作为考研高数的完整笔记，内容多了以后电子文档增删查改起来容易些。</p><p>  part Ⅰ主要内容为 <b>极限</b> 与 <b>一元微积分</b>，涉及较多方面。</p><hr><p>  只要数学家名称与定理名称较为常见、有广为接受的中文翻译，就都用中文表示了；两篇文章都主要限定在$\mathbb{R}$上讨论，后文不再强调了。<strong><font color=#CD0000>移动端阅读体验可能比较糟糕，尤其是用手机浏览长公式时</font></strong>。</p><p>  如有纰漏，可以邮件联系我以订正。为了不影响主干内容的连贯，部分例题被折叠了起来。</p><h1 id=注意>注意</h1><ul><li><p>可证明，对$f(x)^{g(x)}$形式的式子，是可以直接对$f(x)$与$g(x)$运用泰勒公式的（只要运用正确，精度足够），自然对所谓的“等价无穷小”也是成立的，这在求极限中非常实用、方便；</p></li><li><p>第一、第二数学归纳法是极其好用的工具，需要熟练掌握并学会灵活运用（实为严格的演绎法）。归纳法不仅能运用在定理证明中，甚至可以配合单调有界定理证明数列极限的存在性。</p><p>例如设$1\lt a\leqslant e^{\frac1e}$，$x_1=a$，且当$n>1$时有$x_n=a^{x_{n-1}}$，试证极限$\lim\limits_{n\to\infty}x_n$存在。</p><p>观察到$x_2=a^{x_1}=a^a>a=x_1$，于是猜想$\{x_n\}$可能单调递增；做归纳假设$x_n>x_{n-1}$成立，则有$x_{n+1}=a^{x_n}>a^{x_{n-1}}=x_n$，因此由第一归纳法，数列$\{x_n\}$确为单调递增。下证数列有界，首先有$x_1=a\leqslant e^{\frac1e}\lt e$，再次运用归纳法，假设$\forall n\lt k,\ x_n\lt e$，则$x_{n+1}=a^{x_n}\lt a^e\leqslant e$，同时容易知道$\forall n,\ x_n>1$，因此数列有界；最后，根据单调有界定理可知，该数列极限存在。</p></li><li><p><font color=red>在点$x_0$处使用泰勒公式的条件：$f(x)$在含点$x_0$的某个开区间$(a,b)$内有$n+1$阶导数，则$f(x)$可以按$(x-x_0)$展开到$n$阶；</font></p></li><li><p><font color=red>求极限$\lim\limits_{x\to a}\frac{f(x)}{g(x)}$时使用洛必达法则的条件：</font>除了要求分子分母满足不定式条件，<font color=red>$f(x)$与$g(x)$的导数在$a$的某个邻域内应均存在，且导数比值的极限为一广义常数$A$时</font>，才有$\lim\limits_{x\to a}\frac{f(x)}{g(x)}=\lim\limits_{x\to a}\frac{f'(x)}{g'(x)}=A$成立；其中$A$可以是无穷大。</p></li><li><p>不要混淆了记号。$\lim\limits_{x\to {x_0}^+}f(x)$与$f(x_0+0)$均为右极限的记号，定义为：$\forall \varepsilon>0$，$\exists\delta>0$，$s.t.\,\,$当$0\lt x-x_0<\delta$时，有$|f(x)-A|<\varepsilon$，则称$A$为$f(x)$在点$x_0$处的右极限。从实数轴上看，右极限是“从数轴的右侧逼近”、“从数轴的正侧逼近”的单侧极限，与之对应的是左极限。</p><p>但是一般而言，<font color=red>导数的右极限$\lim\limits_{x\to {x_0}^+}f(x)$存在不等价于右导数$f'_+(x)$存在！！！导数的左极限与左导数的关系同理。</font></p></li><li><p>数学辅助工具上，个人十分推荐 <a href=https://www.wolfram.com/mathematica/>Mathematica</a>：无论是优化问题、矩阵求逆等数值计算，还是不定积分、微分方程、泰勒 / 洛朗级数等符号计算，Mathematica都能处理自如；此外，微软用Python语言开发的 <a href=https://github.com/Z3Prover/z3>Z3</a> 也是一个强大的工具。<a href=https://www.wolframalpha.com/calculators/integral-calculator>Wolfram|Alpha</a> 是基于Mathematica的，提供了图形化的在线网页界面，可以十分方便地进行常见的运算，让初学者不需要任何代码也可以借助计算机完成一些数学计算。</p><p>对于函数图像，可以通过 <a href=https://www.desmos.com/calculator>Desmos</a> 简单绘制，Desmos同样提供了在线网站，可以便捷得画出简单或复杂函数的图像。如果对一些简单函数如$\arccos x$的图像不熟悉，可以通过Desmos直接画出其图像；对一些相对复杂的函数Desmos也能胜任，甚至还能从中看出函数在间断点的极限。</p></li></ul><h1 id=初等数学简记>初等数学简记</h1><ul><li><p>二项式定理：$\forall n\in\mathbb{N}^+$，$(a+b)^n=\sum\limits^n_{k=0}\binom{n}{k}a^{n-k}b^k$；</p></li><li><p>$n$次方的差公式：$\forall n\in\mathbb{N}^+$，$a^n-b^n=(a-b)\sum\limits^{n-1}_{k=1}a^{n-k}b^k$</p><ul><li>特别地，平方差公式的一个有趣应用是对根式差极限的处理：$\sqrt{f(x)}-g(x)=\frac{f(x)-g^2(x)}{\sqrt{f(x)}+g(x)}$；</li><li>当$b=1$时，有：$(x-1)^n=(x-1)(x^{n-1}+x^{n-2}+\cdots+x+1)$</li></ul></li><li><p>令上式$b:=-b$则得到$n$次方和公式，注意当$n$为正偶数时$a^n+b^n=0$没有实数根，自然也不能在$\mathbb{R}$内分解因式。当$n$为奇数时，有：$a^n+b^n=(a+b)(a^{n-1}-a^{n-2}b+\cdots-ab^{n-2}+b^{n-1})$；</p><ul><li>特别地，当$b=1$且$n$为奇数时，有：$(x+1)^n=(x+1)(x^{n-1}-x^{n-2}+\cdots+a^2-a+1)$；</li></ul></li><li><p>中学数列通项求法大全：<a href=https://zhuanlan.zhihu.com/p/73032201><b><font color=#1E90FF>高中数学：求数列通项公式的十一种方法（方法全，例子全，归纳细）</font></b></a></p></li><li><p>一般$2$元$2$次方程解法：对于一般的$2$元$2$次方程组，可以将其改写为二次型的形式，</p>$$
+\left\{\begin{aligned}
+&\ \ \ \ (x,y,1)\boldsymbol{A}\left(\begin{array}{c}x\\y\\1\end{array}\right)=0\\
+&\ \ \ \ (x,y,1)\boldsymbol{B}\left(\begin{array}{c}x\\y\\1\end{array}\right)=0
+\end{aligned}\right.
+$$<p>其中$\boldsymbol{A},\boldsymbol{B}$是三阶实对称矩阵，</p><ul><li>如果$\boldsymbol{A}$或$\boldsymbol{B}$不满秩，则方程可以因式分解，秩$1$则可以分解为一个一次式的平方，秩$2$则可以分解为两个一次式的乘积，由此可以解得结果。</li><li>如果$\boldsymbol{A}$与$\boldsymbol{B}$均满秩，则计算$\boldsymbol{A}^{-1}\boldsymbol{B}$的特征值$\lambda_i$（即计算行列式$|\lambda\boldsymbol{A}-\boldsymbol{B}|=0$，广义特征值），因式分解$\lambda_i\boldsymbol{A}-\boldsymbol{B}$即可——这是一定能因式分解的。</li></ul></li><li><p>对数函数的一些性质：</p><ol><li>$\log_ab_1b_2=\log_ab_1+\log_ab_2$（于是自然有$\log_ab^n=n\log_ab$、$\log_a\frac{b_1}{b_2}=\log_ab_1-\log_ab_2$等）</li><li>$\log_ab=\frac1{\log_ba}$</li><li>$\log_ab=\frac{\log_cb}{\log_ca}$，换底公式</li><li>$a^{\log_ab}=b\ \Rightarrow\ a^{\ln a}=e$</li><li>$a^{\log_cb}=b^{\log_ca}$</li><li>$\displaystyle\frac{\mathrm{d}}{\mathrm{d}x}\log_ax=\frac1{x\ln a}$</li><li>$\displaystyle\frac{\mathrm{d}}{\mathrm{d}x}\log_xa=-\frac{\ln a}{x\ln^2x}$</li></ol></li><li><p>设$a,b,c\in\mathbb{N}^+$，则$\sqrt{a\pm b\sqrt{c}}$能被表为$\lambda_1\sqrt{\alpha}\pm\lambda_2\sqrt{\beta}$的充要条件是$a^2-b^2c$是完全平方数且$b^2c$是偶数，其中$\lambda_1,\lambda_2,\alpha,\beta\in\mathbb{N}^+$。如果$bc$是奇数，则可以表为$\frac{\lambda_1\sqrt{\alpha}\pm\lambda_2\sqrt{\beta}}{\sqrt2}$的形式。</p><p>具体的步骤是：</p><ol><li><p>记$d=b^2c$，将$\sqrt{a\pm b\sqrt{c}}$写为$\sqrt{a\pm\sqrt{d}}$</p></li><li><p>判断$a^2-d$是否是完全平方数，如果不是则不能化简</p></li><li><p>判断$d$的奇偶性，</p><ul><li><p>如果$d$是偶数则计算$\sqrt{\frac{a+\sqrt{a^2-d}}2}$与$\sqrt{\frac{a-\sqrt{a^2-d}}2}$，有$\sqrt{a\pm\sqrt{d}}=\sqrt{\frac{a+\sqrt{a^2-d}}2}\pm\sqrt{\frac{a-\sqrt{a^2-d}}2}$</p></li><li><p>如果$d$是奇数则对根号内乘$\frac22$以将$d$写为偶数$2d$，化为偶数情况</p></li></ul></li></ol><p>实际在操作时只需要通过$a^2-b^2c$判断原式能否化简，如果能被化简直接设变量接着“凑”就好了，例如化简$\sqrt{3+2\sqrt2}$，设$\sqrt{3+2\sqrt2}=\sqrt{x}+\sqrt{y}$，两边平方得$3+2\sqrt2=x+y+2\sqrt{xy}$，所以$x+y=3$、$\sqrt2=\sqrt{xy}$，容易看出来令$x=1,y=2$即可。</p><p>另外，$\sqrt{a+\sqrt{b}+\sqrt{c}}$一定不能被表为$\lambda_1\sqrt{\alpha}+\lambda_2\sqrt{\beta}+\lambda_3\sqrt{\gamma}$，其中$\lambda_1,\lambda_2,\lambda_3,\alpha,\beta,\gamma\in\mathbb{N}^+$。</p></li><li><p>$\displaystyle\max\{a,b\}=\frac{a+b+|a-b|}2$</p><p>$\displaystyle\min\{a,b\}=\frac{a+b-|a-b|}2$</p></li><li><p>$n!\,2^n=(2n)!!$</p><p>$\displaystyle\frac{2^n}{(2n)!!}=\left(\frac2{2n}\right)\left(\frac2{2n-2}\right)\cdots\left(\frac22\right)=\frac1{n!}$</p></li><li><p>需要确定参数取值范围时，参变分离是个好方法。</p></li><li><p>一些显而易见的概念就不再提及了，例如$\arctan x$与$\arcsin x$的大致图像，本文默认读者对这些内容已经有所了解。</p></li></ul><h1 id=三角函数的性质>三角函数的性质</h1><h2 id=三角函数关系助记>三角函数关系助记</h2><p><span style=color:#34cd32;font-weight:700>青柠色</span>代表按垂直 (两侧) 的关系，<span style=color:#836fff;font-weight:700>浅紫色</span>代表按水平 (按层) 的关系，<span style=color:#ee7621;font-weight:700>橙色</span>代表按同侧邻居的关系 ($\sin x$与$\cos x$较特殊)，<span style=color:#b03060;font-weight:700>赤红色</span>代表按过中心点连线两端的关系。如果有兴趣，不妨试着探究，相同的颜色对应的性质间有没有什么联系？是否由一种性质可以导出另一种同色的性质？</p><img src=/images/考研数学（微积分）（上）/三角函数关系.svg alt=三角函数关系 style=zoom:70%><ul><li><p><span style=color:#34cd32;font-weight:700>英文命名关系</span>：在中心垂线的右边的三角函数英文首字母都是“c”；</p></li><li><p><span style=color:#836fff;font-weight:700>中文命名关系</span>：在中心垂线的左边的三角函数首字都是“正”，右边的首字都是“余”；从上到下，第一层函数名字的次字都是“弦”，第二层次字都是“切”，第三层次字都是“割”；</p></li><li><p><span style=color:#ee7621;font-weight:700>平方数量关系</span>：除去第一层的三角函数间有$\sin^2 x+\cos^2 x=1$，同水平上的三角函数平方分别等于同侧邻近的另一三角函数平方$-1$，即$\tan^2x=\sec^2x-1$、$\cot^2x=\csc^2x-1$；</p></li></ul><details><summary><font color=#0099ff>&emsp;展开/收起2道运用这一性质的积分实例</font></summary><ul><li><p>求积分$\displaystyle{\int\frac{1}{x(1+x^2)}}$：</p>$$
+\begin{align}\int\frac{\mathrm{d}x}{x(1+x^2)}&=\int\frac{\mathrm{d}\tan z}{\tan z(1+\tan^2z)}\\&=\int\frac{\sec^2z}{\tan z\cdot\sec^2z}\mathrm{d}z\\&=\int\cot z\mathrm{d}z\\&=\int\frac{\mathrm{d}\sin z}{\sin z}\\&=\ln\vert\sin z\vert+C\\&=\ln\big\vert\sin(\arctan x)\big\vert+C\end{align}
+$$<p>不过，这个积分结果还有另一个形式，事实上二者表达的是同一个式子，只是利用不同的方法计算得到：</p>$$
+\begin{align}\int\frac{\mathrm{d}x}{x(1+x^2)}&=\int\frac{1}{x}-\frac{x}{1+x^2}\mathrm{d}x\\&=\ln\vert x\vert-\frac{1}{2}\ln(1+x^2)+C=\ln\frac{\vert x\vert}{\sqrt{1+x^2}}+C\\&\Leftrightarrow\ln\big\vert\sin(\arctan x)\big\vert+C\end{align}
+$$<p>当然，还可用按有理分式来积分，不过如此便繁琐了。</p><p>凡是涉及$(1+x^{1\text{或}2})^k$形式的积分，都可以试试利用$\tan x$的这一性质求解。</p></li><li><p>计算$\displaystyle{\int^{+\infty}_3\frac{\mathrm{d}x}{(x-1)^4\sqrt{x^2-2x}}}$；</p><p>利用三角函数的性质，换元$x-1=\sec t$：</p>$$
+\begin{align}
+\int^{+\infty}_3\frac{\mathrm{d}x}{(x-1)^4\sqrt{x^2-2x}}&=\int^{+\infty}_3\frac{\mathrm{d}x}{(x-1)^4\sqrt{(x-1)^2-1}}\\
+&=\int^{\frac{\pi}2}_{\frac{\pi}3}\frac{\sec t\tan t}{\sec^4t\tan t}\mathrm{d}t\\
+&=\int^{\frac{\pi}2}_{\frac{\pi}3}\cos^3t\mathrm{d}t\\
+&=\int^{\frac{\pi}2}_{\frac{\pi}3}(1-\sin^2t)\mathrm{d}\sin t=\frac23-\frac{3\sqrt{3}}8
+\end{align}
+$$</li></ul></details><ul><li><p><strong><font color=#836FFF>反函数数量关系 1</font></strong>：第一、三层的两个三角函数，他们反函数的和函数在定义域上值都为$\frac{\pi}{2}$，即$\arcsin x+\arccos x=\frac{\pi}{2}$、$\mathrm{arcsec\,}x+\mathrm{arccsc\,}x=\frac{\pi}{2}$，定义域分别为$x\in[-1,1]$、$x\in\mathbb{R}$、$x\notin(-1,1)$；</p></li><li><p><strong><font color=#836FFF>反函数数量关系 2</font></strong>：特殊例子，</p><p>$\arctan x+\arctan\frac{1}{x}=\left\{\begin{aligned}&\frac{\pi}{2},&&x>0\\&-\frac{\pi}{2}，&&x<0\end{aligned}\right.$，</p><p>$\mathrm{arccot\,}x+\mathrm{arccot\,}\frac{1}{x}=\left\{\begin{aligned}&\frac{\pi}{2},&&x>0\\&\frac{3\pi}{2}，&&x<0\end{aligned}\right.$；</p></li><li><p><strong><font color=#B03060>倒数关系</font></strong>：任何过中心点的长线两端的三角函数互为倒数，即$\sin x=\frac{1}{\csc x}$、$\cos x=\frac{1}{\sec x}$、$\tan x=\frac{1}{\cot x}$；</p></li><li><p><strong><font color=#836FFF>导数关系</font></strong>：</p><ul><li>左侧第一层的三角函数的导数等于同侧第一层的三角函数、<span style="border-bottom:2px dashed">右侧的取相反数</span>，即$\sin'x=\cos x$、$\cos'x=-\sin x$；</li><li>左侧第二层的三角函数导数等于同侧第三层三角函数平方、<span style="border-bottom:2px dashed">右侧的取相反数</span>，即$\tan'x=\sec^2x$、$\cot'x=-\csc^2x$；</li><li>左侧第三层的三角函数导数等于自己与同侧第二层三角函数的乘积、<span style="border-bottom:2px dashed">右侧的取相反数</span>，即$\sec'x=\tan x\cdot\sec x$、$\csc'x=-\cot x\cdot\csc x$；</li></ul></li></ul><p>以上只是个人发现的助记办法，欲了解原理需另加推导。此外，各三角函数的反函数导数按层也有着符号上的关系（右侧的取相反数），分别为$\arcsin'x=\frac{1}{\sqrt{1-x^2}}$、$\arccos'x=-\frac{1}{\sqrt{1-x^2}}$、$\arctan'x=\frac{1}{1+x^2}$、$\mathrm{arccot}'\,x=-\frac{1}{1+x^2}$、$\mathrm{arcsec}'\ x=\frac{1}{\vert x\vert\sqrt{x^2-1}}$、$\mathrm{arccsc}'\ x=-\frac{1}{\vert x\vert\sqrt{x^2-1}}$，前3个在积分中经常被用到，后三个不太常见，因此不再赘述了。</p><p>值得注意的是，由于定义域的问题，$\tan(\arctan x)=x$，而$\arctan(\tan x)=x-k\pi$，$x\in(-\frac{\pi}{2}+k\pi,\frac{\pi}{2}+k\pi)$，其中$k\in\mathbb{Z}$，图像呈周期“$\backslash$”状；其余三角函数同理，例如$\sin(\arcsin x)=x,\ x\in(-1,1)$、$\arcsin(\sin x)=-|x-\frac{\pi}{2}-2k\pi|+\frac{\pi}{2}$，$x\in(-\frac{\pi}{2}+2k\pi,\frac{3\pi}{2}+2k\pi)$，是图像呈周期“$\Lambda$”状的奇函数。以此类推，有$\arcsin(\cos x)=\arcsin\big(\sin(x+\frac{\pi}2)\big)$，图像呈周期“$\Lambda$”状的偶函数。</p><p>再次强调：</p>$$
+\color{#1E90FF}{\arcsin x+\arccos x=\frac{\pi}{2}}
+$$$$
+\color{#1E90FF}{\left\{\begin{aligned}&\sin(\arctan x)=\frac{x}{\sqrt{1+x^2}}\\&\cos(\arctan x)=\frac1{\sqrt{1+x^2}}\end{aligned}\right.}
+$$$$
+\color{#1E90FF}{\arctan(x)+\arctan\left(\frac1x\right)=\left\{\begin{aligned}&\frac{\pi}2,&&x>0\\&-\frac{\pi}2,&&x<0\end{aligned}\right.}
+$$$$
+\color{#1E90FF}{\sin(\arccos x)=\cos(\arcsin x)=\sqrt{1-x^2},\ \ |x|\leqslant1}
+$$<p><b>三角函数齐次化：</b></p>$$
+\begin{align*}
+&\sin\text{二倍角公式的运用}\ \left\{\begin{aligned}
+1+\sin2x=(\cos x+\sin x)^2\\
+1-\sin 2x=(\cos x-\sin x)^2\end{aligned}\right.\\\\
+&\cos\text{二倍角公式的运用}\ \left\{\begin{aligned}
+1+\cos 2x=2\cos^2x\\
+1-\cos2x=2\sin^2x\end{aligned}\right.
+\end{align*}
+$$<p>齐次化操作经常是大有用处的，例如试积分$\displaystyle{\int^{n\pi}_0\sqrt{1-\sin2x}\,\mathrm{d}x}$，错误的操作是不加讨论地换元$x=\frac{\arcsin t}{2}$：等号右边的式子值域仅为$[-\frac{\pi}{4},\frac{\pi}{4}]$，长度为$\frac{\pi}{2}$，即使移动$t$也无法覆盖$(0,\pi)$，而如果分段讨论问题会变得繁琐，并没有必要；简单的做法是利用二倍角公式，有$\sqrt{1-\sin 2x}=|\cos x-\sin x|$，于是答案变得显而易见。</p><p><a href="https://www.desmos.com/calculator?lang=zh-CN">Desmos图形计算器 - Graphing Calculator</a></p><p>$\ast$ 双曲三角函数不在本文讨论范围中，尽管他们也十分重要，但在考研高数中一般没有必要涉及。</p><h2 id=三角函数相关公式>三角函数相关公式</h2><p>个人认为，要深入学习、理解三角函数，就不应该再借助几何直观。三角函数可以用几何图形定义，也可以用级数定义，但按复函数的方式来定义应该才是最广泛适用的，如此也能方便地把三角函数诸多性质推广到复数域。</p><p>复指数的定义——欧拉公式（Euler&rsquo;s formula）：</p>$$
+e^{ix}=\cos x+i\sin x
+$$<p>棣莫佛公式（de Moivre&rsquo;s formula）：</p>$$
+e^{inx}=(\cos x+i\sin x)^n=\cos nx+i\sin nx,\ \ \ \ \forall n\in\mathbb{Z},\;x\in\mathbb{R}
+$$<p>在复变函数中，根据欧拉公式可定义</p>$$
+\left\{
+\begin{aligned}
+&\sin x=-\frac{e^{ix}-e^{-ix}}{2}i,&&\csc x=\frac{1}{\sin x}\\
+&\cos x=\frac{e^{ix}+e^{-ix}}{2},&&\sec x=\frac{1}{\cos x}\\
+&\tan x=-\frac{e^{ix}-e^{-ix}}{e^{ix}+e^{-ix}}i,&&\cot x=\frac{1}{\tan x}\\
+&\arcsin x=-i\ln\big(\sqrt{1-x^2}+ix\big)\\
+&\arccos x=-i\ln\big(\sqrt{1-x^2}+x\big)\\
+&\arctan x=-\frac{i}{2}\ln\frac{i-x}{i+1}\end{aligned}
+\right.
+$$<p>然后可以很自然的导出下述性质了。</p><img src=/images/考研数学（微积分）（上）/三角函数.png alt=三角函数1 style=zoom:60%><p>角的和差：</p>$$
+\left\{
+\begin{aligned}
+&\sin(\alpha\pm\beta)=\sin\alpha\cos\beta\pm\cos\alpha\sin\beta\\
+&\cos(\alpha\pm\beta)=\cos\alpha\cos\beta\mp\sin\alpha\cos\beta\\
+&\tan(\alpha\pm\beta)=\frac{\tan\alpha\pm\tan\beta}{1\mp\tan\alpha\tan\beta}\end{aligned}
+\right.
+$$<p>二倍角公式在前文齐次化操作中已经提到，是角的和差公式的推论，主要作用是增幂缩角：</p>$$
+\left\{
+\begin{aligned}
+&\sin 2x=2\sin x\cos x\\
+&\cos 2x=2\cos^2x-1=1-2\sin^2x\\
+&\tan 2x=\frac{2\tan x}{1-\tan^2x}\\
+\end{aligned}
+\right.
+$$<p></p>$$
+\Rightarrow\ \ \,\frac{\sin x}{1+\cos x}=\tan\frac{x}2
+$$<p>有时会需要降幂扩角：</p>$$
+\left\{
+\begin{aligned}
+&\sin^2x=\frac{1-\cos2x}2\\
+&\sin^3x=\frac{3\sin x-\sin3x}4\\
+&\sin^4x=(\sin^2x)^2=\frac18\cos4x-\frac12\cos2x+\frac38\\
+&\cos^2x=\frac{1+\cos2x}2\\
+&\cos^3x=\frac{3\cos x+\cos3x}4\\
+&\cos^4x=(\cos^2x)^2=\frac18\cos4x+\frac12\cos2x+\frac38\\
+&\cdots\ \cdots\ \,,\,\text{递推即可}
+\end{aligned}
+\right.
+$$<p>多倍角的情形可以视为角的和差公式的特殊情况，可以取$k\cdot\alpha=\beta$即可，这里不再多做讨论了。</p><p>以上公式的初等数学推导可以参考：<a href=https://zhuanlan.zhihu.com/p/108494085><font color=#EEAEEE>三角函数公式及推导(详尽解释)</font></a></p><p>推论：辅助角公式</p>$$
+a\sin\alpha+b\cos\alpha=\sqrt{a^2+b^2}\sin(\alpha+\varphi),\ \ \,where\ \tan\varphi=\frac{b}{a}
+$$<p>积化和差：</p>$$
+\left\{
+\begin{aligned}
+&\sin\alpha\cos\beta=\frac{\sin(\alpha+\beta)+\sin(\alpha-\beta)}{2}\\
+&\sin\alpha\sin\beta=-\frac{\cos(\alpha+\beta)-\cos(\alpha-\beta)}{2}\\
+&\cos\alpha\cos\beta=\frac{\cos(\alpha+\beta)+\cos(\alpha-\beta)}{2}\\
+\end{aligned}
+\right.
+$$<p>和差化积：</p>$$
+\left\{
+\begin{aligned}
+&\sin\alpha+\sin\beta=2\sin\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}\\
+&\sin\alpha-\sin\beta=2\sin\frac{\alpha-\beta}{2}\cos\frac{\alpha+\beta}{2}\\
+&\cos\alpha+\cos\beta=2\cos\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}\\
+&\cos\alpha-\cos\beta=-2\sin\frac{\alpha+\beta}{2}\sin\frac{\alpha-\beta}{2}\\
+\end{aligned}
+\right.
+$$<p>利用积化和差，可以方便地证明$\sin n$与$\cos n$在$n\to\infty$时极限不存在。</p><p>“万能公式”：在我的理解中，“万能公式”之所以“万能”，是因为它可以用统一的方法将三角函数方程转换为多项式方程。万能公式的一个重要运用就是针对任何三角函数有理分式的积分，都可以将其转换为多项式的有理分式的积分，而有理分式的积分是有通法的——尽管步骤上可能比一些技巧性的解法更繁复一些。</p><p>换句话说，任何形如$\int R(\sin x,\cos x)\mathrm{d}x$的积分，通过换元$t=\tan\frac{x}{2}$总能变为$t$的多项式有理分式的积分，可以将式子化为$\int \frac{2}{1+t^2}R(t)\mathrm{d}t$形式：</p>$$
+\text{replace }\tan\frac{x}{2}\text{ with }t\left\{
+\begin{aligned}
+&\sin x=\frac{2\tan\frac{x}{2}}{1+\tan^2\frac{x}{2}}=\frac{2t}{1+t^2}\\
+&\cos x=\frac{1-\tan^2\frac{x}{2}}{1+\tan^2\frac{x}{2}}=\frac{1-t^2}{1+t^2}\\
+&\tan x=\frac{2\tan\frac{x}{2}}{1-\tan^2\frac{x}{2}}=\frac{2t}{1-t^2}
+\end{aligned}
+\right.
+$$<p>“万能公式”的推导可以从$\cos x$和$\cos$的倍角公式入手，有$\cos x=\cos^2\frac x2-\sin^2\frac x2=\frac{\cos^2\frac x2-\sin^2\frac x2}{\cos^2\frac x2+\sin^2\frac x2}=\frac{1-\tan^2\frac{x}{2}}{1+\tan^2\frac{x}{2}}$；接着，利用$\tan$的倍角公式立刻有$\tan x=\frac{2\tan\frac{x}{2}}{1-\tan^2\frac{x}{2}}$，再令$\cos$与$\tan$相乘即可导出$\sin$的“万能公式”。</p><p><b><font color=#CD0000>从几何上看或许是最直观的：</font></b></p><img src=/images/考研数学（微积分）（上）/万能公式.webp alt=万能公式 style=zoom:100%><center><font size=2>二项式与勾股定理</font></center><p>也可以不用倍角的关系表示，这点在积分结果化简的过程中常用到：</p>$$
+\left\{\begin{aligned}
+&\sin x=\frac{\sin x}{\sqrt{\sin^2x+\cos^2x}}=\frac{\tan x}{\sqrt{1+\tan^2t}}\\
+&\cos x=\frac{\cos x}{\sqrt{\sin^2x+\cos^2x}}=\frac{1}{\sqrt{1+\tan^2t}}\\\end{aligned}\right.
+$$<p>例如积分结果时常含有类似$\sin(\arctan x)$这样的部分，他们均是可以进一步化简的，见上文。</p><p><em>由于常见的三角函数是复平面上的解析函数，因此上述等式在复数域恒成立。</em></p><p>$\ast$ 双曲三角函数不在本文讨论范围中。</p><p><a href=https://zhuanlan.zhihu.com/p/390928056><font color=#EEAEEE>考生必记：三角函数公式汇总+记忆（没有比这更全）</font></a></p><h1 id=实数理论及实数完备性>实数理论及实数完备性</h1><p>不在此讨论了（实在没有精力和时间细致讨论实数的完备性问题了），参考这篇写得不错的知乎文章即可：<a href=https://zhuanlan.zhihu.com/p/48859870><b><font color=red>实数的完备性定理</font></b></a>；</p><p>或直接参考维基百科：<a href=https://en.wikipedia.org/wiki/Completeness_of_the_real_numbers><b><font color=red>Completeness of the real numbers</font></b></a></p><h1 id=数列极限>数列极限</h1><h2 id=收敛性>收敛性</h2><p>数列$\{a_n\}$极限为$a$常见的定义为$\forall\varepsilon>0,\ \exists N_\varepsilon\in\mathbb{N}^+$，$s.t.\ \forall n>N_{\varepsilon}$，有$|a_n-a|<\varepsilon$。根据海涅定理，这一定义与函数$f(x)$在$x\to+\infty$时极限的定义是相似的；该定义可推广至一般的赋泛空间中，将绝对值改为相应的范数即可；$N_{\varepsilon}$可视为$\varepsilon$的函数（当$N_{\varepsilon}$取所有可能的值的最小值时）；将小于号改为小于等于号是等价的。</p><p>柯西收敛准则：数列$\{a_n\}$收敛的充要条件为$\forall\varepsilon>0,\ \exists N\in\mathbb{N}^+$，$s.t.\ \forall p,q>N$，有$|a_p-a_q|<\varepsilon$。柯西收敛准则在没有借助极限值的情况下刻画了数列收敛性，是实数集完备性的体现。满足柯西收敛准则的序列$\{a_n\}$称为柯西列，在欧氏空间中柯西列与收敛序列是等价的，但在更一般的空间中柯西列就不一定收敛了，事实上这是完备性所保证的，比如在有理数集上定义的柯西列就不一定收敛，所以我们可以说“有理数是不完备的”——这只是其不完备性的一个体现。但是，任何不完备的度量空间都可以完备化为完备的度量空间，所以柯西列在一些“更大”的空间中总是收敛的。将柯西收敛准则中的$p$改为$n+p$、$q$改为$n$，也是成立的。</p><p>此外，众所周知数列极限存在等价于任意子列的极限存在，所以针对不好直接处理的数列，可以先证明其极限存在，再任意找到一个方便处理的子列，计算子列极限，这时子列极限等于原数列的极限。</p><p>根据定义还可以推导出对于数列的两个子列，当两个子列的并等于原数列时，原数列的极限存在的充要条件是两子列极限存在且相等。这一思想最简单的应用是分别取奇偶子列，然后证明奇偶子列的极限存在且相等。例如计算极限$\displaystyle{\lim_{n\to\infty}n\left(\int^{\frac{\pi}2}_0\cos^{n+1}x\mathrm{d}x\right)^2}$，记$a_n=\displaystyle{\int^{\frac{\pi}2}_0\cos^{n+1}x\mathrm{d}x}$，可以先证明$\{a_n\}$是非负且单调递减趋于$0$的，然后取$\{na^2_n\}$的偶子列$\big\{(2k)a^2_{2k}\big\}$，讨论偶子列的极限。由Wallis公式，有</p>$$
+\begin{align}\lim_{k\to\infty}2k\left(\int^{\frac{\pi}2}_0\cos^{2k+1}x\mathrm{d}x\right)^2&=\lim_{k\to\infty}2k\left(\frac{(2k)!!}{(2k+1)!!}\right)^2\\&=\lim_{k\to\infty}\frac{2k}{2k+1}\cdot\left[\left(\frac{(2k)!!}{(2k-1)!!}\right)^2\cdot\frac1{2k+1}\right]\\&=1\times\frac{\pi}2=\frac{\pi}2\end{align}
+$$<p>对于奇子列$\big\{(2k+1)a^2_{2k+1}\big\}$的极限，利用$\{a_n\}$的单调性放缩（以应用夹逼准则）：</p>$$
+\frac{\pi}2+0=\lim_{k\to\infty}(2k+1)a^2_{2k+2}\leqslant\lim_{k\to\infty}(2k+1)a^2_{2k+1}\leqslant\lim_{k\to\infty}(2k+1)a^2_{2k}=\frac{\pi}2+0
+$$<p>综上所述，$\{na^2_n\}$的奇偶子列极限均存在且为$\frac{\pi}2$，所以$\lim\limits_{n\to\infty}na^2_n=\frac{\pi}2$。这里的子列极限还有一种计算方法，利用$\{a_n\}$的单调性有$a_{n+1}\lt a_n\lt a_{n-1}$，从而有$a_{n+1}a_n\lt a^2_n\lt a_{n-1}a_n$，此时无论$n$是奇数还是偶数，$a_{n+1}a_n$与$a_{n-1}a_n$在写为双阶乘分式的乘积后总是能消掉双阶乘的，随后再使用夹逼定理即可。</p><h2 id=数列极限的计算>数列极限的计算</h2><p>对等差数列$a_n=a_{n-1}+d$，有$S_n=\frac{n(a_1+a_n)}{2}=n\cdot a_1+n(n-1)d$；</p><p><font size=2>↑ 有趣的是，当$a_1=1$、$d=2$时，在数值上恰有$S_n=n^2$</font></p><p>对等比数列$b_n=q\cdot b_{n-1}$，有$S_n=\frac{b_1(1-q^n)}{1-q}=\frac{b_1}{1-q}-\frac{b_1}{1-q}\cdot q^n$；</p><p>$1^2+2^2+\cdots+n^2=\sum\limits^n_{k=1}k^2=\frac{1}{6}n(n+1)(2n+1)$；</p><p>$1^3+2^3+\cdots+n^3=\sum\limits^n_{k=1}k^3=\left(\frac{n(n+1)}{2}\right)^2$；</p><p>$\sum\limits^n_{k=1}k^j$一定是一个$n$次的$j+1$次多项式。这类数列和的求法，可参考：<a href=https://www.zhihu.com/question/411372206><font color=#EEAEEE>1²+2²+…+n²求和公式的推导有哪些方法?</font></a></p><h3 id=级数收敛性>级数收敛性</h3><p>例如计算极限$\lim\limits_{n\to\infty}\frac{2^n n!}{n^n}$、$\lim\limits_{n\to\infty}\frac{2^n}{n!}$、$\lim\limits_{n\to\infty}\frac{2^n}{3^n-n}$，可以直接判断他们的级数和收敛，于是极限为$0$——这是级数收敛的必要条件。</p><p>印象中用这一方法来证明极限为$0$，主要是在学习实变函数论、证明某测度为$0$的时候。</p><h3 id=线性递推式-通项公式>线性递推式 (通项公式)</h3><p>对于线性递推定义的数列，欲求其通项，通用的方法至少有两种，一是利用差分方程，二是利用可相似对角化矩阵的快速幂方法。</p><p>关于差分方程方法，一些一阶非齐次常系数线性差分方程的解在 <b><a href=https://iharee.github.io/2023/05/16/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%B7%A5%E5%85%B7%20Part%E2%85%A1/#more><font color=#D2691E>高等数学工具 PartⅡ</font></a></b> 中有给出，位于常微分方程一节；对于一些二阶差分方程的解，可以参考文章<a href=https://zhuanlan.zhihu.com/p/385787482><font color=#EEAEEE>差分方程基本理论</font></a>。由于如果读者非常熟悉差分方程理论，那么线性递推式通项求解是很显然的问题，因此这里主要以一个例子给出矩阵快速幂的方法，对于一些没有接触过差分方程的读者而言，只需要有一定的线性代数基础即可学会这种方法——不过作者认为，用差分方程的方法求解才是最泛用的，也是最接近本质的。</p><p>回到正题，如果数列是按与前几项的线性关系式迭代定义的，例如$x_n=x_{n-1}+3x_{n-2}-2x_{n_3}$，<em>首先可以考虑将$x_n-x_{n-1}-\cdots$看作整体构造新数列，这是初等的基本方法不再赘述</em>；如行不通，还可以考虑利用矩阵表出这种线性关系，利用对角化快速计算通项与和函数的表达式，即快速幂方法。<strong>普通的递归操作时间复杂度为$\mathcal{O}(2^n)$、循环操作时间复杂度为$\mathcal{O}(n)$，而快速幂方法求解数列递推定义式第$n$项的时间复杂度可以做到$\mathcal{O}(\log n)$</strong>。这一方法可被视为初等的基本方法之推广，利用可对角化矩阵的性质求解$n$阶线性递推数列的通项。</p><p>典型如斐波那契数列：记斐波那契第$n$项为$\text{Fib}(n)$，</p>$$
+\left\{
+\begin{aligned}
+&\text{Fib}(0)=1\\
+&\text{Fib}(1)=1\\
+&\text{Fib}(n)=\text{Fib}(n-1)+\text{Fib}(n-2), & n\geqslant2
+\end{aligned}
+\right.
+$$<p>根据定义，可以用矩阵等价的表出斐波那契数列：</p>$$
+\left(\begin{matrix}\text{Fib}(n)\\\text{Fib}(n-1)\\\end{matrix}\right)=\left[\begin{matrix}1&1\\1&0\\\end{matrix}\right]\left(\begin{matrix}\text{Fib}(n-1)\\\text{Fib}(n-2)\\\end{matrix}\right)=\left[\begin{matrix}1&1\\1&0\\\end{matrix}\right]^{n-1}\left(\begin{matrix}1\\1\\\end{matrix}\right)
+$$<p>由于$\left[\begin{matrix}1&1\\1&0\\\end{matrix}\right]$是实对称阵必可被相似对角化，计算出其有特征值$\frac{1-\sqrt{5}}{2}$与$\frac{1+\sqrt{5}}{2}$，分别的特征向量为$k_1(\frac{1-\sqrt{5}}{2},1)^T$与$k_2(\frac{1+\sqrt{5}}{2},1)^T$，因此</p>$$
+\begin{align}&\ \ \ \ \,\,\left[\begin{matrix}1&1\\1&0\\\end{matrix}\right]^{n-1}\\&=\,P\Lambda ^{n-1}P^{-1}\\&=\left[\begin{matrix}\frac{1-\sqrt{5}}{2}&\frac{1+\sqrt{5}}{2}\\1&1\\\end{matrix}\right]\left[\begin{matrix}\left(\frac{1-\sqrt{5}}{2}\right)^{n-1}&0\\0&\left(\frac{1+\sqrt{5}}{2}\right)^{n-1}\\\end{matrix}\right]\left[\begin{matrix}-\frac{1}{\sqrt{5}}&\frac{1+\sqrt{5}}{2\sqrt{5}}\\\frac{1}{\sqrt{5}}&\frac{1-\sqrt{5}}{2\sqrt{5}}\\\end{matrix}\right]\end{align}
+$$<p>于是</p>$$
+\begin{align}&\ \ \ \ \,\,\left(\begin{matrix}\text{Fib}(n)\\\text{Fib}(n-1)\\\end{matrix}\right)\\&=P\Lambda ^{n-1}P^{-1}\left(\begin{matrix}1\\1\\\end{matrix}\right)\\&=\frac{1}{\frac{1-\sqrt{5}}{2}-\frac{1+\sqrt{5}}{2}}\left(\begin{matrix}\left(\frac{1-\sqrt{5}}{2}\right)^{n+1}-\left(\frac{1+\sqrt{5}}{2}\right)^{n+1}\\\left(\frac{1-\sqrt{5}}{2}\right)^n-\left(\frac{1+\sqrt{5}}{2}\right)^n\\\end{matrix}\right)\end{align}
+$$<p>可以得出$\text{Fib}(n)=\frac{1}{\sqrt{5}}\left(\left(\frac{1+\sqrt{5}}{2}\right)^{n+1}-\left(\frac{1-\sqrt{5}}{2}\right)^{n+1}\right)$；</p><p>能够看出，可以把$\text{Fib}(n)$视作两个等比数列的差，自然其和函数也能计算了；基于此，可以计算$\lim\limits_{n\to\infty}\frac{\text{Fib}(n)}{\text{Fib}(n+1)}$，只需要将通项代如极限式中即可，不妨一试，最终答案应该为$\frac{\sqrt{5}-1}{2}$。实际上记$x_n=\frac{\text{Fib}(n)}{\text{Fib}(n+1)}$，有$x_n=\frac{1}{1+x_{n-1}}$，似乎两边同时取极限就能得到结果，但如此繁琐地解出斐波那契数列通项是为了证明极限的存在性：$\{x_n\}$并不单调，无法直接应用单调有界定理。</p><p>斐波那契数列的其他简单性质，可以参考：<a href=https://zhuanlan.zhihu.com/p/369768933><font color=#EEAEEE>斐波那契数列相关问题精讲</font></a></p><h3 id=幂级数-累和数列极限>幂级数 (累和数列极限)</h3><p>一定条件下，通过对逐项求积与逐项求导将级数化成一般函数的幂级数形式（如果有必要），进而转化为相应的有限次运算的初等函数求解。这里以两个简单的例子作为示范，计算$\lim\limits_{n\to\infty}\left(\frac{1}{2}+\frac{1}{8}+\frac{1}{24}+\cdots+\frac{1}{n\cdot2^{n}}\right)$与$\lim\limits_{n\to\infty}\left(1+\frac{2}{3}+\frac{3}{9}+\frac{4}{27}+\cdots+\frac{n}{3^{n-1}}\right)$：</p><ul><li><p>对$\lim\limits_{n\to\infty}\left(\frac{1}{2}+\frac{1}{8}+\frac{1}{24}+\cdots+\frac{1}{n\cdot2^{n}}\right)$，由于泰勒级数的任何一项$x$次数都应$\geqslant0$（否则成洛朗级数了），所以想到取$x_0=\frac{1}{2}$（而不是$x_0=2$），则$\big(\sum\frac{x^n}{n}\big)\big|_{x=x_0}$恰为极限式，又在$[-1,1)$范围内有</p>$$
+-\ln(1-x)=\sum\limits^{\infty}_{n=1}\frac{x^n}{n}=x+\frac{x^2}{2}+\frac{x^3}{3}+\frac{x^4}{4}+\cdots
+$$<p>所以</p>$$
+\lim\limits_{n\to\infty}\left(\frac{1}{2}+\frac{1}{8}+\frac{1}{24}+\cdots+\frac{1}{n\cdot2^{n}}\right)=-\ln(1-\frac{1}{2})=\ln2
+$$</li><li><p>对$\lim\limits_{n\to\infty}\left(1+\frac{2}{3}+\frac{3}{9}+\frac{4}{27}+\cdots+\frac{n}{3^{n-1}}\right)$，观察到若取$x_0=\frac{1}{3}$则极限式形式为$\big(\sum nx^{n-1}\big)\big|_{x=x_0}$，显然应当逐项求积化为$\frac{1}{1-x}=\big(\sum x^n\big)\big|_{x=x_0}$形式，记$f(x)=\sum nx^{n-1}$，</p>$$
+\int f(x)\mathrm{d}x=\sum x^n=\frac{1}{1-x}
+$$<p>因此</p>$$
+f(x_0)=\left.\left(\frac{1}{1-x}\right)'\right|_{x=x_0}=\frac{1}{(1-x_0)^2}=\frac{9}{4}
+$$</li></ul><h3 id=黎曼积分定义-累和数列极限>黎曼积分定义 (累和数列极限)</h3><p>按黎曼积分的定义，若$f(x)$在$(a,b)$上黎曼可积，则有</p>$$
+\lim\limits_{n\to\infty}\underbrace{\frac{b-a}n}_{\text{小矩形长度}}\sum^n_{k=1}\underbrace{f\left(a+\frac{(b-a)k}{n}\right)}_{\text{小矩形高度}}=\int^b_af(x)\mathrm{d}x
+$$<p>所以凡是式子可以化作形如$\frac{1}{n}\sum\limits^n_{k=1}f(\frac{1}{k})$的极限的问题，都可以尝试用黎曼积分的定义解决。再简单地说，<strong>式子能提出$\frac{1}{n}$并且剩下的式子是关于$\frac{k}{n}$函数的连和</strong>，那么就可以考虑利用黎曼积分的定义。</p><p><em>尽管该方法实质是处理累和数列极限的，但一些累乘式可以通过取对数转化为累和式，进而用该方法求解！例如例题2。</em></p><p><font color=red><strong>如果是第一次阅读到这里，下面的折叠内容建议展开，因为这除了说明如何使用黎曼积分的定义解决数列极限（不只能解决累和式的极限）以外，第二题的法一还展现了另一种独特的技巧。</strong></font></p><details><summary><font color=#0099ff>展开/收起4道用黎曼积分定义解决累和式极限问题</font></summary><p>下给出题目。</p><ul><li><p>求$\displaystyle{\lim\limits_{n\to\infty}\left(\frac{1}{n+1}+\frac{1}{n+2}+\cdots+\frac{1}{n+n}\right)\\}$；</p><p>十分简单但经典的题目，对式子提出$\frac{1}{n}$即可解决，</p>$$
+\begin{align}&\ \ \ \ \,\,\lim\limits_{n\to\infty}\left(\frac{1}{n+1}+\frac{1}{n+2}+\cdots+\frac{1}{n+n}\right)\\&=\frac{1}{n}\lim\limits_{n\to\infty}\left(\frac{1}{1+\frac{1}{n}}+\frac{1}{1+\frac{2}{n}}+\cdots+\frac{n}{1+\frac{n}{n}}\right)\\&=\int^1_0\frac{1}{1+x}\mathrm{d}x\\&=\ln2\end{align}
+$$</li><li><p>求$\lim\limits_{n\to\infty}\sqrt[n]{\frac{(2n)!}{n^{n}n!}}$；</p><ul><li><p>法一，利用Stirling公式：</p><p>根据Stirling公式，</p>$$
+\begin{align}\lim\limits_{n\to\infty}\sqrt[n]{\frac{(2n)!}{n^nn!}}&=\lim\limits_{n\to\infty}\sqrt[n]{\frac{\sqrt{4\pi n}\left(\frac{2n}{e}\right)^{2n}}{n^{n}\sqrt{2\pi n}\left(\frac{n}{e}\right)^n}}\\&=\lim\limits_{n\to\infty}\sqrt[n]{\frac{\sqrt{2}(2n)^{2n}}{n^{2n}e^n}}\\&=\lim\limits_{n\to\infty}\sqrt[n]{\frac{\sqrt{2}\cdot4^{n}}{e^n}}\\&=\frac{4}{e}\end{align}
+$$<p>可以证明，<strong>对$f(x)^{g(x)}$形式的式子，是可以直接对$f(x)$与$g(x)$运用泰勒公式的，同理在此处可以用Stirling公式近似$n!$</strong>。</p></li><li><p>法二，转换为定积分问题处理：根号下的式子显然是一个累乘分式，欲转化为黎曼积分，首先要将其变为累和式，所以对原式取对数，记$I_n=\sqrt[n]{\frac{(2n)!}{n^{n}n!}}$，</p>$$
+\begin{align}\lim\limits_{n\to\infty}\ln I_n&=\lim\limits_{n\to\infty}\frac{1}{n}\ln\left(\prod\limits^{2n}_{k=n+1}\frac{k}{n^n}\right)\\&=\lim\limits_{n\to\infty}\frac{1}{n}\sum^n_{k=1}\ln\left(1+\frac{k}{n}\right)\\&=\int^1_0\ln(1+x)\mathrm{d}x\\&=\big[(x+1)\ln(x+1)-x\big]\Big\vert^1_0\\&=2\ln2-1\end{align}
+$$<p>于是，</p>$$
+\lim\limits_{n\to\infty}\sqrt[n]{\frac{(2n)!}{n^{n}n!}}=e^{\lim\limits_{n\to\infty}\ln I_n}=e^{2\ln2-1}=\frac{4}{e}
+$$</li></ul></li><li><p>求$\lim\limits_{n\to\infty}\sum\limits^n_{i=1}\sqrt{\frac{(n+i)(n+i+1)}{n^4}}$；</p><p>为将原式中的$\sum\limits^n_{i=1}\sqrt{\frac{(n+i)(n+i+1)}{n^4}}$转换为$\frac{1}{n}\sum\limits^n_{i=1}f\big(\frac{i}{n}\big)$形式，首先从根号下式子抽出$\frac{1}{n}$：</p>$$
+\lim\limits_{n\to\infty}\sum\limits^n_{i=1}\sqrt{\frac{(n+i)(n+i+1)}{n^4}}=\lim\limits_{n\to\infty}\frac{1}{n}\sum\limits^n_{i=1}\sqrt{\frac{(n+i)(n+i+1)}{n^2}}
+$$<p>对于剩下的部分，根据黎曼积分的定义，很自然地想到无论是$i$取$k$还是$k+1$都都不影响积分的值，因此$i$与$i+1$这点微小的差异在积分号下也就被“抹平”了，所以应当有</p>$$
+\begin{align}&\ \ \ \,\,\,\frac{1}{n}\sum\limits^n_{i=1}\sqrt{\frac{(n+i)^2}{n^2}}\\&\leqslant\frac{1}{n}\sum\limits^n_{i=1}\sqrt{\frac{(n+i)(n+i+1)}{n^2}}\\&\leqslant\frac{1}{n}\sum\limits^n_{i=1}\sqrt{\frac{(n+i+1)^2}{n^2}}\end{align}
+$$<p>上式同时取极限，得到</p>$$
+\left\{
+\begin{aligned}
+&\lim\limits_{n\to\infty}\frac{1}{n}\sum\limits^n_{i=1}\sqrt{\frac{(n+i)^2}{n^2}}=\int^1_0(1+x)\mathrm{d}x=\frac{3}{2}\\
+&\lim\limits_{n\to\infty}\frac{1}{n}\sum\limits^n_{i=1}\sqrt{\frac{(n+i+1)^2}{n^2}}=\int^1_0(1+x)\mathrm{d}x=\frac{3}{2}
+\end{aligned}
+\right.
+$$<p>因此，根据夹逼准则，有</p>$$
+\lim\limits_{n\to\infty}\sum\limits^n_{i=1}\sqrt{\frac{(n+i)(n+i+1)}{n^4}}=\int^1_0(1+x)\mathrm{d}x=\frac{3}{2}
+$$<p>这可以说是放缩与夹逼准则的运用，但我认为，从实质上更确切地讲，这应该是黎曼积分的性质：黎曼积分的定义式中，用以求和的每一段小区间上的值（其实是这一区间上定义的简单函数的值），可以是函数在这一小区间上的左边界点 (体现在$\frac{i}{n}$)，也可以是右边界点 (体现在$\frac{i+1}{n}$)，只要函数可积，最终的值都是一样的。不过，说这种解法是通过黎曼积分定义配合夹逼准则求解的，也没有问题。</p></li><li><p>求$\lim\limits_{n\to\infty}\frac{\sqrt[n]{n!}}{n}$；</p><p>令$f(n)=\frac{\sqrt[n]{n!}}{n}$，取对数得$\ln f(n)$，于是</p>$$
+\begin{align}
+\lim\limits_{n\to\infty}\ln f(n)&=\lim\limits_{n\to\infty}\Big[\frac{1}{n}\ln\prod^n_{k=1}k-\ln n\Big]\\
+&=\lim\limits_{n\to\infty}\frac{1}{n}\sum^n_{k=1}\ln\frac{k}{n}\\
+&=\int^1_0\ln x\mathrm{d}x\\
+&=-1
+\end{align}
+$$<p>因此$\lim\limits_{n\to\infty}\frac{\sqrt[n]{n!}}{n}=\lim\limits_{n\to\infty}\exp\ln f(x)=\frac{1}{e}$。</p></li></ul></details><p>同样地，按累次积分的黎曼和定义，也可以处理累次积分对应的级数和。例如，</p>$$
+\lim_{n\to\infty}\sum^n_{i=1}\sum^{2n}_{j=1}\frac2{n^2}f\left(\frac{2i+j}n\right)=\int^2_0\mathrm{d}x\int^2_0f(x+y)\mathrm{d}y
+$$<p>以上式为例，一个变量一个变量地逐个分析与处理：</p><ol><li><p>不妨先考虑$i$，由于函数形式$f\left(\frac{2i}n+\cdots\right)$表示的是小区间$\big[\frac{2i-2}n,\frac{2i}n\big]$的右端点值，每个小区间长度是$\frac2n$，所以用以近似函数在小区间上定积分值的矩形面积是$\frac2n\times f(\frac{2i}n)$，而这样的小区间与相应的矩形有$n$个（因为变量$i$的累加号上标为$n$），总长度为$n\times\frac2n=2$，所以这一级数表示的是从$0$（因为变量$i$的求和号下标，即起始值为$1$，$1$除$n$得$\frac1n$，$\frac1n$的极限为$0$）起到$2$上$f(x+\cdots)$的定积分。</p></li><li><p>再考虑$j$，按同样的步骤分析，函数形式$f\left(\cdots+\frac jn\right)$表示的是小区间$\big[\frac{j-1}n,\frac{j}n\big]$的右端点值，每个小区间长度是$\frac1n$，而这样的小区间有$2n$个，所以总长度为$2n\times\frac1n=2$，因此这一级数表示的是从$0$起到$2$上$f(\cdots+y)$的定积分。</p></li><li><p>由于$i$的每个小区间长度与$j$的每个小区间长度的乘积恰好为$\frac2{n}\times\frac1n=\frac2{n^2}$，所以这个极限不需要再做进一步处理。如果将原式改为$\lim\limits_{n\to\infty}\sum\limits^n_{i=1}\sum\limits^{2n}_{j=1}\frac4{n^2}f\left(\frac{2i+j}n\right)$，那么就应该在前两步分析得到的定积分结果基础上再乘$2$，因为极限可以被拆分为</p>$$
+2\times\boxed{\lim_{n\to\infty}\sum^n_{i=1}\sum^{2n}_{j=1}\frac2{n^2}f\left(\frac{2i+j}n\right)}
+$$</li><li><p>综上所述，该极限为$\displaystyle{\int^2_0\mathrm{d}x\int^2_0f(x+y)\mathrm{d}y}$，这是一个累次积分。</p></li></ol><p>所以，原式中的$\frac2{n^2}$其实并不是最关键的重点（再乘上任意的非零的实数也不影响上述分析的过程），重要的是先观察函数$f$自变量的形式，根据他们来对极限进行理解与分析。了解了这一点，这类问题就没什么困难了。</p>$$
+\lim_{n\to\infty}\sum^n_{i=1}\sum^{2n}_{j=1}\underbrace{\boxed{\frac1n}}_{\text{小矩形长度1}\atop\text{小区间长度1}}\times\underbrace{\boxed{\frac2n}}_{\text{小矩形长度2}\atop\text{小区间长度2}}\times\ \,\underbrace{\boxed{f\left(\frac{2i+j}n\right)}}_{\text{小矩形高度}}
+$$<p>最后，在以上分析中也可以将$\frac{2i}n$视为$[0,1]$上的$2\mathrm{d}x$而不是$[0,2]$上的$\mathrm{d}x$——从取极限的结果上看，这只是重积分 / 累次积分换元法的使用。</p><h3 id=夹逼准则-累和数列极限>夹逼准则 (累和数列极限)</h3><p>如果别的方法不合适，可以试试放缩配合夹逼准则求极限。这个方法的缺点是要求“未卜先知”，需要通过观察想到或猜算极限式可能的值与可能的放缩技巧，但如果有合适的放缩，通常是能解题的。</p><details><summary><font color=#0099ff>展开/收起2道用夹逼准则解决数列极限的问题</font></summary><ul><li><p>求$\lim\limits_{n\to\infty}\left(\frac{1}{n^2+1}+\frac{2}{n^2+2}+\cdots+\frac{n}{n^2+n}\right)$与$\lim\limits_{n\to\infty}\left(\frac{1}{n^2+n+1}+\frac{2}{n^2+n+2}+\cdots+\frac{n}{n^2+n+n}\right)$；</p><p>对于这两个极限，分别有</p>$$
+\begin{align}
+&\ \ \ \ \,\,\frac{1+2+\cdots+n}{n^2+n}\\
+&\leqslant\left(\frac{1}{n^2+1}+\frac{2}{n^2+2}+\cdots+\frac{n}{n^2+n}\right)\\
+&\leqslant\frac{1+2+\cdots+n}{n^2+1}
+\end{align}
+$$<p>与</p>$$
+\begin{align}
+&\ \ \ \ \,\,\frac{1+2+\cdots+n}{n^2+n+n}\\
+&\leqslant\left(\frac{1}{n^2+n+1}+\frac{2}{n^2+n+2}+\cdots+\frac{n}{n^2+n+n}\right)\\
+&\leqslant\frac{1+2+\cdots+n}{n^2+n+1}
+\end{align}
+$$<p>注意到$1+2+\cdots+n=\frac{n(1+n)}{2}$，而多项式分式的极限（$n\to\infty$）只与分子分母最高次项系数有关，从这一点可以判断出两个原式的极限应该是相等的。对上述式子分别取极限，得到</p>$$
+\begin{align}
+&\ \ \,\,\,\,\lim\limits_{n\to\infty}\frac{1+2+\cdots+n}{n^2+n}\\
+&=\lim\limits_{n\to\infty}\frac{1+2+\cdots+n}{n^2+1}\\
+&=\lim\limits_{n\to\infty}\frac{1+2+\cdots+n}{n^2+n+n}\\
+&=\lim\limits_{n\to\infty}\frac{1+2+\cdots+n}{n^2+n+1}\\
+&=\frac{1}{2}
+\end{align}
+$$<p>故根据夹逼准则，最终有</p>$$
+\begin{align}
+&\ \ \,\,\,\,\lim\limits_{n\to\infty}\left(\frac{1}{n^2+1}+\frac{2}{n^2+2}+\cdots+\frac{n}{n^2+n}\right)\\
+&=\lim\limits_{n\to\infty}\left(\frac{1}{n^2+n+1}+\frac{2}{n^2+n+2}+\cdots+\frac{n}{n^2+n+n}\right)\\
+&=\frac{1}{2}
+\end{align}
+$$</li><li><p>求$\lim\limits_{n\to\infty}\sqrt[n]{1+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{n}}$；</p><ul><li><p>法一，利用调和级数的性质：</p><p>根据调和级数的前$n$项的和函数公式，</p>$$
+\sum\limits^n_{k=1}\frac{1}{k}=\ln n+\gamma+\varepsilon_n
+$$<p>其中$\varepsilon_n\to0\ \ (n\to\infty)$，于是</p>$$
+\lim\limits_{n\to\infty}\sqrt[n]{1+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{n}}=\lim\limits_{n\to\infty}\sqrt[n]{\ln n+\gamma+\varepsilon_n}=1
+$$</li><li><p>法二，利用夹逼准则：众所周知有$\lim\limits_{n\to\infty}n^{\frac{1}{n}}=1$，因此猜想该极限也可能为$1$，故进行放缩</p>$$
+\sqrt[n]{1}\leqslant\sqrt[n]{1+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{n}}\leqslant\sqrt[n]{1+1+\cdots+1}=n^{\frac{1}{n}}
+$$<p>左右式的极限均为$1$，所以</p>$$
+\lim\limits_{n\to\infty}\sqrt[n]{1+\frac{1}{2}+\frac{1}{3}+\cdots+\frac{1}{n}}=1
+$$</li></ul></li></ul></details><h3 id=夹逼准则进阶>夹逼准则进阶</h3><p>一般来说，如果函数在分离出小积分测度（通常转换为$(0,1)$上的积分，即取出$\frac{1}{n}$）后，若剩下的部分能写为$\frac{k}{n}$整体的函数，则可以等价为定积分求解，将$\frac{k}{n}$用$x$替代、$\sum$换为$\int$；若不能，则考虑放缩与夹逼准则；有时二者会同时使用。典型如以下二式：</p><ul><li>$\lim\limits_{n\to\infty}\sum\limits^n_{k=1}\frac{n}{n^2+k}=\lim\limits_{n\to\infty}\frac{1}{n}\sum\limits^n_{k=1}\frac{1}{1+\frac{k}{n^2}}$；</li><li>$\lim\limits_{n\to\infty}\sum\limits^n_{k=1}\frac{n}{n^2+k^2}=\lim\limits_{n\to\infty}\frac{1}{n}\sum\limits^n_{k=1}\frac{1}{1+\left(\frac{k}{n}\right)^2}$.</li></ul><p>一式不能视为$\frac{k}{n}$整体的函数，二式可以被视为$\frac{k}{n}$的函数，所以一式用放缩与夹逼定理解决，二式可以直接转换为定积分解决。</p><p>但是又如何找到正确的放缩呢？这并不是任何情况下都没有章法可寻的，首先将极限和式化为一个统一的形式，即写为$\sum f(n)$，然后找到“对式子影响最小的因子”。</p><p>这样做的原因是黎曼积分定义求解数列和式极限是有通式的，即只要提出来$\frac1n$（或其他分割）后式子整体是$\frac{k}{n}$的函数，就可以将他转写为相对容易计算的积分——对于不能直接化为积分的式子，我们就想到通过放缩，将式子分别放大与缩小后再转为积分，如果积分的值相同，那么就可以用夹逼准则求出此极限。</p><p>进一步地，如何“对式子影响最小的因子”（下简称“最小因子”）呢？举几个例子，对于$\lim\limits_{n\to\infty}\sum\limits^n_{k=1}\frac{k^2}{n^3+n^2+n+k}$，他的“因子”是$k^2,n^3,n^3,n,k$，将$k^2$视为$k$，故“最小因子”是$k$；对于$\lim\limits_{n\to\infty}\sum\limits^n_{k=1}\frac1{n^2+k}$，他的“因子”是$k,n^2$，故“最小因子”是$k$；对于$\lim\limits_{n\to\infty}\sum\limits^n_{k=1}\frac{\sin\frac{k\pi}n}{n+\frac1k}$，他的“因子”是$\frac1k,n$，将$\frac1k$视为$k$，因此“最小因子”是$k$；对于$\lim\limits_{n\to\infty}\sum\limits^n_{k=1}\frac1{n+\frac{k^2+1}n}$，他的“因子”是$1,k^2,n$，将$k^2$视为$k$，因此“最小因子”是$1$。</p><ul><li>如果“最小因子”是$1$，那么优先考虑通过去掉或增加“$1$”以放缩，转极限为积分；</li><li>如果“最小因子”是$k$（或$\frac1k$等），那么优先考虑令$k$（或$\frac1k$等）为$0$或$n$以放缩，直接求解极限。</li></ul><p>这个方法可能不是万能的，但至少他提供了一种如何放缩的思路。</p><p>通常而言，除了过分简单的题目外，放缩都会搭配黎曼积分定义使用，他们不是毫不相干的，即：虽然有的级数不能直接转化为黎曼积分，但可以通过放缩间接地转化为积分。</p><h3 id=o-stolz定理>O&rsquo; Stolz定理</h3><p>处理数列极限的强有力工具，某种意义上是洛必达法则的离散形式（他们的共同之处在于，当满足一定条件后，不定分式的极限等于他们分子分母各自导数/变化量的比式的极限）；该定理可以通过Toeplitz定理简洁证明。在我看来，O&rsquo; Stolz定理值得单独列为一节。</p><p><strong>O&rsquo; Stolz定理能够处理的类型为 &ldquo;$\frac{\ast}{\infty}$&rdquo; 与 &ldquo;$\frac{0}{0}$&rdquo; 的不定式极限，</strong></p><p><font size=5em>O&rsquo; Stolz定理   </font>对于$\lim\limits_{n\to\infty}\frac{a_n}{b_n}$型的数列极限，当满足下列两者中任意一点时：</p><ul><li>$\frac{\ast}{\infty}$：$\{b_n\}^{\infty}_{n=1}$严格单调递增且$\lim\limits_{n\to\infty}b_n=\infty$；</li></ul><p>或，</p><ul><li>$\frac{0}{0}$：$\{b_n\}^{\infty}_{n=1}$严格单调递减且$\lim\limits_{n\to\infty}b_n=0$、$\lim\limits_{n\to\infty}a_n=0$；</li></ul><p>在满足以上两点任意一个的基础上，如果还满足$\lim\limits_{n\to\infty}\frac{a_{n+1}-a_n}{b_{n+1}-b_n}=c$，其中$c$为有限数或$\infty$，则有</p>$$
+\lim\limits_{n\to\infty}\frac{a_n}{b_n}=c
+$$<p>尤其对$\frac{\sum c_n}{\sum d_n}$形式的数列极限，O&rsquo; Stolz定理是一个大杀器。</p><p>在此给出一道例题以供参考：试求极限$\displaystyle{\lim_{n\to\infty}\frac{\sqrt1+\sqrt2+\cdots+\sqrt{n}}{\sqrt{n(1+2+\cdots+n)}}}$；</p><ul><li><p>解法一：利用黎曼积分定义</p>$$
+\begin{align}\lim_{n\to\infty}\frac{\sqrt1+\sqrt2+\cdots+\sqrt{n}}{\sqrt{n(1+2+\cdots+n)}}&=\lim_{n\to\infty}\frac{\sqrt1+\sqrt2+\cdots+\sqrt{n}}{\sqrt{\frac{n^2(n+1)}{2}}}\\&=\sqrt2\lim_{n\to\infty}\sqrt{\frac{n}{n+1}}\cdot\frac1n\left(\sqrt{\frac1n}+\sqrt{\frac2n}+\cdots+\sqrt{\frac{n}{n}}\right)\\&=\sqrt2\int^1_0\sqrt{x}\mathrm{d}x\\&=\frac{2\sqrt2}2\end{align}
+$$</li><li><p>解法二：利用 O&rsquo; Stolz定理</p>$$
+\begin{align}
+\lim_{n\to\infty}\frac{\sqrt1+\sqrt2+\cdots+\sqrt{n}}{\sqrt{n(1+2+\cdots+n)}}&=\lim_{n\to\infty}\frac{\sqrt1+\sqrt2+\cdots+\sqrt{n}}{\sqrt{\frac{n^2(n+1)}{2}}}\\
+&=\lim_{n\to\infty}\frac{\sqrt{n+1}}{\sqrt{\frac{(n+1)^2n}{2}}-\sqrt{\frac{n^2(n+1)}{2}}}\\
+&=\lim_{n\to\infty}\frac{\sqrt{\frac{n(n+1)}2}+\sqrt{\frac{n^2}2}}{\frac{n}2}\\
+&=\frac2{\sqrt2}+\frac2{\sqrt2}=\frac{2\sqrt2}2
+\end{align}
+$$</li></ul><h3 id=toeplitz定理-累和数列极限>Toeplitz定理 (累和数列极限)</h3><p><font size=5em>Toeplitz定理   </font>设$n,k\in\mathbb{N}$、$t_{n,k}\geqslant0$且$\sum\limits^n_{k=1}t_{n,k}=1$、$\lim\limits_{n\to\infty}t_{n,k}=0$，若有$\lim\limits_{k\to\infty}a_k=a$，则$\lim\limits_{n\to\infty}\sum\limits^n_{k=1}t_{n,k}a_k=a$。注意Toeplitz定理定理可以灵活运用，有时使用该定理可能有意想不到的效果。该定理可推广，条件放宽至$\lim\limits_{n\to\infty}\sum\limits^n_{k=1}t_{n,k}=1$仍成立。</p><h3 id=海涅定理与中值定理>海涅定理与中值定理</h3><p>一般来说，函数可明显被表示为两个同样的函数对于不同自变量取值的差，就可以利用中值定理，往往能简洁地解决问题。</p><p><font size=5em>海涅定理</font>（归结原则）<font size=5em>   </font>设$f$在$\mathring{U}(x_0;\delta')$上有定义，则$\lim\limits_{x\to x_0}f(x)$存在的充要条件是：$\forall \{x_n\}\ s.t.\ \ \{x_n\}\subset\mathring{U}(x_0;\delta')$且$\lim\limits_{n\to\infty}x_n=x_0$，都有极限$\lim\limits_{n\to\infty}f(x_n)$存在，且值唯一。</p><h2 id=递推数列极限存在性>递推数列极限存在性</h2><p>有些时候，可以通过对式子直接取极限解得极限值，尤其是对于递推式，但首先要解决的是极限的存在性问题——如果极限不存在，直接对等式两边取极限就是错误的操作。这里列出通常证明极限存在性的方法。</p><h3 id=从单调性出发>从单调性出发</h3><ul><li>如果$f(x)$是单调递增函数且$x_1\leqslant x_2$，则$\{x_n\}$单调递增：因为$x_2\geqslant x_1$ $\Rightarrow$ $f(x_2)\geqslant f(x_1)$ $\Rightarrow\cdots\Rightarrow$ $f^{n-2}(x_2)\geqslant f^{n-2}(x_1)$ $\Leftrightarrow$ $x_{i+1}\geqslant x_i$，$\forall i\in\mathbb{N}^+$；</li><li>如果$f(x)$是单调递增函数且$x_1\geqslant x_2$，则$\{x_n\}$单调递减，类比上文推导；</li><li>如果$f(x)$单调递减，通常$\{x_n\}$的单调性没有明显规律。</li></ul><h4 id=函数局部增时-单调有界定理>函数局部增时: 单调有界定理</h4><p>由上文的结论可知，当满足$x_{n+1}=f(x_n)$的函数$f(x)$在数列上下界内单调递增时，数列$\{x_i\}$也一定单调，因此可以用单调有界原理说明极限存在性：如果数列$\{x_n\}$保持单调且有上下界，则极限存在且介于上下界之间（可能恰取到上界或下界）。</p><p>这是最简单的证明数列极限存在性的方法，注意：只需要从某一项开始数列单调并有界即可。</p><h4 id=函数局部减时-上下极限>函数局部减时: 上下极限</h4><p>这种方法更为“高级”，应用范围极广，（在实数域内）比后文的压缩映射原理更泛用。</p><p>由于可导的初等函数一定在点的某个邻域内单调，所以仅依靠单调有界定理 (适用于单调增) 和该方法 (适用于单调减，但也可以用于单调增)，几乎可以解决所有的递归数列极限存在性问题。但由于该方法过于强大，很少有参考答案会用这种方法，所以或许解题时优先考虑压缩映射原理更合适？</p><p>该方法首先需要说明数列有界，因为若有界则数列的上下极限必然存在且有限；记上极限为$a$、下极限为$b$，容易知道如果上极限为$a$，则存在某一子列其极限为$a$，$f(a)$一定也是某一子列的极限，反之亦然，即$f(b)$也一定是某一子列的极限。容易知道，如果函数单调递减，则一定有</p>$$
+\left\{\begin{aligned}
+&f(a)=b\\
+&f(b)=a\end{aligned}\right.
+$$<p>最后解出$a$、$b$即可，只要最终有$a=b$且值是唯一的，则极限存在，而且极限等于该值。</p><h3 id=压缩映射原理-banach不动点原理>压缩映射原理 (Banach不动点原理)</h3><p>压缩映射：称$T:\langle \mathcal{X},d\rangle\to\langle \mathcal{X},d\rangle$是一个压缩映射，如果$\exists\alpha\in(0,1)$，$s.t.$ $\;d(Tx,Ty)\leqslant\alpha\,d(x,y)\,\,$ $for$ $\,\forall x,y\in\mathcal{X}$；</p><p><font size=5em>压缩映射原理   </font>设$\langle \mathcal{X},d\rangle$是一个完备的度量空间，$T$是$\langle \mathcal{X},d\rangle$到自身的压缩映射，则$T$在$\mathcal{X}$上存在唯一的不动点。</p><p>压缩映射原理是完备性的一种体现，常微分方程初值问题中的Lipschitz常数正是这里的$\alpha$。由于$\mathbb{R}$也是完备的，因此在实数域上压缩映射原理也成立，这帮助我们可以靠压缩映射原理证明数列极限的存在性。</p><p>具体到实函数 / 实数列$f$，对$\forall x_0\in[a,b]$，若$\exists\alpha\in(0,1)$，令$x_{n+1}=f(x_n)$；</p><ul><li><p>$s.t.$ $\;|f(x^{(1)})-f(x^{(2)})|\leqslant\alpha(x^{(1)}-x^{(2)}),$ $\forall x^{(1)},x^{(2)}\in[a.b]$， 则$\{x_n\}$收敛于唯一的一点$x^\ast$且$f(x^\ast)=x^\ast$；</p></li><li><p>当$f$可微时，$s.t.$ $\;|f'(x)|\leqslant\alpha<1$， 则$\{x_n\}$收敛且收敛点是$[a,b]$上$f$唯一的不动点（可以联系<strong>微分中值定理</strong>）.</p></li></ul><p>鉴于通常的高数课和数分课并不讲授压缩映射原理（我也是在泛函分析课程种才学到），在需要过程的题目中可以仿照该定理的证明过程间接运用它，而最好不要直接“甩”出定理。</p><p>例如设$x_1=1$、$(x^3_n+4)x_{n+1}=1$，试求$\lim\limits_{n\to\infty}x_n$；</p><p>解：算出前几项，或者计算$f(x)=\frac1{x^3+4}$的导数，可以看出该数列并不单调，不宜使用单调有界定理。</p><p>现在对递推式变形得$x_{n+1}=\frac{1}{x^3_n+4}=f(x_n)$，显然$f$是压缩映射（当$x\in[0,+\infty)$，$\vert f'(x)\vert=\frac{3x^2}{(x^3+4)^2}\leqslant\frac{1}{6\sqrt[3]{2}}<1$），即$f$是压缩映射，根据压缩映射原理，$\{x_n\}$是收敛的，故直接两端取极限即可。但为了展示完整的分析过程，现给出两种不同形式的解法。</p><ul><li><p>完全仿照泛函分析中度量空间里压缩映射原理证明的过程，容易知道$0\lt x_n<1,\ \forall n$，</p>$$
+\begin{align}\vert x_{n+1}-x_n\vert&=\left|\frac{1}{x^3_n+4}-\frac{1}{x^3_{n-1}+4}\right|\\&=\left|\frac{x^3_{n-1}-x^3_n}{(x^3_n+4)(x^3_{n-1}+4)}\right|\\&<\left\vert\frac{x^2_{n-1}+x_nx_{n-1}+x^2_n}{16}\right\vert\cdot|x_n-x_{n-1}|\\&<\frac{3}{16}\cdot|x_n-x_{n-1}|\\&<\left(\frac{3}{16}\right)^2\cdot|x_{n-1}-x_{n-2}|\\&~~~~~~~~~~~~~~~~~~~~\cdots\\&<\left(\frac{3}{16}\right)^{n-1}\cdot|x_2-x_1|\end{align}
+$$<p>注意到，</p>$$
+\begin{align}\forall k,\ \big|x_{n+k}-x_n\big|&<\big|x_{n+k}-x_{n+k-1}+x_{n+k-1}-x_{n+k-2}+\cdots+x_{n+1}-x_n\big|\\&\leqslant\sum^{k-1}_{i=0}\vert x_{n+k+1}-x_{n+k}\vert\\&<\sum^{k-1}_{i=0}\left(\frac{3}{16}\right)^{i+n-1}\cdot|x_2-x_1|\\&=\frac{\left(\frac{3}{16}\right)^{n-1}(1-\frac{3}{16})^k}{1-\frac{3}{16}}\cdot|x_2-x_1|\\&\to0\ \ \ \ \ (when\ \ \ n\to\infty)\end{align}
+$$<p>根据柯西收敛准则，$\{x_n\}$是收敛的。于是可以“大大方方”地等式两边取取极限，因为数列极限存在且唯一（当然唯一了，关键是存在性！）。</p></li><li><p>也可以先假设极限存在，解出四次方程的正根，不妨设为$x^\ast$，利用极限的性质有$f(x^\ast)=x^\ast$，最后依极限的定义，仿照上式从$\vert x_n-x^\ast\vert=\Big|\frac{1}{x^3_{n-1}+4}-x^\ast\Big|<\cdots$入手证明$\{x_n\}$收敛到$x^\ast$即可，不再赘述。这样做步骤似乎更简单一点，不过通常的压缩映射原理证明过程是和上一种方法类似的。</p></li><li><p>如果在范围内恒有$|f'(x)|\leqslant\alpha<1$，则根据微分中值定理，有$\vert x_n-x_{n-1}\vert=f'(\xi)|x_{n-1}-x_{n-2}|=\cdots$或$\vert x_n-x^\ast\vert=f'(\xi)|x_{n-1}-x^\ast|=\cdots$，证明更为简洁。这种方法最为简洁、固定，不需要像第一种、第二种方法构造放缩，如果条件合适，可以优先考虑。</p></li></ul><h1 id=函数极限>函数极限</h1><p>最基本的多项式分式极限，这里给出两个简单的例子：</p><ul><li>$\lim\limits_{x\to0}\frac{x^2}{2x^2+x^3}=\frac12$</li><li>$\lim\limits_{x\to\infty}\frac{x^4+3x^5}{x^5}=3$</li></ul><p>两无穷大量相加减的极限计算，一般会通过通分、提取无穷大因子或中值定理等方法，将其转换为分式极限，这样会便于处理。</p><h2 id=极限性质与洛必达法则>极限性质与洛必达法则</h2><p>函数极限的性质：</p><img src=/images/考研数学（微积分）（上）/函数极限.jpg alt=函数极限 style=zoom:25%><p>如果读者对洛必达法则不熟悉，可以参考：<a href=https://zhuanlan.zhihu.com/p/381349671><font color=#EEAEEE>《数学分析》38洛必达法则的证明</font></a>；简而言之，洛必达法则是用于计算当$x\to a$时$\frac{f(x)}{g(x)}$的极限值的一种方法，其中$a$可以是无穷大。对于以下两种未定式：</p><ul><li>$\frac00$，即当$x\to a$时，$f(x),g(x)\to0$；</li><li>$\frac{\ast}{\infty}$，即当$x\to a$时，$g(x)\to\infty$；</li></ul><p>如果有$f(x)$与$g(x)$的导数在$a$的某个邻域内应均存在，且导数比值的极限$\lim\limits_{x\to a}\frac{f'(x)}{g'(x)}$为一广义常数$A$（$A\in{\mathbb{R}\cup\{\pm\infty\}}$），那么由洛必达法则就保证了$\lim\limits_{x\to a}\frac{f(x)}{g(x)}=\lim\limits_{x\to a}\frac{f'(x)}{g'(x)}=A$成立。应当注意，洛必达法则只是极限的充分条件，而不是必要条件。</p><p>有些极限是泰勒公式无法解决的，这就是洛必达法则大显身手的时候了，例如$\displaystyle{\lim_{x\to+\infty}\frac{\int^x_0t^2e^{x^2-t^2}\mathrm{d}t-\frac{\sqrt{\pi}}2e^{x^2}}{x}}$，这类极限就是泰勒公式无法处理的，但利用洛必达法则可以轻松得到$-\frac12$的结果。当然，即使是泰勒公式能够处理的问题，用洛必达法则也可能是更快捷的。</p><h2 id=泰勒公式>泰勒公式</h2><p>泰勒公式 / 泰勒级数 (Taylor series)，麦克劳林级数 (Maclaurin series)，不愧是被誉为数学分析一元微分学皇冠上的明珠。泰勒公式的存在使得许多极限的计算都变得十分容易，这里在给出常见函数的泰勒公式时一并给出其泰勒级数与相应的收敛域——这本应该在下一篇文章的幂级数部分再给出。</p><p>诸如$\tanh x$的麦克劳林级数甚至各洛朗级数在实函数的极限计算中使用频率较低，如有需要可参阅附在后文的链接，正文中不作涉及；没给出通项公式的泰勒级数均是通项涉及到没有初等表达式的超越函数；这里至多考虑实数域中的泰勒级数。</p><p><b><font color=#CD0000>一般情况下泰勒公式只能“从外往里”用，“从里到外”是没有依据的。</font></b>例如求极限$\lim\limits_{x\to+\infty}(x+e^x)^{\frac1x}$，如果“从里到外”则是$\lim\limits_{x\to+\infty}(x+e^x)^{\frac1x}=\lim\limits_{x\to+\infty}\big(1+2x+\mathcal{o}(x)\big)^{\frac1x}=e^2$，得到了错误的答案；正确的做法是写为幂指函数形式再做后续计算，结果应为$e$。</p><p>泰勒公式的一般形式是：若$f(x)$在点$a$处存在直到$n$阶的导数，则$\displaystyle{f(x)=\sum^n_{k=0}\frac{f^{(k)}(a)}{k!}(x-a)^k}+\mathcal{o}\left((x-a)^n\right)$，这里取皮亚诺余项，皮亚诺余项在极限的计算中经常用到；如果取拉格朗日余项则定理条件需要加强至$f(x)$在含点$a$的某个开区间内存在直到$n+1$阶的导数。对于更多的余项，如积分余项、柯西余项等，读者可以参考更严谨的数学分析教材，这里不作涉及了。</p><details><summary><font color=#0099ff>展开/收起1个泰勒多项式与函数关系辨析的例子</font></summary><p>以一个例题来说明泰勒多项式和函数性质的关系。</p><ul><li><p>设$f(x)=1+2x^2+\mathcal{o}(x^2),\ \ x\in\mathring{U}(0;\delta)$且$f(0)=1$，判断以下说法是否正确：</p><ol><li><p>$f'(0)=0$</p></li><li><p>$f'(x)=4x+\mathcal{o}(x),\ \ x\in\mathring{U}(0;\delta)$</p></li><li><p>$f''(0)=4$</p></li><li><p>$f(x)$在$(-\delta,\delta)$内为上凹函数</p></li></ol><p>下逐个分析四个命题：</p><ul><li><p>第一个说法是正确的，但原因并不是$f(x)=f(x_0)+f'(x_0)x+\mathcal{o}(x)$，因为题干没有明确指明$f(x)$在$x=0$处是几阶可导的，所以我们不能把$f(x)=f(x_0)+f'(x_0)x+\mathcal{o}(x)$当作是“有效”的泰勒公式。对于这种较为抽象的函数，常常需要用到最基本的方法，这里尝试用定义求导：</p>$$
+\lim_{x\to0}\frac{f(x)-f(0)}{x}=0
+$$<p>所以确有$f'(0)=0$，进一步可推得$f(x)$在$0$的某个邻域内连续。</p></li><li><p>第二个说法是错误的，因为我们没有任何条件能够$100\%$保证$f(x)$在$(-\delta,0)\cup(0,\delta)$上可导。可以举一反例，令</p>$$
+\alpha(x)=\left\{\begin{aligned}&0,&&x\in\mathbb{R}\char`\\\mathbb{Q}\\&x,&&x\in\mathbb{Q}\end{aligned}\right.
+$$<p>取$f(x)=1+2x^2+x^2\alpha(x),\ \ x\in\mathbb{R}$，其中$x^2\alpha(x)$确为$\mathcal{o}(x^2)$，但$f(x)$仅在$x=0$处连续，自然不可能在$0$的某个邻域上均可导——甚至都不是连续的。</p></li><li><p>第三个说法也是错误的，实际上我们连$f(x)$是否在$x=0$处二阶可导都不能确定（因为求不出$f'$具体形式，按定义无法计算二阶导数），可以参考反例中所构造的函数。</p></li><li><p>第四个说法还是错误的，同样可以参考反例中所构造的函数。</p></li></ul><p>综上所述，除非函数足够光滑，我们不能随意认为如果$f(x)=\sum\limits^n_{i=0}a_ix^i+\mathcal{o}(x^n)$，对$j\leqslant n$就有$f^{(k)}(0)=a_kk!$，更不能认为就有$f'(x)=\sum\limits^{n-1}_{i=0}ia_ix^i+\mathcal{o}(x^{n-1})$。一般来说，这需要泰勒级数收敛到原函数且满足逐项求导的条件才成立，至少是在幂级数的收敛区间上才成立。</p></li></ul></details><p>此外，凹凸函数经常联系到一阶的带拉格朗日余项的泰勒公式，因为这时若$x\neq a$，则泰勒公式的第三项是一定大于零或小于零的（具体取决于函数是凹的还是凸的），这是一个很好的性质。</p><hr><center><font size=6em>常见基本函数 泰勒公式表</font></center><p>$\text{1. }\displaystyle{\sin x=\sum\limits^{\infty}_{n=0}\frac{(-1)^n}{(2n+1)!}x^{2n+1}=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\cdots\ \ \ \ for\ \ x\in\mathbb{R}}$</p><p>$\text{2. }\displaystyle{\cos x=\sum\limits^{\infty}_{n=0}\frac{(-1)^n}{(2n)!}x^{2n}=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\cdots\ \ \ \ for\ \ x\in\mathbb{R}}$</p><p>$\text{3. }\displaystyle{\tan x=x+\frac{x^3}{3}+\frac{2x^5}{15}+\frac{17x^7}{315}+\frac{62x^9}{2835}+\cdots\ \ \ \ for\ \ x\neq\frac{\pi}{2}+k\pi}$</p>$$
+\begin{align*}
+\text{4. }\arcsin x&=\sum\limits^{\infty}_{n=0}\prod\limits^{n}_{k=1}\Big(1-\frac{1}{2k}\Big)\frac{x^{2n+1}}{2n+1}\\&=x+\sum^{\infty}_{n=1}\frac{(2n-1)!!}{(2n)!!(2n+1)}x^{2n+1}\\&=x+\frac{x^3}{6}+\frac{3x^5}{40}+\frac{5x^7}{112}+\frac{35x^9}{1152}+\cdots\ \ \ \ for\ \ \vert x\vert<1
+\end{align*}
+$$<p>  计算$\arcsin x$的泰勒公式可以考虑对其导数$(1-x^2)^{-\frac12}$展开；</p><p>  由此可以得到$\ \left\{\begin{aligned}&(\arcsin x)^{(2n)}\big|_{x=0}=0,&&n\in\mathbb{N}\\&(\arcsin x)'\big|_{x=0}=1\\&(\arcsin x)^{(2n+1)}\big|_{x=0}=[(2n-1)!!]^2,&&n\in\mathbb{N}^+\end{aligned}\right.$</p><p>$\text{5. }$注意到$\displaystyle{\arcsin x+\arccos x=\frac{\pi}{2}}$，故$\displaystyle{\arccos x=\frac{\pi}{2}-x-\frac{x^3}{6}-\frac{3x^5}{40}-\frac{5x^7}{112}-\cdots\ \ \ \ \vert x\vert\leqslant1}$</p><p>$\text{6. }\displaystyle{\arctan x=\sum\limits^{\infty}_{n=0}\frac{(-1)^nx^{2n+1}}{2n+1}=x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7}+\cdots\ \ \ \ for\ \ \vert x\vert\leqslant1}$</p><p>$\text{7. }\displaystyle{e^x=\sum\limits^{\infty}_{n=0}\frac{x^n}{n!}=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots\ \ \ \ for\ \ x\in\mathbb{R}}$</p><p>$\text{8. }$推论：$\displaystyle{a^x=e^{x\ln a}=\sum\limits^{\infty}_{n=0}\frac{(x\ln a)^n}{n!}=1+x\ln a+\frac{x^2\ln^2a}{2!}+\frac{x^3\ln^3a}{3!}+\cdots\ \ \ \ for\ \ x\in\mathbb{R}}$</p><p>$\text{9. }\displaystyle{\ln(1+x)=\sum\limits^{\infty}_{n=1}(-1)^{n+1}\frac{x^n}{n}=x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\cdots\ \ \ \ for\ \ x\in(-1,1]}$</p><p>  特别地，$\displaystyle{-\ln(1-x)=\sum\limits^{\infty}_{n=1}\frac{x^n}{n}\ \ \ \ for\ \ x\in[-1,1)}$，注意对数前的负号；</p><p>  注意利用好 $\ln\prod=\sum\ln$ 的性质，例如$\ln\frac{1-x}{1+x}=\ln\left[1+\left(\frac{1-x}{1+x}-1\right)\right]$不便直接展开，</p><p>  但$\ln\frac{1-x}{1+x}=\ln(1-x)-\ln(1+x)$的泰勒公式$-2\sum\limits^n_{k=1}\frac{x^{2k-1}}{2k-1}+\mathcal{O}(x^{2k+1})$却十分简洁</p><p>$\text{10. }$推论：在$(-1,1]$内利用换底公式$\log_a(1+x)=\frac{\ln(1+x)}{\ln a}=\frac{1}{\ln a}\sum\limits^{\infty}_{n=1}(-1)^{n+1}\frac{x^n}{n}$，即</p>$$
+\log_a(1+x)=\frac{x}{\ln a}-\frac{x^2}{2\ln^2a}+\frac{x^3}{3\ln^3a}-\frac{x^4}{4\ln^4a}+\cdots\ \ \ \ for\ \ x\in(-1,1]
+$$<p>  再利用上式，有$\displaystyle{a^x=e^{x\ln a}=\sum\limits^{\infty}_{n=0}\frac{(x\ln a)^n}{n!}=1+x\ln a+\frac{(x\ln a)^2}{2!}+\cdots\ \ \ \ for\ \ x\in\mathbb{R}}$</p>$$
+\begin{align*}\text{11. }(1+x)^{\alpha}&=\sum\limits^{\infty}_{n=0}\frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}x^n\\&=1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+\frac{\alpha(\alpha-1)(\alpha-2)}{3!}x^3+\cdots\ \ \ \ \\&when\left\{\begin{aligned}&\alpha\leqslant-1,\ \vert x\vert<1\\&-1<\alpha<0,\ x\in(-1,1]\\&\alpha>0,\ \vert x\vert\leqslant1\end{aligned}\right.\ \ \ \ \text{tip: 二项式定理的推广}\end{align*}
+$$<p>  注意$(1+x)^{\frac1x}$直接用$(1+x)^{\alpha}$的泰勒公式是解不出来的，虽然形式相近；</p><p>  正确做法应该是先处理幂指函数，再利用$e^x$的泰勒公式：</p>$$
+\begin{align}
+(1+x)^{\frac1x}&=e^{\frac1x\ln(1+x)}=e^{\frac1x\big(x-\frac{x^2}2+\frac{x^3}{3}-\frac{x^4}{4}+\mathcal{o}(x^4)\big)}\\
+&=e^{1-\frac x2+\frac{x^2}3-\frac{x^3}4+\mathcal{o}(x^3)}=e\cdot e^{-\frac x2+\frac{x^2}3-\frac{x^3}4+\mathcal{o}(x^3)}\\
+&=e\scriptstyle{\left[1+\left(-\frac x2+\frac{x^2}3-\frac{x^3}4\right)+\frac1{2!}\left(-\frac x2+\frac{x^2}3-\frac{x^3}4\right)^2+\frac{1}{3!}\left(-\frac x2+\frac{x^2}3-\frac{x^3}4\right)^3+\mathcal{o}(x^3)\right]}\\
+&=e-\frac e2x+\frac{11e}{24}x^2-\frac{7e}{16}x^3+\mathcal{o}(x^3)
+\end{align}
+$$<p>$\text{12. }$推论 1：$\displaystyle{\frac{1}{1-x}=\sum\limits^{\infty}_{n=0}x^n=1+x+x^2+x^3+\cdots\ \ \ \ for\ \ \vert x\vert<1}$</p><p>$\text{13. }$推论 2：$\displaystyle{\frac{1}{1+x}=\sum\limits^{\infty}_{n=0}(-x)^n=1-x+x^2-x^3+\cdots\ \ \ \ for\ \ \vert x\vert<1}$</p><p>$\text{14. }\displaystyle{\csc x=\frac{1}{x}+\frac{1}{6}x+\frac{7}{360}x^3+\frac{31}{15120}x^5+\frac{127}{604800}x^7+\cdots\ \ \ \ for\ \ x\in(0,\pi)}$</p><p>$\text{15. }\displaystyle{\sec x=1+\frac{1}{2}x^2+\frac{5}{24}x^4+\frac{61}{720}x^6+\cdots\ \ \ \ for\ \ \vert x\vert<\frac{\pi}{2}}$</p><p>  $\sec x$的泰勒公式求法至少有以下两种方法，其他函数如$\tan x$依此类推：</p><ul><li><p><b>直接计算在$0$处各阶导数的值</b>，注意到$\sec x=\frac1{\cos x}$是<b>偶函数</b>，因此<b>奇数阶泰勒多项式系数值为 $0$</b>，故只需计算偶数阶导数值。有$\sec0=0$，$\sec'x=\tan x\sec x$，$\sec''0=\tan^20\sec0+\sec^30=1$，$\sec'''x=\tan x\sec x(\tan^2x+5\sec^5x)$，$\sec^{(4)}0=(\sec'''x)'|_{x=0}=\sec0(\tan^40+5\sec^40+18\tan^20\sec^20)=5$，所以：</p>$$
+\begin{align}
+\sec x&=\sec0+\frac{\sec''0}{2!}x^2+\frac{\sec^{(4)}}{4!}x^4+\mathcal{o}(x^4)\\
+&=1+\frac12x^2+\frac5{24}x^4+\mathcal{o}(x^4)
+\end{align}
+$$</li><li><p><b>利用$\cos x$的泰勒公式</b>，设待定系数，有</p>$$
+\sec x=\frac1{\cos x}=\frac1{1-\frac1{2!}x^2+\frac1{4!}x^4+\mathcal{O}(x^6)}=\sec0+ax+bx^2+cx^3+dx^4+\mathcal{O}(x^6)
+$$<p>也就是说</p>$$
+(\sec0+ax+bx^2+cx^3+dx^4)\left(1-\frac1{2!}x^2+\frac1{4!}x^4\right)=1+\mathcal{o}(x^4)
+$$<p><b>对比系数</b>，考察$x$项系数有$a=0$，考察$x^2$项系数有$b-\frac12=0$，考察$x^3$项系数有$c-\frac12a=0$，考察$x^4$项系数有$d-\frac12b+\frac1{4!}=0$，综上所述有$a=c=0$，$b=\frac12$，$d=\frac5{24}$，所以</p>$$
+\sec x=1+\frac12x^2+\frac5{24}x^4+\mathcal{o}(x^4)
+$$</li></ul><p>$\text{16. }\displaystyle{\cot x=\frac{1}{x}-\frac{x}{3}-\frac{1}{45}x^3-\frac{2}{945}x^5-\cdots\ \ \ \ for\ \ x\in(0,\pi)}$</p><p><b>利用好奇函数的泰勒级数只有奇数幂、偶函数的泰勒级数只有偶数幂的结论，做选择题确认无穷小阶时往往能事半功倍！</b></p><p><a href=https://zhuanlan.zhihu.com/p/462787668><font color=#EEAEEE>44个函数的泰勒级数展开式</font></a></p><p><a href=https://zhuanlan.zhihu.com/p/88855321><font color=#EEAEEE>我们来更自然地推导泰勒公式！</font></a></p><p>$\arctan x$的泰勒级数有一个很有趣的推导，由于较容易想到和人尽皆知，为不影响观感为此列在最后:</p>$$
+\begin{align}
+for\ \ \vert x\vert<1,\ \arctan x&=\int^x_0\frac{\mathrm{d}t}{1+t^2}\\
+&=\int^x_0\sum^{\infty}_{n=0}(-t^2)^n\mathrm{d}t\\
+&=\sum^{\infty}_{n=0}(-1)^n\int^x_0t^{2n}\mathrm{d}t\\
+&=\sum\limits^{\infty}_{n=0}\frac{(-1)^nx^{2n+1}}{2n+1}
+\end{align}
+$$<p>积分号与累和号次序交换的可行性由逐项可积定理保证：$\big\{\frac{(-1)^nx^{2n+1}}{2n+1}\big\}^{\infty}_{n=0}$处处可微，因此在复数域内均解析，所以在收敛半径内均一致收敛，故而可以逐项积分；此外，可测集上的非负可测函数列也是逐项可积的，但在这里并不适用。</p><h2 id=重要补充>重要补充</h2><p>首先记录一些特殊的极限$\sim$</p><ul><li><p>$\displaystyle{\lim_{n\to\infty}\frac{\ln n!}{\ln n^n}=1}$，可以用Stirling公式证明</p></li><li><p>$\displaystyle\forall \lambda>0,\ \ \lim_{x\to0^+}x^{\lambda}\ln x=0$（可以从$\lim\limits_{x\to+\infty}xe^{-x}=0$导出，也可以直接研究$x\ln x$的导数）</p></li><li><p>$\displaystyle{\lim\limits_{x\to0^+}x^{\frac1x}=0}$，$\displaystyle{\lim\limits_{x\to0^+}x^x=1}$</p></li><li><p>$\displaystyle{\lim\limits_{x\to+\infty}x^{\frac1x}=\lim\limits_{x\to+\infty}\sqrt[n]{a}=1,\ \ \forall a>0}$</p></li><li><p>$\displaystyle{\lim_{x\to0^+}\frac{(1+x)^{\frac1x}-e}x=\lim_{x\to0^+}\frac{e^{\frac{\ln(1+x)}x}-e}x=e^{\xi}\lim_{x\to0^+}\frac{\ln(1+x)-x}{x^2}=-\frac e2}$</p><p>该极限求法利用了第二积分中值定理，其中$\xi\in\big(0,\frac{\ln(1+x)}{x}\big)$，因此$\lim\xi=0$；</p><p>在前文泰勒公式中有推导，实际上有$(1+x)^{\frac1x}=e-\frac e2x+\frac{11e}{24}x^2-\frac{7e}{16}x^3+\mathcal{o}(x^3)$</p></li></ul><img src=/images/考研数学（微积分）（上）/x^x.svg alt=x^x><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-R data-lang=R><span style=display:flex><span><span style=color:#a6e22e>library</span>(tidyverse)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>library</span>(latex2exp)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>f1 <span style=color:#f92672>&lt;-</span> <span style=color:#66d9ef>function</span>(x) x^x
+</span></span><span style=display:flex><span>f2 <span style=color:#f92672>&lt;-</span> <span style=color:#66d9ef>function</span>(x) x<span style=color:#a6e22e>^</span>(<span style=color:#ae81ff>1</span><span style=color:#f92672>/</span>x)
+</span></span><span style=display:flex><span>f3 <span style=color:#f92672>&lt;-</span> <span style=color:#66d9ef>function</span>(x) (<span style=color:#ae81ff>1</span><span style=color:#f92672>/</span>x)^x
+</span></span><span style=display:flex><span>f4 <span style=color:#f92672>&lt;-</span> <span style=color:#66d9ef>function</span>(x) (<span style=color:#ae81ff>1</span><span style=color:#f92672>/</span>x)<span style=color:#a6e22e>^</span>(<span style=color:#ae81ff>1</span><span style=color:#f92672>/</span>x)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>df <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>tibble</span>(
+</span></span><span style=display:flex><span>    x <span style=color:#f92672>=</span> <span style=color:#a6e22e>seq</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>8</span>, by <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.05</span>),
+</span></span><span style=display:flex><span>    y1 <span style=color:#f92672>=</span> <span style=color:#a6e22e>f1</span>(x),
+</span></span><span style=display:flex><span>    y2 <span style=color:#f92672>=</span> <span style=color:#a6e22e>f2</span>(x),
+</span></span><span style=display:flex><span>    y3 <span style=color:#f92672>=</span> <span style=color:#a6e22e>f3</span>(x),
+</span></span><span style=display:flex><span>    y4 <span style=color:#f92672>=</span> <span style=color:#a6e22e>f4</span>(x)
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>p <span style=color:#f92672>&lt;-</span> <span style=color:#a6e22e>ggplot</span>(df, <span style=color:#a6e22e>aes</span>(x <span style=color:#f92672>=</span> x)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_line</span>(<span style=color:#a6e22e>aes</span>(y <span style=color:#f92672>=</span> y1, color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;f1&#34;</span>)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_line</span>(<span style=color:#a6e22e>aes</span>(y <span style=color:#f92672>=</span> y2, color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;f2&#34;</span>)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_line</span>(<span style=color:#a6e22e>aes</span>(y <span style=color:#f92672>=</span> y3, color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;f3&#34;</span>)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_line</span>(<span style=color:#a6e22e>aes</span>(y <span style=color:#f92672>=</span> y4, color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;f4&#34;</span>)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>scale_y_continuous</span>(limits <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>4</span>)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>scale_x_continuous</span>(breaks <span style=color:#f92672>=</span> <span style=color:#a6e22e>seq</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>8</span>, by <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>)) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>scale_color_manual</span>(
+</span></span><span style=display:flex><span>        values <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(<span style=color:#e6db74>&#34;f1&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;red&#34;</span>, <span style=color:#e6db74>&#34;f2&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;blue&#34;</span>, <span style=color:#e6db74>&#34;f3&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;green&#34;</span>, <span style=color:#e6db74>&#34;f4&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;purple&#34;</span>),
+</span></span><span style=display:flex><span>        labels <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;f1&#34;</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>TeX</span>(<span style=color:#e6db74>&#34;$x^x$&#34;</span>),
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;f2&#34;</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>TeX</span>(<span style=color:#e6db74>&#34;$x^{\\frac{1}{x}}$&#34;</span>),
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;f3&#34;</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>TeX</span>(<span style=color:#e6db74>&#34;$x^{-x}$&#34;</span>),
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;f4&#34;</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>TeX</span>(<span style=color:#e6db74>&#34;$x^{-\\frac{1}{x}}$&#34;</span>))) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_vline</span>(xintercept <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, linetype <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;dashed&#34;</span>, color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;black&#34;</span>) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_hline</span>(yintercept <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, linetype <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;dashed&#34;</span>, color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;black&#34;</span>) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>geom_point</span>(<span style=color:#a6e22e>aes</span>(x <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, y <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>), shape <span style=color:#f92672>=</span> <span style=color:#ae81ff>21</span>, fill <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;white&#34;</span>, size <span style=color:#f92672>=</span> <span style=color:#ae81ff>1.5</span>) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>labs</span>(x <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;X&#34;</span>, y <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Y&#34;</span>, color <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Function&#34;</span>) <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>theme_bw</span>() <span style=color:#f92672>+</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>theme</span>(legend.text <span style=color:#f92672>=</span> <span style=color:#a6e22e>element_text</span>(size <span style=color:#f92672>=</span> <span style=color:#ae81ff>12</span>),
+</span></span><span style=display:flex><span>          legend.background <span style=color:#f92672>=</span> <span style=color:#a6e22e>element_rect</span>(fill <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;white&#34;</span>, colour <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;black&#34;</span>),
+</span></span><span style=display:flex><span>          legend.position <span style=color:#f92672>=</span> <span style=color:#a6e22e>c</span>(<span style=color:#ae81ff>0.90</span>, <span style=color:#ae81ff>0.80</span>),
+</span></span><span style=display:flex><span>          legend.text.align <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># ggsave(&#39;x^x.svg&#39;, p, width = 10, height = 5)</span>
+</span></span></code></pre></div><hr><p>此外还有一些特殊的等价无穷小与泰勒公式（起码要混个脸熟！）</p><ul><li><p>$\ln(e^x-1)\sim\ln x,\ \ x\to0$，利用洛必达法则易证；</p></li><li><p>$\displaystyle{1-\cos^nx\sim\frac{nx^2}{2}},\ \ x\to0$，利用洛必达法则易证；</p><p>当$n\in\mathbb{N}^+$，也可以利用因式分解证明：</p>$$
+\begin{align}
+1-\cos^nx&=(1-\cos x)\big((\cos x)^{n-1}+(\cos x)^{n-2}+\cdots+\cos x+1\big)\\
+&\sim\frac{x^2}2\sum^{n-1}_{k=0}1\\
+&=\frac{nx^2}2
+\end{align}
+$$<p>事实上有$1-\cos^nx=\frac{nx^2}2+\frac{n(2-3n)x^4}{24}+\frac{n(15n^2-30n+16)x^6}{720}+\mathcal{o}(x^6)$</p></li><li><p>$\displaystyle{\ln\big(x+\sqrt{1+x^2}\big)}\sim x,\ \ x\to0$，利用洛必达法则易证，也可以简便地使用泰勒公式直接展开（等价无穷小）：</p>$$
+\begin{align}\ln(x+\sqrt{1+x^2})&=\ln\Big(1+\big(x+\sqrt{1+x^2}-1\big)\Big)\\&\sim x+\sqrt{1+x^2}-1\\&=x+1+\frac{x^2}2+\mathcal{O}(x^4)-1\\&=x+\mathcal{o}(x)\end{align}
+$$<center>注：这样只能计算一阶，因为第一步所运用的 ln(1+x)~x 精度不够</center><center>只要第一步 ln(1+x) 展到足够的阶，这一方法可以计算到指定精度</center><p>事实上有 $\ln\big(x+\sqrt{1+x^2}\big)=\mathrm{arcsinh}\,x=x-\frac{x^3}6+\frac{3x^5}{40}-\frac{5x^7}{112}+\mathcal{O}(x^9)$，在后文会用多种方法给出这一函数泰勒展式的推导过程。</p><p>应当注意，该函数是奇函数 (泰勒级数只有奇项，这在解决重积分时对化简式子可能有帮助)，而且导数为$\frac1{\sqrt{1+x^2}}$；类似的$\ln\big(\sqrt{1+x^2}-x\big)$也是奇函数，其导数为$-\frac1{\sqrt{1+x^2}}$，他的泰勒级数每一项恰等于$\ln\big(x+\sqrt{1+x^2}\big)$泰勒级数每一项的相反数，也就是说$\ln\big(x+\sqrt{1+x^2}\big)=-\ln\big(\sqrt{1+x^2}-x\big)$——再次说明了这两个函数均为奇函数，而且令$x:=-x$后一个函数就会变为另一个函数。</p><p><font color=red><b>补充：</b></font>如果需要更高阶的$\displaystyle{\ln\big(x+\sqrt{1+x^2}\big)}$​泰勒展开，实际上有很多种方法均可供选择。在上文对一阶展开的计算中，所使用的解法是最“笨拙”的从外到里、逐步展开。当然，这也是最直接的方法，不需要任何技巧。尽管对于一阶的泰勒展开，这样“朴素”的处理看起来并无不妥，但当尝试计算高阶泰勒展开时，计算将会变得异常复杂——如果不使用计算机辅助运算的话。这里补充一些解法，以说明计算高阶泰勒展开时，除了直接展开外，我们还有很多更简便的办法。</p><p>以$\displaystyle{\ln\big(x+\sqrt{1+x^2}\big)}$三阶泰勒展开$x-\frac{x^3}6+\mathcal{o}(x^3)$的计算为例：</p><ol><li><p><font color=red>直接展开</font>：即使是直接展到三阶已然很麻烦了，但这一方法好在普遍适用。</p>$$
+\begin{align}
+\ln\big(x+\sqrt{1+x^2}\big)&=\ln\big(1+x+\sqrt{1+x^2}-1\big)\\
+&\overset{\ast}{=}(x+\sqrt{1+x^2}-1)-\frac{(x+\sqrt{1+x^2}-1)^2}2+\frac{(x+\sqrt{1+x^2}-1)^3}3+\mathcal{o}(x^3)\\
+&=x+\sqrt{1+x^2}-1-\frac{x^2}2-\frac{1+x^2}2-\frac12-x\sqrt{1+x^2}+x+\sqrt{1+x^2}+\frac{4x^3}3\\
+&\ \ \ \ +\frac{4x^2\sqrt{1+x^2}}3-2x^2-2x\sqrt{1+x^2}+\frac{4\sqrt{1+x^2}}3+2x-\frac43+\mathcal{o}(x^3)\\
+&\overset{\ast\ast}{=}x-\frac{x^3}6+\mathcal{o}(x^3)
+\end{align}
+$$<p>其中，$\ast$ 所用到的式子是$\ln(1+x)\sim x-\frac{x^2}2+\frac{x^3}3+\mathcal{o}(x^3)$，$\ast\ast$ 所用到的式子是$\sqrt{1+x^2}\sim1+\frac{x^2}2+\mathcal{o}(x^3)$，以上讨论都限定于$x\to0$时。这里略去了繁琐的计算过程。</p></li><li><p><font color=red>多次求导：</font>前文已经提到$\displaystyle{\ln\big(x+\sqrt{1+x^2}\big)}$的一阶导数是十分简洁的——$\frac1{\sqrt{1+x^2}}$（这需要一定的观察力，或者经验），根据导数与泰勒系数的关系，我们知道</p>$$
+a_n=\frac{f^{(n)}(x_0)}{n!}
+$$<p>因此只需要算出$\displaystyle{\ln\big(x+\sqrt{1+x^2}\big)}$​的直到三阶导数：</p><p> $a_0=\displaystyle{\ln\big(x+\sqrt{1+x^2}\big)}\Big|_{x=0}=0$</p><p> $a_1=\frac1{\sqrt{1+x^2}}\Big|_{x=0}=1$</p><p> $a_2=\left.\left(\frac1{\sqrt{1+x^2}}\right)'\right|_{x=0}\ \ \bigg/\ 2!=\displaystyle\frac{\left.-\frac{x}{(1+x^2)^{\frac32}}\right|_{x=0}}{2!}=0$</p><p> $a_3=a_2=\left.\left(\frac1{\sqrt{1+x^2}}\right)''\right|_{x=0}\ \ \bigg/\ 3!=\displaystyle\frac{\left.\left(\frac{3x^2}{(1+x^2)^{\frac52}}-\frac1{(1+x^2)^{\frac32}}\right)\right|_{x=0}}{3!}=-\frac16$</p><p>由此也可以计算出$\ln\big(x+\sqrt{1+x^2}\big)=x-\frac{x^3}6+\mathcal{o}(x^3)$，计算量相较于直接展开有一定减少。而且，这也是一种普遍适用的方法，当然对于其他的函数而言，计算起来并不一定有直接展开来得快，具体要看目标函数求导是否方便。</p></li><li><p><font color=red>间接展开：</font>以上两种方法都是普遍适用的方法，除此之外具体问题具体分析，对于特别的函数，我们可以考虑特别的技巧与方法，从而快速计算出泰勒展式。例如在这一例子中，我们已经观察到目标函数的导数形式$\frac1{\sqrt{1+x^2}}$结构简单，所以可考虑将$\frac1{\sqrt{1+x^2}}$展为泰勒级数，再利用逐项求积定理，逐项积分从而得到目标函数的泰勒级数，这样就避免了直接对目标函数展开。利用$(1+x)^{\alpha}=\sum\limits^{\infty}_{n=0}\frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}x^n$，有</p>$$
+\begin{align}x\in(-1,1],\ \,\,\,\frac1{\sqrt{1+x^2}}&=\sum\limits^{\infty}_{n=0}\frac{-\frac12(-\frac12-1)\cdots(-\frac12-n+1)}{n!}x^{2n}\\&=1-\frac{x^2}2+\frac{-\frac12(-\frac12-1)}{2!}x^4+\frac{-\frac12(-\frac12-1)(-\frac12-2)}{3!}x^6+\cdots\end{align}
+$$<p>逐项求积，在$x=0$的邻域上有</p>$$
+\begin{align}\ln\big(x+\sqrt{1+x^2}\big)&=\int\left(1-\frac{x^2}2+\frac{-\frac12(-\frac12-1)}{2!}x^4+\frac{-\frac12(-\frac12-1)(-\frac12-2)}{3!}x^6+\cdots\right)\mathrm{d}x\\&=x-\frac{x^3}6+\frac{3x^5}{40}-\frac{5x^7}{112}+\cdots+\frac{-\frac12(-\frac12-1)\cdots(-\frac12-n+1)}{n!\,(2n+1)}x^{2n+1}+\cdots\end{align}
+$$<p>对于这一函数，此方法较于前两种通用解法具有显著优越性，一方面，计算量大大降低；另一方面，给出了任意阶泰勒系数的表达式，即通项$\frac{-\frac12(-\frac12-1)\cdots(-\frac12-n+1)}{n!\,(2n+1)}$（这个通项公式用以计算泰勒级数的第$n$个奇数项的系数——由于偶数项为$0$​，所以没有单独给出偶数次通项的必要）。</p></li></ol></li><li><p>虽然$e^x-1\sim x$是显而易见的，但我仍然认为这一式子有着巨大潜力，这一点尤其表现在<strong>配合幂指函数计算极限</strong>时。</p><p>例如欲计算极限$\lim\limits_{x\to0^+}\frac{x^x-(\sin x)^x}{(x+a)^x-a^x}$，其中$a$是任一正数。这个极限相对复杂，首先我们提取零因子，将其化为</p>$$
+\lim_{x\to0^+}\frac{x^x-(\sin x)^x}{(x+a)^x-a^x}=\lim_{x\to0^+}\frac{x^x\Big(1-\left(\frac{\sin x}{x}\right)^x\Big)}{a^x\Big(\left(\frac{x}a+1\right)^x-1\Big)}\xlongequal{\text{幂指化}}\lim_{x\to0^+}\frac{1-e^{x\ln(\frac{\sin x}x)}}{e^{x\ln(1+\frac{x}a)}-1}
+$$<p>接下来套用$e^{f(x)}-1\sim f(x)$（$\text{Tip}:f(x)\to0\ when\ \ x\to c$），上式直接转写为</p>$$
+\lim_{x\to0^+}-\frac{x\ln\big(\frac{\sin x}x\big)}{x\ln(1+\frac{x}a)}=\lim_{x\to0^+}-\frac{\frac{\sin x}x-1}{\frac{x}a}=\lim_{x\to0^+}-\frac{1-\frac{x^2}{3!}+\omicron(x^2)-1}{\frac1ax}=0
+$$<p>可以看到，灵活运用这一等价无穷小的计算过程是非常简洁的——尤其对于指数和底数位置均含有变量$x$​、需要转写为幂指函数以方便下一步讨论时，在提取了零因子后常常可以利用这个等价无穷小直接消掉式子中的指数。当然，处理这个极限也可以“一股脑”地使用泰勒公式，这也是我第一次计算这个极限采取的解法，但未免也太过繁琐了。</p></li><li><p>常用杂例：</p><ul><li>$\sqrt{1+x}=1+\frac{x}2-\frac{x^2}8+\frac{x^3}{16}+\cdots$</li><li>$\sqrt{1+x^2}=1+\frac{x^2}2-\frac{x^4}8+\frac{x^6}{16}+\cdots$​</li></ul></li></ul><hr><p>最后，由基本泰勒公式 / 泰勒级数可以导出一些特别级数的和函数，例如：</p><ul><li>$\displaystyle{\sum^{\infty}_{n=0}\frac{x^{2n}}{(2n)!}=\frac{e^x+e^{-x}}2}$，这个级数难以通过逐项求导来解出，不过容易“凑”出来，实际上就是$e^x$麦克劳林级数的偶数项；</li><li>$\displaystyle{\sum^{\infty}_{n=0}\frac{x^{2n+1}}{(2n+1)!}=e^x-\frac{e^x+e^{-x}}2=\frac{e^x-e^{-x}}2}$，实际上就是$e^x$麦克劳林级数的奇数项，同上式的和为$\sum\limits^{\infty}_{n=1}\frac{x^n}{n!}=e^x$；</li></ul><h2 id=中值定理处理函数极限>中值定理处理函数极限</h2><p>如果观察到极限式可以被写做同一函数的不同取值的差，那么就可以运用中值定理。</p><p>有的问题不能考虑泰勒公式，而只能考虑洛必达法则；当然也有的问题只能考虑中值定理，而不能考虑洛必达法则或泰勒公式，这三种常用方法都有其擅长的领域。</p><p>例如，设$f(x)$在点$x=0$处二阶可导且$\lim\limits_{x\to0}\frac{f(x)-1-2x^2}{x^2}=0$，试求$\lim\limits_{x\to0}\frac{f(x)-f(\sin x)}{x^4}$。这个问题如果只考虑泰勒公式，则只能得到$f(x)=1+2x^2+\mathcal{o}(x^3)$，无法计算出$f(x)-f(\sin x)$在第四阶的无穷小。注意到$f(x)$在点$x=0$处二阶可导，因此$f(x)$在$x=0$的某个邻域内可微分，根据拉格朗日中值定理，在这个邻域内有</p>$$
+\lim\limits_{x\to0}\frac{f(x)-f(\sin x)}{x^4}=\lim\limits_{x\to0}\frac{\frac16x^3f'(\xi)}{x^4}
+$$<p>其中$\xi$介于$x$与$\sin x$，这时再通过泰勒公式知$f'(0)=0$、$f''(0)=4$，于是</p>$$
+\lim_{x\to0}\frac{\frac16x^3f'(x)}{x^4}=\frac16\lim_{x\to0}\frac{f'(x)-0}{x}=\frac16f''(0)=\frac23
+$$$$
+\lim_{x\to0}\frac{\frac16x^3f'(\sin x)}{x^4}=\frac16\lim_{\sin x\to0}\frac{f'(\sin x)-0}{\sin x}=\frac16f''(0)=\frac23
+$$<p>综上所述，由夹逼定理知$\lim\limits_{x\to0}\frac{f(x)-f(\sin x)}{x^4}=\frac23$，由此可见泰勒公式并不是无所不能的，洛必达法则、中值定理等方法也是同样重要的。</p><p>除了拉格朗日中值定理，这道题也可以使用柯西中值定理，变形得$\lim\limits_{x\to0}\frac{f(x)-f(\sin x)}{x^4}=\lim\limits_{x\to0}\frac{f(x)-f(\sin x)}{x^2-\sin^2x}\cdot\frac{x^2-\sin^2x}{x^4}$，其中极限$\lim\limits_{x\to0}\frac{x^2-\sin^2x}{x^4}$容易计算得$\frac13$，对极限$\lim\limits_{x\to0}\frac{f(x)-f(\sin x)}{x^2-\sin^2x}$应用柯西中值定理可以得到一个$f''$的定义式，即$\frac12\lim\limits_{\xi\to0}\frac{f'(\xi)}{\xi}=\frac12f''(0)=2$，两式相乘同样能得到结果$\frac23$。</p><details><summary><font color=#0099ff>展开/收起2道中值定理计算函数极限的具体例子</font></summary><p>有些时候，在极限的计算中可以巧妙运用中值定理，达到事半功倍的效果。</p><ul><li><p>计算$\lim\limits_{x\to0}\left[\frac1{\ln(x+\sqrt{1+x^2})}-\frac1{\ln(1+x)}\right]$；</p><p>解：由拉格朗日中值定理，有</p>$$
+\begin{align}
+\lim_{x\to0}\left[\frac1{\ln(x+\sqrt{1+x^2})}-\frac1{\ln(1+x)}\right]&=-\frac1{\xi\ln^2\xi}\left(\sqrt{1+x^2}-1\right)\\
+&=-\frac1{\xi\ln^2\xi}\left(\frac{x^2}2+\mathcal{O}(x^4)\right)
+\end{align}
+$$<p>其中$1+x<\xi\lt x+\sqrt{1+x^2}$，因此由夹逼定理有</p>$$
+-\frac12=-\frac12\lim_{x\to0}\frac{x^2}{\big(1+x+\mathcal{O}(x^2)\big)x^2}\leqslant-\frac1{\xi\ln^2\xi}\left(\frac{x^2}2+\mathcal{O}(x^4)\right)\leqslant-\frac12\lim_{x\to0}\frac{x^2}{(1+x)x^2}=-\frac12
+$$<p>综上，$\lim\limits_{x\to0}\left[\frac1{\ln(x+\sqrt{1+x^2})}-\frac1{\ln(1+x)}\right]=-\frac12$。</p></li><li><p>计算$\lim\limits_{x\to0}\frac{(\sin x+e^{\tan x})^{\frac1x}-(\tan x+e^{\sin x})^{\frac1x}}{x^3}$；</p><p>解：先将分子写为幂指函数形式以便处理，</p>$$
+\lim_{x\to0}\frac{(\sin x+e^{\tan x})^{\frac1x}-(\tan x+e^{\sin x})^{\frac1x}}{x^3}=\lim_{x\to0}\frac{e^{\frac1x\ln(\sin x+e^{\tan x})}-e^{\frac1x\ln(\tan x+e^{\sin x})}}{x^3}
+$$<ul><li><p>法一：多次利用等价无穷小，$x\to0$时有</p>$$
+\begin{align}e^{\frac1x\ln(\sin x+e^{\tan x})}-e^{\frac1x\ln(\tan x+e^{\sin x})}&=e^{\frac1x\ln(\tan x+e^{\sin x})}\left(e^{\frac1x\ln\left(\frac{\sin x+e^{\tan x}}{\tan x+e^{\sin x}}\right)}-1\right)\\&\sim e^2\cdot\frac1x\ln\left(\frac{\sin x+e^{\tan x}}{\tan x+e^{\sin x}}\right)\\&\sim e^2\cdot\frac1x\left(\frac{\sin x+e^{\tan x}}{\tan x+e^{\sin x}}-1\right)\\&\sim e^2\cdot\frac1x(\sin x+e^{\tan x}-\tan x-e^{\sin x})\end{align}
+$$<p>由于$\tan x-\sin x=x+\frac{x^3}3-x+\frac{x^3}6-\mathcal{o}(x^4)=\frac{x^3}2+\mathcal{o}(x^4)$，因此</p>$$
+\begin{align}\lim_{x\to0}\textstyle\frac{e^2\cdot\frac1x(\sin x+e^{\tan x}-\tan x-e^{\sin x})}{x^3}&=\displaystyle e^2\lim_{x\to0}\frac{e^{\tan x}-e^{\sin x}+\sin x-\tan x}{x^4}\\&=e^2\lim_{x\to0}\frac{e^{\sin x}(e^{\tan x-\sin x}-1)-(\tan x-\sin x)}{x^4}\\&\xlongequal{t=\tan x-\sin x\sim\frac{x^3}2}e^2\lim_{x\to0}\frac{e^{\sin x}(e^t-1)-t}{x^4}\\&=e^2\lim_{x\to0}\frac{(e^{\sin x}-1)(e^t-1)+(e^t-t-1)}{x^4}\\&=\frac{e^2}2+0=\frac{e^2}2\end{align}
+$$<p>综上，$\lim\limits_{x\to0}\frac{(\sin x+e^{\tan x})^{\frac1x}-(\tan x+e^{\sin x})^{\frac1x}}{x^3}=\frac{e^2}2$；这一方法的过程中所用到的恒等变形是一个十分常见的技巧，如果不这样做就只能硬算$e^{\sin x}$与$e^{\tan x}$的$4$阶泰勒公式了。</p></li><li><p>法二：利用中值定理，</p><p>在法一计算$e^2\lim\limits_{x\to0}\frac{e^{\tan x}-e^{\sin x}+\sin x-\tan x}{x^4}$时可以用中值定理，这样可以避免后续技巧性的变形。设$f(x)=e^x-x$，则分子等于$f(\tan x)-f(\sin x)$，由拉格朗日中值定理，$f(\tan x)-f(\sin x)=(\tan x-\sin x)f'(\xi)$，其中$\xi$介于$\sin x$与$\tan x$，由夹逼定理同样可以计算得$e^2\lim\limits_{x\to0}\frac{f(\tan x)-f(\sin x)}{x^4}=e^2\lim\limits_{x\to0}\frac{\frac{x^3}2x}{x^4}=\frac{e^2}2$。</p></li></ul></li></ul></details><h2 id=幂指型函数极限>幂指型函数极限</h2><p>一般对于幂指型函数考虑取$\exp$的等价变形，不过对于一般复合幂指型函数的极限有更简便的算法，可以被视为是重要极限$\lim\limits_{n\to\infty}\big(1+\frac{1}{n}\big)^n$的推广：</p><p><font size=5em>定理   </font>如果$\lim\limits_{x\to c}f(x)=0$、$\lim\limits_{x\to c}g(x)=\infty$且$\lim\limits_{x\to c}f(x)g(x)$存在，其中$c\in\mathbb{R}\cup\{\pm\infty\}$，则有</p>$$
+\lim\limits_{x\to c}\big[1+f(x)\big]^{g(x)}=\lim\limits_{x\to c}\;\exp\big[f(x)g(x)\big]
+$$<p>这个想法是自然的，因为当$f(x)\not\equiv0$时$\lim\limits_{x\to c}\big[1+f(x)\big]^{g(x)}=\lim\limits_{x\to c}\big[\big(1+f(x)\big)^{\frac{1}{g(x)}}\big]^{f(x)g(x)}$由海涅定理易证；当$f(x)\equiv0$显然。</p><p>但如果$f(x)\to\infty$而$g(x)\to0$，这种情况下不能用该定理处理，而只能化函数为幂指型函数$\exp\big[g(x)\ln(1+f(x))\big]$，再考虑其他方法求解。特别地，易见有</p>$$
+\lim_{n\to\infty}\big(1+n\big)^{\frac1n}=1
+$$<p>若极限$\lim\limits_{x\to c}f(x)g(x)$不存在（包括值为$\infty$），同样地考虑将原式化为$e^{g\ln(1+f)}$后再考虑其他方法求解。</p><h2 id=渐近线>渐近线</h2><p>渐近线按斜率可以分为三种，对于函数$f(x)$，</p><ul><li><p>垂直（铅直）渐近线：$x_0$是$f(x)$的间断点且$\lim\limits_{x\to x^{\pm}_0}f(x)=\infty$，则$x=x_0$是$f(x)$的一个垂直间断点；</p></li><li><p>水平渐近线：$\lim\limits_{x\to\infty}f(x)=y_0$，则$y=y_0$是$f(x)$的一个水平间断点；</p></li><li><p>斜渐近线：$\lim\limits_{x\to\infty}\big[f(x)-(ax+b)\big]=0$，则$y=ax+b$是$f(x)$的一个斜渐近线。</p><p>根据定义，利用高阶无穷小，对斜渐近线求法有现成公式：</p>$$
+a=\lim_{x\to\pm\infty}\frac{f(x)}x,\ \ \ b=\lim_{x\to\pm\infty}\big[f(x)-ax\big]
+$$<p>只要这两个极限存在，即$a,b$存在且为常数，那么斜渐近线或水平渐近线就存在，这也是斜渐近线或水平渐近线的一种定义。</p></li></ul><p>因此，想要求出函数的渐近线：</p><ol><li>首先找出函数的所有无穷间断点，对应铅直渐近线；</li><li>接下来观察当$x\to\pm\infty$时$f(x)$是否具有线性趋势（计算极限），对应水平 / 斜渐近线。</li></ol><p>特别说明，铅直渐近线只要求函数在一点处某侧的极限为无穷大即可，不需要两侧极限都为无穷大；若函数在某点$x=x_0$两侧的极限一侧为正无穷而另一侧为负无穷，则$x=x_0$也属于铅直渐近线。</p><p>此外，应注意若只有极限$\displaystyle\lim_{x\to\infty}\frac{f(x)}x=a$存在，不能说明函数具有斜渐近线，例如$f(x)=x+\sin x$，需要进一步地有极限$\lim\limits_{x\to\infty}[f(x)-ax]$存在才能保证函数具有这样的斜渐近线。</p><hr><p>以上是通常的方法（也是最基本的、按定义处理问题的方法），在此补充三个方法：</p><ol><li>洛朗展开式（斜渐近线或水平渐近线）</li><li>凑斜率$k=\lim\limits_{x\to\pm\infty}\frac{y}x$（斜渐近线或水平渐近线）</li><li><del>代入直线（斜渐近线或水平渐近线）</del></li></ol><p>这些方法都只适用于计算斜渐近线或水平渐近线，其中后两种方法可以处理隐函数。</p><ul><li><p>应用洛朗展开式计算渐近线：当函数$f(x)$满足洛朗展开的tiao只要$f(x)$在无穷远点处的洛朗展式为$f(x)=ax+b+\mathcal{o}\big(\frac1x\big)$形式，就可以断言$f(x)$的渐近线为$ax+b$；反之，如果$f(x)$的洛朗展开式不是这样的形式，则可以判定$f(x)$不存在斜渐近线或水平渐近线。</p><p>例如，考虑一个函数$y=\frac{x^3}{1+x^2}+\arctan(1+x^2)$，不难计算其在无穷远点$x=\infty$处的洛朗展式为$y=x+\frac{\pi}2-\frac1x-\frac1{x^2}+\frac1{x^3}+\mathcal{O}(\frac1{x^4})$，所以可以直接认定$y$的渐近线为$y=x+\frac{\pi}2$。</p></li></ul><p>接下来的两种方法适用于求隐函数的渐近线。</p><ul><li><p>凑斜率：这种方法是从定义导出的，所以也是严谨的，极限$k=\lim\limits_{x\to\pm\infty}\frac{y}x$存在的充要条件是$y$存在斜渐近线或水平渐近线。以曲线$x^3+y^3=y^2$为例，设可能的斜渐近线或水平渐近线为$y=kx+b$的形式，由定义有斜率$k=\lim\limits_{x\to\pm\infty}\frac{y}x$，所以可以考虑通过对曲线方程变形以“变”出斜率（毕竟我们解不出来隐函数$y$的具体形式）——等号两端同除$x^3$得$1+\big(\frac{y}x\big)^3=\frac{y^2}{x^3}$，再同时取$x\to\pm\infty$的极限得$1+k^3=\lim\limits_{x\to\pm\infty}\frac{k^2}x=0$，解得$k=-1$，所以渐近线是存在的，而且斜率为$-1$。</p><p>得到了斜率后，欲进一步求截距则需要回到定义$b=\lim\limits_{x\to\pm\infty}(y-kx)$中去，在这个问题中$b=\lim\limits_{x\to\pm\infty}(y+x)$。注意到$x^3+y^3=(x+y)(x^2-xy+y^2)=y^2$，从而有</p>$$
+b=\lim\limits_{x\to\pm\infty}(y+x)=\lim\limits_{x\to\pm\infty}\frac{y^2}{x^2-xy+y^2}=\lim\limits_{x\to\pm\infty}\frac{\big(\frac{y}x\big)^2}{1-\frac{y}{x}+\big(\frac{y}x\big)^2}=\frac{k^2}{1-k+k^2}=\frac13
+$$<p>又易知$y$有且仅有一条渐近线，综上所述$y$的渐近线为$-x+\frac13$。值得注意的是，在通过$x^3+y^3=(x+y)(x^2-xy+y^2)=y^2$间接计算$b$时要考虑$y+x=\frac{y^2}{x^2-xy+y^2}$而不考虑$y+x=\frac{x^3+y^3}{x^2-xy+y^2}$：尽管这两个等式都是成立的，但前者的极限显然更容易处理，因为分子和分母的每一项都是$2$次的，相比之下后者就棘手的多，分母均为$2$次项而分子均为$3$次项。</p></li></ul><h1 id=微分学--导数与中值定理>微分学 · 导数与中值定理</h1><p>一元实函数的可微性与可导性等价。</p><p>关于微分的应用，主要在曲率、曲率圆等部分，参考：<a href=https://www.zhihu.com/question/297501182/answer/2653953663><font color=#EEAEEE>什么是曲率和曲率半径？</font></a>，本文不做涉及。</p><p>隐函数以及隐函数求导，在下一篇文章 <b><a href=https://iharee.github.io/2023/05/16/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%B7%A5%E5%85%B7%20Part%E2%85%A1/#more><font color=#D2691E>高等数学工具 PartⅡ</font></a></b> 中。</p><h2 id=可导性与可积性>可导性与可积性</h2><p><b><font color=red>设函数在$x_0$处的某邻域内有定义，若在该点左导数存在，则函数在该点左连续；若在该点右导数存在，则函数在该点右连续。</font></b></p><p><b><font color=red>若左右导数均存在，则函数既左连续又右连续，则函数在该点连续！但不一定有导数存在，因为左右导数值可能不相等。</font></b></p><p><b><font color=red>有以下经典的例题：</font></b></p><img src=/images/考研数学（微积分）（上）/每日一题1.jpg alt=每日一题1 style=zoom:35%><p><b><font color=red>切记，导数的右极限$\lim\limits_{x\to {x_0}^+}f'(x)$存在不等价于右导数$f'_+(x)$存在！！！函数可导当且仅当在某点左右导数存在，而非导函数的左右极限存在！</font></b></p><p><b><font color=red>但利用拉格朗日中值定理容易证明，</font></b><b><font color=#836FFF>如果函数$f$在$x_0$处连续且在$x_0$的空心邻域内可导，若此时导数的右极限或左极限存在，则该点处右导数或左导数存在，且其值等于导数的右极限或左极限，也就是可导。</font></b></p><p><b><font color=#CD0000>补充：对于在点$x=a$的某邻域内有定义的函数$f$，函数$f(x)|x-a|$在$x=a$处可导的充要条件是$f(a)=0$！</font></b></p><p>该定理可以推广到多元的情形，以二元为例，<b><font color=#CD0000>对于在点$(a,b)$的某邻域内有定义的二元函数$f(\cdot,\cdot)$，函数$f(x,y)\big|(x-a)-(y-b)\big|$在点$(a,b)$处偏导数存在的充要条件是极限$\lim\limits_{x\to a}f(x,b)$、$\lim\limits_{y\to b}f(a,y)$存在且$\lim\limits_{x\to a}f(x,b)=\lim\limits_{y\to b}f(a,y)=0$。</font></b></p><p>对一元实函数而言，在某点可导则连续，连续则黎曼可积；连续不一定可导，黎曼可积不一定连续（黎曼可积充要条件为几乎处处连续，可以得出对积分的改进，是放宽可积对函数光滑的要求）。</p><p>尽管可导函数的导函数不一定连续，但可能含有第二类震荡间断点，而一定不含有第一类间断点，进一步地：<font color=red>可导函数的导函数，在导函数有定义的点中，一定没有第一类间断点和第二类无穷间断点。</font></p><p>因此：<font color=red>如果某函数有第一类间断点和第二类无穷间断点，则该函数一定不存在原函数；连续函数必有原函数。</font></p><p><b><font color=red>注意原函数的定义，要求函数的不定积分的导数仍等于其自身，因此一些含有第二类间断点的函数仍是可能有原函数的，而不仅仅是连续函数才有原函数；</font></b><b><font color=#CD0000>此外，对于含且仅含可数个第一类可去间断点的函数，容易知道其 (黎曼) 变限积分必然存在，但该函数的原函数却不存在，因为他的变限积分 (不定积分) 在任意一点处的导数值等于此点该函数原本的极限值，而与这一点原本的函数值无关，即相当于函数被“平滑”了，第一类间断点被“抹去”了。</font></b></p><p>另外，如果只是知道函数在某点可导且导数值不为$0$，并不说明函数在该点的邻域内单调，例如可以定义分段函数$f(x)=\left\{\begin{aligned}&x+2x^2\sin\frac1x,&&x\neq0\\&0,&&x=0\end{aligned}\right.$，易证$f(x)$在$x=0$处导数为$1$，但在$0$的任何邻域内均不单调。所以，只有导函数也有一定连续性或在该点处的某个邻域内导函数均不变号时，才可以断言该函数在zhe&rsquo;yi&rsquo;dian</p><ul><li>定理1：若$f(x)$在$(a,b)$上可导，则$f'(x)$在$(a,b)$上没有第一类间断点</li><li>定理2：含有第一类间断点的函数不存在不定积分</li><li>达布定理（导数的介质性）：若$f(x)$在$[a,b]$上可导且$f(a)\neq f(b)$，则对任意介于$f'(a)$与$f'(b)$的$\eta$，$\exists \xi\in[a,b]$，$s.t.\ f'(\xi)=\eta$</li></ul><img src=/images/考研数学（微积分）（上）/连续.jpg alt=导数、连续的辨证（可积） style=zoom:30%><p>补充二元实函数的情形：</p><img src=/images/考研数学（微积分）（上）/连续2.jpg alt=导数、连续的辨证（可积） style=zoom:30%><p>间断点的分类：</p><ul><li><p>第一类间断点</p><ol><li><p>可去间断点：在点$x=x_0$处极限存在，但函数在该点无定义或函数值不等于极限值。</p><p>如果$x=x_0$为可去间断点，则在$x=x_0$处补充定义$f(x_0)=\lim\limits_{x\to x_0}f(x)$后可以使得$f(x)$在这一点连续，这是可去间断点的一个特征。</p></li><li><p>跳跃间断点：在点$x_0$处的左右极限存在但不相等。</p></li></ol></li><li><p>第二类间断点</p><p>在点$x_0$处的左极限或右极限不存在，则称该点为第二类间断点。</p><p>第二类间断点包含无穷间断点、震荡间断点等，是某侧极限不存在的间断点。</p></li></ul><p>关于函数单调性：我们都知道，如果函数可微，那么导数大于等于$0$时函数单调递增，导数小于等于$0$时函数单调递减，那么如果函数不可微甚至不连续，我们还可以通过导数研究函数的单调性吗？利用Dini导数，在理论上这是可以做到的。如果函数被定义在$\mathbb{R}$上，则即使函数不连续，函数的单调性依然可以用Dini导数讨论；Dini导数总是存在的，当函数可微时恰等于古典导数，所以Dini导数可以被视为古典导数的推广。如果函数被定义在区间$[a,b]$上，则Dini导数至多在某个端点处不存在。</p><p><u>勒贝格定理：单调函数是几乎处处可微的。</u>我对这一定律最深刻的印象，是在周民强编著的《实变函数论》中，短短数字，却证了足足三页。</p><hr><p><b>函数微分</b></p><p>按现代微积分学，对一元实函数而言可微性与可导性是等价的。对于可导函数$y=f(x)$，因变量$y$的增量为</p>$$
+\Delta y=f(x_0+\Delta x)-f(x_0)=f'(x_0)\Delta x+\mathcal{o}(\Delta x)
+$$<p>其一阶微分$\mathrm{d}y$为该式的线性主部$f'(x)\mathrm{d}x$。</p><p>微分的形式不变性：</p>$$
+\mathrm{d}\{f[g(x)]\}=f'[g(x)]g'(x)\mathrm{d}x
+$$<p>所谓“形式不变”是相对其导数而言的（有一致的形式），即</p>$$
+\{f[g(x)]\}'=f'[g(x)]g'(x)
+$$<p>对于多元函数，同样有一阶全微分的形式不变性。</p><h2 id=反函数求导>反函数求导</h2><p>反函数导数：设$y=f(x)$为$x=\varphi(y)$的反函数，若$\varphi(y)$在点$y_0$的某邻域上连续，严格单调且$\varphi'(y_0)\neq0$，则$f(x)$在点$x_0(x_0=\varphi(y_0))$可导，且</p>$$
+f'(x_0)=\frac1{\varphi'(y_0)}
+$$<p><img src=/images/考研数学（微积分）（上）/反函数微分.jpg alt=反函数微分 style=zoom:35%></p><p>注意多元函数的偏导数不再有这些性质，因为偏微分符号$\frac{\partial y}{\partial x_i}$仅仅是个记号，和一元函数中$\frac{\mathrm{d}y}{\mathrm{d}x}$所表示的微商不是一回事。</p><h2 id=变限积分的导数>变限积分的导数</h2><p>当$f$在积分区域内连续时，</p><ol><li><p>$\displaystyle{\frac{\mathrm{d}}{\mathrm{d}x}\int^x_af(t)\mathrm{d}t=f(x)}$</p></li><li><p>$\displaystyle{\frac{\mathrm{d}}{\mathrm{d}x}\int^{\psi(x)}_{\varphi(x)}f(t)\mathrm{d}t=f\big(\psi(x)\big)\cdot\psi'(x)-f\big(\varphi(x)\big)\cdot\varphi'(x)}$</p></li><li><p>$\displaystyle{\frac{\mathrm{d}}{\mathrm{d}x}\int^x_af(x,t)\mathrm{d}t=f(x,x)+\int^x_af_x(x,t)\mathrm{d}t}$</p></li><li><p>$\displaystyle{\frac{\mathrm{d}}{\mathrm{d}x}\int^{\psi(x)}_{\varphi(x)}f(x,t)\mathrm{d}t=\int^{\psi(x)}_{\varphi(x)}f_x(x,t)\mathrm{d}t+f\big(x,\psi(x)\big)\cdot\psi'(x)-f\big(x,\varphi(x)\big)\cdot\varphi'(x)}$</p></li></ol><p><b>以上式子，尤其是第$3$个和第$4$个，都是可以由链式法则直接推导出来的，令$g\big(x,\psi(x),\varphi(x)\big)=\displaystyle{\frac{\mathrm{d}}{\mathrm{d}x}\int^{\psi(x)}_{\varphi(x)}f(x,t)\mathrm{d}t}$然后按链式法则对$x$求导即可，不需要特别去记忆。</b></p><p>第$4$个公式看似“全能”，但有些时候直接套用会大大增加计算量。对于一些特殊的问题，可以通过巧妙的换元将第$4$种情况化为第$2$种情况，轻松解决（即通过换元将$f(x,t)$变换为$f(y)$）。例如计算以下极限</p>$$
+\lim\limits_{x\to0}\frac{\displaystyle\int^x_{x^2}\frac{\sin(xt)}{t}\mathrm{d}t}{x^2}
+$$<p>可以令$y=xt$，于是$\displaystyle\int^x_{x^2}\frac{\sin(xt)}{t}\mathrm{d}t=\displaystyle\int^{x\times x}_{x^2\times x}\frac{\sin(y)}{\frac{y}{x}}\mathrm{d}\frac{y}{x}=\displaystyle\int^{x^2}_{x^3}\frac{\sin(y)}{y}\mathrm{d}y$，进一步地</p>$$
+\begin{align}
+\lim\limits_{x\to0}\frac{\displaystyle\int^x_{x^2}\frac{\sin(xt)}{t}\mathrm{d}t}{x^2}&\overset{y=xt}{\ =\ }\lim\limits_{x\to0}\frac{\displaystyle\int^{x^2}_{x^3}\frac{\sin(y)}{y}\mathrm{d}y}{x^2}\\
+&\ =\ \lim_{x\to0}\frac{\frac{\sin x^2}{x^2}\cdot2x-\frac{\sin x^3}{x^3}\cdot3x^2}{2x}\\
+&\ =\ 1-0\ =\ 1
+\end{align}
+$$<p>此外，若函数的变限积分连续，则变限积分在某点的导数值等于函数在该点的极限值，而与函数在该点的值无关——这也是为什么导函数在其定义域内必然没有第一类间断点。</p><h2 id=无穷小的阶>无穷小的阶</h2><p>计算通常形式函数在某点的无穷小阶，展成泰勒多项式即可，例如$\frac{\sin x}x-1$，在$x=0$处用泰勒公式得$1-\frac{x^2}6+\mathcal{o}(x^2)-1\sim-\frac{x^2}6$，于是我们就可以说$\frac{\sin x}x-1$在$x=0$处是二阶无穷小，和$x^2$同阶。</p><p>求导降$1$阶，(当积分限不是无穷小时) 求积升$1$阶；判断无穷小阶的重点和难点都在于变限积分上，所以这里也着重讨论变限积分的无穷小的阶。</p><p>$\ast$ 求阶在多数时候并不需要确切的积分结果，可以利用积分中值定理等工具方便地计算阶。</p><p><font color=red>当$f(x)$在极限点的邻域内连续，变限积分$\displaystyle{\int^{g(x)}_af(t)}\mathrm{d}t$的无穷小阶为 “$g(x)\text{的阶}\times\big(f(t)\text{的阶}+1\big)$”；</font>如果被积函数是$x$与$t$的混合函数，可以考虑利用第二积分中值定理将其变为前者的情况，具体的案例参见后文章节“第二积分中值定理”。</p><p><font color=red>最后应当注意，对变限积分做变量替代时，<b>同时别忘了也要对积分限做处理。特此强调！</b></font></p><ul><li><font color=red>例如对$\displaystyle{\int^0_{-x}f(x,t)\mathrm{d}t}$做换元$z=x+t$，则原式应等于$\displaystyle{\int^{0+x}_{-x+x}f(x,z-x)\mathrm{d}(z-x)=\int^x_0f(x,z-x)\mathrm{d}z}$</font></li><li><font color=red>例如对$\displaystyle{\int^x_{\frac1x}f(x,t)\mathrm{d}t}$做换元$z=xt$，则原式应等于$\displaystyle{\int^{x\times x}_{\frac1x\times x}f(x,\frac{z}{x})\mathrm{d}\frac{z}{x}=\frac1x\int^{x^2}_1f(x,\frac{z}{x})\mathrm{d}z}$</font></li></ul><p><strong>如果积分的上限和下限均为$x$的函数且难以通过变量代换将其中一个化为常数：</strong></p><ol><li><p><strong>若两个积分限是非同阶无穷小，则取阶较小的阶作为 “$g(x)\text{的阶}$”</strong>，公式 “$g(x)\text{的阶}\times\big(f(t)\text{的阶}+1\big)$” 仍成立。这里蕴含的思路是将积分限拆开，函数可以拆为变上限积分与变下限积分的差，所以取较小的阶即可。</p><p>例如当$x\to0^+$时$\displaystyle{\int^{1-\sqrt{\cos x}}_{\sin x}e^{xt}\ln(1+t^3)\mathrm{d}t}$是$x$的$4$阶无穷小。首先$\lim e^{xt}=1$，因此可以不考虑$e^{xt}$（该结论源于第二积分中值定理）；被积函数$\ln(1+t^3)$的阶易见为$3$，积分上限函数$1-\sqrt{\cos x}$的阶为$2$、积分下限函数$\sin x$的阶为$1$，因此整个式子的阶为$1\times(3+1)=4$。</p></li><li><p><strong>若两个积分限是同阶但不等价无穷小，则可以任取上限或下限的一个阶作为 “$g(x)\text{的阶}$”</strong>，公式 “$g(x)\text{的阶}\times\big(f(t)\text{的阶}+1\big)$” 仍成立。</p><p>例如当$x\to0$时$\displaystyle{\int^{4\sin x}_x\sin t^2\mathrm{d}t}$是$x$的$3$阶无穷小，这时$\lim\limits_{x\to0}\frac{4\sin x}{x}=4\neq1$，故$1\times(2+1)=3$。</p></li><li><p><strong>若两个积分限是等价无穷小，</strong><font color=#836FFF><b>切记不可随意地取上限减下限的阶甚至直接任取上限或下限的阶作为的“$g(x)\text{的阶}$”！</b></font>这时可以考虑利用一些技巧避免直接讨论积分限，例如<strong>积分中值定理</strong>。</p><p>有两种典型错误，例如当$x\to0^+$时，$\displaystyle{\int^x_{\sin x}\sqrt{\sin^3t}\mathrm{d}t}$本应该是$x$的$\frac92$阶无穷小：</p><ul><li>第一种典型错误是认为此时公式 “$g(x)\text{的阶}\times\big(f(t)\text{的阶}+1\big)$” 中 “$g(x)\text{的阶}$” 应取$x-\sin x$的阶，即$3$，如此操作会得到阶为$3\times(\frac32+1)=\frac{15}2$的错误答案；</li><li>第二种典型错误是认为上限$x$和下限$\sin x$的阶均为$1$，故 “$g(x)\text{的阶}$” 取$1$，函数的阶为$1\times(\frac32+1)=\frac52$，这也是错误的，因为这种情况下 “$g(x)\text{的阶}$” 可能等于$1$，但也可能大于$1$，无法直接确定。</li></ul><p>正确的做法是利用第一积分中值定理，$\displaystyle{\int^x_{\sin x}\sqrt{\sin^3t}\mathrm{d}t=(x-\sin x)\sqrt{\sin^3\xi}}$，其中$\xi\in(\sin x,x)$；注意到在$0$的某个邻域内，当$x>0$时有$\sin x<\xi\lt x$，对该式同时除$x$并取$x\to0^+$的极限，极限均存在，且有$1=\lim\frac{\sin x}x\leqslant\lim\frac{\xi}x\leqslant\lim\frac xx=1$，因此$\xi$也是$x$的同阶无穷小，所以$\displaystyle{\int^x_{\sin x}\sqrt{\sin^3t}\mathrm{d}t}$的阶等于$(x-\sin x)\sqrt{\sin^3\xi}$的阶等于$3\times\frac32=\frac92$。</p></li></ol><p><strong><font color=#CD0000>无穷小阶是可以进行运算的，但是两个函数做加减法时，无穷小阶也做相应加减法，当且仅当两个函数的阶不等时成立！这时取两函数阶中较小的一个作为新函数的阶；</font><font color=red>如果两函数阶相等，阶除了可能保持不变，也十分有可能会增大！典型如$x-\sin x$，各项均为$1$阶无穷小，但是他们的差却是$3$阶无穷小！！！</font></strong></p><p>如果$f$、$g$分别是$(x-a)$的$n$阶无穷小和$m$阶无穷小，则：</p><ul><li>$f\cdot g$是$(x-a)$的$n+m$阶无穷小；</li><li>当$n>m$时，$\frac fg$是$(x-a)$的$n-m$阶无穷小，当$n=m$时为一非零常数，当$n\lt m$时为无穷大；</li><li><strong><font color=#CD0000>当$n\lt m$时</font></strong>，$f+g$是$(x-a)$的$n$阶无穷小，<strong><font color=#CD0000>当$n=m$时无法确定$f+g$的阶！只能确定他的阶应当大于等于$n$！</font></strong></li></ul><p><span style=color:#836fff;font-weight:700>形如 $\displaystyle{\lim\frac{f(x)-(ax^2+bx+c)}{x^2}=0}$，即$f(x)-(ax^2+bx+c)$是$x^2$高阶无穷小然后试求$a,b$值的题目，应该怎么解？其实有通式！即使$f$减去的多项式是更高阶的，同理可解！</span>求高阶无穷小 / 求泰勒多项式系数通常的办法是：</p><ol><li><strong><font color=#EE7621>泰勒公式</font></strong></li><li><strong><font color=#EE7621>利用高阶无穷小的性质，逐阶计算</font></strong></li><li><strong><font color=#EE7621>计算$f(x)$的各阶导数</font></strong></li></ol><p>记$n$阶多项式为$Q_n(x)$，一般而言处理这种问题泰勒公式非常适合，因为泰勒公式就是多项式的形式。<strong><font color=#836FFF>但是，如果想快速解题，尤其在做选择题时，一定要注意到当 $f-Q_n(x)$ 是 $x^n$ 的高阶无穷小时，他也是 $\forall k\lt n,\,x^k$ 的高阶无穷小！！！例如已知 $(1+x)^{\frac1x}-(e+ax+bx^2)$ 是 $x^2$ 的高阶无穷小，试求 $a$，则除了繁琐至极的泰勒公式（见上文泰勒公式）解法，一定要利用好 $(1+x)^{\frac1x}-(e+ax+bx^2)$ 也是 $x$ 高阶无穷小这一重要条件！！！</font></strong></p>$$
+\color{#836FFF}{\begin{align}
+&\ \ \ \ \,\,\lim_{x\to0^+}\frac{(1+x)^{\frac1x}-(e+ax+bx^2)}{x}=0\\
+&\Rightarrow\lim_{x\to0^+}\left(-a+\frac{(1+x)^{\frac1x}-e}{x}\right)\\
+&\Rightarrow a=\lim_{x\to0^+}\frac{(1+x)^{\frac1x}-e}{x}=-\frac e2\\
+&\text{注: 该极限在上文“一些极限和等价无穷小”中推导}
+\end{align}}
+$$<p><b><font color=#836FFF>但泰勒公式也有可取之处，例如求 $\frac{\sin x}{1+x^2}$ 在 $x=0$ 处的泰勒多项式系数，直接对分子分母同时展开即可！</font></b>虽然这道题逐阶利用高阶无穷小，也是可以解出的。</p><h2 id=复杂函数快速微分法>复杂函数快速微分法</h2><p>对于一些复杂的复合函数，直接按链式法则笔算求导是不太可取的，因为计算量过于大。</p><h3 id=对数求导法示例>对数求导法示例</h3><p>对数求导法不仅可以用来计算$y=x^x$的导数（等式两边取对数再对$x$求导，可得$\frac{y'}{y}=(x\ln x)'=\ln x+1$，因此$y'=y(\ln x+1)=x^x(\ln x+1)$），在数理统计中，计算$\text{MLE}$的方式通常是对似然函数取对数，再计算对数似然的偏导数，令其为零以求极值。</p><p>为什么要取对数呢？因为对数函数的导数恒大于$0$且是双射变换：$\mathbb{R}\mapsto\mathbb{R}$，因此取对数后函数的极值点等价于原来函数的极值点。更为重要的是，对数可以将“乘法”转换为“加法”，能极大简化求导过程。似然函数通常是一系列式子的积，求导不便，但取对数将其变为一系列式子的加后相对而言会好操作得多。</p><p><b>因此，只要被求导的式子是由一系列函数的乘积和自变量幂复合的，就可以尝试对数求导法。</b></p><p>以函数$y=\sqrt{\frac{(1+x^2)\sqrt{x}}{e^{x-1}}}$为例，求其在$x=1$处的导数。有两种方法均可以处理该求导问题，分别为定义求导法和对数求导法解法，其中后者能给出整个导函数，这体现了对数求导法的优越性。</p><p>首先对等式两边取对数，得到$\ln y=\frac12\ln(1+x^2)+\frac14\ln x-\frac12(x-1)$，同时关于$x$求导得$\frac{y'}{y}=\frac{x}{1+x^2}+\frac1{4x}-\frac12$，因此$y'=\sqrt{\frac{(1+x^2)\sqrt{x}}{e^{x-1}}}\left(\frac{x}{1+x^2}+\frac1{4x}-\frac12\right)$，从而$y'(1)=\frac{\sqrt2}4$。</p><h3 id=定义求导法示例>定义求导法示例</h3><p>按定义求导也大有用处，因为通过按定义求导，可以将函数在某点的导数问题转换为极限问题，从而能够利用泰勒公式、洛必达法则与等价无穷小替换等多种强大的工具。</p><p>还是以函数$y=\sqrt{\frac{(1+x^2)\sqrt{x}}{e^{x-1}}}$为例，求其在$x=1$处的导数值，按定义等于求极限$\lim\limits_{\Delta x\to0}\frac{\sqrt{\frac{(\Delta x^2+2\Delta x+2)\sqrt{\Delta x+1}}{e^{\Delta x}}}-\sqrt2}{\Delta x}$。注意到同阶无穷小$\lim\limits_{x\to0}\frac{\sqrt{x+1}-1}{x}=\lim\limits_{x\to1}\frac{\sqrt{x}-1}{x-1}=\lim\limits_{x\to1}\frac{1}{1+\sqrt{x}}=\frac12$，因此有：</p>$$
+\begin{align}
+\lim_{\Delta x\to0}\frac{\sqrt{\frac{(\Delta x^2+2\Delta x+2)\sqrt{\Delta x+1}}{e^{\Delta x}}}-\sqrt2}{\Delta x}&=\frac{\sqrt2}2\lim_{\Delta x\to0}\left(\frac{\sqrt{\Delta x+1}(\Delta x^2+2\Delta x+2)-2e^{\Delta x}}{2e^{\Delta x}\Delta x}\right)\\
+&=\frac{\sqrt2}2\lim_{\Delta x\to0}\left(\frac{\sqrt{\Delta x+1}(\Delta x^2+2\Delta x+2)-2}{\Delta x}+\frac{2-2e^{\Delta x}}{\Delta x}\right)\\
+&=\frac{\sqrt2}2\lim_{\Delta x\to0}\frac{\sqrt{\Delta x+1}-1}{\Delta x}\\&=\frac{\sqrt2}4
+\end{align}
+$$<p>上一道题目其实用对数求导法更为合适，因为他是一些函数的乘积和幂的复合。再比如求函数$y=\arctan\frac{x^2-1}{\sqrt{1+x^2}}$在点$x=1$处的导数值，这道题目就显然通过定义求解最为简洁。利用等价无穷小，按定义有</p>$$
+y'(1)=\lim_{\Delta x\to0}\frac{\arctan\frac{\Delta x(\Delta x+2)}{\sqrt{\Delta x^2+2\Delta x+2}}-0}{\Delta x}=\lim_{\Delta x\to0}\frac{\Delta x+2}{\sqrt{\Delta x^2+2\Delta x+2}}=\sqrt2
+$$<h3 id=其他方法>其他方法</h3><p>一些其他方法也能方便地计算导数。具体问题具体分析，没有一种方法能方便地解决所有问题。</p><p>参考有理积分中快速确认待定系数的办法（这在后文会重点介绍），针对多项式分式的一阶或高阶导数，如果求导的点是函数的零点，则只讨论这一点的零因式、将其他部分视为一个抽象整体是一个不错的思想，如此能够大大简化计算量。</p><p>例如，设函数$f(x)=\displaystyle\frac{(x-1)(x-2)^2(x-3)^3(x-4)^4}x$，试计算$f''(2)$。注意到，虽然$f(x)$的分子是多个多项式幂的乘积，但在这里，在实数范围内使用对数求导法会造成一些困扰，因为$f(2)=0$，若取对数会导致$\ln f(2)=\ln0$，这是没有定义的。因此，考虑令$g(x)=\frac{f(x)}{(x-2)^2}=\frac{(x-1)(x-3)^3(x-4)^4}x$，有$g(2)=-8\neq0$与$f(x)=g(x)\times(x-2)^2$，接着对$f(x)=g(x)\cdot(x-2)^2$按函数乘积的求导法则求导：</p>$$
+f'(x)=g'(x)\cdot(x-2)^2+2g(x)\cdot(x-2)
+$$$$
+f''(x)=g''(x)\cdot(x-2)^2+2g'(x)\cdot(x-2)^2+2g'(x)\cdot(x-2)+2g(x)
+$$<p>代$x=2$入上式，可以发现$f''(x)\big|_{x=2}$的前两项均为$0$——也就是说，我们不必计算$g''$与$g'$了，从而$f''(2)=2g(2)=-16$。</p><h2 id=参数方程求导>参数方程求导</h2><p>设函数$y=y(x)$由参数方程$\left\{\begin{aligned}&x=\varphi(t)\\&y=\psi(t)\end{aligned}\right.\,$确定，当$\varphi(t),\psi(t)$可导且$\varphi'(t)\neq0$时，有</p>$$
+\frac{\mathrm{d}y}{\mathrm{d}x}=\frac{\frac{\mathrm{d}y}{\mathrm{d}t}}{\frac{\mathrm{d}x}{\mathrm{d}t}}=\frac{\psi'(t)}{\varphi'(t)}
+$$<p>如果$\varphi(t),\psi(t)$还是二阶可导的，则</p>$$
+\frac{\mathrm{d}^2y}{\mathrm{d}x^2}=\frac{\mathrm{d}}{\mathrm{d}x}\frac{\mathrm{d}y}{\mathrm{d}x}=\frac{\frac{\mathrm{d}}{\mathrm{d}t}\frac{\mathrm{d}y}{\mathrm{d}x}}{\frac{\mathrm{d}x}{\mathrm{d}t}}=\frac{\psi''(t)\varphi'(t)-\psi'(t)\varphi''(t)}{[\varphi'(t)]^3}
+$$<p>参数方程微分的高阶导数以此类推。</p><h2 id=高阶导数>高阶导数</h2><p>求高阶微分，通常有三种常规方法：数学归纳法、泰勒公式和莱布尼茨公式。</p><ul><li><p>数学归纳法举例，如计算$f(x)=\frac{x^2+x-1}{x^2+x-2}$的$n$阶导数$f^{(n)}(x)$。注意到</p>$$
+f(x)=1+\frac1{x^2+x-2}=1+\frac1{(x+2)(x-1)}=1+\frac13\left(\frac1{x-1}-\frac1{x+2}\right)
+$$<p>对于形如$\frac1{x\pm a}$的 (类幂) 函数，其$n$阶导数有通式$(\frac1{x\pm a})^{(n)}=\frac{(-1)^nn!}{(x\pm a)^{n+1}}$，用归纳法自证不难，因此</p>$$
+f^{(n)}(x)=\frac{(-1)^nn!}{3}\left(\frac1{(x-1)^{n+1}}-\frac1{(x+2)^{n+1}}\right)
+$$</li><li><p>泰勒公式方法举例，如计算$y=x\ln(1-2x)$在$x=0$处、$n\geqslant2$的$n$阶导数$y^{(n)}(0)$，这种求$0$点处高阶导数值且形式规整的函数就非常适合用泰勒公式计算。容易知道，有$x\ln(1-2x)=x\sum\limits^{\infty}_{k=1}(-1)^{k+1}\frac{(-2x)^k}{n}=\sum\limits^{\infty}_{k=2}\frac{-2^{k-1}}{k-1}x^k$，对比泰勒级数$f(x)=\sum\limits^{\infty}_{k=0}\frac{y^{(k)}(0)}{k!}x^k$的系数，得$y^{(n)}(0)=n!\cdot\frac{-2^{n-1}}{n-1}$。</p></li><li><p>莱布尼茨公式：</p>$$
+(f\cdot g)^{(n)}=\sum^n_{k=0}\binom{n}{k}f^{(k)}g^{(n-k)}
+$$</li></ul><p>此外，注意到三角函数与负幂多项式函数的高阶微分是有通式的，都可以被视为$(x^{-1})^{(n)}=\frac{(-1)^nn!}{x^{n+1}}$的变种。有趣的是，这和二项式定理形式上相近。</p><p>如果无法简单地观察出通式，且泰勒公式也不方便使用，那么都应该考虑是否可以用莱布尼茨公式及其推广加以解决。例如，当$n\geqslant1$时有$f(x)=(x^3-1)^n\arctan^2x$，需要求$f^{(n)}(1)$的通式。处理这个问题，首先可以想到是否可以方便地用泰勒公式求解，发现题干要求计算的是在$x=1$处的高阶导数，这并不方便使用泰勒公式——因为我们只对在$x=0$处展开的泰勒公式比较熟悉，所以应当考虑莱布尼茨公式。由于在$x=1$处$f(x)$的零因子只有$(x-1)$，所以令$g(x)=(x^2+x+1)^n\arctan^2x$，考虑因式分解$f(x)=(x-1)^ng(x)$，这样就可以很方便地利用莱布尼茨公式了，因为显而易见地$(x-1)^n$的$0,1,\cdots,n-1$阶导数在$x=1$处的值均为$0$、直到第$n$阶导数在$x=1$处的值才不为$0$，而是$n!$（这是由于$[(x-1)^n]^{(k)}=n\cdot(n-1)\cdots(n-k+1)(x-1)^{n-k}$），因此根据莱布尼茨公式，有</p>$$
+\big[(x-1)^ng(x)\big]^{(n)}=\sum^n_{k=0}\binom{n}{k}(x-1)^{(k)}g^{(n-k)}(x)=n!\cdot g(1)=\frac{\pi^2}{16}\cdot3^n\cdot n!
+$$<p>所以$f^{(n)}(1)=\frac{\pi^2}{16}\cdot3^n\cdot n!$。</p><h2 id=极值充分条件与必要条件>极值充分条件与必要条件</h2><p><font size=5em>极值必要条件</font></p><p>若$f$在点$x_0$处取极值且在某邻域$\mathring{U}(x_0;\delta)$上可导，则$f'(x_0)=0$</p><p><font size=5em>极值第一充分条件</font></p><p>设$f$在点$x_0$连续、在某邻域$\mathring{U}(x_0;\delta)$上可导，</p><ol><li>若$x\in(x_0-\delta,x_0)$时$f'(x)\leqslant0$，$x\in(x_0,x_0+\delta)$时$f'(x)\geqslant0$，则$f$在点$x_0$取得极小值。</li><li>若$x\in(x_0-\delta,x_0)$时$f'(x)\geqslant0$，$x\in(x_0,x_0+\delta)$时$f'(x)\leqslant0$，则$f$在点$x_0$取得极大值。</li></ol><p><font size=5em>极值第二充分条件</font></p><p>设$f$在$x_0$的邻域$\mathring{U}(x_0;\delta)$上可导、在点$x=x_0$处二阶可导，并且$f'(x_0)=0$而$f''(x_0)\neq0$，则：</p><ol><li>若$f''(x_0)<0$，则$f$在该点取得极大值。</li><li>若$f''(x_0)>0$，则$f$在该点取得极小值。</li></ol><p><font size=5em>极值第三充分条件</font></p><p><font color=red>设$f$在$x_0$的某邻域上存在$n-1$阶导函数、在$x_0$处$n$阶可导，并且$f^{(k)}(x_0)=0$（$k=1,2,\cdots,n-1$）而$f^{(n)}(x_0)\neq0$，则：</font></p><ol><li><font color=red>当$n$为偶数，$f$在$x_0$处取得极值。若$f^{(n)}(x_0)<0$则取得极大值，反之若$f^{(n)}(x_0)>0$取得极小值。</font></li><li><b><font color=red>当$n$为奇数，$f$在$x_0$处一定不取得极值，尽管该点为驻点。这时，点$\big(x_0,f(x_0)\big)$是$f$的拐点。</font></b></li></ol><p>极值第二充分条件是极值第三充分条件在$n=2$时的特例。</p><h2 id=凸性与拐点>凸性与拐点</h2><p>凸函数的一种定义是对区间$I$上的任意两点$x_1$、$x_2$和任意实数$\lambda\in(0,1)$，恒有$f\big(\lambda x_1+(1-\lambda)x_2\big)\leqslant\lambda f(x_1)+(1-\lambda)f(x_2)$，严格凸函数、凹函数等概念以此类推。凸函数也称下凸函数或上凹函数——中文译名比较混乱。</p><p><font color=red>如果$f$是$I$上的二阶可导函数（该条件不能遗漏，否则不成立！）</font>，则$f$在$I$上为凸函数的充要条件是$f''(x)\geqslant0,\ x\in I$；凹函数同理。</p><p>若一元实函数在某区间上为凸函数，直观感受是区间内任何一点的切线都在原本函数图像下方 / 任何两点的连线都在函数图像上方，如下图所示。</p><img src=/images/考研数学（微积分）（上）/凸函数.png alt=凸函数 style=zoom:40%><p>凸函数的一个重要性质是琴生不等式，这部分内容放在下一篇文章的不等式主题中再做详细介绍。</p><p>拐点是指函数的严格凹凸性在此改变的点，如果函数二阶可导，则在拐点左右侧表现为二阶导数异号。<b><font color=#CD0000>通俗地讲，如果函数在点 $x=x_0$ 的去心邻域内可导，则对于点 $x=x_0$，</font></b><font color=#990066><b>极值点、拐点与可导点，只能“三选二”。</b></font><b><font color=#CD0000>因此若$\ \boldsymbol{x_0}\,\,$既是该点极值点又是拐点，那么该点处必不可导。</font></b></p><p>易见，若函数在某点二阶可导，则该点为函数拐点的必要条件是该点二阶导数为$0$。</p><p>直观上看，若函数二阶可导，则拐点表现为：在这一点上，切线两端分别位于原本函数图像的上方与下方。</p><img src=/images/考研数学（微积分）（上）/拐点.png alt=拐点 style=zoom:45%><center><b>注意：同济版高数与本文对凹凸性定义是相反的！！！</b></center><center>在很多教材和文献中对凹凸性的定义都不一致，</center><center>本文选择的是在被凸优化领域主流认同的定义。</center><h2 id=拐点充分条件与必要条件>拐点充分条件与必要条件</h2><p><font size=5em>拐点必要条件</font></p><p>若点$\big(x_0,f(x_0)\big)$是$f$的拐点且$f$在某邻域$\mathring{U}(x_0;\delta)$上二阶可导，则$f''(x_0)=0$</p><p><font size=5em>拐点第一充分条件</font></p><p>设$f$在点$x_0$连续、在某邻域$\mathring{U}(x_0;\delta)$上二阶可导，</p><ol><li>若在邻域$\mathring{U}(x_0;\delta)$内$f''(x)$均异号，则$\big(x_0,f(x_0)\big)$是$f$的拐点。</li><li>若$f''(x_0+0)$与$f''(x_0-0)$异号，则$\big(x_0,f(x_0)\big)$不是$f$的拐点。</li></ol><p><font size=5em>拐点第二充分条件</font></p><p>设$f$在$x_0$的邻域$\mathring{U}(x_0;\delta)$上二阶可导、在点$\big(x_0,f(x_0)\big)$处三阶可导，并且$f''(x_0)=0$而$f'''(x_0)\neq0$，则$\big(x_0,f(x_0)\big)$是$f$的拐点。</p><p><font size=5em>拐点第三充分条件</font></p><p>设$f$在$x_0$的某邻域上存在$n-1$阶导函数、在$x_0$处$n$阶可导，并且$f^{(k)}(x_0)=0$（$k=1,2,\cdots,n-1$）而$f^{(n)}(x_0)\neq0$，则：</p><ol><li>当$n$为偶数，点$\big(x_0,f(x_0)\big)$不是$f$的拐点；$f$在$x_0$处取得极值。若$f^{(n)}(x_0)<0$则取得极大值，反之若$f^{(n)}(x_0)>0$取得极小值。</li><li><b>当$n$为奇数，点$\big(x_0,f(x_0)\big)$是$f$的拐点，$f$在$x_0$不取极值。</b></li></ol><h2 id=导数在经济学的应用>导数在经济学的应用</h2><p><b>基本概念</b></p><ul><li><p>需求函数 $x=\varphi(p)$，其中$x$为某产品的需求量，$p$为价格；</p></li><li><p>价格函数 $p=\varphi^{-1}(x)$为需求函数的反函数，有时也不加以区分称为需求函数；</p></li><li><p>供给函数 $x=\psi(p)$，其中$x$为某产品的供给量；</p></li><li><p>成本函数 $C=C(x)$，其中成本$C$是生产产品的总投入，$x$代表产量，$C$由固定成本$C_1$与可变成本$C_2(x)$两部分组成，有</p>$$
+C=C(x)=C_1+C_2(x)
+$$<p><font color=red>称 $\bar{C}=\frac{C}{x}$ 为平均成本</font>，也记为$AC$，有</p>$$
+\bar{C}\ \,(AC)=\frac{C}{x}=\frac{C_1}x+\frac{C_2(x)}x
+$$</li><li><p>收益函数 $R=R(x)=px$，也称收入函数，其中收益$R$是产品售出后所得收入，是销售量$x$与销售单价$p$的积；</p></li><li><p>利润函数 $L=L(x)=R(x)-C(x)$，其中利润$L$是收益扣除成本后的余额。</p></li></ul><p><b>边际分析</b></p><p><font color=red><span style="border-bottom:.1em dashed"><i>不严谨总结：</i>$f(x)$<i>的“边际”就是变化率，即一阶导数</i>$f'(x)$</span></font></p><p>在经济学中，若$y=f(x)$可导，则称$f'(x)$为边际函数，称$f'(x_0)$为$f(x)$在$x=x_0$处的边际值。</p><ul><li>边际成本 $MC$：设成本函数为 $C=C(q)$，其中$q$为产量，则边际成本函数为 $MC=C'(q)$；</li><li>边际收益 $MR$：设收益函数为$R=R(q)$，其中$q$为产量，则边际收入函数为 $MR=R'(q)$；</li><li>边际利润 $ML$：设利润函数为 $L=L(q)$，其中$q$为销售量，则边际利润函数为 $ML=L'(q)$。</li></ul><p>边际的经济学意义显而易见，不再赘述。</p><p><font color=red><span style="border-bottom:.1em dashed"><i>谈到边际，几乎都是以产量或销售量作为自变量的！</i></span></font></p><p><b>弹性分析</b></p><p><font color=red><span style="border-bottom:.1em dashed"><i>不严谨总结：</i>$f(x)$<i>关于</i>$x$<i>的"弹性"就是</i>$f'(x)\frac{x}{f(x)}$<i>，按需加绝对值</i></span></font></p><p>设$y=f(x)$可导，称 $\displaystyle{\frac{\frac{\triangle y}{y}}{\frac{\triangle x}{x}}}$ 为$f(x)$在自变量$x$从$x$变到$x+\triangle x$时的相对弹性，称</p>$$
+\eta=\lim\limits_{\triangle x\to0}\displaystyle{\frac{\frac{\triangle y}{y}}{\frac{\triangle x}{x}}}=f'(x)\frac{x}{y}=\frac{f'(x)}{f(x)}x
+$$<p>为$f(x)$的弹性函数，记为 $\frac{Ey}{Ex}$，即 $\eta=\frac{Ey}{Ex}=f'(x)\frac{x}{f(x)}$。<font color=red><span style="border-bottom:.1em dashed">在经济学中，$\eta$被解释为$f(x)$在$x$处的相对变化率，即$x$每增加 (减少) $1\%$，则$f(x)$将随之增加或减少$\eta\%$。</span></font></p><ul><li><p>需求的价格弹性：设需求函数为 $Q=\varphi(p)$（$p$为价格），则需求对价格的弹性为</p>$$
+\eta_d=\frac{p}{\varphi(p)}\varphi'(p)<0
+$$<p>由于$\varphi(p)$是单调递减函数，因此 $\varphi'(x)<0$，从而 $\eta_d<0$。在经济学中该式被解释为当价格为$p$时，每提价 (降价) $1\%$，则需求量将减少 (增加) $|\eta_d|\%$。</p><p>有时规定需求对价格的弹性$\eta_d>0$，则式子取负，即</p>$$
+\eta_d=-\frac{p}{\varphi(p)}\varphi'(p)
+$$</li><li><p>供给的价格弹性：设供给函数为 $Q=\psi(p)$（$p$为价格），则供给对价格的弹性为</p>$$
+\eta_s=\frac{p}{\psi(p)}\psi'(p)>0
+$$<p>由于$\psi(p)$是单调递增函数，因此 $\psi'(x)>0$，从而 $\eta_d>0$。在经济学中该式被解释为当价格为$p$时，每提价 (降价) $1\%$，则供给量将增加 减少) $|\eta_s|\%$。</p></li></ul><p><font color=red><span style="border-bottom:.1em dashed"><i>谈到弹性，几乎都是以价格</i>$p$<i>作为自变量的！而且需求与价格的弹性为负值，但可能给出的是弹性绝对值。</i></span></font></p><p><font color=red><span style="border-bottom:.1em dashed"><i>注意，如果给出的需求弹性与供给弹性均为绝对值（正值），在利用公式解弹性函数与供给函数前，应当为需求弹性加上负号，而不要给供给弹性加负号！</i></span></font></p><h2 id=罗尔中值定理>罗尔中值定理</h2><p><font size=5em>罗尔中值定理     </font>若$f(x)$在$[a,b]$内连续、在$(a,b)$上可导且$f(a)=f(b)$，则$\exists\xi\in(a,b)$，$s.t.\ f'(\xi)=0$。</p><p>罗尔中值定理的证明可以考虑费马定理。</p><h2 id=广义罗尔中值定理>广义罗尔中值定理</h2><p><font size=5em>广义罗尔中值定理     </font>若$f(x)$在$(a,b)$内可微，其中$a,b\in\mathbb{R}\cup\{\pm\infty\}$，且有</p>$$
+\lim\limits_{x\to a^+}f(x)=\lim\limits_{x\to b^-}f(x)=A
+$$<p>这里$A\in\mathbb{R}\cup\{\pm\infty\}$，则$\exists\xi\in(a,b)\;\ s.t.\ \ f'(\xi)=0$。</p><p>广义罗尔中值定理可以通过构造函数$F(x)=\left\{\begin{aligned}&f(\tan x),&&x\in(-\frac{\pi}{2},\frac{\pi}{2})\\&A,&&x=\pm\frac{\pi}{2}\end{aligned}\right.$证明。</p><h2 id=罗尔定理重要推论>罗尔定理重要推论</h2><ol><li><p>若$n$阶可导函数$f(x)$在某区间上有$n+1$个相异实根，则$f^{(n)}(x)$在区间内至少有$1$个实根。</p><p>循环使用罗尔中值定理即可证明：根据条件，应用罗尔中值定理——若区间上有$n+1$个相异实根，则一阶导数有$n$个实根，再应用罗尔中值定理，则二阶导数有$n-1$个实根……如此循环操作直至$n$阶导数。</p></li><li><p>若区间$I$上$f$的$n$阶导数$f^{(n)}(x)\neq0$（$\forall x\in I$），则方程$f(x)=0$在$I$上至多$n$个实根。</p><p>如果$f(x)$在$I$上有$n+1$个零点，则根据推论 1 即可导出矛盾；这一推论在使得证明函数有且仅有$k$个实根极其方便。</p></li><li><p>如果$f^{(n)}(x)=0$至多有$k$个根，则$f(x)=0$至多有$k+n$个根。</p></li></ol><h2 id=拉格朗日中值定理>拉格朗日中值定理</h2><p><font size=5em>拉格朗日中值定理     </font>若$f(x)$在$[a,b]$内连续、在$(a,b)$上可导，则$\exists\xi\in(a,b)$，$s.t.\ f'(\xi)=\frac{f(b)-f(a)}{b-a}$。</p><p>拉格朗日中值定理的证明，构造函数$g(x)=f(x)-\frac{f(b)-f(a)}{b-a}x$利用罗尔中值定理即可。</p><h2 id=柯西中值定理>柯西中值定理</h2><p><font size=5em>柯西中值定理     </font>若$f(x)$与$g(x)$在$[a,b]$内连续、在$(a,b)$上可导且在$(a,b)$上$g'(x)\neq0$，则$\exists\xi\in(a,b)$，$s.t.\ \frac{f'(\xi)}{g'(\xi)}=\frac{f(b)-f(a)}{g(b)-g(a)}$。</p><p>洛必达法则可以由柯西中值定理证明，柯西中值定理的证明通过构造函数$F(x)=\big[f(b)-f(a)\big]g(x)-\big[g(b)-g(a)\big]f(x)$再利用罗尔中值定理易证。</p><h2 id=泰勒中值定理>泰勒中值定理</h2><p><font size=5em>泰勒中值定理     </font>若$f(x)$在邻域内$n+1$阶可导且$x_0$属于该邻域，则对该邻域内的任意一点$x$，都存在位于$x_0$与$x$之间的$\xi$，使得</p>$$
+f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2+\cdots+\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n+\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{(n+1)}
+$$<p>注：邻域改成区间亦是成立的。</p><p>其实这就是<strong>带拉格朗日余项的泰勒公式</strong>，其中的拉格朗日余项$R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{(n+1)}$；如果只能保证$n$阶可导，则可以替换为Peano余项$o\big[(x-x_0)^n\big]$；还可以写作积分余项的形式，若$n+1$阶导数连续，则积分余项$R_n(x)=\int^x_{x_0}\frac{(x-t)^n}{n!}f^{(n+1)}(t)\mathrm{d}t$。</p><p>上述余项在数学分析教材里一般都有推导，证明的方式多种多样，作者曾见识过利用卷积定理与拉普拉斯变换得到积分余项的，惊奇之余感到有趣。此外还有柯西余项，相对而言并不太常用。此外， 当$n=0$，这正是拉格朗日中值定理。</p><h2 id=达布定理>达布定理</h2><p><font size=5em>达布定理     </font>设$f(x)$在$[a,b]$上可导且$f'(a+0)\neq f'(a-0)$，$k$是介于$f'(a+0)$与$f'(a-0)$的任一实数，则$\exists\xi\in(a,b)$，使得$f'(\xi)=k$。</p><p>达布定理又称为导数的介值定理，其证明考虑摄动法，即构造函数$F(x)=f(x)-kx$，剩下的过程便一目了然。</p><h1 id=微分学--微分方程解存在性问题>微分学 · 微分方程解存在性问题</h1><h2 id=等式存在性-1分析还原法>等式存在性 1：分析还原法</h2><p>对于证明一个关于含$x$、$f(x)$、$f'(x)$甚至高阶导数，乃至于含其他参数的复合函数零点的存在性问题，一般可以通过敏锐的察觉，构造一个合适的辅助函数并对该辅助函数运用中值定理加以解决。</p><p>这是最简单也最死板的方法，但熟悉后可能对于多数简易情形都能够立刻解决。</p><h3 id=单变量微分方程解的存在性问题>单变量微分方程解的存在性问题</h3><p>一些常见的辅助函数可以归为以下情形，记$F(x)$为所构造的辅助函数，对$F(x)$利用罗尔中值定理即可证明这样的点$\xi$存在：</p><ol><li><p>证$\xi f'(\xi)+nf(\xi)=0$，构造$F(x)=x^nf(x)$；</p></li><li><p>证$\xi f'(\xi)-nf(\xi)=0$，构造$F(x)=\frac{1}{x^n}f(x)$；</p></li><li><p>证$\alpha f'(\xi)+\beta f(\xi)=0$，构造$F(x)=e^{\frac{\alpha}{\beta}x}f(x)$；</p></li><li><p>特别地，证$f'(\xi)\pm f(\xi)=0$，构造$F(x)=e^{\pm x}f(x)$；</p></li><li><p>特别地，证$f'(x)+\lambda f(\xi)=0$，构造$F(x)=e^{\lambda x}f(x)$；</p></li><li><p>证$f'(\xi)+g'(\xi)f(\xi)=0$，构造$F(x)=e^{g(x)}f(x)$；</p></li><li><p>证$f'(\xi)+g(\xi)f(\xi)=0$，构造$F(x)=\exp\left(\int g(x)\mathrm{d}x\right)\cdot f(x)$；</p></li><li><p>证$f$与$f''$的线性关系式$k^2f(\xi)=f''(\xi)$，构造$F(x)=C_1e^{kx}\left[f'(x)-kf(x)\right]+C_2e^{-kx}\left[f'(x)+kf(x)\right]$；原理涉及ODE中首次积分的概念，其中$C_1$、$C_2$是待定系数，$k\in\mathbb{C}$。</p><p>之所以取$F(x)=C_1e^{kx}\left[f'(x)-kf(x)\right]+C_2e^{-kx}\left[f'(x)+kf(x)\right]$而非$F(x)=e^{kx}\left[f'(x)-kf(x)\right]$，是因为$F(x)$在区间的两端点处值可能不等，进而不满足罗尔中值定理条件，此时需要确定$C_1,C_2$以构造出一个满足使用罗尔中值定理条件的$F$（即端点值相同的$F$）。</p></li></ol><p><b>在我看来记住$1$式、$6$式与$8$式基本可以解决大部分问题</b>；$7$式也可以被视作$6$式的一种特例。</p><ol start=9><li>当原式只包含$f'$与$f''$而给出条件却是关于$f$的，这时可以按上述方法对$f'$进行构造，也可以尝试积分还原，例如当$f(x)$在$[-1,1]$上具有二阶导数且$f(1)=1$时欲证$\exists\eta\in(-1,1)$使得$f''(\eta)+f'(\eta)=1$，可以先构造$f(x)-x$证明$\exists\xi\in(0,1)$使得$f'(\xi)=1$、再构造$F(x)=e^x\left(f'(x)-1\right)$证明，还可用直接对待证式积分得$f'(\eta)+f(\eta)-x=0$，接下来只需要证明该式满足微分中值定理条件即可；</li></ol><p>如果方程包含两个函数但只有一个变量，通常会构造$f\cdot g$或$\frac{f}{g}$，必要时做高幂的推广。</p><p>有时也会用到拉格朗日中值定理，当直观感受到待证式的含义是存在一个切线斜率等价于平均变化率的情况，就可以应用。少见应用柯西中值定理。有时会结合介值定理与积分中值定理配合证明零点，如对$[0,1]$上可导的函数，若在$[0,1]$上的积分为$0$，欲证$\exists\xi\in(0,1)$使得$\xi f'(\xi)+2f(\xi)=0$：根据第一积分中值定理，$\exists\eta$使得$f(\eta)=0$，于是构造$F(x)=x^2f(x)$，在$0$与$\eta$处$F$等于$0$，既证。</p><details><summary><font color=#0099ff>展开/收起3道利用罗尔中值定理证明根存在性的问题</font></summary><p>使用罗尔定理证明根的存在性，重点是构造在两点处值相等的辅助函数。</p><ul><li><p>设$f(x)$在$[a,b]$上连续、在$(a,b)$内可导，试证$\exists\xi\in(a,b)$使得$f'(\xi)=\frac{f(\xi)-f(a)}{b-\xi}$；</p><p>题目完全没告诉$f(x)$在区间端点的取值，看来只能自己构造出端点值相等的函数了。注意到导数与变量相乘了，是$1$、$2$式的情况。待证式中出现了$f(a)$，似乎得注意构造时端点的值。</p><p>于是想到$F(x)=(b-x)\cdot\left(f(x)-f(a)\right)$，满足端点处取值相等（都为$0$），验证：</p>$$
+F'(x)=(b-x)f'(x)-\left(f(x)-f(a)\right)
+$$<p>所以利用罗尔中值定理有$F'(\xi)=0$，其中$\xi\in(a,b)$，即</p>$$
+f'(\xi)=\frac{f(\xi)-f(a)}{b-\xi}
+$$</li><li><p>设$f(x)$在$[0,\pi]$上连续、在$(0,\pi)$内可导，试证$\exists\xi\in(0,\pi)$使得$f'(\xi)\sin\xi+2f(\xi)\cos\xi=0$；</p><p>同样地，没有给出端点值。第一感觉正是$6$式的情况，注意到含$f$项的因子$2\cos x$，想到令$F(x)=e^{2\sin x}f(x)$，但$F(x)$端点值并不相等，而且进行验证：</p>$$
+F'(x)=e^{2\sin x}\left(2\cos x f(x)+f'(x)\right)
+$$<p>可以发现的确$F(x)$的确不是所需求的函数，$f'$项缺少因子$\sin x$。但这启发了我，注意到$\sin'x=\cos x$，不妨保留$\exp$里的$2$，把$\sin x$移至$f$，于是构造$F(x)=e^{2x}\big[f(x)\sin x\big]$，在$\sin x$作用下端点处取值皆为$0$，进行验证：</p>$$
+F'(x)=e^{2x}\left[2f(x)\sin x+f'(x)\sin x+f(x)\cos x\right]
+$$<p>看起来还是不合适，但以上二式指出了：$f(x)\sin x$求导后与待证式只差一个$f(x)\cos x$，这可以通过$\exp$的作用来弥补，因为$\exp$求导后相对而言括号内的式子是“只增不减”的。令$F(x)=e^{\sin x}f(x)\sin x$，端点处的值符合条件（仍然都是$0$），做验证：</p>$$
+\begin{align}F'(x)&=e^{\sin x}\big[f(x)\cos x+f'(x)\sin x+f(x)\cos x\big]\\&=e^{\sin x}\big[f'(x)\sin x+2f(x)\cos x\big]\end{align}
+$$<p>大功告成！根据罗尔中值定理，证毕。</p></li><li><p>设$f(x)$在$[0,1]$上连续、在$(0,1)$内二阶可导且有$\lim\limits_{x\to0^+}\frac{f(x)}{x}=1$与$\lim\limits_{x\to1^-}\frac{f(x)}{x-1}=2$，试证$\exists\eta\in(0,1)$，使得$f''(\eta)=f(\eta)$；</p><p>首先想到可能是$8$式的特殊情况，构造$F(x)=1\times e^x\left(f'(x)-f(x)\right)+0\times e^{-x}\left(f'(x)+f(x)\right)$，观察验证其导数：</p>$$
+F'(x)=e^x\left(f'(x)-f(x)+f''(x)-f'(x)\right)=e^x\left(f''(x)-f(x)\right)
+$$<p>似乎只要罗尔中值定理满足条件，就可以得到待证明的结论。易知$F$（或者说$f'$）在$(0,1)$上可微、在$[0,1]$上连续，同时注意到给出信息中的极限式代表着$f$在$0$、$1$处的导数，除了能得出$f'(0)=1$、$f'(1)=2$，还有$f(0)=f(1)=0$，但此时若验证$F$，可以得知$F(0)=1\neq\frac{2}{e}=F(1)$，因此大方向似乎没错（毕竟形式正确，只是端点处值不相等），但条件不完全满足。那么接下来利用完整的$8$式进行构造构造以符合罗尔中值定理的条件。令：</p>$$
+\left\{\begin{aligned}
+&F(x)=C_1e^x\left[f'(x)-f(x)\right]+C_2e^{-x}\left[f'(x)+f(x)\right]\\
+&F'(0)=F'(1)
+\end{aligned}\right.
+$$<p>这时有$F'(x)=C_1 e^x\left(f''(x)-f(x)\right)+C_2 e^{-x}\left(f(x)-f''(x)\right)$，注意到只要满足罗尔中值定理的条件，则$F'(\eta)=0$，由于指数函数恒正，因此当$C_1$和$C_2$不为零时必有$F'(\eta)=0\Rightarrow f''(\eta)=f(\eta)$，故只需要解上面的方程得到合适的$C_1$、$C_2$即可。上面的方程等价为：</p>$$
+C_1+C_2=\frac{2C_1}{e}+\frac{2C_1}{e}
+$$<p>这里的通解是关于$C_1$与$C_2$的一个线性式，不过解题只需要一个特解，取$C_1=1$，则$C_2=-1$；根据前文论证，找出一组非零的$C_1$、$C_2$后只需利用罗尔中值定理，问题便得证，故证毕。</p><p>最后，说明为什么$f'$在端点处的值存在，以$0$为例，利用拉格朗日中值定理：</p>$$
+\lim\limits_{x\to0}\frac{f(x)-f(a)}{x-a}=\lim\limits_{x\to0}f'(\xi)=f'_+(0)=1
+$$</li></ul></details><h3 id=多变量微分方程解的存在性问题>多变量微分方程解的存在性问题</h3><p>大同小异，相较于单变量方程解的存在性问题，一般是运用两次以上的中值定理。如果对变量$\eta$与$\xi$没有要求，放心运用中值定理即可；若要求$\eta\neq\xi$（即：两个不同的点），可以考虑将定义区间拆分成两个小区间，在这两个区间上分别运用中值定理。</p><p>本质上和单变量方程解的存在性问题是一样的，熟悉基础的微分方程，善于观察，敢于尝试，通常考研中这部分不会非常为难考生，难的反而是习题集中的。</p><p>一般来说：</p><ul><li><p>部分求证关于$f(\eta)$与$f(\xi)$的等式但不要求二者不能相等的题目，令$\eta=g(\xi)=c$，找到合适的$c$就能解出；但观察发现，有的题直接令$\eta=\xi=c$即可，简单且高效；</p></li><li><p>若$f$在区间两端值相等且证明结果不限制两变量的关系，可能是对构造的不同函数，在整个区间上利用两次拉格朗日中值定理，其中这两次中值定理结果等式的有一端的结果可以通过两等式整体相加减乘除消去，从而得证；</p></li><li><p>若限制两变量必须不等或是有严格大小关系（可能是给出$f$在端点的值但二者不相等、无法用第$2$条构造适当的函数），且待证式是关于两个不同变量作自变量的$f'$运算的值之等式，则可能是以中间变量作分割点$c$，分别在分割出的两个小区间上利用拉格朗日中值定理（比较常见的是对$f(x)$运用中值定理），代入、消去$f'$得到关于$f(c)$与$c$的等式；接下来只需要证明确实存在如此的$c$满足条件即可；</p></li></ul><p>更具象的例子参考下列例题。</p><details><summary><font color=#0099ff>展开/收起3道多变量方程解的存在性问题</font></summary><ul><li><p>设$f(x)$在$[a,b]$上连续、在$(a,b)$内可导（$a>0$），试证$\exists\xi,\eta\in(a,b)$使得$f'(\xi)=\frac{\eta^2f'(\eta)}{ab}$；</p><ul><li><p>法一，观察式子：</p><p>令$\xi=\eta=\sqrt{ab}$，由于$a>0$，因此$0<\sqrt{ab}\lt ab$，于是待证式是trivial的。</p></li><li><p>法二，利用柯西中值定理与拉格朗日中值定理：</p><p>设$g(x)=\frac{1}{x}$，由于$f$、$g$在$[a,b]$上连续、在$(a,b)$内可导，根据柯西中值定理，有</p>$$
+\frac{f(b)-f(a)}{\frac{1}{b}-\frac{1}{a}}=\frac{f'(\eta)}{-\frac{1}{\eta^2}}=-\eta^2f'(\eta)
+$$<p>注意到$\frac{1}{b}-\frac{1}{a}=-\frac{b-a}{ab}$，等价变形：</p>$$
+\frac{f(b)-f(a)}{b-a}=\frac{\eta^2f'(\eta)}{ab}
+$$<p>对左式运用拉格朗日中值定理，得</p>$$
+f'(\xi)=\frac{\eta^2f'(\eta)}{ab}
+$$</li></ul></li><li><p>设$f(x)$在$[a,b]$上连续、在$(a,b)$内可导（$a>0$），且有$f(a)=f(b)=1$，试证$\exists\xi,\eta\in(a,b)$使得$\left(\frac{\eta}{\xi}\right)^{n-1}=f(\xi)+\frac{\xi}{n}f'(\xi)$；</p><p><b>凡是两变量方程解存在性问题，给出了函数在端点的值都为$1$，那么大概率是利用两次拉格朗日中值定理，其中中值定理等式右边的形状相同的，最后取二者的比值以消去中值定理等式右边的式子。这道题中$F_1$是$f$乘$x^n$，完全可以改编为$f$乘$e^x$的情况。</b></p><p>将等式左边的$\left(\frac{1}{\xi}\right)^{n-1}$乘到右边再等式两边同时乘$n$，得$n\eta^{n-1}=n\xi^{n-1}f(\xi)+\xi^nf'(\xi)$，这很显然是单变量问题中$1$式的情况（如果熟悉微分方程，这是显而易见的）。注意到$f(a)=f(b)=1$，分别构造：</p>$$
+F_1(x)=x^nf(x)
+$$$$
+F_2(x)=x^n
+$$<p>再分别运用拉格朗日中值定理，有</p>$$
+F_1'(\xi)=n\xi^{n-1}f(\xi)+\xi^nf'(\xi)=\frac{b^n-a^n}{b-a}
+$$$$
+F_2'(\eta)=n\eta^{n-1}=\frac{b^n-a^n}{b-a}
+$$<p>两式相除，得</p>$$
+n\xi^{n-1}f(\xi)+\xi^nf'(\xi)=n\eta^{n-1}
+$$<p>证毕。</p></li><li><p>设$f(x)$在$[0,1]$上连续、在$(0,1)$内二阶可导且$f(0)=0$、$f(1)=1$，试证$\exists\eta,\varsigma\in(0,1)$且$\eta\neq\varsigma$，使得$f'(\eta)f'(\varsigma)=1$；</p><p><b>有时需要利用中间变量，如果有第一小问，可以考虑第一小问的结果是否可以作为中间变量。如果没有给出第一小问，可先假设该点存在，分别利用拉格朗日中值定理，根据待证结果逆推该点，证明该点的存在性。</b></p><p>假设$\exists\xi\in(0,1)$，使得在$(0,\xi)$上利用拉格朗日中值定理，有</p>$$
+f'(\eta)=\frac{f(\xi)-f(0)}{\xi-0}=\frac{f(\xi)}{\xi}
+$$<p>使得在$(\xi,1)$上再次利用拉格朗日中值定理，有</p>$$
+f'(\varsigma)=\frac{f(1)-f(\xi)}{1-\xi}=\frac{1-f(\xi)}{1-\xi}
+$$<p>最终使得$f'(\eta)f'(\varsigma)=\frac{f(\xi)}{\xi}\cdot\frac{1-f(\xi)}{1-\xi}=1$；如果成立，自然地$\eta\neq\varsigma$，因此只需说明$\xi$的存在。下证点$\xi$的存在性。
+若$\xi$使得$\frac{f(\xi)}{\xi}\cdot\frac{1-f(\xi)}{1-\xi}=1$，则$\xi(1-\xi)=f(\xi)\left(1-f(\xi)\right)\Leftrightarrow\left(f(\xi)-x\right)\left(1-f(\xi)-x\right)$，解得$f(\xi)=\xi$或$f(\xi)=1-\xi$，后者可被证明：构造函数$F(x)=f(x)+x$，由于$F$连续且$F(0)=0$、$F(1)=2$，所以一定存在一点$\xi\in(0,1)$，使得$\frac{f(\xi)}{\xi}\cdot\frac{1-f(\xi)}{1-\xi}=1$，证毕。</p><p>类似地，还可以证在同样的条件下，存在$\frac{a}{f'(\varsigma)}+\frac{b}{f'(\eta)}=a+b$；若$x\in[0,a]$且$a>0$，则存在$f'(\eta)f'(\varsigma)=\frac{1}{a^2}$。</p></li></ul></details><h2 id=等式存在性-2微分方程法>等式存在性 2：微分方程法</h2><p>如果希望证明的式子明显是某种可以迅速解决的ODE结构，那么就可以考虑利用微分方程求解。实际上这也是在利用中值定理，但是他给出了更”本质“与”通用“的辅助函数构造方法。其构造的思想是，将可能存在的根$\xi$替换为$x$，即将方程解$\xi$存在性问题$F\big(\xi,y(\xi),y'(\xi),\cdots\big)=0$等价视为函数的零点$x_0$存在性问题，不妨设函数形式为$F(x,y,y',\cdots)$，令$F(x,y,y',\cdots)=0$然后解微分方程；<strong><font color=#EE7621>记微分方程通解为$H(x,y)=C$，则$H\big(x,f(x)\big)$正是需要构造的辅助函数</font></strong>，接着再利用中值定理即可。</p><p>实际上前者所谓”围绕中值定理的分析还原法“，也是脱胎于微分方程的，所以二者几乎是同一种方法，只是思考方式不同。</p><p>这里以一个具体的问题作为案例，若$f(x)$在$[0,1]$上连续、在$(0,1)$上可导，且$f(0)=f(1)=0$、$f\left(\frac12\right)=1$，试证明$\forall\lambda\in\mathbb{R}$，$\exists\xi\in(0,1)$，$s.t.\ f'(\xi)-\lambda[f(\xi)-\xi]=1$。</p><p>先证$\exists\eta\in\left(\frac12,1\right)$使得$f(\eta)=\eta$，这是容易想到的，令$g(x)=f(x)-x$即可，由于$g(x)$在$[\frac12,1]$上连续，且$g\left(\frac12\right)=\frac12$而$g(1)=-1$，根据介值定理，存在$\exists\eta\in\left(\frac12,1\right)$使得$g(\eta)=0$，即$f(\eta)=\eta$。</p><p>接着观察式子$f'(\xi)-\lambda[f(\xi)-\xi]=1$，这明显是一个一阶非齐次线性微分方程，容易解得其通解为$y=Ce^{\lambda x}+x$，即$\frac{y-x}{e^{\lambda x}}=C$，于是构造辅助函数$h(x)=\big(f(x)-x\big)e^{-\lambda x}$，易知$h(x)$在$[0,\eta]$上连续、在$(0,\eta)$上可导，且有$h(0)=0=h(\eta)$，因此根据罗尔中值定理，$\exists\xi\in(0,\eta)\subset(0,1)$，使得$h'(\xi)=\big(f'(\xi)-1-\lambda f(\xi)+\lambda\xi\big)e^{-\lambda\xi}=0$，即$f'(\xi)-\lambda[f(\xi)-\xi]=1$。</p><p>这样的思想也可以用于不等式。例如设$f$在$(a,b)$内有连续导数且$\lim\limits_{x\to a^+}f(x)=+\infty$、$\lim\limits_{x\to b^-}f(x)=-\infty$，若$\forall x\in(a,b)$均有$f'(x)+f^2(x)\geqslant-1$成立，求$b-a$与$\pi$的大小关系。这个问题乍一看似乎条件不是很常见，因为我们很容易想到：</p><ul><li><p><strong><font color=#EE7621>如果给了条件$ff'>0$，则构造$F=f^2$，有$F'>0$即$F$单调递增；</font></strong></p></li><li><p><strong><font color=#EE7621>如果给了条件$f+f'>0$，则构造$F=e^xf$，有$F'>0$即$F$单调递增；</font></strong></p></li><li><p><strong><font color=#EE7621>如果给了条件$ff''>(f')^2$，则构造$F=\ln f$，有$F''>0$，即$F$下凸；</font></strong></p></li></ul><p>而这个问题给出的条件是$f'(x)+f^2(x)\geqslant-1$，如果对微分十分熟悉，倒也是不难看出有$\frac{f'}{1+f^2}+1\geqslant0$，所以应构造$F=\arctan f(x)+x$，有$F'\geqslant0$。可如果没有观察出来怎么办呢？没关系，利用微分方程，不再多么需要充分的“技巧”和“灵感”也能构造出合适的辅助函数。先令$f'(x)+f^2(x)=-1$并解这个微分方程，易见这是一个分离变量方程，等价变形得$\mathrm{d}x=\frac{\mathrm{d}y}{-1-y^2}$，两边同时积便得到$x+C=-\arctan y$，将$C$单独移到一边即得$-C=\arctan y+x$，所以令$F=\arctan f(x)+x$即可，后续证明略。</p><h2 id=等式存在性-3费马引理与介值定理零点定理等>等式存在性 3：费马引理与介值定理(零点定理)等</h2><p>这种方法较为灵活，思想也比较简单，就是想办法证明可微函数极值、最值在区间内（根据费马引理，可微函数极值点一定是驻点），或证明连续函数介于某正数与某负数之间，所以区间内一定存在一点使得函数值为$0$。</p><h2 id=泰勒公式证明不等式存在性>泰勒公式证明不等式存在性</h2><p>泰勒公式（见后文）包治百病；更严谨的说，是泰勒中值定理或带拉格朗日余项的泰勒公式。通常来说，不等式用泰勒公式是容易证明的，有的等式也可以通过泰勒公式解决。详细用法参考例题。</p><p>利用微分中值定理，还能证明一些积分不等式，这部分内容将放在积分不等式章节一并说明。</p><details><summary><font color=#0099ff>展开/收起2道微分中值定理证明不等式成立题目</font></summary>下给出题目：<ul><li><p>设$f(x)$在$[-a,a]$上具有$2$阶连续导数，试证：</p><ol><li>若$f(0)=0$，则$\exists\xi\in(-a,a)$，使得$f''(\xi)=\frac{1}{a^2}\left[f(-a)+f(a)\right]$；</li><li>若$f(x)$在$(-a,a)$内取得极值，则$\exists\eta\in(-a,a)$使得$\vert f''(\eta)\vert\geqslant\frac{1}{2a^2}\vert f(a)-f(-a)\vert$.</li></ol><p>$\textbf{a. }$首先证$\text{a}$题。因为$f(x)$在$[-a,a]$上具有$2$阶连续导数，根据在点$0$处展开的泰勒公式，当$x\in[-a,a]$，$\exists\xi_x\in(-a,a)$使得</p>$$
+f(x)=f(0)+f'(0)\cdot x+\frac{f''(\xi_x)}{2}x^2
+$$$$
+\Rightarrow f''(\xi_0)=\frac{2}{x^2}f(x)-\frac{2}{x}f'(0)
+$$<p>其中$\xi_x\in(-a，a)$，分别代$a$与$-a$入$x$，得到</p>$$
+\left\{\begin{aligned}&f''(\xi_1)=\frac{2}{a^2}f(a)-\frac{2}{a}f'(0)\\&f''(\xi_2)=\frac{2}{a^2}f(-a)+\frac{2}{a}f'(0)\end{aligned}\right.
+$$<p>其中$\xi_1\in(-a,0)$、$\xi_2\in(0,a)$，将二式相加并除$2$，得到</p>$$
+\frac{f''(\xi_1)+f''(\xi_2)}{2}=\frac{1}{a^2}\left[f(-a)+f(a)\right]
+$$<p>最后，对于连续函数$f(x)$，$\frac{f''(\xi_1)+f''(\xi_2)}2\in\left(\min\limits_{x\in(-a,a)}f''(x),\max\limits_{x\in(-a,a)}f''(x)\right)$，因此根据介值定理，$\exists\xi\in(-a,a)$使得$f''(\xi)=\frac{f''(\xi_1)+f''(\xi_2)}{2}=\frac{1}{a^2}\left[f(-a)+f(a)\right]$，证毕。</p><p>注：最后一步也可以简单地令$\xi=\max\{\xi_1,\xi_2\}$。</p><p>$\textbf{b. }$不妨设$f(x)$在$(-a,a)$的极值点为$c$，自然地在$c$处导数值为$0$；根据在点$c$处展开的泰勒公式（泰勒中值定理），有</p>$$
+\begin{align}f(x)&=f(c)+f'(c)(x-c)+\frac{f''(\eta_x)}{2}(x-c)^2\\&=f(c)+\frac{f''(\eta_x)}{2}(x-c)^2\end{align}
+$$<p>其中$\eta_x\in(-a,a)$，分别令$x$为$-a$与$a$再令得到的两式相减，在$c,x\in(-a,a)$的情况下可以得到</p>$$
+\begin{align}\frac{1}{2a^2}|f(a)-f(-a)|&=\frac{1}{2a^2}\left|\frac{f''(\eta_1)}{2}(a-c)^2-\frac{f''(\eta_2)}{2}(a+c)^2\right|\\&\leqslant\frac{1}{2a^2}\left|\frac{f''(\eta_1)}{2}(a-c)^2\right|+\frac{1}{2a^2}\left|\frac{f''(\eta_2)}{2}(a+c)^2\right|\\&\leqslant\frac{2a^2+2c^2}{2a^2}\cdot\left|\frac{\max\limits_{\eta_1\leqslant x\leqslant\eta_2}f''(\eta_x)}{2}\right|\\&\leqslant|\max\limits_{\eta_1\leqslant x\leqslant\eta_2}f''(\eta_x)|\end{align}
+$$<p>取$\eta=\arg\max\limits_{\eta_1\leqslant x\leqslant\eta_2}|f''(\eta_x)|$，由于$-a<\eta_1\leqslant\eta\leqslant\eta_2\lt a$，结果既证。事实上，取$\eta=\max\{\eta_1,\eta_2\}$也是可以的。</p><p>值得一提的是，最后的式子前之所以是小于或等于号，是因为$\max f''(\eta_x)$可能为$0$，否则由于$|c|\lt a$，最后的式子前的符号应改为严格小于号。</p></li><li><p>设$f(x)$在$[0,1]$上有连续的二阶导数且$f(0)=f(1)=0$、$\min\limits_{0\leqslant x\leqslant1}f(x)=-1$，试证$\max\limits_{0\leqslant x\leqslant1}f''(x)\geqslant8$；</p><p>设$f(c)=\min\limits_{0\leqslant x\leqslant1}f(x)=-1$，容易知道$c\neq0$且$c\neq1$，在点$c$处利用泰勒公式（泰勒中值定理）：</p>$$
+f(x)=f(c)+f'(c)(x-c)+\frac{f''(\xi_x)}{2}(x-c)^2
+$$<p>分别取$x=0$与$x=1$，得</p>$$
+0=-1+\frac{f''(\xi_1)}{2}c^2=-1+\frac{f''(\xi_2)}{2}(1-c)^2
+$$<p>即</p>$$
+\left\{\begin{aligned}
+&f''(\xi_1)=\frac{2}{c^2}\\
+&f''(\xi_2)=\frac{2}{(1-c)^2}
+\end{aligned}\right.
+$$<p>其中$\xi_1\in(0,c)$、$\xi_2\in(c,1)$，当$0\lt c\leqslant\frac{1}{2}$令$\xi=\xi_1$，此时$f''(\xi)=\frac{2}{c^2}\geqslant8$；当$\frac{1}{2}\leqslant c<1$令$\xi=\xi_2$，此时$f''(\xi)=\frac{2}{(1-c)^2}\geqslant8$，证毕。</p></li></ul></details><h1 id=积分学>积分学</h1><details><summary><font color=#0099ff>展开/收起关于积分的一些感想</font></summary><p>有界函数黎曼可积的充要条件：间断点集为零测集。</p><p>有趣的是，多重黎曼积分的定义其实是足够“好”的，只有一重黎曼积分的性质过于差，需要用勒贝格积分“弥补缺陷”。</p><img src=/images/考研数学（微积分）（上）/重积分.png alt=重积分 style=zoom:30%><p>勒贝格可积的定义为函数正负部的积分均有限，非负可测函数的勒贝格积分定义为$\displaystyle{\int_E}f(x)\mathrm{d}x\overset{\text{def}}{=}\lim\limits_{k\to\infty}\displaystyle{\int_E}\phi_k(x)\mathrm{d}x$，其中$\varphi$是非负简单函数，非负简单函数可表示为有限个特征函数的线性组合，他的勒贝格积分定义为特征函数值乘对应作用区间的勒贝格测度的线性组合；$f$勒贝格可积等价于$|f|$勒贝格可积，且前者积分不大于后者。</p><p>黎曼函数可测，在$[0,1]$内处处极限为$0$，在$\mathbb{R}\backslash\mathbb{Q}$处处连续、在$\mathbb{Q}$处处间断，在$\mathbb{Z}$上处处不可导，在$[0,1]$内黎曼可积且积分值为$0$；迪利克雷函数可测，处处不连续，处处不可导，任何区间内黎曼不可积，在$\mathbb{R}$的任何子集上勒贝格可积且积分值为$0$。</p><p>当$f(x)$连续时则一定可积，有$\displaystyle{\int f(x)\mathrm{d}x}=\displaystyle{\int^x_af(t)\mathrm{d}t}$并且原函数连续（不定积分结果的不定常数$C$和这里$a$的作用是相同的）；若条件削弱至$f(x)$黎曼可积，则式子几乎处处成立。</p><p>达布和（上下和）：对一个分割$T:a\lt x_0\lt x_z<\cdots\lt x_n\lt b$，记$\Delta_i=[x_{i-1},x_i]$、$\Delta x_i=x_i-x_{i-1}$、$M_i=\sup\limits_{x\in\Delta_i}f(x)$与$m_i=\inf\limits_{x\in\Delta_i}f(x)$，则称$\sum\limits^n_{i=1}M_i\Delta x_i$为达布上和，称$\sum\limits^n_{i=1}m_i\Delta x_i$为达布下和。上下和也可以分别等价地写为$\sup\limits_{|\xi_i|}\sum\limits^n_{i=1}f(\xi_i)\Delta x_i$与$\inf\limits_{|\xi_i|}\sum\limits^n_{i=1}f(\xi_i)\Delta x_i$的形式。</p><p>达布定理（上下积分）：上下积分也是上下和在$\Vert T\Vert\to0$时的极限。</p><p>黎曼可积第一充要条件：$f(x)$在$[a,b]$上可积的充要条件是$f$在$[a,b]$上的上下积分相等</p><p>黎曼可积第二充要条件（可积准则）：$f(x)$在$[a,b]$上可积的充要条件是$\forall\varepsilon>0$，$\exists$某分割$T$，$s.t.\ \sum\limits^n_{i=1}(M_i-m_i)\Delta x_i<\varepsilon$，即：使得达布上和减去达布下和的差任意小。</p><p>黎曼可积第三充要条件略。</p><p>如果说黎曼积分的达布和是按$x$做分割再累积求和、是“竖着切”，那勒贝格积分就是按$y$做分割（利用简单函数）再累计求和、是“横着切”。</p></details><p><b><font color=#CD0000>不定积分若存在则均连续，可以得出变限积分也必然是连续的。</font></b>对于一元函数而言，函数的连续性是函数可微的必要条件；同理，函数也应当有一定的连续性、足够光滑才能保证可积性。对于黎曼积分，这一条件是比较强的，要求不连续点集为零测集；对于推广的一些积分，例如勒贝格积分，将可积的条件与限制做了进一步减弱。</p><p>有些不定积分涉及了一些无法用初等函数表达的部分，但在计算的过程中这部分可能是能够抵消的，从而最后算出的不定积分结果中只包含初等表达式。例如$\displaystyle{\int\frac{e^{-\sin x}\sin2x}{(1-\sin x)^2}\mathrm{d}x}$，换元$t=\sin x$后对$\frac1{1-t}$分部积分即可消掉无法用初等函数表达的积分$\displaystyle{\int\frac{e^{-t}}{(1-t)^2}\mathrm{d}x}$，从而可以算出最后的结果为$\frac{2e^{-\sin x}}{1-\sin x}+C$。</p><p>还有一些不定积分也难以直接计算，需要通过“循环”来找出结果，这种情况的例子可以参考后文中表格法部分给出的示例。</p><hr><p>需要着重强调的是，分段函数的不定积分在分段点必须是连续的。例如，计算不定积分$\displaystyle\int|x|e^x\mathrm{d}x$可以分为$\{x:x\geqslant0\}$与$\{x:x<0\}$两部分讨论以去掉恼人的绝对值，分别有</p>$$
+x\geqslant0,\ \ \int|x|e^x\mathrm{d}x=xe^x-e^x+C_1
+$$$$
+x<0,\ \ \int|x|e^x\mathrm{d}x=-xe^x+e^x+C_2
+$$<p>但注意，接下来不能说$\displaystyle\int|x|e^x\mathrm{d}x=\left\{\begin{aligned}&xe^x-e^x+C_1,&&x\geqslant0\\&-xe^x+e^x+C_2,&&x<0\end{aligned}\right.$，$C_1,C_2\in\mathbb{R}$——式子中含有两个任意取值的常数$C_1,C_2$，这会出现不定积分在分段点$x=0$处不连续的情况，例如取$C_1=C_2=0$，则$xe^x-e^x\big|_{x=0}=-1$而$-xe^x+e^x\big|_{x=0}=1$。然而，根据不定积分的性质，一段区间上的不定积分只要存在，在给定不定常数后积分函数就应该是连续的；为使积分结果符合这一要求就需要统一变元、保证一次积分后只出现一个变元$C$，而不会在一个表达式中出现两个变元$C_1,C_2$。例如，可以取$C_1=C,C_2=-2$，则</p>$$
+\displaystyle\int|x|e^x\mathrm{d}x=\left\{\begin{aligned}&xe^x-e^x+C,&&x\geqslant0\\&-xe^x+e^x-2+C,&&x<0\end{aligned}\right.\ ,\ \ C\in\mathbb{R}
+$$<p>这样的式子才是正确的结果。这是一个很浅显的内容，但经常被人忽视。</p><h2 id=三角函数相关积分专题>三角函数相关积分专题</h2><h3 id=三角函数与其𝑛次方的不定积分>三角函数与其𝑛次方的不定积分</h3>$$
+\begin{align}
+&\int\sin x=-\cos x+C&&\int\cos x=\sin x+C\\
+&\int\tan x=-\ln|\cos x|+C&&\int\csc x=\ln\Big|\tan\frac{x}2\Big|+C\\
+&\int\sec x=\ln|\sec x+\tan x|+C&&\int\cot x=\ln|\sin x|+C\\
+&\int\arcsin x=\sqrt{1-x^2}+x\arcsin x+C&&\int\arccos x=-\sqrt{1-x^2}+x\arccos x+C\\
+&\int\arctan x=-\frac12\ln(x^2+1)+x\arctan x+C&&\int\mathrm{arccot\,}x=\frac12\ln(x^2+1)+x\mathrm{\,arccot\,}x+C
+\end{align}
+$$<p>其中$\displaystyle{\int\csc x}$的一种求解思路是：</p>$$
+\begin{align}
+\int\csc x&=\int\frac1{\sin x}\mathrm{d}x\\
+&=\int\frac{\sin^2\frac{x}2+\cos^2\frac{x}2}{2\sin\frac{x}2\cos\frac{x}2}\mathrm{d}x\\
+&=\int\frac{\sin\frac{x}2}{2\cos\frac{x}2}\mathrm{d}x+\int\frac{\cos\frac{x}2}{2\sin\frac{x}2}\mathrm{d}x\\
+&=-\int\frac1{\cos\frac{x}2}\mathrm{d}\left(\cos\frac{x}2\right)+\int\frac1{\sin\frac{x}2}\mathrm{d}\left(\sin\frac{x}2\right)\\
+&=-\ln\Big|\cos\frac{x}2\Big|+\ln\Big|\sin\frac{x}2\Big|+C\\
+&=\ln\Big|\tan\frac{x}2\Big|+C
+\end{align}
+$$<p>$\displaystyle{\int\csc x}$还有一个比较容易想到的解法：</p>$$
+\begin{align}
+\int\csc x\mathrm{d}x&=\int\frac{\sin x}{\sin^2x}\mathrm{d}x\\
+&=-\frac12\int\left(\frac1{1-\cos x}+\frac1{1+\cos x}\right)\mathrm{d}\cos x\\\\
+&=\ln\Big(\sin\big(\frac{x}2\big)\Big)-\ln\Big(\cos\big(\frac{x}2\big)\Big)+C\\
+&=\ln\Big|\tan\frac{x}2\Big|+C
+\end{align}
+$$<p>此外，他还有 <font color=#CD0000>$\ln|\csc x-\cot x|+C$</font> 的形式。</p><p>求$\displaystyle{\int\sec x}$，对分子分母同乘$\sec x+\tan x$再凑微分即可：</p>$$
+\begin{align}
+\int\sec x\mathrm{d}x&=\int\sec x\times\frac{\sec x+\tan x}{\sec x+\tan x}\mathrm{d}x\\
+&=\int(\sec x+\tan x)\mathrm{d}(\sec x+\tan x)\\
+&=\color{#CD0000}{\ln|\sec x+\tan x|+C}
+\end{align}
+$$<p>$\displaystyle{\int\sec x}$还有一种比较简单的求法：</p>$$
+\begin{align}
+\int\sec x\mathrm{d}x&=\int\frac{\cos x}{\cos^2 x}\mathrm{d}x\\
+&=\int\frac{1}{1-\sin^2x}\mathrm{d}\sin x\\
+&=\frac12\int\left(\frac1{1+\sin x}+\frac1{1-\sin x}\right)\mathrm{d}\sin x\\
+&=\frac12\ln\left|\frac{1+\sin x}{1-\sin x}\right|+C
+\end{align}
+$$<p>利用双曲三角函数还可以解得$\displaystyle{\int\sec x}=\mathrm{arcsinh\,}x+C$，证明在后文无理式积分中给出。</p><p><font color=#990066><b>注意</b></font> <font color=#CD0000>①$\displaystyle{ \int\sec x\mathrm{d}x=\ln|\sec x+\tan x|+C,}$  ②$\displaystyle{\int\csc x\mathrm{d}x=\ln|\csc x-\cot x|+C}$</font><font color=#990066><b>，这个形式是容易记忆的，因为按文章开头给出的“三角函数六边形”，二者的不定积分其实就是在$\displaystyle{\frac1x}$的不定积分基础上，将$x$替换为三角函数自身同他在上一层的三角函数之和或之差即可（同导数一样，依然遵循“左正右负”的规律）。</b></font>对于$\tan x$和$\cot x$的不定积分，简单地凑微分即可，不需要特别记忆——即使要硬记也是不难的。</p><p>更多内容可参考这两篇文章：</p><ul><li><p><a href=https://zhuanlan.zhihu.com/p/536938734><font color=#EEAEEE>三角函数常用不定积分公式</font></a></p></li><li><p><a href=https://zhuanlan.zhihu.com/p/328021896><font color=#EEAEEE>关于三角函数的不定积分小小总结</font></a></p></li></ul><hr><p>对$\sin x^n$、$\cos^nx$的定积分，如果$n$为正奇数可以直接换元$t=\cos x$，被积式变为$t$的多项式，这是很好计算的；如果$n$为正偶数则麻烦一点，可以选择直接积分，但这样做计算量较大，比较简便的解法是降幂扩角：</p>$$
+\text{利用倍角公式}\left\{\begin{aligned}&\textstyle{\sin^2x=\frac{1-\cos2x}2}\\&\textstyle{\cos^2x=\frac{1+\cos2x}2}\\&\textstyle{\cos^4x=(\cos^2x)^2=\frac18\cos4x+\frac12\cos2x+\frac38}\end{aligned}\right.
+$$$$
+\Rightarrow\left\{\begin{aligned}&\int\sin^2x\mathrm{d}x=\frac{x}2-\frac{\sin2x}4+C\\&\int\cos^2x\mathrm{d}x=\frac{x}2+\frac{\sin2x}4+C\\&\int\cos^4x\mathrm{d}x=\frac{3x}8+\frac{\sin2x}4+\frac{\sin4x}{32}+C\end{aligned}\right.
+$$$$
+\text{利用三角函数间的关系}\left\{\begin{aligned}&\textstyle{\tan^2x=\sec^2x-1}\\&\textstyle{\cot^2\,x=\csc^2x-1}\end{aligned}\right.\text{，有：}\left\{\begin{aligned}&\int\tan^2x\mathrm{d}x=\tan x-x+C\\&\int\cos^2x\mathrm{d}x=-\cot x-x+C\end{aligned}\right.
+$$<hr><p>记$S_n=\displaystyle{\int\sin^nx\mathrm{d}x}$、$C_n=\displaystyle{\int\cos^nx\mathrm{d}x}$与$T_n=\displaystyle{\int\tan^nx\mathrm{d}x}$，有：</p>$$
+\begin{align}
+&S_n=-\frac{\sin^{n-1}x\cos x}{n}+\frac{n-1}{n}S_{n-2}\\
+&C_n=\frac{\cos^{n-1}x\sin x}{n}+\frac{n-1}{n}C_{n-2}\\
+&T_n=\frac{\tan^{n-1}x}{n-1}-T_{n-2}
+\end{align}
+$$<h3 id=三角函数有理分式积分>三角函数有理分式积分</h3><p>通常来说，观察原式，利用三角变换、换元与分部积分可以解决涉及三角函数的积分问题；这里总结一些经验规律，帮助快速计算。</p><p>首先，任何三角函数的有理分式都可以通过所谓“万能代换”转化为关于$t$的有理分式，如此操作一定能解出结果，可能会让计算十分便捷，但也可能使得计算极其繁复：当$a,b\in[-\pi,\pi]$时，有</p>$$
+\color{#836FFF}{\boldsymbol{\int^b_aR(\sin x,\cos x)\mathrm{d}x\xlongequal{t=\tan\frac{x}{2}}\int^{\tan\frac{b}2}_{\tan\frac{a}2}\frac2{1+t^2}R\left(\frac{2t}{1+t^2},\frac{1-t^2}{1+t^2}\right)\mathrm{d}t}}
+$$<p>有些情况下可以通过凑微分高效地解决三角函数有理式不定积分，但需仔细观察原式，根据经验总结如下：</p><ul><li><font color=#836FFF>如若$R(-\sin x,\cos x)=-R(\sin x,\cos x)$，则换元$t=\cos x$，凑$\mathrm{d}\cos x=-\sin x\mathrm{d}x$；</font></li><li><font color=#836FFF>如若$R(\sin x,-\cos x)=-R(\sin x,\cos x)$，则换元$t=\sin x$，凑$\mathrm{d}\sin x=\cos x\mathrm{d}x$；</font></li><li><font color=#836FFF>如若$R(-\sin x,-\cos x)=R(\sin x,\cos x)$，则换元$t=\tan x$，凑$\mathrm{d}\tan x=\sec^2x\mathrm{d}x$；</font></li></ul><p>以上两个方法，“万能代换”法与经验法则，是处理三角函数有理式积分最常见的通用办法。针对特定的积分计算，也会有一些奇妙精简而技巧性强的解法，这就需要具体问题具体分析了。</p><details><summary><font color=#0099ff>展开/收起3个三角函数有理分式积分问题</font></summary><p>这里只给出三个例子，对于参悟三角函数积分当然是远远不够的。</p><ul><li><p>求不定积分$\displaystyle\int\frac{1}{a^2\sin^2x+b^2\cos^2x}\mathrm{d}x$；</p><p>解：该不定积分需分情况讨论，不过$a=0$与$b=0$的结果是显而易见的，分别为$\frac{1}{b^2}\tan x+C$与$-\frac{1}{b^2}\cot x+C$，在这里讨论$a^2,b^2>0$的情形。Tip：$a=b=0$式子不成立，所以不讨论。</p><p>如果经验不足，而且没有熟悉上文中关于凑微分的技巧，这个积分就会变得不好处理：无论是用“万能代换”化被积式为复杂有理分式，还是讨论$a$、$b$大小利用$\sin^2x+\cos^2x=1$将分母化出“$1$”来，都是很难进一步操作的。</p><p>没有头绪该怎么办呢？根据上文中的经验法则：</p>$$
+\frac{1}{a^2\sin^2(-x)+b^2\cos^2(-x)}=\frac{1}{a^2\sin^2x+b^2\cos^2x}
+$$<p>所以有$R(-\sin x,-\cos x)=R(\sin x,\cos x)$，于是可以知道这里应该凑$\mathrm{d}\tan x$：</p>$$
+\begin{align}\int\frac{1}{a^2\sin^2x+b^2\cos^2x}\mathrm{d}x&=\frac{1}{b^2}\int\frac{\sec^2x}{\frac{a^2}{b^2}\tan^2x+1}\mathrm{d}x\\&=\frac{1}{b^2}\frac{b}{a}\int\frac{1}{\frac{a^2}{b^2}\tan^2x+1}\mathrm{d}\left(\frac{a}{b}\tan x\right)\\&=\frac{1}{ab}\arctan\left(\frac{a}{b}\tan x\right)+C\end{align}
+$$</li><li><p>求定积分$\displaystyle{\int^{\frac{\pi}2}_{\frac{\pi}4}\frac1{1+\cos^2\theta}\mathrm{d}\theta}$；</p><p>解：由于$\frac1{1+\cos^2(-\theta)}=\frac1{1+\cos^2\theta}$，所以被积函数是$\cos\theta$的偶函数，根据经验法则，应凑$\mathrm{d}\tan\theta$，所以我们先“变”出$\sec^2\theta$：</p>$$
+\int^{\frac{\pi}2}_{\frac{\pi}4}\frac1{1+\cos^2\theta}\mathrm{d}\theta=\int^{\frac{\pi}2}_{\frac{\pi}4}\frac{\sec^2\theta}{\sec^2\theta+1}\mathrm{d}\theta=\int^{\frac{\pi}2}_{\frac{\pi}4}\frac{\mathrm{d}\tan\theta}{2+\tan^2\theta}
+$$<p>接着换元$t=\tan\theta$即可：</p>$$
+\int^{\frac{\pi}2}_{\frac{\pi}4}\textstyle\frac{\mathrm{d}\tan\theta}{2+\tan^2\theta}=\frac{\sqrt{2}}2\displaystyle\int^{+\infty}_1\textstyle\frac{\mathrm{d}\frac{t}{\sqrt{2}}}{1+\big(\frac{t}{\sqrt{2}}\big)^2}=\frac{\sqrt{2}}2\arctan\textstyle\big(\frac{t}{\sqrt{2}}\big)\displaystyle\Big|^{+\infty}_1=\textstyle\frac{\sqrt{2}\pi}4-\frac{\sqrt{2}}2\arctan\big(\frac{\sqrt{2}}2\big)
+$$</li><li><p>求定积分$\displaystyle{\int^{\frac{\pi}2}_0\frac{x+\sin x}{1+\cos x}\mathrm{d}x+\int^{2\pi}_{\pi}\frac{1+\cos x}{x+\sin x}\mathrm{d}x}$；</p><p>解：乍一看加号前后两个不定积分似乎有相似之处，毕竟$\frac{x+\sin x}{1+\cos x}$是$\frac{1+\cos x}{x+\sin x}$的倒数——但朝这个方向思考就走向歧途了，这道题只需要按常规思路分析即可，两个不定积分之间没有任何关系。</p><p>首先处理后者，因为注意到$(x+\sin x)'=1+\cos x$——第二个定积分是可以直接凑微分求解的，即</p>$$
+\int^{2\pi}_{\pi}\frac{1+\cos x}{x+\sin x}\mathrm{d}x=\int^{2\pi}_{\pi}\frac{\mathrm{d}(x+\sin x)}{x+\sin x}=\ln(x+\sin x)\Big|^{2\pi}_{\pi}=\ln2\pi-\ln\pi=\ln2
+$$<p>接着处理前者，直接将分子各项拆散分别讨论，有</p>$$
+\begin{align}
+\int^{\frac{\pi}2}_0\frac{x+\sin x}{1+\cos x}\mathrm{d}x&=\int^{\frac{\pi}2}_0\frac{x}{1+\cos x}\mathrm{d}x+\int^{\frac{\pi}2}_0\frac{\sin x}{1+\cos x}\mathrm{d}x\\
+&=\int^{\frac{\pi}2}_0\frac{x}{2\cos^2\frac{x}2}\mathrm{d}x-\int^{\frac{\pi}2}_0\frac{\mathrm{d}\cos x}{1+\cos x}\\
+&=\int^{\frac{\pi}2}_0x\mathrm{d}\tan\frac{x}2-\ln(1+\cos x)\Big|^{\frac{\pi}2}_0\\
+&=x\tan\frac{x}2\Big|^{\frac{\pi}2}_0-\int^{\frac{\pi}2}_0\tan\frac{x}2\mathrm{d}x+\ln2\\
+&=\frac{\pi}2+2\ln|\cos\frac{x}2|\Big|^{\frac{\pi}2}_0+\ln2\\
+&=\frac{\pi}2
+\end{align}
+$$<p>综上，$\displaystyle{\int^{\frac{\pi}2}_0\frac{x+\sin x}{1+\cos x}\mathrm{d}x+\int^{2\pi}_{\pi}\frac{1+\cos x}{x+\sin x}\mathrm{d}x}=\frac{\pi}2+\ln2$。客观来说，这个积分的计算过程并没有用到多么高超复杂的技巧，但如果一开始就走偏了方向，一直往倒数方面去考虑，就陷入思维困境了……</p><p>此外，如果读者熟悉三角函数，能观察到</p>$$
+\frac{\sin x}{1+\cos x}=\tan\frac{x}2
+$$<p>则这个定积分的计算还可以再简便一点。</p></li></ul></details><h3 id=𝑛𝑥相关三角积分-黎曼引理>𝑛𝑥相关三角积分 (黎曼引理)</h3><p><b>注：Wallis公式及其推论在后文专门给出。</b></p><p>任何两个互不相同的三角函数系函数乘积在$[-\pi,\pi]$上积分为零，即三角函数系是正交函数系；</p>$$
+\int^{\pi}_{-\pi}\cos nx\mathrm{d}x=\int^{\pi}_{-\pi}\sin nx\mathrm{d}x=0
+$$$$
+\left\{
+\ \begin{aligned}
+&\int^{\pi}_{-\pi}\sin(nx)\cos(mx)\mathrm{d}x=0\\
+&\left.\begin{align*}&\int^{\pi}_{-\pi}\sin(nx)\sin(mx)\mathrm{d}x=0\\
+&\int^{\pi}_{-\pi}\cos(nx)\cos(mx)\mathrm{d}x=0\end{align*}\ \right\}\ n\neq m\end{aligned}
+\right.
+$$<p>三角函数系中任何函数的平方在$[-\pi,\pi]$上积分都不为零，</p>$$
+\int^{\pi}_{-\pi}\cos^2 nx\mathrm{d}x=\int^{\pi}_{-\pi}\sin^2 nx\mathrm{d}x=\pi
+$$<p>三角函数形式的黎曼-勒贝格引理(Riemann–Lebesgue lemma)：若$f$在$[-\pi,\pi]$上黎曼可积，则</p>$$
+\left\{
+\begin{aligned}
+&\lim\limits_{n\to\infty}\int^{\pi}_{-\pi}f(x)\cos(nx)\mathrm{d}x=0\\
+&\lim\limits_{n\to\infty}\int^{\pi}_{-\pi}f(x)\sin(nx)\mathrm{d}x=0\end{aligned}
+\right.
+$$<p><font size=4>推广：</font>黎曼引理：若$f$在区间$[a,b]$上黎曼可积，则以下三式均成立且等价</p>$$
+\left\{
+\begin{aligned}
+&[1]\ \ \ \lim_{n\to\pm\infty}\int^b_af(x)\sin(nx)\mathrm{d}x=0\\
+&[2]\ \ \ \lim_{n\to\pm\infty}\int^b_af(x)\cos(nx)\mathrm{d}x=0\\
+&[3]\ \ \ \lim_{n\to\pm\infty}\int^b_af(x)e^{inx}\mathrm{d}x=0
+\end{aligned}
+\right.
+$$<p><font size=4>再推广：</font>黎曼引理：若$f$在区间$[a,b]$上黎曼可积、$g$有最小正周期$T$且在$[0,T]$上黎曼可积，则</p>$$
+\lim_{n\to\pm\infty}\int^b_af(x)g(nx)\mathrm{d}x=\frac1T\int^b_af(x)\mathrm{d}x\int^T_0g(x)\mathrm{d}x
+$$<p>黎曼引理证明的部分请参考这篇文章：<a href=https://zhuanlan.zhihu.com/p/515221628><font color=#EEAEEE>大学数学竞赛#2-Riemann引理及其应用（积分极限、无穷级数）</font></a></p><p>黎曼引理相关推论请参考这篇文章：<a href=https://www.zhihu.com/question/452974197/answer/1819009077><font color=#EEAEEE>如何通俗易懂地理解黎曼引理？</font></a></p><h3 id=wallis公式stirling公式及推论>Wallis公式、Stirling公式及推论</h3><p>对以下公式均有$n\in\mathbb{N}^+$，方便起见下文只写$n$为奇数还是偶数：</p>$$
+\begin{align}
+&\ \ \ \ \ \int^{\frac{\pi}{2}}_{0}\sin^nx\mathrm{d}x=\int^{\frac{\pi}{2}}_{0}\cos^nx\mathrm{d}x\\
+&=\left\{\begin{aligned}
+&\frac{(n-1)!!}{n!!}\frac{\pi}{2},&n\text{为偶数}\\
+&\frac{(n-1)!!}{n!!},&n\text{为奇数}\end{aligned}\right.\\
+&=\left\{\begin{aligned}
+&\frac{n-1}{n}\cdot\frac{n-3}{n-2}\cdots\frac{3}{4}\cdot\frac{1}{2}\cdot\frac{\pi}{2},&n\text{为偶数}\\
+&\frac{n-1}{n}\cdot\frac{n-3}{n-2}\cdots\frac{6}{7}\cdot\frac{4}{5}\cdot\frac{2}{3}\cdot1,&n\text{为奇数}\end{aligned}\right.
+\end{align}
+$$<p>该公式在三角积分的计算中常常可以极大降低计算量，用分部积分然后递归即可证明，在此简单描述证明思路：</p>$$
+\begin{align}
+I_n=\int^{\frac{\pi}{2}}_{0}\sin^nx\mathrm{d}x&=\int^{\frac{\pi}{2}}_{0}\sin^{n-1}x\mathrm{d}(-\cos x)\\
+&=-\cos x\sin^{n-1}x\big|^{\frac{\pi}{2}}_0\,+\int^{\frac{\pi}{2}}_{0}(n-1)\sin^{n-2}x\cos^2x\mathrm{d}x\\
+&=(n-1)\int^{\frac{\pi}{2}}_{0}(1-\sin^2x)\sin^{n-2}x\mathrm{d}x\\
+&=(n-1)I_{n-2}\,-(n-1)I_n
+\end{align}
+$$<p>因此$I_n=\frac{n-1}{n}I_{n-2}$，按此递推即可；此外，根据该公式可导出推论：</p>$$
+\left\{\begin{align*}
+&\int^\pi_{0}\sin^nx\mathrm{d}x=2\int^{\frac{\pi}{2}}_{0}\sin^nx\mathrm{d}x\\\\
+&\int^\pi_{0}\cos^nx\mathrm{d}x=\left\{\begin{aligned}
+&2\int^{\frac{\pi}{2}}_{0}\cos^nx\mathrm{d}x,&n\text{为偶数}\\
+&0,&n\text{为奇数}\end{aligned}\right.\end{align*}\right.
+$$$$
+\int^{2\pi}_{0}\sin^nx\mathrm{d}x=\int^{2\pi}_{0}\cos^nx\mathrm{d}x=\left\{\begin{aligned}
+&4\int^{\frac{\pi}{2}}_{0}\cos^nx\mathrm{d}x,&n\text{为偶数}\\
+&0,&n\text{为奇数}\end{aligned}\right.
+$$<p>上述推论都是显而易见的，拆开积分区间后利用$\sin x$、$\cos x$的诱导公式（换元）、奇偶性与周期性即证；</p><p>试积分$\displaystyle{\int^\pi_0}x\sin^nx\mathrm{d}x$，其中$n\geqslant1$：</p>$$
+\begin{align}
+\int^\pi_0x\sin^nx\mathrm{d}x&=\frac\pi2\int^\pi_0\sin^nx\mathrm{d}x\ \ \ \text{(利用区间再现，上文有给出该等式)}\\
+&=\pi\int^{\frac\pi2}_0\sin^nx\mathrm{d}x\\
+&=\left\{\begin{aligned}
+&\frac{(n-1)!!}{n!!}\,\frac{\pi^2}{2},&n\text{为偶数}\\
+&\frac{(n-1)!!}{n!!}\,\pi,&n\text{为奇数}\end{aligned}\right.\\
+\end{align}
+$$<hr><p>严格来说，Wallis公式是指</p>$$
+\lim_{n\to\infty}\left(\frac{2^{2n}(n!)^2}{(2n)!}\right)^2\frac1{2n+1}=\frac{\pi}2\ \ \ \ \ ^{\ast}\,\text{即}k=2n\text{为偶数的情况}
+$$$$
+\lim_{n\to\infty}\left(\frac{(2n)!!}{(2n-1)!!}\right)^2\frac1{2n+1}=\frac{\pi}2\ \ \ \ \ ^{\ast}\,\text{即}k=2n-1\text{为奇数的情况}
+$$<p>一般用来处理双阶乘极限的问题，不过$\displaystyle{\int^{\frac{\pi}{2}}_{0}\sin^nx\mathrm{d}x}$与$\displaystyle{\int^{\frac{\pi}{2}}_{0}\cos^nx\mathrm{d}x}$的积分结果或许更常用到。常见的Wallis公式证明思路是先计算这两个积分，再由此得到Wallis公式。</p><p>Stirling公式是阶乘的一种收敛速率较低但经典的近似：</p>$$
+n!\sim\sqrt{2\pi n}\left(\frac{n}{e}\right)^n,\ \ \ \ n\to\infty
+$$<p>Stirling公式可以通过Wallis公式导出，Wallis公式准确来说应该是指$\lim\limits_{n\to\infty}\frac{(2n)!!}{(2n+1)!!}\cdot\frac{(2n)!!}{(2n-1)!!}=\frac{\pi}{2}$，通过$\lim\limits_{n\to\infty}\frac{n!}{n^n}-\frac{1}{e^n}=0$（该式在前文利用黎曼积分求解数列极限的章节中作为案例既证）再结合Wallis公式，得证。</p><h3 id=复合反三角函数积分>复合反三角函数积分</h3><p>复合反三角函数的积分，基本上离不开分部积分公式，配合一些换元法也可以减少运算量。</p><ul><li><p><font color=DodgerBlue><b>法一：将被积分的反三角函数整体换元</b></font></p><p>如求积分$I=\displaystyle{\int^3_0\arcsin\sqrt{\frac{x}{1+x}}}\mathrm{d}x$，可以对积分式整体换元（但涉及到积分$\displaystyle{\int\tan^2x\mathrm{d}x}$，如果对此不熟悉则只能采取下面的另一种方法）：</p>$$
+\begin{align}
+I&\xlongequal{t=\arcsin\sqrt{\frac{x}{1+x}}}\int^{\frac{\pi}{3}}_0t\,\mathrm{d}\frac{\sin^2t}{1-\sin^2t}=\int^{\frac{\pi}{3}}_0t\,\mathrm{d}\tan^2t\\
+&=t\tan^2t\Big|^\frac{\pi}3_0-\int^{\frac{\pi}{3}}_0\tan^2t\mathrm{d}t\\
+&=\frac{4\pi}{3}-\sqrt{3}
+\end{align}
+$$<p>处理这个积分也可以直接做分部积分，但运算量会稍大：</p>$$
+\begin{align}
+I&=x\arcsin\sqrt{\frac{x}{1+x}}\,\,\Bigg|^3_0-\frac12\int^3_0\frac{\sqrt{x}}{1+x}\mathrm{d}x\\
+&\xlongequal[x=t^2]{t=\sqrt{x}}\pi-\int^{\sqrt3}_0\frac{t^2}{1+t^2}\mathrm{d}t\\
+&=\pi-\int^{\sqrt3}_0\left(1-\frac{1}{1+t^2}\right)\mathrm{d}t\\
+&=\pi-\sqrt3+\arctan t\,\Big|^{\sqrt3}_0\\
+&=\frac{4\pi}{3}-\sqrt{3}
+\end{align}
+$$<p>其中对$\arcsin\sqrt{\frac{x}{1+x}}$的求导容易犯错，因为要处理的内容略多，</p>$$
+\textstyle{\left(\arcsin\sqrt{\frac{x}{1+x}}\right)'=\sqrt{1+x}\left(\sqrt{\frac{x}{1+x}}\right)'=\sqrt{1+x}\cdot\frac{\frac1{2\sqrt{x}}\sqrt{1+x}-\sqrt{x}\frac1{2\sqrt{1+x}}}{1+x}=\frac{1}{2\sqrt{x}(1+x)}}
+$$</li><li><p><font color=DodgerBlue><b>法二：（利用换元）凑成$\displaystyle{\int^b_a\mathrm{arc}\,u}\,\mathrm{d}u$的形式，然后分部积分</b></font></p><p>如当$f'(x)=\arcsin(x-1)^2$、$f(0)=0$时，求解$\displaystyle{\int^1_0f(x)\mathrm{d}x}$，</p><p>Tip：$\displaystyle{\int f'(x)\mathrm{d}x}$是没有初等表达式的，不可能先解出$f(x)$再求他的定积分。</p><p>正确的做法是：首先，</p>$$
+\begin{align}
+\int^1_0f(x)\mathrm{d}x&\xlongequal{\text{直接分部积分}}xf(x)\Big|^1_0-\int^1_0x\arcsin(x-1)^2\mathrm{d}x\\
+&=f(1)-\int^1_0x\arcsin(x-1)^2\mathrm{d}x\\
+&=\int^1_0f'(x)\mathrm{d}x-\int^1_0x\arcsin(x-1)^2\mathrm{d}x\\
+&=-\int^1_0(x-1)\arcsin(1-x)^2\mathrm{d}x\\
+\end{align}
+$$<p>如此得到$\displaystyle{\int^b_a\mathrm{arc}\,u}\,\mathrm{d}u$的形式；当然，注意到$f(0)=0$，可以适当构造使得分部积分的第一部分在$x=1$时也为$0$，于是分部积分第一部分结果为$0$，只留下反三角函数的被积式：</p>$$
+\begin{align}
+\int^1_0f(x)\mathrm{d}x&=\int^1_0f(x)\mathrm{d}(x-1)\\
+&=(x-1)f(x)\Big|^1_0-\int^1_0(x-1)\arcsin(x-1)^2\mathrm{d}x\\
+&=-\int^1_0(x-1)\arcsin(x-1)^2\mathrm{d}x
+\end{align}
+$$<p>如上两种方式都能得到$\displaystyle{\int^b_a\mathrm{arc}\,u}\,\mathrm{d}u$形式的式子，最后，只需要计算这个积分：</p>$$
+\begin{align}
+-\int^1_0(x-1)\arcsin(x-1)^2\mathrm{d}x&=\frac12\int^1_0\arcsin t\mathrm{d}t\\
+&=\frac12t\arcsin t\Big|^1_0-\frac12\int^1_0\frac{t}{\sqrt{1-t^2}}\mathrm{d}t\\
+&=\frac12t\arcsin t\Big|^1_0-\frac12\sqrt{1-t^2}\Big|^1_0\\
+&=\frac\pi4-\frac12
+\end{align}
+$$</li></ul><h3 id=三角函数积分杂例>三角函数积分杂例</h3><p>利用下文的区间再现方法可导出：</p>$$
+\left\{
+\begin{aligned}
+&\ \int^\pi_0xf(\sin x)\mathrm{d}x=\frac{\pi}{2}\int^\pi_0f(\sin x)\mathrm{d}x\\
+&\ \int^\pi_0xf(\cos x)\mathrm{d}x=\frac{\pi}{2}\int^\pi_0f(-\cos x)\mathrm{d}x\end{aligned}
+\right.
+$$<p>即使将积分限改为其他实数，例如将积分上限改为$2\pi$，也有相应的变换公式，用区间再现方法即可推导，这里不作一一列举，读者自证不难。需要强调的是，当观察到被积式形如$x f(\sin x)$与$x f(\cos x)$时，应当联想到区间再现，这在很多情况下都可以极大减少计算量。</p><hr>$$
+\int^\frac{\pi}2_0f(\sin x,\cos x)\mathrm{d}x=\int^\frac{\pi}2_0f(\cos x,\sin x)\mathrm{d}x
+$$<p><a href=https://zhuanlan.zhihu.com/p/391727258><font color=#EEAEEE>三角函数积分总结（一）~ sinx与cosx混合积分</font></a></p><p><a href=https://zhuanlan.zhihu.com/p/454726159><font color=#EEAEEE>三角函数积分总结（二）~ secx与tanx混合积分</font></a></p><hr><p>利用好三角函数的周期性，对于积分$\displaystyle{\int^{n\pi}_0x|\sin x|\mathrm{d}x}$，做换元$t=n\pi-x$即得$\displaystyle{\int^{n\pi}_0(n\pi-t)|\sin t|\mathrm{d}t}$，联立二式有</p>$$
+\displaystyle{\int^{n\pi}_0x|\sin x|\mathrm{d}x}=\frac{n^2\pi}2\int^{\pi}_0\sin x\mathrm{d}x=n^2\pi
+$$<hr><p>三角函数的导数有很好的性质，$\sin x$与$\cos x$间有十分紧密的联系，利用好这一点与分部积分及表格积分法，常常可以使积分计算化繁为简。例如计算定积分$\displaystyle{I=\int^{\pi}_0e^{-x}\sin x\mathrm{d}x}$，可以先对$\sin x$分部积分</p>$$
+I=-\int^{\pi}_0e^{-x}\mathrm{d}\cos x=-e^{-x}\cos x\Big|^{\pi}_0-\int^{\pi}_0e^{-x}\cos x\mathrm{d}x
+$$<p>再对$e^{-x}$分部积分</p>$$
+I=-\int^{\pi}_0\sin x\mathrm{d}e^{-x}=-e^{-x}\sin x\Big|^{\pi}_0+\int^{\pi}_0e^{-x}\cos x\mathrm{d}x
+$$<p>两式相加可以抵消掉$\displaystyle{\int^{\pi}_0e^{-x}\cos x\mathrm{d}x}$，从而</p>$$
+I=\frac{-e^{-x}\cos x\Big|^{\pi}_0-e^{-x}\sin x\Big|^{\pi}_0}2=e^{-\pi}+1
+$$<p>按同样的方法，最终可以计算出</p>$$
+\left\{\begin{aligned}&\int e^{-x}\sin x\mathrm{d}x=-\frac{e^{-x}}2(\sin x+\cos x)+C\\&\int e^{-x}\cos x\mathrm{d}x=\frac{e^{-x}}2(\sin x-\cos x)+C\end{aligned}\right.
+$$<hr><p>Fejér公式（比黎曼-勒贝格引理更有内涵的结果）：设$g(x)$是$\mathbb{R}$上的以$T$为周期的有界可测函数，$\{\lambda_n\}$是实数列，则对$\forall f\in L(\mathbb{R})$，有</p>$$
+\lim_{n\to\infty}\int_{\mathbb{R}}f(x)g(nx+\lambda_n)\mathrm{d}x=\left(\frac1T\int^T_0g(x)\mathrm{d}x\right)\left(\int_{\mathbb{R}}f(x)\mathrm{d}x\right)
+$$<h2 id=分部积分表格法>分部积分表格法</h2><p>尤其针对$\displaystyle{\int x^me^{nx}\mathrm{d}x}$甚至是$\displaystyle{\int \sum^m_{i=1}k_ix^ie^x\mathrm{d}x}$这样类型的积分，用表格法是最快也最不容易出错的。所谓表格法，实际上是分部积分的推广。</p><p>一般而言，对于$\displaystyle{\int fg^{(n)}\mathrm{d}x}$这样的积分，做表：</p><table><thead><tr><th></th><th style=text-align:center>第$1$列 $(+)$</th><th style=text-align:center>第$2$列 $(-)$</th><th style=text-align:center>第$3$列 $(+)$</th><th style=text-align:center>第$4$列 $(-)$</th><th style=text-align:center>$\boldsymbol{\cdots}$</th><th style=text-align:center>第$n+1$列 $(-1)^n$</th></tr></thead><tbody><tr><td><b>第一行</b></td><td style=text-align:center>$f$</td><td style=text-align:center>$f'$</td><td style=text-align:center>$f''$</td><td style=text-align:center>$f^{(3)}$</td><td style=text-align:center>$\cdots$</td><td style=text-align:center>$f^{(n)}$</td></tr><tr><td><b>第二行</b></td><td style=text-align:center>$g^{(n)}$</td><td style=text-align:center>$g^{(n-1)}$</td><td style=text-align:center>$g^{(n-2)}$</td><td style=text-align:center>$g^{(n-3)}$</td><td style=text-align:center>$\cdots$</td><td style=text-align:center>$g$</td></tr></tbody></table><p>第一行从左到右依次求导，第二行从左到右依次积分，直到第一行中出现$0$或原本函数的形式时为止。</p><p>𝕬：所谓表格法本质上还是多次运用的分部积分法，故以前$5$列为例，有：</p>$$
+\int fg^{(6)}\mathrm{d}x=fg^{(5)}-f'g^{(4)}+f''g^{(3)}-\int f^{(3)}\mathrm{d}\,g''
+$$<p>当出现$0$时，只需要逐个将第一行第$k$列的式子与第二行第$k+1$列的式子相乘（$k\geqslant1$），如果是$k$为奇数则不做进一步处理，如果$k$为偶数则对式子再乘$-1$，最后将所有经过这样相乘得到的式子加起来即得到积分结果。</p><p>只要被积式是乘积的形式，且一个容易积分、另一个容易求导，就可以利用表各法快速解决，例如：</p><img src=/images/考研数学（微积分）（上）/表格法.jpg alt=表格法 style=zoom:28%><p>但有些时候表格法可能不如其他方法那样便捷，需要权衡后再使用，毕竟方法是死板的，选择是多样的。</p><p>𝕭：当表格第一行某列出现原本函数（第$1$列）的形式时，可以得到循环积分，类似上文的处理方法。</p><p>以积分$\displaystyle{\int\sin x\,e^{2x}}\mathrm{d}x$为例，绘制表格并做相应的积分和微分：</p><table><thead><tr><th></th><th style=text-align:center>第$1$列</th><th style=text-align:center>第$2$列</th><th style=text-align:center>第$3$列</th><th style=text-align:center>第$4$列</th></tr></thead><tbody><tr><td><b>第一行</b></td><td style=text-align:center>$\sin x$</td><td style=text-align:center>$\cos x$</td><td style=text-align:center>$-\sin x$</td><td style=text-align:center>$-\cos x$</td></tr><tr><td><b>第二行</b></td><td style=text-align:center>$e^{2x}$</td><td style=text-align:center>$\frac12e^{2x}$</td><td style=text-align:center>$\frac14e^{2x}$</td><td style=text-align:center>$\frac18e^{2x}$</td></tr></tbody></table><p>可以观察到第一行中第$3$列的形式和第$1$列大体相同，只不过相差了一个负号，将积分结果完整写出来就是：</p>$$
+\begin{align}\boxed{\int\sin x\,e^{2x}\mathrm{d}x}&=\frac12e^{2x}\sin x-\frac14e^{2x}\cos x-\int\sin x\,\mathrm{d}\left(\frac18e^{2x}\right)\\&=\frac12e^{2x}\sin x-\frac14e^{2x}\cos x-\boxed{\frac14\int\sin x\,e^{2x}\mathrm{d}x}\end{align}
+$$<p>可以看出这就是一个循环积分，整理后即得</p>$$
+\int\sin x\,e^{2x}\mathrm{d}x=\frac15e^{2x}(2\sin x-\cos x)+C
+$$<h2 id=区间再现>区间再现</h2><p>区间再现值得专门指出，这是一个有极大作用的积分技巧。</p><p>尽管<b>区间再现实质上不过是原理简单的换元法</b>（令$x=a+b-t$即可），特点时换元前后积分限不变，但在有些情况下却能极大简少积分的符号计算量：对$(a,b)$上的可积函数$f(x)$，利用换元法可证明有</p>$$
+\int^b_af(t)\mathrm{d}t=\int^b_af(a+b-t)\mathrm{d}t
+$$<p>下述推论十分常用：</p>$$
+\int^b_af(t)\mathrm{d}t=\frac{1}{2}\int^b_a\big[f(t)+f(a+b-t)\big]\mathrm{d}t
+$$<p>如果式子能通过区间变换得到右部含原式的等式，譬如式子含逻辑斯蒂函数的，即形如$\displaystyle{\int_{\mathbb{R}}\frac{f(x)}{1+e^x}}\mathrm{d}x$的，或者类似$\displaystyle{\int^{b}_axf(\sin x)\mathrm{d}x}$的，利用区间再现均可以极大减少计算量。</p><details><summary><font color=#0099ff>展开/收起5个运用区间再现简化积分的典型例子</font></summary><p>下给出题目。</p><ul><li><p>例题 1：求积分$\displaystyle{\int^{\frac{\pi}{2}}_{-\frac{\pi}{2}}\frac{\sin^2t}{1+e^t}\mathrm{d}t}$；</p><p>根据区间再现公式，</p>$$
+\int^{\frac{\pi}{2}}_{-\frac{\pi}{2}}\frac{\sin^2t}{1+e^t}\mathrm{d}t=\int^{\frac{\pi}{2}}_{-\frac{\pi}{2}}\frac{\sin^2(-t)}{1+e^{-t}}\mathrm{d}t=\int^{\frac{\pi}{2}}_{-\frac{\pi}{2}}\frac{e^t\cdot\sin^2t}{1+e^t}\mathrm{d}t
+$$<p>因此，</p>$$
+\begin{align}
+\int^{\frac{\pi}{2}}_{-\frac{\pi}{2}}\frac{\sin^2t}{1+e^t}\mathrm{d}t&=\frac{1}{2}\int^{\frac{\pi}{2}}_{-\frac{\pi}{2}}\left(\frac{\sin^2t}{1+e^t}+\frac{e^t\cdot\sin^2t}{1+e^t}\right)\mathrm{d}t\\
+&=\frac{1}{2}\int^{\frac{\pi}{2}}_{-\frac{\pi}{2}}\sin^2t\mathrm{d}t\\
+&=\frac{\pi}{4}
+\end{align}
+$$</li><li><p>例题 2：求积分$I=\displaystyle\int^{\pi}_0\frac{x\vert\sin x\cos x\vert}{1+\cos^2x}\mathrm{d}x$；</p><p>根据区间再现公式，</p>$$
+\begin{align}I&=\int^{\pi}_0\frac{(\pi-x)\vert\sin(\pi-x)\cos(\pi-x)\vert}{1+\cos^2(\pi-x)}\mathrm{d}x\\&=\int^{\pi}_0\frac{(\pi-x)\vert\sin x\cos x\vert}{1+\cos^2x}\mathrm{d}x\\&=\pi\cdot\int^{\pi}_0\frac{\vert\sin x\cos x\vert}{1+\cos^2x}\mathrm{d}x-I\end{align}
+$$<p>即$\displaystyle{I=\frac{\pi}{2}\cdot\int^{\pi}_0\frac{\vert\sin x\cos x\vert}{1+\cos^2x}\mathrm{d}x}$，因此，</p>$$
+\begin{align}
+I&=\frac{\pi}{2}\int^{\pi}_0\frac{\vert\sin x\cos x\vert}{1+\cos^2x}\mathrm{d}x\\
+&=\frac{\pi}{2}\int^{\frac{\pi}{2}}_{-\frac{\pi}{2}}\frac{\vert\sin x\cos x\vert}{1+\sin^2x}\mathrm{d}x\\
+&=\pi\int^{\frac{\pi}{2}}_0\frac{\sin x}{1+\sin^2x}\mathrm{d}\sin x\\
+&=\frac{\pi}{2}\ln(1+x^2)\Big\vert^1_0\\
+&=\frac{\pi}{2}\ln2\end{align}
+$$<p>注：上式的第一步若直接将绝对值号展开并用“万能公式”求解，步骤会比较麻烦，尽管也能得到相同的结果。</p></li><li><p>例题 3：求积分$I=\displaystyle\int^{\frac{\pi}{4}}_0\ln(1+\tan x)\mathrm{d}x$；</p><p>根据区间再现公式，</p>$$
+\begin{align}I&=\int^{\frac{\pi}{4}}_0\ln\big(1+\tan(\frac{\pi}{4}-x)\big)\mathrm{d}x\\&=\int^{\frac{\pi}{4}}_0\ln\left(1+\frac{1-\tan x}{1+1\times\tan x}\right)\mathrm{d}x\\&=\int^{\frac{\pi}{4}}_0\ln\frac{2}{1+\tan x}\\&=\frac{\pi}{4}\ln 2-I\end{align}
+$$<p>因此$I=\frac{\pi}{8}\ln 2$。</p></li><li><p>例题4：求积分$I=\displaystyle{\int^{\frac\pi2}_0\frac{\sin^px}{\sin^px+\cos^px}}\mathrm{d}x$；</p><p>记原式为$I_1$，根据区间再现公式（或者说换元$x=\frac{\pi}{2}-t$，二者是等价的），</p>$$
+I_1=\int^{\frac\pi2}_0\frac{\cos^px}{\cos^px+\sin^px}\mathrm{d}x\overset{\text{def}}{=}I_2
+$$<p>因此$I_1=I_2$且$I_1+I_2=\displaystyle{\int^{\frac\pi2}_0\mathrm{d}x}=\frac{\pi}{2}$，故</p>$$
+\int^{\frac\pi2}_0\frac{\sin^px}{\sin^px+\cos^px}\mathrm{d}x=\int^{\frac\pi2}_0\frac{\cos^px}{\sin^px+\cos^px}\mathrm{d}x=\frac\pi4
+$$<p>完全类似地，可以积分$\displaystyle{\int^{\frac\pi2}_0\frac1{1+\tan^px}\mathrm{d}x}$，其中$p>0$。</p></li><li><p>例题5：求积分$\displaystyle{I=\int^1_0\frac{x}{\sqrt{x(1-x)}}\mathrm{d}x}$；</p><p>根据区间再现公式，</p>$$
+\begin{align}
+I&=\frac12\left[\int^1_0\left(\frac{x}{\sqrt{x(1-x)}}+\frac{1-x}{\sqrt{x(1-x)}}\right)\mathrm{d}x\right]\\
+&=\int^1_0\frac1{\sqrt{1-x}}\mathrm{d}\sqrt{x}\\
+&\xlongequal{x=t^2}\int^1_0\frac{1}{\sqrt{1-t^2}}\mathrm{d}t\\
+&=\arcsin x\big|^1_0\\
+&=\frac{\pi}2
+\end{align}
+$$</li></ul></details><p><a href=https://zhuanlan.zhihu.com/p/191592316><font color=#EEAEEE>对区间再现的一丢丢总结</font></a></p><p>特别地，当定积分是形如$\displaystyle\int^b_axf(x)\mathrm{d}x$的，若其中$f(x)$关于$x=\frac{a+b}2$对称，则</p>$$
+\int^b_axf(x)\mathrm{d}x=\frac{a+b}2\int^b_af(x)\mathrm{d}x
+$$<p>从而可以轻易地知道$\displaystyle\int^b_ax\cos x\mathrm{d}x=\pi\int^b_a\cos x\mathrm{d}x=0$。</p><h2 id=有理分式积分>有理分式积分</h2><h3 id=通用算法-分式分解>通用算法 (分式分解)</h3><p>这里只考虑真分式，因为当分式不是真分式时，总能通过带余除法化为多项式和真分式的和。</p><p>根据代数知识，有理分式$\frac{P(x)}{Q(x)}$的分母$Q(x)$在实数范围内一定可以被分解为$\prod\limits^{\lambda}_{i=1}(x-a_{i})^{\lambda_i}\prod\limits^{\mu}_{j=1}(x^2+p_{j}x+q_j)^{\mu_j}$，因此有理分式也一定可以被分解，方便起见不妨假设$Q(x)$的非零最高次项的系数为$1$，必有$\frac{P(x)}{Q(x)}=\sum\frac{A_{ij}}{(x-a_i)^j}+\sum\frac{B_{kl}x+C_{kl}}{(x^2+p_ix+q_i)^j}$，其中$\{A_{ij}, B_{kl}, C_{kl}\}$为待定系数，这时利用该等式可解出这些待定系数：右边通分再相加，在分母化为$Q(x)$时分子应该等于$P(x)$，对比系数解方程即可。<b>但是在实际的解待定系数过程中有比理论上更简便的办法，令$x$等于$Q(x)$的某个根$x_0$，则$P(x_0)$是一个可计算的数，而等式另一端凡是含有$(x-x_0)$因子的项全为$0$，由此可以快速确定一批系数；同时，可以对方程两边求导，再对求导后的新方程重复上述步骤，也能快速确定一批系数。</b></p><p>解出待定系数后，有理分式被化为一系列确定系数的分式和，分母多项式的非零次数最高为$2$，形式上只有$\frac{R}{(x-a)^k}$与$\frac{Tx+J}{(x^2+px+q)^k}$，接下来讨论如何对他们积分。</p><ul><li><p>对于$\frac{R}{(x-1)^k}$，容易知道：</p>$$
+\int\frac{\mathrm{d}x}{(x-a)^k}=\left\{\begin{aligned}
+&\ln\vert x-a\vert+C,& &k=1\\
+&\frac{1}{(1-k)(x-a)^{k-1}},& &k>1
+\end{aligned}\right.
+$$</li><li><p>对$\frac{Tx+J}{(x^2+px+q)^k}$的积分相对麻烦，不宜直接计算积分，但可以导出递推式：</p>$$
+\int\frac{Tx+J}{(x^2+px+q)^k}\xlongequal[]{t=x+\frac{p}{2}}\int\frac{Tt+J'}{(t^2+r^2)^k}\mathrm{d}t=T\int\frac{t}{(t^2+r^2)^k}\mathrm{d}t+J'\int\frac{\mathrm{d}t}{(t^2+r^2)^k}
+$$<p>毋需多言，其中$r^2=q-\frac{p^2}{4}$、$J'=J-\frac{p}{2}T$。</p><ul><li><p>其中，等式右边的第一个积分可以直接计算：</p>$$
+\int\frac{t}{(t^2+r^2)^k}\mathrm{d}t=\left\{\begin{aligned}&\frac{1}{2}\ln\vert t^2+r^2\vert+C,& &k=1\\&\frac{1}{2(1-k)(t^2+r^2)^{k-1}},& &k>1\end{aligned}\right.
+$$</li><li><p>等式右边的第二个积分则需要利用分部积分法递推解决。</p><p>记第二个积分为$I_k$，容易知道$k=1$时$I_k=\frac{1}{r}\arctan\frac{t}{r}+C$；当$k>1$，不便直接计算，递推求解：</p>$$
+\begin{align}
+I_k&=\frac{1}{r^2}\int\frac{(t^2+r^2)-t^2}{(t^2+r^2)^k}\mathrm{d}t\\
+&=\frac{1}{r^2}I_{k-1}-\frac{1}{r^2}\int\frac{t^2}{(t^2+r^2)^k}\mathrm{d}t\\
+&=\frac{1}{r^2}I_{k-1}+\frac{1}{2r^2(k-1)}\int t\mathrm{d}\frac{1}{(t^2+r^2)^{k-1}}\\
+&=\frac{1}{r^2}I_{k-1}+\frac{1}{2r^2(k-1)}\left[\frac{t}{(t^2+r^2)^{k-1}}-I_{k-1}\right]
+\end{align}
+$$<p>综上所述，在$k>1$时，有</p>$$
+I_k=\frac{t}{2r^2(k-1)(t^2+r^2)^{k-1}}+\frac{2k-3}{2r^2(k-1)}I_{k-1}
+$$</li></ul></li></ul><hr><p><b>如何快速确定待定系数？</b></p><p>以上是有理分式积分在理论上的通用算法，而在实际操作中有更方便的手段。</p><p>在设定好待定系数后、需要求解待定系数时，通用算法所给出的求解方法是将含有待定系数的式子通分相加，令其与原被积式相等以得到一个方程，通过比对方程两端含$x$各项的系数来确定待定系数——这显然是一个繁琐的过程。例如，针对有理分式$\frac{2x^2+2x+13}{(x-2)(x^2+1)^2}$作分解，按通用算法给出的步骤，设一系列待定系数使得</p>$$
+\frac{2x^2+2x+13}{(x-1)(x-2)^2(x^2+1)^2}=\frac{A}{x-1}+\frac{B}{x-2}+\frac{C}{(x-2)^2}+\frac{Dx+E}{x^2+1}+\frac{Fx+G}{(x^2+1)^2}
+$$<p>将右边式子通分相加，令其等于左边，则有方程</p>$$
+\begin{align}
+2x^2+2x+13 &= A(x-2)^2(x^2+1)^2 \\
+&\quad + B(x-1)(x-2)(x^2+1)^2 \\
+&\quad + C(x-1)(x^2+1)^2 \\
+&\quad + (Dx+E)(x-1)(x-2)^2(x^2+1) \\
+&\quad + (Fx+G)(x-1)(x-2)^2
+\end{align}
+$$<p>如果要通过比对上式中$x^n$的系数来一次性确定待定系数，显然是一个繁复的大工程。幸运的是我们可以逐个讨论，避免对整个方程的计算。待定系数根据其对应项的分母多项式主要可以被分为三种情况，具体问题具体分析。（注：<u>其实分为两种情况即可，因为第一种是第二种的特例；而且总的来说，这三种情况实际上都是同一个思想，这里只是为了方便说明、循序渐进才分为了三种情况。</u>）</p><p>第一种情况，针对分母为一次项的部分$\frac{A}{x-1}$，可以设</p>$$
+\frac{2x^2+2x+13}{(x-1)(x-2)^2(x^2+1)^2}=\frac{A}{x-1}+F_1(x)
+$$<p>两边乘$(x-1)$，则有</p>$$
+\frac{2x^2+2x+13}{(x-2)^2(x^2+1)^2}=A+(x-1)F_1(x)
+$$<p>代入$x=1$，此时无论$F_1(x)$究竟是什么样的函数都无关紧要了，因为必然有$(x-1)F_1(x)\Big|_{x=1}=0$，从而易见$A=\frac{2x^2+2x+13}{(x-2)^2(x^2+1)^2}\Big|_{x=1}=\frac{17}4$。</p><p>第二种情况，针对分母为一次项及其幂的部分$\frac{B}{x-2}+\frac{C}{(x-2)^2}$，同理可设</p>$$
+\frac{2x^2+2x+13}{(x-1)(x-2)^2(x^2+1)^2}=\frac{B}{x-2}+\frac{C}{(x-2)^2}+F_2(x)
+$$<p>两边乘$(x-2)^2$，则有</p>$$
+\frac{2x^2+2x+13}{(x-1)(x^2+1)^2}=B(x-2)+C+(x-2)^2F_2(x)
+$$<p>代入$x=2$解得$C=1$；但这样是无法确定$B$的，所以进一步地在等式两边对$x$求导，其中等号左边的式子由于分母多项式乘积的形式，简便起见可以写为对数再求导，得</p>$$
+\textstyle\frac{2x^2+2x+13}{(x-1)(x^2+1)^2}\left(\frac{4x+2}{2x^2+2x+13}-\frac1{x-1}-\frac{4x}{x^2+1}\right)=B+(x-2)\big[2F_2(x)+(x-1)F_2'(x)\big]
+$$<p>再代入$x=2$即可解的$B=-\frac{11}5$。</p><p>第三种情况，针对分母为二次项及其幂的部分$\frac{Dx+E}{x^2+1}+\frac{Fx+G}{(x^2+1)^2}$，同理可设</p>$$
+\frac{2x^2+2x+13}{(x-1)(x-2)^2(x^2+1)^2}=\frac{Dx+E}{x^2+1}+\frac{Fx+G}{(x^2+1)^2}+F_3(x)
+$$<p>两边同乘$(x^2+1)^2$，则有</p>$$
+\frac{2x^2+2x+13}{(x-1)(x-2)^2}=(x^2+1)(Dx+E)+Fx+G+(x^2+1)^22F_3(x)
+$$<p>代入$x=i$解得$\frac12-\frac32i=Fi+G$，从而$F=-\frac32,G=\frac12$。接下来，或对$x$求导再代入$x=i$，或将先前求出的待定系数代入式子，都能解出$D,E$，可以得到$D=-\frac{41}{20},E=-\frac{17}{20}$。</p><p>最后，综上所述有</p>$$
+\textstyle\frac{2x^2+2x+13}{(x-1)(x-2)^2(x^2+1)^2}=\frac{17}{4(x-1)}-\frac{11}{5(x-2)}+\frac1{(x-2)^2}+\frac{-\frac{41}{20}x-\frac{17}{20}}{x^2+1}+\frac{-\frac32x+\frac12}{(x^2+1)^2}
+$$<p>在内地互联网上有的人将这一简便算法称为“留数法”，在我看来这是很不恰当的说法，因为这和留数与留数定理没有任何关系，不过是一些配凑的技巧。</p><hr><p><b>如何避免繁琐的递推积分？</b></p><p>在确定好待定系数后，唯一还比较繁琐步骤的就是计算积分$\displaystyle\int\frac{Tt+J'}{(t^2+r^2)^k}\mathrm{d}t$，其中$T,J'$均为已知常数。除了递推计算外，还可以设</p>$$
+f(r)=\int\frac{Tt+J'}{t^2+r^2}\mathrm{d}t
+$$<p>对等式两边求导，有$\displaystyle\frac{\mathrm{d}}{\mathrm{d}r}f(r)=-2r\int\frac{Tt+J'}{(t^2+r^2)^2}\mathrm{d}t$，将$r$移至左边，得</p>$$
+-\frac1{2r}f'(r)=\int\frac{Tt+J'}{(t^2+r^2)^2}\mathrm{d}t
+$$<p>再对新等式两边求导，有$\displaystyle\frac1{2r^2}f'(r)-\frac1{2r}f''(r)=-4r\int\frac{Tt+J'}{(t^2+r^2)^3}\mathrm{d}t$，将$r$移至左边，得</p>$$
+-\frac1{8r^3}f'(r)+\frac1{8r^2}f''(r)=\int\frac{Tt+J'}{(t^2+r^2)^3}\mathrm{d}t
+$$<p>不断重复这个步骤，直到最新得到的等式右边分母的二次式幂等于$k$。注意到此时等号右边的式子恰为$\displaystyle\int\frac{Tt+J'}{(t^2+r^2)^k}\mathrm{d}t$，这样就将积分问题转化为了求导问题，一定程度上减小了计算量。</p><h3 id=倒代换法>倒代换法</h3><p>对于分母次数很高而分子次数很低的有理分式积分，取合适的倒代换可以极大简化计算量。虽然究其根本也不过是换元法，但这一类换元法对有理积分十分重要，就和所谓区间再现一样，在此特别强调。</p><hr><p>$t=\frac1x$是常见的倒代换，例如要计算$\displaystyle{I=\int\frac1{x^8(1+x^2)}\mathrm{d}x}$，用通用算法当然是能解的，但过于麻烦。观察到分母次数很高但分子却“空空如也”，令$t=\frac1x$作倒代换，有</p>$$
+I=\int\frac1{x^8(1+x^2)}\mathrm{d}x=-\int\frac{t^8}{t^2(1+\frac1{t^2})}\mathrm{d}x=-\int\frac{t^8}{1+t^2}\mathrm{d}t
+$$<p>接下来化简，可以考虑多项式除法或因式分解，最终有</p>$$
+\frac{t^8}{1+t^2}=t^6-t^4+t^2-1+\frac1{1+t^2}
+$$<p>对式子两端积分，得$-I=\frac{t^7}7-\frac{t^5}5+\frac{t^3}3-t+\arctan t+C$，最后代回$x=\frac1t$，得</p>$$
+I=-\frac1{7x^7}+\frac1{5x^5}-\frac1{3x^3}+\frac1x+\arctan\frac1x+C
+$$<hr><p>上一个例子里通过倒换换元将分母次数降低、分母次数升高，然后研究换元后的积分——毕竟分母次数低而分子次数高的有理积分，比分母次数高而分子次数低的有理积分要好处理的多。</p><p>但上例中只讨论了换元后的积分就解出了原积分，有时仅仅这样做是不够的，还需要将换元后的式子与原积分相联系，这需要一定的洞察力。例如设$a>0$，计算$\displaystyle{I=\int^{+\infty}_0\frac{\mathrm{d}x}{(1+x^2)(1+x^a)}}$，由于分母较为棘手、分子次数为零，故令$t=\frac1x$作倒代换，有</p>$$
+I=\int^{+\infty}_0\frac{\frac1{t^2}\mathrm{d}t}{\frac{1+t^2}{t^2}\cdot\frac{1+t^a}{t^a}}=\int^{+\infty}_0\frac{t^a\mathrm{d}t}{(1+t^2)(1+t^a)}
+$$<p>用$x$替换上式中的$t$（毕竟这是定积分），有$\displaystyle{I=\int^{+\infty}_0\frac{\mathrm{d}x}{(1+x^2)(1+x^a)}=\int^{+\infty}_0\frac{x^a\mathrm{d}x}{(1+x^2)(1+x^a)}}$，即</p>$$
+I=\frac12(I+I)=\frac12\int^{+\infty}_0\frac{(1+x^a)}{(1+x^2)(1+x^a)}\mathrm{d}x=\frac12\int^{+\infty}_0\frac{\mathrm{d}x}{1+x^2}=\frac{\pi}4
+$$<p>仔细观察，这里的过程是不是和区间再现很相似呢？事实上对原积分做换元$x=\tan t$后的确是可以利用区间再现的，而且计算过程与倒换法大同小异。</p><hr><p>只有合适的换元才能达到简化积分的目的，$t=\frac1x$只是较为常用的一种，但并不是在任何情况下都最合适的。例如$\displaystyle{\int\frac{\mathrm{d}x}{(x^2-1)^n}}$，如果依然换元$t=\frac1x$则还是无从下手，这里应该考虑$x+1=\frac1t$或$x-1=\frac1t$。</p><h2 id=简单无理式的积分>简单无理式的积分</h2><h3 id=基本无理式积分表>基本无理式积分表</h3><p>先给出简单无理式积分表，用于计算一些不能明显凑微分的无理式积分。</p><p>以下公式中如果没有特别说明，都认为$a>0$：</p><ul><li>$\displaystyle{\int\frac1{a^2+x^2}\mathrm{d}x=\frac1a\arctan\frac{x}a+C}$</li><li>$\displaystyle{\int\frac1{a^2-x^2}\mathrm{d}x}=\frac1a\mathrm{arctanh}\left(\frac{x}a\right)+C=\frac1{2a}\ln\left|\frac{a+x}{a-x}\right|+C$</li></ul><hr><ul><li><p>$\color{#836FFF}{\displaystyle{\int\frac1{\sqrt{x^2+a^2}}\mathrm{d}x=\ln\big(x+\sqrt{x^2+a^2}\big)+C}}$</p></li><li><p>$\displaystyle{\int\frac1{\sqrt{a^2-x^2}}\mathrm{d}x=\arcsin\frac{x}a+C}$</p></li><li><p>$\color{#836FFF}{\displaystyle{\int\frac1{\sqrt{x^2-a^2}}\mathrm{d}x=\ln\big|x+\sqrt{x^2-a^2}\big|+C}}$</p></li></ul><hr><ul><li><p>$\displaystyle{\int\sqrt{a^2+x^2}\mathrm{d}x=\frac12\left(x\sqrt{a^2+x^2}+a^2\ln(x+\sqrt{a^2+x^2})\right)}+C$</p></li><li><p>$\color{#836FFF}{\displaystyle{\int\sqrt{a^2-x^2}\,\mathrm{d}x=\frac12\left(x\sqrt{a^2-x^2}+a^2\arcsin\frac{x}a\right)+C}}$</p></li><li><p>$\color{#836FFF}{\displaystyle{\int\sqrt{x^2-a^2}\,\mathrm{d}x=\frac12\left(x\sqrt{x^2-a^2}-a^2\ln\left(x+\sqrt{x^2-a^2}\right)\right)+C}}$</p></li></ul><hr><p>换元 $t=a\sinh x$ 或 $t=a\sin x$</p><ul><li>$\displaystyle{\int x^2\sqrt{a^2+x^2}\mathrm{d}x=\frac18\left(x(2x^2+a^2)\sqrt{a^2+x^2}-a^4\mathrm{arcsinh}\left(\frac{x}a\right)\right)+C}$</li><li>$\displaystyle{\int x^2\sqrt{a^2-x^2}\mathrm{d}x=\frac18\left(x(2x^2-a^2)\sqrt{a^2-x^2}+a^4\arcsin\left(\frac{x}a\right)\right)+C}$</li></ul><p>虽然这两个不定积分从形式上看较为复杂，<font color=#836FFF>但他们的定积分计算在换元后却十分简单</font></p><hr><p>称形如$x^m(a+bx^n)^p$的式子为二项微式（其中$m,n,p\in\mathbb{Q},\ a,b\in\mathbb{R}$），二项微式积分$\displaystyle\int x^m(a+bx^n)^p\mathrm{d}x$当且仅当在以下三种情况下可以化为有理函数积分情形：</p><ul><li>$p\in\mathbb{Z}$，此时记$N$为有理数$m,n$的公分母，则作换元$x=t^N$即可</li><li>$\frac{m+1}n\in\mathbb{Z}$，此时记$N$为有理数$p$的分母，则作换元$a+bx^n=t^N$即可</li><li>$\left(\frac{m+1}n+p\right)\in\mathbb{Z}$，此时记$N$为有理数$p$的分母，则作换元$ax^{-n}+b=t^N$即可</li></ul><h3 id=简单无理式积分技巧举例>简单无理式积分技巧举例</h3><p>积分是需要灵活、变通处理的，对于含无理式的积分尤甚。比如$\displaystyle{\int\frac1{x\sqrt{x^2-1}}\mathrm{d}x}$用换元法当然能解决，但步骤未免繁琐了；如果能巧妙地注意到<font color=#B03060>$\displaystyle{\int\frac1{x\sqrt{x^2-1}}\mathrm{d}x=-\int\frac1{\sqrt{1-\frac1{x^2}}}\mathrm{d}\frac1x=-\arcsin\frac1x+C}$</font>，则可以轻松化解。</p><ol><li><p>例如定积分$\displaystyle{\int^1_0\frac{x}{(2-x^2)\sqrt{1-x^2}}\mathrm{d}x}$至少有两种解法，其一是作换元$t=\sqrt{1-x^2}$，有：</p>$$
+\int^1_0\frac{x}{(2-x^2)\sqrt{1-x^2}}\mathrm{d}x=\int^0_1\frac{\sqrt{1-t^2}\cdot\frac12\frac{-2t}{\sqrt{1-t^2}}}{(1+t^2)t}\mathrm{d}t=\int^1_0\frac{\mathrm{d}t}{1+t^2}=\frac{\pi}4
+$$<p>其二是作换元$x=\sin t$，有：</p>$$
+\int^1_0\frac{x}{(2-x^2)\sqrt{1-x^2}}\mathrm{d}x=\int^{\frac{\pi}2}_0\frac{\sin t\cos t}{(2-\sin^2t)\cos t}\mathrm{d}t=-\int^{\frac{\pi}2}_0\frac{\mathrm{d}\cos t}{1+\cos^2t}=\frac{\pi}4
+$$<p>再者如$\displaystyle{\int\frac1{\sqrt{1+x^2}}}\mathrm{d}x$，同样地至少有两种解法，其一是作三角换元$x=\tan t$：</p>$$
+\begin{align}\int\frac1{\sqrt{1+x^2}}\mathrm{d}x=\int\sec t\mathrm{d}t&=\ln\big|\sec(\arctan x)+\tan(\arctan x)\big|+C\\&=\ln(x+\sqrt{1+x^2})+C\end{align}
+$$<p>其二是作换元$x=\sinh t$：</p>$$
+\int\frac1{\sqrt{1+x^2}}\mathrm{d}x=\int\frac{\cosh t}{\cosh t}\mathrm{d}t=\mathrm{arcsinh\,}x+C
+$$</li><li><p>对于积分$\displaystyle{\int^1_0\sqrt{1-x^2}\mathrm{d}x}$的计算还可以联系到平面几何，其一是令$y=\sqrt{1-x^2}\Leftrightarrow x^2+y^2=1,\ x,y\geqslant0$，则易见该积分的意义是求四分之一单位圆的面积，因此结果易知为$\frac{\pi}4$；简单推广一下，有：</p>$$
+\int^a_0\sqrt{a^2-x^2}\mathrm{d}x=\frac{\pi}4a^2
+$$<p>其二是作换元$x=\sin t$，过程不再赘述；联系到第一种方法，这里进行三角代换是有意义的，如此操作也能直接导出其原函数。</p>$$
+\color{#8A2BE2}{\boldsymbol{\int\sqrt{1-x^2}\mathrm{d}x=\frac12\big(x\sqrt{1-x^2}+\arcsin x\big)+C}}
+$$<p></p>$$
+\color{#8A2BE2}{\boldsymbol{\int\sqrt{x^2-1}\mathrm{d}x=\frac12\big(x\sqrt{x^2-1}-\ln(\sqrt{x^2-1}+x)\big)+C}}
+$$$$
+\begin{align}\int\sqrt{1+x^2}\mathrm{d}x&=\frac12\big(x\sqrt{1+x^2}+\mathrm{arcsinh}\ x\big)+C\\&=\frac12\big(x\sqrt{1+x^2}+\ln(\sqrt{1+x^2}+x)\big)+C\end{align}
+$$<p>不定积分$\displaystyle{\int\sqrt{1-x^2}\mathrm{d}x}$较为重要，如果能熟记当然是最好。</p><p>在几何上作平移（如$2ax-x^2=a^2-(x-a)^2$）还可以类似得到：</p>$$
+\int^a_0\sqrt{2ax-x^2}\mathrm{d}x=\frac{\pi}4a^2
+$$$$
+\int^{2a}_0\sqrt{2ax-x^2}\mathrm{d}x=\frac{\pi}2a^2
+$$</li><li><p>对于积分$\displaystyle{\int\frac{\mathrm{d}x}{\sqrt{1-x^2}}}$（我们当然都知道结论$\arcsin'x=\frac1{\sqrt{1-x^2}}$，这里是该结论的推导过程），除了同样按平面几何上意义求解（参考卓里奇数学分析第一卷第317页，该不定积分对三角函数推导比较重要），还可以通过“拆补”的巧妙构造来计算：</p>$$
+\begin{align}\int\frac{\mathrm{d}x}{\sqrt{1-x^2}}&=\int\frac{1-x^2+x^2}{\sqrt{1-x^2}}\mathrm{d}x\\&=\int\sqrt{1-x^2}\mathrm{d}x-\frac12\int\frac{x\mathrm{d}(1-x^2)}{\sqrt{1-x^2}}\\&=x\sqrt{1-x^2}+\arcsin x-x\sqrt{1-x^2}+C\\&=\arcsin x+C\end{align}
+$$<p>所以$\arcsin x$的一种基本定义就是通过不定积分$\displaystyle{\int\frac{\mathrm{d}x}{\sqrt{1-x^2}}}$。</p></li><li><p>巧妙的凑微分有时也是必要的。例如求积分$\displaystyle{\int\frac{\mathrm{d}x}{x\sqrt{1-x^2}}}$，除了直接换元还可以凑微分。凑微分的做法是：</p>$$
+\begin{align}
+\int\frac{\mathrm{d}x}{x\sqrt{1-x^2}}&=\int\frac{\mathrm{d}x}{x^2\sqrt{\frac1{x^2}-1}}\\
+&\xlongequal{t=\frac1x}\int\frac{\mathrm{d}t}{\sqrt{t^2-1}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ^\ast\text{凑微分}\\
+&\xlongequal{t=\sec z}\int\frac{\tan z\sec z}{\sqrt{\sec^2z-1}}\mathrm{d}z\\
+&=\int\sec z\mathrm{d}z\\
+&=\int\frac{\cos z}{\cos^2 z}\mathrm{d}z\\
+&=\int\left(\frac1{1+\sin z}+\frac1{1-\sin z}\right)\mathrm{d}\sin z\\
+&=\frac12\ln\left|\frac{1+\sin z}{1-\sin z}\right|+C\\
+&=-\ln\left|\frac1x+\sqrt{\frac1{x^2}-1}\right|+C
+\end{align}
+$$</li><li><p>对于根号下的式子，除了三角代换，配方也是一个妙招。例如计算定积分$\displaystyle{\int^0_{-1}\sqrt{-x(1+x)}\mathrm{d}x}$，类似处理有理分式积分中分母的方法：</p></li></ol>$$
+\begin{align}
+\int^0_{-1}\sqrt{-x(1+x)}\mathrm{d}x&=\int^0_{-1}\sqrt{\frac14-\left(x+\frac12\right)^2}\mathrm{d}x\\
+&\xlongequal[x=t-\frac12]{t=x+\frac12}\int^{\frac12}_{-\frac12}\sqrt{\frac14-t^2}\mathrm{d}x\ \ \ \ ^\ast\text{可以直接积分，也可以联系到几何}\\
+&=\frac{\pi\left(\frac12\right)^2}{2}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \,\text{但通过圆面积来计算无疑是最快的}\\
+&=\frac{\pi}8
+\end{align}
+$$<h3 id=特殊无理式积分>特殊无理式积分</h3><ul><li><p>对形如$\displaystyle{\int R\left(x,\sqrt[n]{\frac{ax+b}{cx+d}}\right)}\mathrm{d}x$的积分，首先可以尝试做作换元$\displaystyle{t=\sqrt[n]{\frac{ax+b}{cx+d}}}$。</p><p>以积分$\displaystyle{\int\frac{\mathrm{d}x}{(1+x)\sqrt{2+x-x^2}}}$为例，注意到：</p>$$
+\frac1{(1+x)\sqrt{2+x-x^2}}=\frac1{(1+x)^2}\sqrt{\frac{1+x}{2-x}}
+$$<p>因此，根据上文给出的方法，令$t=\sqrt{\frac{1+x}{2-x}}$，有$x=\frac{2t^2-1}{1+t^2}$、$\mathrm{d}x=\frac{6t}{(1+t^2)^2}\mathrm{d}t$，故</p>$$
+\begin{align}
+\int\frac{\mathrm{d}x}{(1+x)\sqrt{2+x-x^2}}&=\int\frac1{(1+x)^2}\sqrt{\frac{1+x}{2-x}}\mathrm{d}x\\
+&=\int\frac{(1+t^2)^2}{9t^4}\cdot t\cdot\frac{6t}{(1+t^2)^2}\mathrm{d}t\\
+&=\frac23\int\frac{\mathrm{d}t}{t^2}\\
+&=-\frac2{3t}+C'=-\frac23\sqrt{\frac{2-x}{1+x}}+C
+\end{align}
+$$</li><li><p>若上述操作积分不能解出或计算量较大，则可以考虑三角代换，灵活利用三角函数间的关系。例如对积分$I=\displaystyle{\int^1_0x^4\sqrt{\frac{1+x}{1-x}}\mathrm{d}x}$，可以做换元$x=\sin t$，则原式立刻可化为$\displaystyle{\int^{\frac{\pi}2}_0\sin^4t\mathrm{d}t+\int^{\frac{\pi}2}_0\sin^4t\mathrm{d}t}$，利用Wallis公式容易计算得结果为$\frac{3\pi}{16}+\frac8{15}$。</p><p>再者，对于不定积分$\displaystyle{\int\frac1{\sqrt{1+x^2}}\mathrm{d}x}$，有两种三角代换可以解决：</p><ol><li><p>利用$\tan^2x=\sec^2x-1$；</p>$$
+\begin{align}
+\int\frac1{\sqrt{1+x^2}}\mathrm{d}x&\xlongequal{x=\tan t}\int\frac1{\sqrt{1+\tan^2t}}\mathrm{d}\tan t\\
+&=\int\sec t\mathrm{d}t\\
+&=\int\sec t\times\frac{\sec t+\tan t}{\sec t+\tan t}\mathrm{d}t\\
+&=\int(\sec t+\tan t)\mathrm{d}(\sec t+\tan t)\\
+&=\ln|\sec t+\tan t|+C\\
+&\xlongequal{t=\arctan x}\ln|\sqrt{1+x^2}+x|+C
+\end{align}
+$$</li><li><p>利用双曲三角函数；</p>$$
+\begin{align}
+\int\frac1{\sqrt{1+x^2}}\mathrm{d}x&\xlongequal{x=\sinh t}\int\frac{\cosh t}{\cosh t}\mathrm{d}t\\
+&=t+C\\
+&=\mathrm{arcsinh\,}x+C
+\end{align}
+$$</li></ol></li><li><p>对形如$\displaystyle{\int R(x,\sqrt{ax^2+bx+c})\mathrm{d}x}$的积分（即含有二次根号下二次三项式$\sqrt{ax^2+bx+c}$的积分，要求$a>0$时$b^2-4ac\neq0$、$a<0$时$b^2-4ac>0$），常规的方法是三角代换——这是因为$\displaystyle{ax^2+bx+c=a\left[\left(x+\frac{b}{2a}\right)^2+\frac{4ac-b^2}{4a^2}\right]}$，若记$u=x+\frac{b}{2a}$、$k^2=\left|\frac{4ac-b^2}{4a^2}\right|$，则$ax^2+bx+c$一定可以化为以下三种情形：$|a|(u^2+k^2)$、$|a|(u^2-k^2)$与$|a|(k^2-u^2)$，即$\displaystyle{\int R(x,\sqrt{ax^2+bx+c})\mathrm{d}x}$一定可以化为以下三种情形：$\displaystyle{\int R(u,\sqrt{u^2+k^2})\mathrm{d}x}$、$\displaystyle{\int R(u,\sqrt{u^2-k^2})\mathrm{d}x}$与$\displaystyle{\int R(u,\sqrt{k^2-u^2})\mathrm{d}x}$，分别令$u=k\tan t$、$u=k\sec t$与$u=k\sin t$即可将无理式化为三角有理式。</p><p>但是如此操作较为麻烦，因为经过了三角函数“中转”；可以将其总结为以下“欧拉代换”，即可直接得到有理式。注意，代换可以解得$x$为$t$的有理函数：</p><ul><li>若$a>0$，则令$\sqrt{ax^2+bx+c}=\sqrt{a}x\pm t$，两端平方可以消去$x^2$项</li><li>若$c>0$，则令$\sqrt{ax^2+bx+c}=xt\pm\sqrt{c}$，两端平方可以消去$c$项并分离出因式$x$</li><li>若$b^2-4ac>0$，则令$\sqrt{ax^2+bx+c}=t(x-\lambda)$，其中$\lambda$是方程$ax^2+bx+c=0$的一个实根</li></ul></li></ul><h2 id=积分中值定理>积分中值定理</h2><h3 id=第一积分中值定理>第一积分中值定理</h3><p><font size=5em>第一积分中值定理     </font>若$f(x)$在$[a,b]$上连续，则$\exists\xi\in(a,b)\ \;s.t.\,\,$ $f(\xi)\cdot(b-a)=\displaystyle{\int^b_af(x)\mathrm{d}x}$。</p><p>第一积分中值定理可以通过介值定理与最值定理导出，也可以用拉格朗日中值定理证明，做辅助函数$\displaystyle{F(x)=\int^x_af(t)\mathrm{d}t}$即可。</p><p>注：注意$\xi$具体的取值依赖于积分限与被积式，有一些典型的错误运用第一积分中值定理的例子，如求极限：</p>$$
+\lim\limits_{n\to\infty}\int^1_0x^n\sqrt{1+x^2}\mathrm{d}x
+$$<p>看起来似乎直接运用第一积分中值定理，将原式变为</p>$$
+\lim\limits_{n\to\infty}\xi^n\sqrt{1+\xi^2}
+$$<p>由于$\xi\in(0,1)$，因此答案呼之欲出为$0$。事实上这样做仅仅是结果正确，过程却没有依据，因为对每个不同的$n$，被积式不同，$\xi$的取值也不同，可以视为这种情况下的$\xi$是一个关于$n$的函数，不妨记为$\xi(n)$。如果$\xi(n)$是常数，当然就如同前文所述一样极限值为$0$，但事实是$\xi(n)$完全可能是随着$n$的变化而变化的（在范围$(0,1)$内），假设$\xi(n)=\frac{n}{1+n}$，满足$\forall n,\ 0<\xi(n)<1$，但这种情况下极限不为$0$：</p>$$
+\lim\limits_{n\to\infty}\xi(n)^n\sqrt{1+\xi(n)^2}=\lim\limits_{n\to\infty}\left(\frac{n}{1
++n}\right)^n\sqrt{1+\left(\frac{n}{1
++n}\right)^2}=\frac{\sqrt{2}}{e}
+$$<p>因此，这个极限正确的处理方式有：</p><ul><li><p>放缩，原式不小于$0$是显然的，同时注意到$x\in(0,1)\Rightarrow\sqrt{1+x^2}<\sqrt2$，故原式小于$\sqrt{2}\displaystyle{\int^1_0x^n\mathrm{d}x}$；</p></li><li><p>运用下文提到的第二积分中值定理，$\lim\text{有界量}\times\text{无穷小量}=0$，</p>$$
+\lim\limits_{n\to\infty}\int^1_0x^n\sqrt{1+x^2}\mathrm{d}x=\lim\limits_{n\to\infty}\sqrt{1+\xi^2}\int^1_0x^n\mathrm{d}x=0
+$$</li></ul><p>综上所述，这种情况下直接运用第一积分中值定理是没有理论支持的。不过，该极限仍可以考虑第一中值定理，需做适当放缩（相较于直接放缩有点“脱裤子放屁”的意思）：</p>$$
+\begin{align}
+0\leqslant\lim\limits_{n\to\infty}\int^1_0x^n\sqrt{1+x^2}\mathrm{d}x&=\lim\limits_{n\to\infty}\lim\limits_{\varepsilon\to1}\Big[\int^\varepsilon_0x^n\sqrt{1+x^2}\mathrm{d}x+\int^1_\varepsilon x^n\sqrt{1+x^2}\mathrm{d}x\Big]\\
+&=\lim\limits_{n\to\infty}\lim\limits_{\varepsilon\to1}\Big[\varepsilon\,\xi_1^n\sqrt{1+\xi^2_1}\;+\;(1-\varepsilon)\xi^n_2\sqrt{1+\xi^2_2}\Big]\\
+&\leqslant\lim\limits_{n\to\infty}\lim\limits_{\varepsilon\to1}\Big[\varepsilon^{n+1}\sqrt{2}+(1-\varepsilon)\sqrt{2}\Big]\\
+&=0
+\end{align}
+$$<p>某种意义上，这样放缩并构造极限$\lim\limits_{\varepsilon\to1}f(x)$，避免了出现上文中$\xi(n)=\frac{n}{1+n}$及其类似的情况。</p><p><b>对多元函数的重积分，第一中值定理也是有效的，将一重积分替换为多重积分、$(b-a)$替换为相应空间中由各个积分限构成的面积 / 方体 / 测度大小即可。</b></p><p>尤其是对于二重积分，有定理：若$f(x,y)$在有界闭域$D$上连续，则$\exists(\xi,\eta)\in D$，$s.t.\ \displaystyle{\iint_Df(x,y)\sigma=f(\xi,\eta)S_D}$，其中$S_D$是积分区域的面积。利用本定理，可以减少将重积分化为累次积分再使用一重积分第一中值定理的麻烦。</p><h3 id=第二积分中值定理>第二积分中值定理</h3><p><font size=5em>第二积分中值定理   </font>若$f(x)$在$[a,b]$上连续，$g(x)$在$[a,b]$上可积（或连续）且符号不变，则$\exists\xi\in(a,b)\ \;s.t.\,\,$ $f(\xi)\displaystyle{\int^b_ag(x)\mathrm{d}x}=\displaystyle{\int^b_af(x)g(x)\mathrm{d}x}$。</p><p>第二积分中值定理是第一积分中值定理的推广，可以用柯西中值定理证明，做辅助函数$\displaystyle{F(x)=\int^x_af(t)g(t)\mathrm{d}t}$和$\displaystyle{G(x)=\int^x_ag(t)\mathrm{d}t}$即可。</p><p>该定理在一些场景下有妙用；譬如确定混合变限积分函数无穷小的阶。以$\displaystyle{\int^{1-\cos x}_0e^{xt}\sin t^2\mathrm{d}t}$为例，如若通过求导去掉变限积分定阶还是较为繁复的，但根据第二积分中值定理，有</p>$$
+\displaystyle{\int^{1-\cos x}_0e^{xt}\sin t^2\mathrm{d}t}=e^{x\xi}\int^{1-\cos x}_0\sin t^2\mathrm{d}t\overset{\text{同阶}}{\sim}\int^{1-\cos x}_0\sin t^2\mathrm{d}t
+$$<p>故根据前文章节“变限积分的求导与阶”之结论，该式的阶为$2\times(2+1)=6$。</p><h2 id=普遍的积分不等式>普遍的积分不等式</h2><ul><li><p>若$f(x)\leqslant g(x),\ x\in[a,b]$，则$\displaystyle{\int^b_af(x)\mathrm{d}x\leqslant\int^b_ag(x)\mathrm{d}x}$；</p><ul><li>特例 1：恒有$\displaystyle{\Big|\int^b_af(x)\mathrm{d}x\Big|\leqslant\int^b_a\big|f(x)\big|\mathrm{d}x}$；</li><li>特例 2：若$f$在$[a,b]$上连续，分别记$f$在$[a,b]$上的最大值与最小值为$M$和$m$，则$\displaystyle{m(b-a)\leqslant\int^b_af(x)\mathrm{d}x\leqslant M(b-a)}$；</li><li>特例 3：若$f(x)$在$[a,b]$上有连续导数且$f(a)=0$，则有$f(x)=\displaystyle{\int^x_a}f'(t)\mathrm{d}t\leqslant(x-a)\max\limits_{a\leqslant t\leqslant b}|f'(t)|$，必要时可以对两边同时求导 / 积分；</li></ul></li><li><p>$L^2$空间中的柯西不等式：</p>$$
+\left(\int_{\mathbb{R}}f(x)g(x)\,\mathrm{d}x\right)^2\leqslant\int_{\mathbb{R}}f(x)^2\mathrm{d}x\cdot\int_{\mathbb{R}}g(x)^2\mathrm{d}x
+$$</li><li><p>更多关于不等式的内容，参见下一偏文章 <b><a href=https://iharee.github.io/2023/05/16/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%B7%A5%E5%85%B7%20Part%E2%85%A1/#more><font color=#D2691E>高等数学工具 PartⅡ</font></a></b>；通常来说，考研高数涉及到的积分不等式，并不会包括Hölder不等式、Schur不等式等相对深刻的不等式。但如果读者希望扩展视野，可以轻击跳转到那篇文章，这些更多的不等式在分析学中有巨大的威力和重要的地位。</p></li></ul><p>积分的不等式问题，常常涉及将常数转为变量，将定积分转为变限积分，这是比较通用的解法。例如，当$f(x)$、$g(x)$在$[a,b]$上连续且$f(x)$单调递增、$0\leqslant g(x)\leqslant1$时，求证：$\displaystyle{\int^{a+\int^b_ag(t)\mathrm{d}t}_af(x)\mathrm{d}x\leqslant\int^b_af(x)g(x)\mathrm{d}x}$，可以将常量$b$变量化，令</p>$$
+F(x)=\int^{a+\int^x_ag(t)\mathrm{d}t}_af(z)\mathrm{d}z-\int^x_af(z)g(z)\mathrm{d}z
+$$<p>于是问题等为证明$F(b)\leqslant0$。对$F$求导得</p>$$
+F'(x)=g(x)\cdot\left[f\left(a+\int^x_ag(t)\mathrm{d}t\right)-f(x)\right]
+$$<p>由于$g(x)\geqslant0$，故$F'$的符号只与$\displaystyle{h(x)=f\left(a+\int^x_ag(t)\mathrm{d}t\right)-f(x)}$有关；又由于$0\leqslant g(x)\leqslant1$，因此$0\leqslant\displaystyle{\int^x_ag(t)\mathrm{d}t}\leqslant x-a$，即$a+\displaystyle{\int^x_ag(t)\mathrm{d}t}\leqslant x$，考虑到$f$单调递增，因此$h(x)\leqslant0$，于是$F'(x)\leqslant0$；注意到$F(a)=0$，所以$F(b)\leqslant F(a)=0$，证毕。</p><p>一般来说，结合中值定理、换元等方法或许能更快地解决问题。</p><details><summary><font color=#0099ff>&emsp;展开/收起1道积分不等式问题</font></summary><ul><li><p>设$f(x)$在$[0,1]$上有连续导数，且$f(0)=f(1)=0$，求证$\displaystyle{\left|\int^1_0f(x)\mathrm{d}x\right|\leqslant\frac14\max\limits_{0\leqslant x\leqslant1}\{|f'(x)|\}}$；</p><p>首先分部积分，</p>$$
+\left|\int^1_0f(x)\mathrm{d}x\right|=\left|xf(x)\big|^1_0-\int^1_0xf'(x)\mathrm{d}x\right|
+$$<p>由于$f(0)=f(1)=0$，因此$xf(x)\big|^1_0=0$，所以$\displaystyle{\left|\int^1_0f(x)\mathrm{d}x\right|=\left|\int^1_0xf'(x)\mathrm{d}x\right|}$；</p><p>注意到$f(1)=\displaystyle{\int^1_0f'(x)\mathrm{d}x}=0$，于是：</p>$$
+\begin{align}
+\left|\int^1_0xf'(x)\mathrm{d}x\right|&=\left|\int^1_0\left(x-\frac12\right)f'(x)\mathrm{d}x\right|\\
+&\leqslant\int^1_0\left|x-\frac12\right||f'(x)|\mathrm{d}x\\
+&=|f'(\xi)|\int^1_0\left|x-\frac12\right|\mathrm{d}x\ \ \ \ \ \ ^\ast\text{第二积分中值定理}\\
+&\leqslant\frac14\max\limits_{0\leqslant x\leqslant1}\{|f'(x)|\}
+\end{align}
+$$</li></ul></details><h2 id=特殊的积分不等式>特殊的积分不等式</h2><p>特殊积分不等式没有那么泛用，在此将记录一些典型的特殊积分不等式，以启发思路。</p><ol><li><p>$\displaystyle{\int^{2\pi}_0\frac{\sin x}{x}\mathrm{d}x>0}$</p><p>证：</p>$$
+\begin{align}
+\int^{2\pi}_0\frac{\sin x}{x}\mathrm{d}x&=\int^{\pi}_0\frac{\sin x}{x}\mathrm{d}x+\int^{2\pi}_{\pi}\frac{\sin x}{x}\mathrm{d}x\\
+&\xlongequal{t=x-\pi}\int^{\pi}_0\frac{\sin x}{x}\mathrm{d}x+\int^{\pi}_0\frac{\sin(t+\pi)}{t+\pi}\mathrm{d}t\\
+&=\int^{\pi}_0\left(\frac{\sin x}{x}-\frac{\sin x}{x+\pi}\right)\mathrm{d}x\\
+&=\int^{\pi}_0\frac{\pi\sin x}{x(x+\pi)}\mathrm{d}x\\
+&>0\ \ \ \ \ \ \ \ \ \ \ (\text{注：被积式化为了一个恒正的函数})
+\end{align}
+$$<p><font color=#B03060><b>总结：对于需要被积式在积分区间内时正时负而需要判断积分结果符号的，可以尝试将原式的正部分和负部分分离，再利用积分变换将积分限化为相同，通常来说就可以判断符号了。</b></font></p></li><li><p>$\displaystyle{\int^{\frac{\pi}2}_0\frac{\sin x}{x}\mathrm{d}x>1}$</p><p>证：</p>$$
+\int^{\frac{\pi}2}_0\frac{\sin x}{x}\mathrm{d}x-1=\int^{\frac{\pi}2}_0\left(\frac{\sin x}x-\frac2{\pi}\right)\mathrm{d}x
+$$<p>记$f(x)=\frac{\sin x}x-\frac2{\pi}$，注意到$f'(x)<0,\ x\in(0,\frac{\pi}2)$且$f(\frac{\pi}2)=0$，因此$f(x)$在$(0,\frac{\pi}2)$上严格小于$0$，于是不等式成立。</p></li><li><p>$\displaystyle{\int^{\frac{\pi}{4}}_0\frac{\tan x}{x}\mathrm{d}x<1}$</p><p>证：</p><p>和上一道题方法类似的，</p>$$
+\int^{\frac{\pi}{4}}_0\frac{\tan x}{x}\mathrm{d}x-1=\int^{\frac{\pi}{4}}_0\left(\frac{\tan x}{x}-\frac{4}{\pi}\right)\mathrm{d}x
+$$<p>观察$f(x)=\frac{\tan x}x-\frac4{\pi}$，容易知道$f'(x)<0,\ x\in(0,\frac{\pi}4)$且$f(\frac{\pi}4)=0$，因此$f(x)$在$(0,\frac{\pi}4)$上严格小于$0$，于是不等式成立。</p></li></ol><h2 id=反常积分及其敛散性>反常积分及其敛散性</h2><p>反常积分是指一类定积分的极限存在的积分。</p><p>迪利克雷积分：$\displaystyle\int^{+\infty}_0\frac{\sin x}x\mathrm{d}x=\frac{\pi}2$</p><p>欧拉 (瑕) 积分：$\displaystyle\int^{\frac{\pi}2}_0\ln\sin x\mathrm{d}x=-\frac{\pi}2\ln2$（可以利用区间再现计算）</p><p>正态分布概率积分：$\displaystyle\int^{+\infty}_0e^{-x^2}\mathrm{d}x=\frac{\sqrt{\pi}}2$（可以利用二重积分计算）</p><p>相关参考：</p><ul><li><a href=https://zhuanlan.zhihu.com/p/396690012><font color=#EEAEEE>反常积分：狄利克雷（Dirichlet）积分</font></a></li><li><a href=https://zhuanlan.zhihu.com/p/398566011><font color=#EEAEEE>反常积分：欧拉（Euler）积分</font></a></li><li><a href=https://zhuanlan.zhihu.com/p/397091499><font color=#EEAEEE>反常积分： 欧拉-泊松（Euler-Poisson）积分</font></a></li></ul><h3 id=比较判别法及其延伸>比较判别法及其延伸</h3><ul><li>比较判别法<ul><li>设$f(x)$、$g(x)$在$[a,+\infty]$上连续，且$0\leqslant f(x)\leqslant g(x)$，则：<ol><li>若$\displaystyle{\int^{+\infty}_ag(x)\mathrm{d}x}$收敛，则$\displaystyle{\int^{+\infty}_af(x)\mathrm{d}x}$收敛（可推广为控制收敛定理）；</li><li>若$\displaystyle{\int^{+\infty}_af(x)\mathrm{d}x}$发散，则$\displaystyle{\int^{+\infty}_ag(x)\mathrm{d}x}$发散；</li></ol></li><li>设$f(x)$、$g(x)$在$(a,b]$上连续，且$0\leqslant f(x)\leqslant g(x)$，其中$a$为二者瑕点，则：<ol><li>若$\displaystyle{\int^b_ag(x)\mathrm{d}x}$收敛，则$\displaystyle{\int^b_af(x)\mathrm{d}x}$收敛（可推广为控制收敛定理）；</li><li>若$\displaystyle{\int^b_af(x)\mathrm{d}x}$发散，则$\displaystyle{\int^b_ag(x)\mathrm{d}x}$发散；</li></ol></li></ul></li><li>推论：极限比式判别法<ul><li>设非负函数$f(x)$、$g(x)$在$[a,+\infty]$上连续，且$\lim\limits_{x\to+\infty}\frac{f(x)}{g(x)}=\lambda$：<ol><li>若$\lambda\neq0$且有限，则$\displaystyle{\int^{+\infty}_af(x)\mathrm{d}x}$、$\displaystyle{\int^{+\infty}_ag(x)\mathrm{d}x}$同敛散性；</li><li>若$\lambda=0$，当$\displaystyle{\int^{+\infty}_ag(x)\mathrm{d}x}$收敛，则$\displaystyle{\int^{+\infty}_af(x)\mathrm{d}x}$收敛；</li><li>若$\lambda=\infty$，当$\displaystyle{\int^{+\infty}_ag(x)\mathrm{d}x}$发散，则$\displaystyle{\int^{+\infty}_af(x)\mathrm{d}x}$发散；</li></ol></li><li>设$f(x)$、$g(x)$在$(a,b]$上连续，且$0\leqslant f(x)\leqslant g(x)$，其中$a$为二者瑕点，则：<ol><li>若$\lambda\neq0$且有限，则$\displaystyle{\int^b_af(x)\mathrm{d}x}$、$\displaystyle{\int^b_ag(x)\mathrm{d}x}$同敛散性；</li><li>若$\lambda=0$，当$\displaystyle{\int^b_ag(x)\mathrm{d}x}$收敛，则$\displaystyle{\int^b_af(x)\mathrm{d}x}$收敛；</li><li>若$\lambda=\infty$，当$\displaystyle{\int^b_ag(x)\mathrm{d}x}$发散，则$\displaystyle{\int^b_af(x)\mathrm{d}x}$发散；</li></ol></li></ul></li></ul><p><b>可见，无穷区间上的积分与瑕积分的收敛判别法在形式上是一致的。</b></p><p>简单情形：</p><ul><li>$\displaystyle{\int^{+\infty}_a\frac{1}{x^p}\mathrm{d}x\ \ }\left\{\begin{aligned}&p>1,&&\text{收敛}\\&p\leqslant1,&&\text{发散}\end{aligned}\right.\ \ \ \ \ \ (\text{Tip: }a>0)$</li><li>$\displaystyle{\int^b_a\frac{1}{(x-a)^p}\mathrm{d}x\ \text{与}\ \int^b_a\frac{1}{(b-x)^p}\mathrm{d}x\ \ }\left\{\begin{aligned}&p<1,&&\text{收敛}\\&p\geqslant1,&&\text{发散}\end{aligned}\right.$</li></ul><p><b><font color=#CD0000>可推广为以下重要情形：</font></b></p><ul><li><p><font color=#CD0000>$\displaystyle{\int^{+\infty}_a\frac{1}{x^{\alpha}\ln^{\beta}x}\mathrm{d}x\ \ }\left\{\begin{aligned}&\alpha>1\text{ 或 }\alpha=1\text{且}\beta>1,&&\text{收敛}\\&\text{Otherwise},&&\text{发散}\end{aligned}\right.$</font></p><p><font color=#836FFF>上式成立的的前提是$[a,+\infty)$上不含瑕点</font>，对于$(-\infty,a]$上的无穷积分同理——如果被积式在$(-\infty,a]$有意义。</p></li><li><p><font color=#CD0000>$\displaystyle{\int^b_0\frac{1}{x^{\alpha}\ln^{\beta}x}\mathrm{d}x\ \ }\left\{\begin{aligned}&\alpha<1\text{ 或 }\alpha=1\text{且}\beta>1,&&\text{收敛}\\&\text{Otherwise},&&\text{发散}\end{aligned}\right.$</font></p><p><font color=#836FFF>上式成立的前提是$(0,b]$上没有其他瑕点（常见于$x=0$是瑕点而$0\lt b<1$），</font><font color=red>用同阶无穷小替换后不改变敛散性。</font></p><p>对于在更一般区间$[a,b]$上的积分$\displaystyle{\int^b_a\frac{1}{x^{\alpha}\ln^{\beta}x}\mathrm{d}x}$，如果$a>0$，则</p><ol><li>当$0\lt a\lt b<1$时，积分是定积分，结果为一个有限数。</li><li>当$0\lt a<1\leqslant b$时，积分的性质与$\alpha$无关，若$\beta\leqslant0$则积分为定积分，若$\beta\in\mathbb{N}^+$则积分为发散的瑕积分。</li></ol><p>综上所述，对于$\displaystyle{\int^b_a\frac1{x^{\alpha}\ln^{\beta}x}}$型积分只有在$a=0$时才有讨论的价值，其余情况都是平凡、显而易见的，所以只需要知道如何判断$\displaystyle{\int^b_0\frac1{x^{\alpha}\ln^{\beta}x}}$的敛散性即可。</p><p>以上两个重要公式只是基本的例子，可以按需对积分进行换元、放缩等。</p></li><li><p><font color=#CD0000>如果分母包含多个项，则对于以上两个重要公式，</font><b><font color=#836FFF>只要有一个项满足收敛条件，积分就收敛，换句话说$\alpha,\beta$只要满足最弱的条件即可，</font></b><font color=#CD0000>事实上这点根据比较判别法的极限形式来看是显然的。</font>例如，对于无穷积分$\displaystyle{\int^{+\infty}_1\frac1{x^2+x^{\frac12}}\mathrm{d}x}$，虽然$\frac12<1$，但$2>1$，所以积分收敛；同理，瑕积分$\displaystyle{\int^1_0\frac1{x^2+x^{\frac12}}\mathrm{d}x}$也是收敛的，进而导出$\displaystyle{\int^{+\infty}_0\frac1{x^2+x^{\frac12}}\mathrm{d}x}$也是收敛的。</p></li><li><p><font color=#CD0000>对于包含多个瑕点的瑕积分或包含瑕点的无穷积分，需要将其积分限拆分为一个个小区间</font>，保证每个小区间上的积分要么是定积分，要么是只含有一个瑕点的瑕积分，要么是不含瑕点的无穷积分，然后再对这些小区间上反常积分的敛散性进行讨论。<font color=#CD0000>反常积分在较大的区间上收敛的充要条件是这样一个大区间被拆分为一个个小区间后，在每个小区间上的反常积分收敛。</font></p><p>例如$\displaystyle{\int^{\frac12}_0\frac{1}{\ln(1+x)\ln^2x}\mathrm{d}x}$收敛，因为在瑕点$x\to0^+$处$\frac1{\ln(1+x)\ln^2x}\sim\frac1{x\ln^2x}$，满足“$\alpha=1\text{且}\beta>1$”的条件；但$\displaystyle{\int^1_0\frac{1}{\ln(1+x)\ln^2x}\mathrm{d}x}$发散，因为</p>$$
+\int^1_0\frac{1}{\ln(1+x)\ln^2x}\mathrm{d}x=\underbrace{\int^\frac12_0\frac{1}{\ln(1+x)\ln^2x}\mathrm{d}x}_{\mathrm{i}}+\underbrace{\int^1_{\frac12}\frac{1}{\ln(1+x)\ln^2x}\mathrm{d}x}_{\mathrm{ii}}
+$$<p>$\mathrm{i}$式已证明是收敛的，$\mathrm{ii}$式中的瑕点为$x\to1^-$，而$\ln(1+x)$在$\big[\frac12,1\big]$上有界且恒大于$0$，换元$t=x-1$，</p>$$
+\int^1_{\frac12}\frac{1}{\ln(1+x)\ln^2x}\mathrm{d}x\xlongequal{t=x+1}\int^0_{-\frac12}\frac1{\ln(t+2)\ln^2(t+1)}\mathrm{d}t
+$$<p>在瑕点$t\to0^-$处可认为对被积式有$\frac1{\ln(t+2)\ln^2(t+1)}\sim\frac1{t^2}$（这当然不是一个“等价无穷小”，只能说是“同阶无穷小”，但这里只考虑敛散性而不在乎具体的值，方便起见同阶无穷小也用“$\sim$”表示了），相当于“$\alpha>1$”的情况（$\alpha=2$），必然发散，所以综合$\mathrm{i}$式与$\mathrm{ii}$式，反常积分发散。</p></li></ul><p>值得注意的是，$\forall \alpha>0$有$\lim\limits_{x\to0^+}x^{\alpha}\ln x^{\beta}=0$，因此这种情况下适当补充定义后$\displaystyle{\int^a_0x^{\alpha}\ln^{\beta}x\mathrm{d}x}$是一个定积分，而非瑕积分——尽管也可以用上述重要公式判断其敛散性。计算这类定积分，思路是对$x^{\alpha}$做分部积分；不妨以$I_{\alpha,\beta}=\displaystyle{\int^1_0x^{\alpha}\ln^{\beta}x\mathrm{d}x}$为例，其中$\alpha>0$，则有：</p>$$
+\begin{align}
+I_{\alpha,\beta}&=\frac1{\alpha+1}\int^1_0\ln^{\beta}x\mathrm{d}x^{\alpha+1}\\
+&=-\frac{\beta}{\alpha+1}I_{\alpha,\beta-1}
+\end{align}
+$$<p>递推得$I_{\alpha,\beta}=(-1)^{\beta}\frac{\beta!}{(\alpha+1)^{\beta+1}}$。</p><p><b>同类型的函数，瑕积分与无穷积分敛散性条件的不等号常常是反向的。</b></p><p>可以结合现有知识推导一些积分的敛散性，如：</p><ul><li>$\displaystyle{\int^{+\infty}_{\alpha}e^{-x^2}\mathrm{d}x}$收敛（而且还等于$\frac{\sqrt{2\pi}}2$），因为标准正态分布的$\text{PDF}$满足$\displaystyle{\int_{\mathbb{R}}\frac{1}{\sqrt{2\pi}}e^{-x^2}\mathrm{d}x}=1$；</li><li>$\displaystyle{\int^{+\infty}_{\alpha}x^ke^{-\lambda x}\mathrm{d}x}$在$k\geqslant0$时的敛散性只与$\lambda$有关，当$\lambda>0$时收敛、当$\lambda\leqslant0$时发散；</li><li>$\displaystyle{\int^{+\infty}_0x^{\alpha-1}e^{-x}\mathrm{d}x}$对$\forall\alpha>0$均收敛，因为该积分正是非负实数集上的$\Gamma(\alpha)$函数；</li></ul><h3 id=柯西收敛准则>柯西收敛准则</h3><p>无穷积分$\displaystyle{\int^{+\infty}_af(x)\mathrm{d}x}$收敛的充要条件为$\varepsilon>0$，$\exists G\geqslant a$，$\text{s.t.}$当$u_1,u_2>G$，有</p>$$
+\left|\int^{u_1}_af(x)\mathrm{d}x-\int^{u_2}_af(x)\mathrm{d}x\right|<\varepsilon
+$$<h3 id=迪利克雷判别法>迪利克雷判别法</h3><p>迪利克雷判别法与阿贝尔判别法合称AD判别法。</p><p>1. 无穷限反常积分：</p><ul><li>若$F(x)=\displaystyle{\int^x_af(t)\mathrm{d}t}$在$[a,+\infty)$上有界、$g(x)$在上$[a,+\infty)$单调，且$\lim\limits_{x\to+\infty}g(x)=0$，则$\displaystyle{\int^{+\infty}_af(x)g(x)\mathrm{d}x}$收敛。</li></ul><p>2. 瑕积分：</p><ul><li>设$f:[a,b)\to\mathbb{R}$，其中$b$为其瑕点，若$F(x)=\displaystyle{\int^x_af(t)\mathrm{d}t}$在$[a,b)$上有界，$g(x)$在$[a,b)$上单调，且$\lim\limits_{x\to b^-}g(x)=0$，则瑕积分$\displaystyle{\int^b_af(x)g(x)\mathrm{d}x}$收敛。</li></ul><p>3. 反常含参积分的一致收敛性：</p><ul><li><p>若：</p><ul><li><p>(1) $\displaystyle{\int^{+\infty}_af(x,y)\mathrm{d}x}$在$E$上一致有界，即：</p>$$
+\exists M>0,\forall y\in E,\left|\int^{+\infty}_af(x,y)\mathrm{d}x\right|\lt M
+$$</li><li><p>(2) $\forall y\in E$，$g(x,y)$对于$x$单调；</p></li><li><p>(3) 当$x\to+\infty$，$g(x,y)$关于$x$单调且在$E$上一致收敛趋于$0$，即</p>$$
+\forall\varepsilon>0,\exists N>0,\forall x>N,\forall y\in E,|g(x,y)|<\varepsilon
+$$</li></ul><p>则$\displaystyle{\int^{+\infty}_af(x,y)g(x,y)\mathrm{d}x}$在$E$上一致收敛。</p></li></ul><h3 id=阿贝尔判别法>阿贝尔判别法</h3><p>阿贝尔判别法与迪利克雷判别法合称 $AD$ 判别法。</p><p>1. 无穷限反常积分：</p><ul><li>若$\displaystyle{\int^{+\infty}_af(x)\mathrm{d}x}$收敛、$g(x)$在$[a,+\infty)$上单调有界，则无穷限反常积分$\displaystyle{\int^{+\infty}_af(x)g(x)\mathrm{d}x}$收敛。</li></ul><p>2. 瑕积分：</p><ul><li>设$f:[a,b)\to\mathbb{R}$，其中$b$为其瑕点，若$\displaystyle{\int^b_af(x)\mathrm{d}x}$收敛，$g(x)$在$[a,b)$上单调有界，则瑕积分$\displaystyle{\int^b_af(x)g(x)\mathrm{d}x}$收敛。</li></ul><p>3. 反常含参积分的一致收敛性：</p><ul><li><p>若：</p><ul><li><p>(1) $\displaystyle{\int^{+\infty}_af(x,y)\mathrm{d}x}$在$D$上一致收敛；</p></li><li><p>(2) $\forall y\in D$，$g(x,y)$对于$x$单调；</p></li><li><p>(3) $g(x,y)$在$D$上一致有界，即：</p>$$
+\exists M>0,\forall x>a,\forall y\in D,\ s.t.\ \ \ |g(x,y)|\lt M
+$$</li></ul><p>则$\displaystyle{\int^{+\infty}_af(x,y)g(x,y)\mathrm{d}x}$在$D$上一致收敛。</p></li></ul><h3 id=欧拉积分简介>欧拉积分简介</h3><p>第一类欧拉积分为$\mathrm{B}$函数，第二类欧拉积分为$\Gamma$函数。</p><p>这里主要简介$\Gamma$函数的一些简单、基本的性质。</p>$$
+\Gamma(z)=\int^{\infty}_0t^{z-1}e^{-t}\mathrm{d}z
+$$$$
+\mathrm{B}(z_1,z_2)=\int^1_0t^{z_1-1}(1-t)^{z_2-1}\mathrm{d}t=\frac{\Gamma(z_1)\Gamma(z_2)}{\Gamma(z_1+z_2)}
+$$<p>两个欧拉积分的定义是容易记忆的。对于$\Gamma$函数，熟悉积分的读者很容易地知道有$\displaystyle{\int^{\infty}_0t^ne^{-t}\mathrm{d}z=n\int^{\infty}_0t^{n-1}e^{-t}\mathrm{d}z}$，更进一步地$\Gamma$函数作为$n!$的解析延拓；对于$\mathrm{B}$函数，可以联系到作为伯努利分布与二项分布的共轭先验分布的$\mathrm{B}$分布的贝叶斯解释，于是$\mathrm{B}$函数“长成这样子”也就不奇怪了——当然，这只是$\mathrm{B}$函数的一种形式，一种最贴近$\mathrm{B}$分布意义的形式。</p><p>伽马函数$\Gamma(z)$的无穷积分定义要求$\mathrm{Re}(z)>0$，按下述级数定义可以推广结果至整个复平面：</p>$$
+\Gamma(z)=\int^{\infty}_1t^{z-1}e^t\mathrm{d}t+\sum^{\infty}_{n=0}\frac{(-1)^n}{n!(z+n)}
+$$<p>$\Gamma$函数的几条重要性质及推论：</p><ol><li>$\displaystyle{\int^{\infty}_0t^ne^{-t}\mathrm{d}x=n!}$</li><li>$\Gamma(n+1)=n\Gamma(n)$</li><li>$\Gamma(n+1)=n!$</li><li>$\Gamma\big(\frac12\big)=\sqrt{\pi}$</li><li>$\Gamma\big(\frac32\big)=\frac{\sqrt{\pi}}2$</li><li>$\Gamma(z)$是亚纯函数，负整数点均为奇点且是一阶奇点；与此同时，$\frac1{\Gamma(z)}$是全纯函数</li><li>$\mathop{\mathrm{Res}}\limits_{z=-n}\Gamma(z)=\frac{(-1)^n}{n!}$</li></ol><p>更多关于欧拉积分的内容，可以参考任何一本数学分析教材；本文简介欧拉积分，只是因为他们可以帮助快速计算反常积分。</p><p>毕竟本文还是偏向于高等数学的工具书性质。</p><h2 id=留数定理计算实积分暂略>留数定理计算实积分（暂略）</h2><p><font color=#990066><b>暂略，但可以参考以下文章，均写得十分精彩：</b></font></p><ul><li><a href=https://zhuanlan.zhihu.com/p/54151609><font color=#836FFF><b>[干货]&mdash;如何利用留数定理计算积分</b></font></a></li><li><a href=https://zhuanlan.zhihu.com/p/77163755><font color=#836FFF><b>复变函数（5）——留数计算实积分</b></font></a></li><li><a href=https://zhuanlan.zhihu.com/p/271139446><font color=#836FFF><b>留数定理与积分计算</b></font></a></li><li><a href=https://zhuanlan.zhihu.com/p/662502288><font color=#836FFF><b>留数定理个人总结</b></font></a></li></ul><p><font color=#990066><b>有这些文章大概已经足够，我想也不需要我再在这里重申了。</b></font></p><h2 id=积分之猜的经验>积分之“猜”的经验</h2><p>不少的不定积分标准计算过程较为技巧性，较为复杂，较为令人意想不到。针对不定积分（与一些需要用牛顿-莱布尼茨公式计算的定积分），如果一时间没有想到合适的计算思路，不妨“猜一猜”——实在想不到那就不去想了，来”猜“吧！毕竟，计算导数可比计算积分简单了太多太多。当然，如果能写出标准计算步骤的话，则尽量还是按标准分析求解；”猜“原函数虽然是非常不严谨的，但是它也有它存在的意义：</p><ol><li>在”猜“的过程中，很容易发现部分起初没有观察到的细节，从而提供一些灵感与思路，帮助我们写出标准过程；</li><li>如果能正确”猜“出原函数，自然就可以逆着写出标准过程，因为积分是微分的逆过程，至少是对一元函数而言。</li></ol><p>以下是我的一些经验。</p><p>我们知道，类指数函数$e^{f(x)}$有一个很好的性质，就是他的导数$f'(x)e^{f(x)}$中，指数是不变的（前提是$f$可导，这也是为什么指数函数在微分方程理论中有重要地位），所以如果被积式中含有$e^{f(x)}$，就要注意是否可以凑出$f'e^f$；如若实在没有好的计算思路，可以猜原函数为$g\cdot e^f$，其中$g$根据被积式来做合理猜测。同理，除了类指数函数外，对三角函数等导数比较“有特点”的函数也可以类似分析。</p><ul><li><p>例如不定积分$\displaystyle{I=\int e^{2x}(1+\tan x)^2\mathrm{d}x}$，在尝试了多次分部积分却依然没有什么进展后，我就停止了标准思路的寻找，开始了对原函数的猜测。注意到被积式中含有$e^{2x}$与”并不常见同$\exp(\cdot)$组合在一起“的函数$\tan x$，所以我猜原函数可能是$e^{2x}\tan x+C$，检验一下：</p>$$
+\frac{\mathrm{d}}{\mathrm{d}x}e^{2x}\tan x=e^{2x}(\sec x+2\tan x)=e^{2x}(1+\tan^2x+2\tan x)=e^{2x}(1+\tan x)^2
+$$<p>瞧瞧，多么轻松！</p><p>这道积分的正常分析步骤应该是注意到$1+\tan^2x=\sec^2x$然后分部积分，以抵消掉没有初等表达式的积分：</p>$$
+\begin{align}
+\int e^{2x}(1+\tan x)^2\mathrm{d}x&=\int e^{2x}(\sec^2x+2\tan x)\mathrm{d}x\\
+&=\int e^{2x}\mathrm{d}\tan x+2\int e^{2x}\tan x\mathrm{d}x\\
+&=e^{2x}\tan x-2\int e^{2x}\tan x\mathrm{d}x+2\int e^{2x}\tan x\mathrm{d}x\\
+&=e^{2x}\tan x+C
+\end{align}
+$$</li><li><p>再如不定积分$\displaystyle{I=\int\frac{e^{-\sin x}\sin2x}{(1-\sin x)^2}\mathrm{d}x}$，注意到分母为$(1-\sin x)^2$，猜测原函数可能是$\frac{f(x)}{1-\sin x}$的形式，而分子又含有$e^{-\sin x}$，所以猜测原函数可能是$e^{-\sin x}g(x)$的形式。综上，猜测原函数可能为$\frac{e^{-\sin x}}{1-\sin x}+C$，检验一下：</p>$$
+\frac{\mathrm{d}}{\mathrm{d}x}\frac{e^{-\sin x}}{1-\sin x}=\frac{e^{-\sin x}\sin x\cos x}{(1-\sin x)^2}=\frac12\frac{e^{-\sin x}\sin2x}{(1-\sin x)^2}
+$$<p>求导的结果与被积式相差$\frac12$倍，所以原函数应该为$\frac{2e^{-\sin x}}{(1-\sin x)}+C$。</p><p>这道积分的正常分析步骤应该是先换元$t=\sin x$，即$\displaystyle{I=\int\frac{e^{-\sin x}\sin2x}{(1-\sin x)^2}\mathrm{d}x\xlongequal{t=\sin x}\int\frac{2e^{-t}t}{(1-t)^2}\mathrm{d}t}$，然后拆分被积式并分部积分，抵消掉没有初等表达式的积分：</p>$$
+\begin{align}
+\int\frac{2e^{-t}t}{(1-t)^2}\mathrm{d}t&=-\int\frac{2e^{-t}}{1-t}\mathrm{d}t+\int\frac{2e^{-t}}{(1-t)^2}\mathrm{d}t\\
+&=-\int\frac{2e^{-t}}{1-t}\mathrm{d}t+\int2e^{-t}\mathrm{d}\frac1{1-t}\\
+&=\boxed{-\int\frac{2e^{-t}}{1-t}\mathrm{d}t}+\frac{2e^{-t}}{1-t}\boxed{-\int\frac{-2e^{-t}}{1-t}\mathrm{d}t}\\
+&=\frac{2e^{-t}}{1-t}+C\\
+&=\frac{2e^{-\sin x}}{(1-\sin x)}+C
+\end{align}
+$$</li></ul><p>可谓屡试不爽。</p></div></article></main></div><footer class=site-footer><p class=footer-text>&copy; <span id=this-year></span> Arth &#183; built with care</p></footer><script src=/js/main.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".post-body");e&&(e.innerHTML=e.innerHTML.replace(/(\$\$)([\s\S]*?)(\$\$)/g,function(e,t,n,s){return t+n.replace(/(^|\n)[ \t]*(?:&gt;|>)[ \t]?/gm,"$1")+s})),renderMathInElement(document.querySelector(".post-body"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script></html>
