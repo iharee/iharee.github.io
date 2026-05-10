@@ -342,6 +342,7 @@ $$<p>其中，$(90)$ 式之所以要将三条梯度路径与残差路径全部�
 \tag{91}
 $$<p>若进一步回传至词表级 embedding 参数，则需要将同一 token 在序列中各位置上的梯度离散累加；例如对源序列中第 $v$ 个词对应的 embedding 向量 $\boldsymbol{e}_v$，有</p>$$
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{e}_v}
-= \sum_{t:x_t=v}\frac{\partial\mathcal{L}}{\partial\boldsymbol{E}_t}
-= \sum_{t:x_t=v}\frac{\partial\mathcal{L}}{\partial\boldsymbol{X}^{(0)}_t}
+=\sum_{t:x_t=v}\frac{\partial\mathcal{L}}{\partial\boldsymbol{E}_t}
+=\sum_{t:x_t=v}\frac{\partial\mathcal{L}}{\partial\boldsymbol{X}^{(0)}_t}
+\tag{92}
 $$<p>这与 decoder 在输入侧的梯度是完全类似的。若目标侧位置编码也是可学习参数，则同样有 $\frac{\partial\mathcal{L}}{\partial\boldsymbol{P}_{\text{target}}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{Y}^{(0)}}$。</p><blockquote><p>相较于 BPTT，RNN 的梯度需要沿隐状态链 $\boldsymbol{h}_1\to\boldsymbol{h}_2\to\cdots\to\boldsymbol{h}_T$ 在时间维度上递推，这决定了 BPTT 必然存在无法根本优化的递归结构；而 Transformer 在 Teacher Forcing 下却并不存在这样的时间递归链，所有位置的损失可以一次性并行计算，梯度通过 attention 所建立的全连接依赖图在层间与位置间传播，并不需要通过时间递推回传。</p><p>这也更深刻地解释了上文在分析 attention 时强调的「任意两个 token 间都至少存在一条长度为 1 的梯度路径」：在训练经典 Transformer 时，长程依赖的优化正是通过这样的全连接梯度路径完成的，而非像 RNN 那样被迫经过一长串递归状态。</p></blockquote></div></article></main></div><footer class=site-footer><p class=footer-text>&copy; <span id=this-year></span> Hare &#183; built with care</p></footer><script src=/js/main.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".post-body");e&&(e.innerHTML=e.innerHTML.replace(/(\$\$)([\s\S]*?)(\$\$)/g,function(e,t,n,s){return t+n.replace(/(^|\n)[ \t]*(?:&gt;|>)[ \t]?/gm,"$1")+s})),renderMathInElement(document.querySelector(".post-body"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script></html>
