@@ -411,28 +411,18 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: 0.08em;
 }
 
-.toc-toggle-btn {
-  display: none; /* hidden on desktop */
+.toc-close-btn {
+  display: none; /* hidden on desktop, visible in drawer */
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
   color: var(--muted);
+  padding: 4px;
+  transition: color 0.2s;
 }
 
-.toc-toggle-icon::before {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid var(--muted);
-  transition: transform 0.2s ease;
-}
-
-.toc-open .toc-toggle-icon::before {
-  transform: rotate(180deg);
+.toc-close-btn:hover {
+  color: var(--vermilion);
 }
 
 .toc-nav {
@@ -682,6 +672,30 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================================
+   TOC FAB & OVERLAY (mobile drawer)
+   ============================================================ */
+.toc-fab {
+  display: none; /* hidden on desktop */
+}
+
+.toc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  background: rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.toc-drawer-open .toc-overlay {
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* ============================================================
    FRIENDS PAGE
    ============================================================ */
 .friends-main, .about-main {
@@ -845,38 +859,81 @@ img { max-width: 100%; height: auto; display: block; }
   .main-content { padding: 0 var(--gap-md) var(--gap-xl); }
   .category-section { margin-bottom: var(--gap-xl); }
 
-  /* Post layout: stack TOC above content */
+  /* Post layout: stack, sidebar becomes fixed drawer */
   .post-layout {
     flex-direction: column;
     padding: 0 var(--gap-md);
   }
 
   .post-toc-sidebar {
-    position: static;
-    width: 100%;
-    max-height: none;
-    padding: 0;
-    margin-bottom: var(--gap-md);
-    border-bottom: 1px solid var(--border);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    max-width: 80vw;
+    height: 100vh;
+    max-height: 100vh;
+    z-index: 1002;
+    background: var(--paper);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+    padding: var(--gap-lg);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .toc-drawer-open .post-toc-sidebar {
+    transform: translateX(0);
   }
 
   .toc-header {
-    padding: var(--gap-md) 0;
+    padding: 0 0 var(--gap-sm);
     margin-bottom: 0;
-    cursor: pointer;
   }
 
-  .toc-toggle-btn {
-    display: block;
+  .toc-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .toc-nav {
-    display: none;
-    padding-bottom: var(--gap-md);
+    display: block;
+    padding-top: var(--gap-sm);
   }
 
-  .toc-nav.visible {
+  .toc-fab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    padding: 10px 16px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: color 0.2s, box-shadow 0.2s;
+  }
+
+  .toc-fab:hover {
+    color: var(--vermilion);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  .toc-overlay {
     display: block;
+  }
+
+  body.toc-drawer-open {
+    overflow: hidden;
   }
 
   .post-main {

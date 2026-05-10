@@ -1,0 +1,159 @@
+<!doctype html><html lang=zh-CN><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Deep quantile and deep composite triplet regression — 二三事</title><link rel=icon type=image/png sizes=32x32 href=/favicon.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:opsz@9..40&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css crossorigin=anonymous></head><body><header class=site-header><h1 class=site-title><a href=/>二三事</a></h1><p class=site-subtitle>Hare's Notebook</p><hr class=header-rule></header><nav class=category-nav><a href=/>Articles</a>
+<a href=/friends/>友链</a>
+<a href=/about/>关于</a></nav><div class=post-layout><aside class=post-toc-sidebar id=tocSidebar><div class=toc-header><span class=toc-title>目录</span>
+<button class=toc-close-btn id=tocCloseBtn aria-label="Close TOC">
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="15" y2="15"/><line x1="15" y1="3" x2="3" y2="15"/></svg></button></div><nav class=toc-nav id=tocNav><ul><li><a href=#文献解读>文献解读</a></li><li><a href=#其他方法的局限>其他方法的局限</a></li><li><a href=#补充分位数回归-pinball-loss>补充：分位数回归 pinball loss</a></li><li><a href=#补充关于-metrics>补充：关于 metrics</a></li><li><a href=#关于可诱导-elicitable>关于可诱导 elicitable</a></li><li><a href=#补充关于统计决策理论-bayes-act>补充：关于统计决策理论 Bayes act</a></li><li><a href=#补充证明>补充证明</a><ul><li><a href=#重要引理osband-principle>重要引理：Osband Principle</a></li><li><a href=#补充反例variance-不可诱导>补充反例：variance 不可诱导</a></li><li><a href=#补充例子mean-variance-jointly-可诱导>补充例子：(mean, variance) jointly 可诱导</a></li><li><a href=#补充例子var-可诱导>补充例子：VaR 可诱导</a></li><li><a href=#补充es-不可诱导>补充：ES 不可诱导</a></li></ul></li><li><a href=#文献的构造>文献的构造</a></li><li><a href=#联合可诱导性的证明>联合可诱导性的证明</a></li><li><a href=#分位数深度回归的工程设计>分位数深度回归的工程设计</a></li><li><a href=#实验说明>实验说明</a></li><li><a href=#补充proper-scoring-rule-与-full-probabilistic-learning>补充：Proper Scoring Rule 与 full probabilistic learning</a></li><li><a href=#题外话关于-ai-证明>题外话：关于 AI 证明</a></li></ul></nav></aside><main class=post-main><a href=/ class=post-back>返回</a><article><header class=post-header><div class=post-category-label>academic</div><h1 class=post-title-main>Deep quantile and deep composite triplet regression</h1><div class=post-meta>2026.05.10
+&#183; #统计学习</div></header><div class=post-body><h1 id=文献解读>文献解读</h1><p>Tobias Fissler、Michael Merz 与 Mario V. Wüthrich 于 2021 年首先在 arXiv 发布预印本论文 <a href=https://arxiv.org/abs/2112.03075>Deep Quantile and Deep Composite Model Regression</a>。随后于 2023 年正式发表于期刊 Insurance: Mathematics and Economics 第 109 卷（2023 年 3 月，Pages 94–112），论文标题调整为 <a href=https://www.sciencedirect.com/science/article/pii/S0167668723000070>Deep quantile and deep composite triplet regression</a>。</p><p>带有 “补充” 的标题，是额外补充的内容；反之，则属于原文献中的内容。</p><blockquote><p>本文的定位是在组会上分享的论文解读，所以写法会比较粗糙、欠缺整理，比如可能混用中英文名词、标点的使用不规范。敬请见谅！</p></blockquote><h1 id=其他方法的局限>其他方法的局限</h1><p>OLS 以最小二乘函数作为损失函数，即 MSE，最优解为<mark><strong>条件均值</strong></mark>。</p><p>但金融和保险数据往往是重尾且偏态的，均值的代表性差。</p><p>而且 LS 默认上下误差对称，从这个角度看也很不适合这类数据。</p><hr><p>对于 GLM，通常假设 y 服从某个指数族分布（或 tweedie），于是条件分布就被 “预设” 了。</p><p>文献提到，真实保险理赔数据中，<mark><strong>bulk 和 tail 从机制上有根本不同</strong></mark>，用一个分布去统一近似不合理，比如没有考虑到协变量对 bulk 与 tail 的不同影响。</p><blockquote><p>例如，保单持有人的年龄变量也许是解释小额赔案系统性影响的重要变量，但在解释大额赔案时却可能无关紧要。这种现象可能由从小额赔案到大额赔案时伤害类型的变化所隐含（事故保险），也可能由从小额保额到大额保额时行业细分的变化所隐含（工业火灾保险）；一个明确的例子见 <a href=https://www.sciencedirect.com/science/article/pii/S0167668723000070#br0180>Fung et al. (2022)</a> 第 5.3 节。</p></blockquote><p>而且 GLM 能直接指导的也是均值。</p><blockquote><p>从风险管理角度看，人们还关心其他量，例如分位数和期望短缺（ES）。如果前述 EDF 内的分布模型并不适合刻画观测数据，那么即便期望值估计得非常精确，也无法直接帮助我们估计诸如分位数之类的量。</p></blockquote><p>这也是 2011 年 Gneiting 把均值分解为上下 ES 的原因（$\mathbb{E}[Y]=\tau ES_{\tau}^-+(1-\tau)ES_{\tau}^+$），尝试让模型不直接以均值为最终目标进行优化，而是分别按上下 ES 优化，下 ES 代表 bulk，上 ES 代表 tail。但 ES 不可单独诱导（Gneiting 2011 证明了这一点），所以不能直接作为损失函数。Fissler & Ziegel (2016) 证明了 $(VaR_{\alpha}, ES_{\alpha})$ 是联合可诱导的；文献进一步将联合可诱导性推广到三元组 $(ES^-, Q_{\tau}, ES^+)$，从而在深度学习中允许 body 和 tail 有不同 regression structure。</p><blockquote><p>似乎金融文献中直接用 ES 和 VaR 联合的也不少，表示关注尾部风险。对于保险数据，这里同时关心 bulk 与 tail，这应该是拆分为上下 ES 的理由之一。</p></blockquote><hr><p>传统的分位数回归也不够好，因为传统分位数回归只估计分位数，但金融数据我们更关心尾部风险。</p><p>比如，VaR（Value at Risk）可能完全一样，即一定置信度下目标值超过 VaR 的概率至多为 $1-\alpha$，此为极端尾部小概率事件，但 VaR 只度量损失变量的概率分布的分位数，不能度量超过 VaR 数值后的平均尾部损失为多少（简单看，就是分布函数在 VaR 以后部分的积分）。两个损失目标，同样的 VaR，带来的尾部风险损失可能完全不一样。</p><p>所以传统的分位数回归虽然可以避免：</p><ol><li>条件均值作为损失</li><li>单一参数分布近似</li></ol><p>但</p><ol><li><mark><strong>无法度量尾部风险</strong></mark>，比如 ES（Expected Shortfall）</li></ol><hr><p>但是，ES 又没法直接作为损失函数。文献表示，<mark><strong>ES 是不可诱导的</strong></mark>，不能直接作为损失函数去优化，没法做梯度下降。</p><p>所以文献做了一个三元组的构造，达到了在深度学习中以 ES 作为优化目标（之一）的目的。</p><h1 id=补充分位数回归-pinball-loss>补充：分位数回归 pinball loss</h1><blockquote><p>可以对照下 OLS 的最小二乘损失</p></blockquote><p>分位数回归考虑 pinball loss，定义 $u=y-\hat{y}$</p>$$
+\rho_\tau(u) = u \cdot (\tau - \mathbb{I}_{(u < 0)})
+$$<p>即</p>$$
+L_\tau(y, \hat{y}) =
+\begin{cases}
+\tau \cdot (y - \hat{y}), & \text{如果 } y - \hat{y} \geq 0 \\
+(\tau - 1) \cdot (y - \hat{y}), & \text{如果 } y - \hat{y} < 0
+\end{cases}
+$$<p>其中 $\tau$ 是目标分位数。考虑所有样本点，通常目的是最小化下面的样本平均损失</p>$$
+\min_{\theta} \frac{1}{n} \sum_{i=1}^n L_\tau(y_i, f(x_i; \theta))
+$$<p>当 $\tau=0.5$，退化为 MAE 绝对损失，此时等价于让模型向着中位数最佳的方向优化，即回归线位于数据分布的正中位置。</p><p>分位数是条件分布建模的入口。</p><ul><li>MSE loss：对应 conditional mean，比如 OLS</li><li>MAE loss：对应 median，可视为特殊的 pinball loss / 分位数回归</li><li>pinball loss：对应 conditional quantile</li></ul><p>所以用分位数回归可以用不同损失函数让模型学习条件分布的不同位置，而不只是学习均值</p><h1 id=补充关于-metrics>补充：关于 metrics</h1><p>Bregman divergence 是一类由凸函数生成的广义距离，其核心用途是用来构造“正确”的损失函数。</p><p>设 $\Phi(x)$ 是严格凸函数，则 Bregman divergence 为</p>$$
+D_{\Phi}(p, q) = \Phi(p) - \Phi(q) - \nabla \Phi(q)^{\mathrm{T}}(p - q)
+$$<p>几何上，表示“真实函数值” 与 “切线线性近似值” 的差。注意由凸函数的性质，有 $D_{\Phi}(p, q)\geqslant0$</p><blockquote><p>Bregman divergence 不一定对称，也不一定满足三角恒等式</p></blockquote><blockquote><p>损失函数不一定都是 Bregman divergence 的形式，但经典的损失都符合这一框架。一些新的损失可能不符合这一框架了。</p></blockquote><hr><p>一些经典例子：</p><ol><li>取 $\Phi(x)=x^2$，则得到欧氏距离的平方 $D_{\Phi}(p,q)=(p-q)^2$，所以 MSE 是一种 Bregman divergence</li><li>取 $\Phi(x)=x\log x$，则得到 KL 散度 $D_{\Phi}(p,q)=p\log \frac{p}{q}-p+q$，所以 KL 散度是一种 Bregman divergence</li></ol><blockquote><p>补充：KL 散度不满足对称性，是对数似然比 $\log \frac{P(x)}{Q(x)}$ 在分布 $P$ 下的期望，值越大越说明两个分布 $P,Q$ 的差异越大。</p><p>当 $P$ 是真实分布、$Q$ 是模型预测分布，最小化 KL 散度等价于最大化似然，即得到 MLE。</p><p>从信息论看，KL 散度等于用错误分布 $Q$ 尝试编码真实分布 $P$ 时产生的额外信息成本。最优编码（香农熵）是知道真实分布 $P$ 并为每个事件 $x$ 分配码长 $-\log P(x)$，此时平均码长最短，为 $P$ 的熵 $H(P)$；错误编码（交叉熵）是误以为真实分布是 $Q$ 并为每个事件 $x$ 分配码长 $-\log Q(x)$，平均码长为交叉熵 $H(P,Q)$。KL 散度就是香农熵与交叉熵的平均码长的差。</p><p>KL 散度没有对称性，标准的 KL 散度（前向 KL 散度）是在真实分布 $P$ 的视角下衡量损失，倾向于让 $Q$ 覆盖 $P$ 的所有峰值，得到的 $Q$ 可能被拉宽以覆盖所有概率区域。反向 KL 散度在表达式中交换 $P,Q$ 的位置，是在近似分布 $Q$ 的视角下衡量损失，倾向于让 $Q$ 锁定某个高概率的峰值。</p></blockquote><hr><p>许多“正确”的损失函数实际上都有类似 convex potential（凸） + Bregman divergence（Bregman 散度） 的构造。除了以上两个例子，还有 Poisson mean 等。</p><p>2005 年 Banerjee 等人的经典结论：每个正则指数族分布都唯一对应一个 Bregman divergence。</p><table><thead><tr><th style=text-align:center>目标</th><th style=text-align:center>分布类型 (指数族成员)</th><th style=text-align:center>对应的 Bregman 生成函数 $\Phi$</th><th style=text-align:center>诱导的 Bregman 散度 $D_\Phi$</th></tr></thead><tbody><tr><td style=text-align:center><strong>均值</strong></td><td style=text-align:center>高斯分布 (方差固定)</td><td style=text-align:center>$\Phi(\mu) = \frac{1}{2}\|\mu\|^2$</td><td style=text-align:center><strong>MSE</strong> $\frac{1}{2}\|p-q\|^2$</td></tr><tr><td style=text-align:center><strong>Poisson mean</strong></td><td style=text-align:center>泊松分布</td><td style=text-align:center>$\Phi(\lambda) = \lambda \log \lambda - \lambda$</td><td style=text-align:center><strong>Poisson Deviance</strong></td></tr><tr><td style=text-align:center><strong>概率分布</strong></td><td style=text-align:center>多项分布 (Categorical)</td><td style=text-align:center>$\Phi(p) = \sum p_i \log p_i$ (负熵)</td><td style=text-align:center><strong>KL Divergence</strong></td></tr><tr><td style=text-align:center><strong>指数族 (通式)</strong></td><td style=text-align:center>任意指数族分布</td><td style=text-align:center>$\Phi(\theta) = A(\theta)$ (对数配分函数)</td><td style=text-align:center><strong>Deviance (Log-Likelihood Ratio)</strong></td></tr></tbody></table><h1 id=关于可诱导-elicitable>关于可诱导 elicitable</h1><p>ES 是不可诱导的，不能直接作为损失函数，不能直接应用 SGD 等优化算法，所以文献构造了一个三元组，在 Bregman divergence 的框架下用凸分析将 ES 拉进可优化的系统里。</p><hr><p>对于一个关于服从分布 $F$ 的随机变量 $Y$ 的统计泛函 $T(F):F\to\mathbb{R}^k$，若存在一个 scoring function / loss function $S(x,y):\mathbb{R}^k\times\mathbb{R}\to\mathbb{R}$，使得</p>$$
+T(F)=\arg\min_x\mathbb{E}_F[S(x,Y)]
+$$<p>则称 $T$ 是可诱导的。</p><p>如果 $S$ 还满足一些性质，比如在 $x=y$ 处连续、期望有限等，则称 $S$ 是正则的。如果在 $T(F)$ 处是全局最小值（而不是局部），则还说 $S$ 是一致的。</p><p>有些泛函不可诱导，比如方差。<mark><strong>但期望和二阶矩联合起来是可诱导的</strong></mark>。如果一个泛函可诱导，比如 VaR，就可以用一个一致的评分函数评估预测的质量，进而选取平均得分 / 损失最小的预测作为最优估计。</p><hr><p><mark><strong>ES 不可诱导，这是一个金融统计中的经典结论。</strong></mark>可诱导的统计量通常都是 “单点最优”的。直观而不严谨地讲，ES 依赖 tail conditional distribution 而非具体点的位置（即上式中的 $x$）。</p><h1 id=补充关于统计决策理论-bayes-act>补充：关于统计决策理论 Bayes act</h1><p>对于分布 $P$ 与 scoring / loss function $L(a,y)$，定义 Bayes act 为</p>$$
+a^{\ast}(P)=\arg\min_a\mathbb{E}_{Y\sim P}[L(a,Y)]
+$$<p>所以 elicitable 就是 Bayes act，表示一个统计泛函是某个 loss 的 Bayes act。是否可诱导，就是指是否存在一个 scoring rule，使该 functional 成为 Bayes act。</p><p>上式含义：在已知真实分布时，最优 action</p><hr><p>举个例子，对于 MSE，act 是一个点，设 $L(a,y)=(a-y)^2$，固定 $X=x$，对于 $\displaystyle\arg\min_a\mathbb{E}[(Y-a)^2|X=x]$，展开右式得到 $\mathbb{E}[Y^2|x]-2a\mathbb{E}[Y|x]+a^2$，对 $a$ 求导得 $-2\mathbb{E}[Y|x]+2a=0$，就可以得到</p>$$
+a^{\ast}(x)=\mathbb{E}[Y|X=x]
+$$<p>故 MSE 的 Bayes optimal act 是条件均值。</p><hr><p>再举个例子，对于 pinball loss，act 也是一个点，设 $L(a,y)=\rho_\tau(y-a)$，其中</p>$$
+\rho_\tau(u)=\begin{cases} \tau u, & u\geqslant 0, \\ (\tau-1)u, & u<0 \end{cases}
+$$<p>固定 $X=x$，对于 $\displaystyle\arg\min_a\mathbb{E}[\rho_\tau(Y-a)\mid X=x]$，展开期望得</p>$$
+g(a)=\tau\int_a^{\infty} (y-a)p(y|x)dy + (1-\tau)\int_{-\infty}^a (a-y)p(y|x)dy
+$$<p>对 $a$ 求导，有</p>$$
+\begin{align}
+g'(a) &= \tau\int_a^{\infty} -p(y|x)dy + (1-\tau)\int_{-\infty}^a p(y|x)dy\\&=-\tau[1-F(a|x)]+(1-\tau)F(a|x)\\&=F(a|x)-\tau
+\end{align}
+$$<p>令 $g'(a)=0$ 有 $F(a^*|x)=\tau$，所以</p>$$
+a^*(x)=F^{-1}_{Y|X=x}(\tau)=Q_\tau(Y|X=x)
+$$<p>也就证明了 pinball loss 的 Bayes optimal act 是条件 $\tau$ 分位数。</p><h1 id=补充证明>补充证明</h1><h2 id=重要引理osband-principle>重要引理：Osband Principle</h2><p>1985 年由 Osband 在博士论文提出雏形：</p><ol><li>Revelation Principle：如果一个泛函 $T$ 本身不可诱导（如<strong>方差</strong> $\text{Var}(F)$），但存在一个<strong>可逆映射</strong> $g$ 将其与另一个可诱导泛函 $U$ 关联（$T = g \circ U$），那么<strong>整个向量 $(T, U)$ 或 $(U, T)$ 是可诱导的</strong>。</li><li>Convex Level Sets（Gneiting 在 2011 年更系统化叙述，并且被广泛引用）：如果 $T$ 是可诱导的，那么它的<strong>水平集必须是凸的</strong>。即对于任意 $F_0, F_1$，若 $T(F_0) = T(F_1) = t$，则对于混合分布 $F_\lambda = (1-\lambda)F_0 + \lambda F_1$，必有 $T(F_\lambda) = t$（线性）。</li></ol><blockquote><p>Convex Level Sets 是很重要的一个必要条件。意味着同一个 optimum 在 distribution mixture 下必须保持稳定。</p></blockquote><h2 id=补充反例variance-不可诱导>补充反例：variance 不可诱导</h2><p>假设 $[0,1]$ 上有随机变量 $X,Y$，二者均为常量，$X=1,Y=-1$，则 $X,Y$ 的方差均为 $0$。记 $Z=\frac{X+Y}{2}$，不难计算 $Z$ 的方差应为 $1$。这与 Convex Level Sets 矛盾，因为如果方差可诱导，则混合分布 $Z$ 的方差应该也为 0。</p><h2 id=补充例子mean-variance-jointly-可诱导>补充例子：(mean, variance) jointly 可诱导</h2><p>众所周知，</p>$$
+\mathrm{Var}(Y)=\mathbb{E}Y^2-(\mathbb{E}Y)^2
+$$<p>这是两个期望，分别是一阶矩（的平方）与二阶矩。期望都是可诱导的，我们可以直接构造出 scoring function：</p>$$
+S\big((m,s),y\big)=(m-y)^2+(s-y^2)^2
+$$<p>则最优解中 $m=\mathbb{E}Y,s=\mathbb{E}Y^2$，对应的就是方差。</p><h2 id=补充例子var-可诱导>补充例子：VaR 可诱导</h2><p>VaR 本质上是分位数，分位数都是可诱导的，如前文所述分位数回归所采用的 pinball loss，这个就是 scoring function。我们可以通过 pinball loss 诱导出 VaR：</p><p>记 pinball loss 为</p>$$
+\rho_\alpha(r) =
+\begin{cases}
+\alpha r, & r \ge 0 \\
+(\alpha-1) r, & r < 0
+\end{cases}
+$$<p>定义期望损失：</p>$$
+R(q) = \mathbb{E}[\rho_\alpha(Y - q)]
+$$<p>下面证明最小化 $R(q)$ 就能得到 VaR 估计。</p><p>首先求导（次微分），有</p>$$
+\rho'_\alpha(Y-q) =
+\begin{cases}
+-\alpha, & Y > q \\
+1-\alpha, & Y < q
+\end{cases}
+$$<p>交换期望与导数，</p>$$
+\begin{aligned}
+R'(q) &= \mathbb{E}[\rho'_\alpha(Y-q)] \\
+&= -\alpha P(Y > q) + (1-\alpha) P(Y < q)
+\end{aligned}
+$$<p>代入</p><ul><li>$P(Y > q) = 1 - P(Y \le q)$</li><li>$P(Y < q) = P(Y \le q) - P(Y = q)$</li></ul><p>在连续分布下 $P(Y = q) = 0$，因此有</p>$$
+\begin{aligned}
+R'(q) &= -\alpha[1 - P(Y \le q)] + (1-\alpha)P(Y \le q) \\
+&= -\alpha + \alpha P(Y \le q) + P(Y \le q) - \alpha P(Y \le q) \\
+&= P(Y \le q) - \alpha
+\end{aligned}
+$$<p>令 $R'(q) = 0$ 得</p>$$
+P(Y \le q) = \alpha
+$$<p>即 $q$ 是 $Y$ 的 $\alpha$-分位数，$q = \inf\{y: F_Y(y) \ge \alpha\}$，这也是 $\text{VaR}_\alpha(Y)$ 的定义。可以看到，分位数损失 $\rho_\alpha$ 是 $\text{VaR}_\alpha$ 的一致评分函数</p>$$
+\boxed{\text{VaR}_\alpha(Y) = \arg\min_{q} \mathbb{E}[\rho_\alpha(Y - q)]}
+$$<h2 id=补充es-不可诱导>补充：ES 不可诱导</h2><p>1985 年，Osband 最早在博士论文提出可诱导；他的主要研究内容是 forecast evaluation、scoring rules、decision theory</p><p>2011 年，Gneiting 系统整理了 elicitability 理论和证明，在机器学习和统计学习中进入主流视野。在这里，Gneiting 就证明了<mark><strong>方差和 ES 不满足 Convex Level Sets，从而不可诱导</strong></mark></p><p>2016 年 Fissler & Ziegel 在 Higher Order Elicitability and Osband’s Principle 更进一步整理了 higher-order elicitability、正式提出 Osband’s principle，指出 joint elicitability。比如，$VaR_{\alpha}$ 和 $ES_{\alpha}$ 就被证明是 jointly elicitable 的。</p><hr><p>简单讲，ES 的 tail region 会因为 distribution mixing 而变化，而不是简单线性平均。可以像方差一样给出一个具体的反例，表明 ES 不满足 Convex Level Sets。</p><hr><p>ES 不可诱导的反例构造，参见：</p><ul><li><p>反例的具体呈现，表明了 ES 的 level sets 非凸，但并未进一步导出其不可诱导 Weber (2006, Example 3.4) <a href=https://onlinelibrary.wiley.com/doi/10.1111/j.1467-9965.2006.00277.x>Distribution-invariant risk measures, information, and dynamic consistency</a></p><p>Weber, S. (2006), DISTRIBUTION-INVARIANT RISK MEASURES, INFORMATION, AND DYNAMIC CONSISTENCY. Mathematical Finance, 16: 419-441.</p></li><li><p>ES 不可诱导反例的正式构造 Gneiting (2011) <a href=https://arxiv.org/abs/0912.0902>Making and Evaluating Point Forecasts</a></p><p>Gneiting, Tilmann. “Making and Evaluating Point Forecasts.” <em>Journal of the American Statistical Association</em> 106 (2009): 746 - 762.</p></li><li><p>更广泛的反例构造 Ziegel (2013) <a href=https://arxiv.org/abs/1303.1690>Coherence and elicitability</a></p><p>Johanna F. Ziegel “COHERENCE AND ELICITABILITY.” <em>Mathematical Finance</em> 26 (2013): n. pag.</p></li></ul><h1 id=文献的构造>文献的构造</h1><p>Gneiting (2011) 提出了 ES 拆分（$\mathbb{E}[Y]=\tau ES_{\tau}^-+(1-\tau)ES_{\tau}^+$）并证明了 ES 不可单独诱导。Fissler & Ziegel (2016) 证明了 $VaR_{\alpha}$ 和 $ES_{\alpha}$ 的 pair 是 jointly elicitable 的。本篇文献在此基础上，将联合可诱导性进一步推广到三元组 $(ES^-, Q_{\tau}, ES^+)$，完整刻画了严格一致评分函数的类别（Theorem 2.8 & 2.9），这是文献的新理论贡献；同时设计了 monotone architecture 的深度学习神经网络使理论落地。</p><hr><p>把 ES 拆分为 $ES^-$ 和 $ES^+$ 并分别建模的思路，来自于 2011 年 Gneiting 提出的均值分解。$ES^-$，lower ES，描述 body；$ES^+$，upper ES，描述 tail，这个才是传统意义上的 ES。</p>$$
+Quantile:q_{\tau}(F)=F^{-1}(T)
+$$$$
+ES_{\tau}^+(F)=\frac1{\tau}\int^{\tau}_0q_u(F)\mathrm{d}u=\mathbb{E}[Y|Y\geqslant q_{\tau}]
+$$$$
+ES_{\tau}^-(F)=\frac1{1-\tau}\int^{1}_{\tau}q_u(F)\mathrm{d}u=\mathbb{E}[Y|Y\leqslant q_{\tau}]
+$$<p>有</p>$$
+\mathbb{E}[Y]=\tau ES_{\tau}^-+(1-\tau)ES_{\tau}^+
+$$<p>这也能看出，假如上下 ES 本身就是可诱导的，不需要加入分位数联合为三元组的话，那么同时用上下 ES 作为优化目标，这个思路是自然的，因为他们可以被视为均值的拆解，即考虑到 bulk 和 tail 异质性的情况下而在传统方法的基础上做推广。传统方法以 MSE 作为误差，实际上就是以均值在作为优化目标。</p><p>文献证明了三元组 $(ES^-,Q_T,ES^+)$ 可诱导，分位数 $Q_T$ 作为 ES 的锚点。直观地理解，分位数定义了什么是 tail。</p><h1 id=联合可诱导性的证明>联合可诱导性的证明</h1><p>文献构造了一个评分函数：</p>$$
+\begin{aligned}
+L(y;e^{-},v,e^{+})
+&=
+\underbrace{
+\bigl(g(y)-g(v)\bigr)
+(\tau-1_{\{y\le v\}})
+}_{\text{generalized pinball loss}}
+\\
+&\quad+
+\underbrace{
+\left\langle
+\nabla\Phi(e^{-},e^{+}),
+\begin{pmatrix}
+e^{-}+\frac1\tau S^{-}_\tau(y;v) \\[4pt]
+e^{+}-\frac1{1-\tau}S^{+}_\tau(y;v)
+\end{pmatrix}
+\right\rangle
+-\Phi(e^{-},e^{+})
++\Phi(y,y)
+}_{\text{generalized Bregman divergence}}
+\end{aligned}
+$$<p>其中：</p><ul><li>$e^-$ 对应 lower ES</li><li>$v$ 对应 quantile / VaR</li><li>$e^+$ 对应 upper ES</li><li>$\left\{\begin{aligned}&S_{\tau}^{-}(y;a) = (1_{\{y \le a\}}-\tau)a-1_{\{y \le a\}}y\\&S_{\tau}^{+}(y;a) = (1-\tau-1_{\{y>a\}})a+1_{\{y>a\}}y\end{aligned}\right.$，为 pinball 派生出来的 tail functionals，用于累积 tail 内部的损失。这是 Fissler–Ziegel 的核心构造技巧，见下文 Lemma 2.7。</li></ul><p>最终按定义证明了</p>$$
+(\mathrm{ES}^-_\tau,q_\tau,\mathrm{ES}^+_\tau)=\arg\min\mathbb{E}[L]
+$$<blockquote><p>关于 $\Phi$，文献给出了几个简单的选择：</p><p>(2.11)</p>$$
+\Phi(e^{-},e^{+}) = \phi_{-}(e^{-})+\phi_{+}(e^{+})
+$$<p>(2.12)</p>$$
+\Phi(e^{-},e^{+}) = \phi(\tau e^{-}+(1-\tau)e^{+})+\phi_{+}(e^{+})
+$$<p>(2.13)</p>$$
+\Phi(e^{-},e^{+}) = \phi(\tau e^{-}+(1-\tau)e^{+})+\phi_{-}(e^{-})
+$$<p>文献还讨论了如何数据驱动地选择这些 $\phi$——利用 Tweedie 分布族的参数化 $\phi_b(y)$，通过分析残差方差-均值关系来选择 $b$ 以接近最优效率（$\phi''\propto 1/\sigma^2$），详见原文 Section 3.4。</p></blockquote><hr><p><strong>第一步：固定 v，研究关于 $(e^-,e^+)$ 的部分</strong></p><p>固定 $v\in\mathbb Y$，将评分函数改写为</p>$$
+\begin{aligned}
+L(y;e^-,v,e^+)
+&=
+\left\langle
+\nabla\Phi(e^-,e^+),
+\begin{pmatrix}
+e^-+\frac1\tau S^-_\tau(y;v) \\[4pt]
+e^+-\frac1{1-\tau}S^+_\tau(y;v)
+\end{pmatrix}
+\right\rangle
+\\
+&\quad-
+\Phi(e^-,e^+)
++
+b_v(y)
+\end{aligned}
+$$<p>其中 $b_v(y)$ 是不依赖于 $(e^-,e^+)$ 的。于是，对固定 $v$，该表达式是一个 Bregman divergence。</p><p>由于 $\Phi$ 为某个（严格）凸函数，Bregman divergence 的性质表明，其期望在下列点达到唯一极小值：</p>$$
+\begin{pmatrix}
+e^- \\
+e^+
+\end{pmatrix}=\begin{pmatrix}
+-\frac1\tau \mathbb E_F[S^-_\tau(Y;v)] \\
+\frac1{1-\tau}\mathbb E_F[S^+_\tau(Y;v)]
+\end{pmatrix}
+$$<p>因此，对固定 $v$，评分函数对如下二维泛函严格一致：</p>$$
+F
+\mapsto
+\left(
+-\frac1\tau \mathbb E_F[S^-_\tau(Y;v)],
+\frac1{1-\tau}\mathbb E_F[S^+_\tau(Y;v)]
+\right)
+$$<p><strong>第二步：利用 Lemma 2.7 识别 ES</strong></p><blockquote><p><strong>Lemma 2.7</strong></p><p><em>对任意具有有限一阶矩的分布 F，都有</em></p>$$
+\mathrm{ES}_{\tau}^{-}(F) = -\frac{1}{\tau}\min_{v \in \mathbb{R}}\mathbb{E}_{F}[S_{\tau}^{-}(Y;v)]\qquad \,\text{and}\,\qquad \mathrm{ES}_{\tau}^{+}(F) = \frac{1}{1-\tau}\min_{v \in \mathbb{R}}\mathbb{E}_{F}[S_{\tau}^{+}(Y;v)].
+$$</blockquote><p>Lemma 2.7 表明 $\mathrm{ES}_{\tau}^{-}(F),\mathrm{ES}_{\tau}^{+}(F)$ 分别为 $-\frac{1}{\tau}\mathbb{E}_{F}[S_{\tau}^{-}(Y;v)],\frac{1}{1-\tau}\mathbb{E}_{F}[S_{\tau}^{+}(Y;v)]$ 的最小值，而且这些最小值在 $v=q_\tau(F)$ 处取得。因此，当 $v=q_\tau(F)$ 时，有</p>$$
+e^-=\mathrm{ES}_\tau^-(F),
+\qquad
+e^+=\mathrm{ES}_\tau^+(F)
+$$<p><strong>第三步：固定 $(e^-,e^+)$，研究关于 v 的部分</strong></p><p>固定 $(e^-,e^+)\in\mathbb Y^2$，文献将评分函数重新写为：</p>$$
+L(y;e^-,v,e^+)=(1_{\{y\le v\}}-\tau)
+G_{e^-,e^+}(v)-1_{\{y\le v\}}
+G_{e^-,e^+}(y)+b_{e^-,e^+}(y)
+$$<p>其中：</p>$$
+G_{e^-,e^+}(v)=g(v)+\frac1\tau\partial_1\Phi(e^-,e^+)v-\frac1{1-\tau}\partial_2\Phi(e^-,e^+)v
+$$<p>且 $b_{e^-,e^+}(y)$ 不依赖于 $v$。</p><p>文献指出，该表达式是一个广义分段线性损失（generalized piecewise linear loss），即 generalized pinball loss。</p><p>若 $G_{e^-,e^+}$ 为（严格）递增函数，则根据分位数评分函数的经典结果，其期望在 $v=q_\tau(F)$ 处达到唯一极小值。因此，评分函数对 $q_\tau$ 是（严格）一致的。</p><p><strong>第四步：联合最优化（conditionally separable）</strong></p><p>综上：</p><ul><li>固定 $v$ 时，
+关于 $(e^-,e^+)$ 的优化得到：</li></ul>$$
+(e^-,e^+)=(\mathrm{ES}_\tau^-,\mathrm{ES}_\tau^+)
+$$<ul><li>固定 $(e^-,e^+)$ 时，
+关于 $v$ 的优化得到：</li></ul>$$
+v=q_\tau(F)
+$$<p>因此</p>$$
+(\mathrm{ES}_\tau^-,q_\tau,\mathrm{ES}_\tau^+)=\arg\min_{(e^-,v,e^+)}\mathbb E_F[L(Y;e^-,v,e^+)]
+$$<p>故 $(\mathrm{ES}_\tau^-,q_\tau,\mathrm{ES}_\tau^+)$ 是联合可诱导的（jointly elicitable）。</p><blockquote><p>这是 risk-sensitive deep learning 与 distributional learning 的大方向。神经网络不再只学习条件均值，虽然也是在学习相关性，但能够学习到内部的结构特征，例如分位数、尾部风险、分布结构等。</p><p>multi-output constrained distribution learning</p><p>某种意义上 ES、分位数也可以被视为分布的参数</p></blockquote><h1 id=分位数深度回归的工程设计>分位数深度回归的工程设计</h1><p>证明了 $(\mathrm{ES}_\tau^-,q_\tau,\mathrm{ES}_\tau^+)$ 是联合可诱导的后，就可以使用神经网络以三者为目标进行优化了。</p><p>很多时候，我们关心多个分位数。如果分别训练 $Q_{0.5}$ 和 $Q_{0.9}$，对于神经网络而言，是有可能出现 $Q_{0.5}$ 的估计大于 $Q_{0.9}$ 的情况的。这是绝对非法的。为此，当同时训练多个分位数输出时，锚定其中一个，比如同时训练 $Q_{0.5}$ 和 $\Delta x$ 并令 $\Delta x>0,Q_{0.9}=Q_{0.5}+\Delta x$，这样就保证单调性了。这样从结构上就可以确保单调性的成立。</p><p>也可以用乘而不是加的方式，训练 $[0,1]$ 范围内的放缩因子而不是非负的 $\Delta x$，也可行。</p><blockquote><p>范围、非负的限制，通过常规的激活函数就可以实现。</p></blockquote><hr><p>为了符合 Backbone-Head 架构，文献提出让 $x$ 通过神经网络映射到 $z$，再将 $z$ 作为线性回归（用上文推导出的损失）的参数计算 $y=\beta^Tz$ 以学习 ES，而不是直接用神经网络将 $z$ 映射至 $y$。</p><p>这是一种 Representation Learning。</p><h1 id=实验说明>实验说明</h1><p><strong>半参数性质</strong>：文献方法不完整指定条件分布，只估计 splicing point（条件分位数）和上下条件均值，属于 semi-parametric 方法。</p><p><strong>与两步估计法的对比</strong>：Barendse (2020) 的两步法（先估分位数，再估 ES）在三个 component 共享参数时会出问题；本文一步联合 SGD 估计更稳定，不需要 EM 算法。</p><hr><p><em>实证结果（瑞士意外险数据，$n=241193$）</em></p><p><strong>深度多重分位数回归</strong>（$\tau \in \{10\%,50\%,90\%\}$）：</p><ul><li>多输出网络（加性/乘性）vs 单独分位数估计：参数减少 3 倍（834 vs 2436），out-of-sample pinball loss 相当</li><li>分位数交叉：当 $\tau$ 接近时（如 20% vs 30%），单独估计出现 161/26799 次违反；多输出架构通过构造保证单调性</li></ul><p><strong>深度复合三元组回归</strong>（$\tau=90\%$）：</p><ul><li>vs Gamma GLM：RMSEP 略优（5894 vs 5909）；在尾部 auto-calibration 远好于 Gamma 模型（Gamma 在大额赔案上系统性低估）</li><li>VPI 分析：不同协变量对 lower ES 和 upper ES 的重要性排序不同（如 labor sector 对 lower ES 不显著，对 upper ES 显著），验证了 body 和 tail 需要不同 regression structure 的动机</li></ul><h1 id=补充proper-scoring-rule-与-full-probabilistic-learning>补充：Proper Scoring Rule 与 full probabilistic learning</h1><p>把可诱导的定义里 scoring function / loss function 替换为 scoring rule，就得到 Proper Scoring Rule 了，这是更潮的方向。统计泛函关注某个特征下的量化数字，scoring rule 直接对比分布的偏差。如果 scoring rule 还唯一，则称它为 Strictly 的。</p><p>可以说是从点估计进化到分布预测。</p><hr><p>这篇文献依然是在统计泛函上做文章，最终使得上下 ES 与分位数一起可被联合诱导。</p><p>现在更有潜力的研究是直接学习分布的损失，而不是学习某个统计泛函下的损失。比如 MSE 作为 loss 是学习条件均值 $\mathbb{E}[Y|X=x]$，更新的研究是学习 $p(y|x)$、$P(Y\leqslant y|X=x)$。因为如果能学习到分布，那么所有的 risk functional，不管是条件均值还是 ES，都能被导出了。</p><p>我在统计建模中用的 GAMLSS 方法就是向这个方向努力的经典成果，不止学习、预测均值，还同时关心方差、偏度、峰度等形状参数。</p><p><a href="https://openreview.net/forum?id=HdUkF1Qk7g">Diffusion-based Decoupled Deterministic and Uncertain Framework for Probabilistic Multivariate Time Series Forecasting</a></p><p>比如上面这篇文献就是研究通过扩散原理实现的 probabilistic learning</p><h1 id=题外话关于-ai-证明>题外话：关于 AI 证明</h1><ol><li><a href=https://mp.weixin.qq.com/s/VUdjdBrIx_lehn908PHPfg>https://mp.weixin.qq.com/s/VUdjdBrIx_lehn908PHPfg</a></li></ol><blockquote><p>2026 年，Timothy Gowers 在实测 ChatGPT 5.5 Pro 后公开表示，大语言模型已经开始具备研究级数学问题求解能力：不仅能够在公开数论问题上自主构造证明、优化已有结果，还能在较少人类提示下完成具备论文价值的推导与 LaTeX 成文。这也使得数学界开始重新思考“原创性”“科研训练”与“人类证明”的边界——未来数学研究或许会逐渐从“个人证明能力”转向“人与 AI 的协同推理能力”。</p></blockquote><ol start=2><li>形式化编程的数学证明语言 Lean 4</li></ol><blockquote><p>近年来，Lean 等形式化证明语言也开始受到广泛关注。Lean 4 可以理解为一种“可编译的数学语言”：数学家不仅要写出证明，还必须把每一步逻辑推导全部形式化，最终交由 proof kernel 自动验证正确性。</p><p>传统数学论文依赖同行评审与人类理解，而形式化证明则追求 machine-checkable proof（机器可验证证明）。随着大语言模型推理能力提升，AI + Lean 的组合正在迅速成为 theorem proving、自动形式化与数学验证的重要方向。</p></blockquote></div></article></main></div><button class=toc-fab id=tocFab aria-label=目录>
+<svg width="16" height="13" viewBox="0 0 16 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="0" y1=".5" x2="16" y2=".5"/><line x1="0" y1="6.5" x2="16" y2="6.5"/><line x1="0" y1="12.5" x2="16" y2="12.5"/></svg>
+目录</button><div class=toc-overlay id=tocOverlay></div><footer class=site-footer><p class=footer-text>&copy; <span id=this-year></span> Hare &#183; built with care</p></footer><script src=/js/main.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".post-body");e&&(e.innerHTML=e.innerHTML.replace(/(\$\$)([\s\S]*?)(\$\$)/g,function(e,t,n,s){return t+n.replace(/(^|\n)[ \t]*(?:&gt;|>)[ \t]?/gm,"$1")+s})),renderMathInElement(document.querySelector(".post-body"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script></html>

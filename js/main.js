@@ -115,15 +115,34 @@ function findAllHeadings() {
    RESPONSIVE TOC DRAWER (mobile < 768px)
    ============================================================ */
 function initResponsiveTOC() {
-  var sidebar = document.getElementById('tocSidebar');
-  var tocHeader = sidebar ? sidebar.querySelector('.toc-header') : null;
-  var tocNav = document.getElementById('tocNav');
+  var fab = document.getElementById('tocFab');
+  var overlay = document.getElementById('tocOverlay');
+  var closeBtn = document.getElementById('tocCloseBtn');
+  var body = document.body;
+  var tocLinks = document.querySelectorAll('.toc-nav a');
 
-  if (!sidebar || !tocHeader || !tocNav) return;
+  if (!fab || !overlay || !closeBtn) return;
 
-  tocHeader.addEventListener('click', function () {
-    var visible = tocNav.classList.toggle('visible');
-    sidebar.classList.toggle('toc-open', visible);
+  function openDrawer() {
+    body.classList.add('toc-drawer-open');
+  }
+
+  function closeDrawer() {
+    body.classList.remove('toc-drawer-open');
+  }
+
+  fab.addEventListener('click', openDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && body.classList.contains('toc-drawer-open')) {
+      closeDrawer();
+    }
+  });
+
+  tocLinks.forEach(function (link) {
+    link.addEventListener('click', closeDrawer);
   });
 }
 
