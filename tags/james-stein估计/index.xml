@@ -7,7 +7,7 @@
 &lt;p&gt;&lt;a href="http://bayes-stat.github.io/download/chapte1.pdf"&gt;大规模推断讨论班：经验贝叶斯与 James-Stein 估计量 - GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这篇文章非常系统地从经验Bayes观点引出了Stein理论与Robbins理论，读完后收获颇丰，本文也有所参考。也说明了，所谓“频率学派”、“贝叶斯学派”的对立，“贝叶斯世界观”等描述并不准确，频率方法和Bayes方法不是水火不容的，统计学发展到今天，他们本身的界限就比较模糊。&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://kns.cnki.net/kcms2/article/abstract?v=3uoqIhG8C447WN1SO36whBaOoOkzJ23ELn_-3AAgJ5enmUaXDTPHrIcIlNbh3Sl6oanm3Ad1bmCfNH2zv_XmZ-BUCKN-oEs7&amp;amp;uniplatform=NZKPT"&gt;赵世舜. 矩阵加权估计及James-Stein估计的再研究 [D]. 吉林：吉林大学，2006.&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;感谢这篇博士论文为我提供的帮助，第二章定理证明的思路是源自于这份文献的；好像在2017年赵已经在吉林大学数学学院升任教授职务了。由于知网下载文献得付费，我用学校的渠道下载了下来并上传到了网站，&lt;a href="%E7%9F%A9%E9%98%B5%E5%8A%A0%E6%9D%83%E4%BC%B0%E8%AE%A1%E5%8F%8AJames-Stein%E4%BC%B0%E8%AE%A1%E7%9A%84%E5%86%8D%E7%A0%94%E7%A9%B6_%E8%B5%B5%E4%B8%96%E8%88%9C.pdf"&gt;点击此处查看这篇论文&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;感谢这篇博士论文为我提供的帮助，第二章定理证明的思路是源自于这份文献的；好像在2017年赵已经在吉林大学数学学院升任教授职务了。&lt;/p&gt;
 &lt;p&gt;~~本文不是正经的论文，懒得划出具体的引用😊~~以上文献本身亦引用了较多文献，如果有兴趣，不妨也读一读。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;本文用到了一些缩写：MLE指极大似然估计，UMVUE指一致最小方差无偏估计，MSE指均方误差，G-M定理指高斯-马尔可夫定理。&lt;/p&gt;
@@ -28,7 +28,7 @@ $$&lt;p&gt;
 &lt;p&gt;这也深刻地说明了，UMVUE其实并没有设想的那般“绝对的好”，当我们把眼光放宽到无偏估计，可能还有更“好”的估计在等着我们发掘。JSE就揭示了，**当维数大于2，样本均值作为UMVUE就未必还是最好的估计！**换句话说，在低维可容许的样本均值，在高维是不可容许的，这侧面印证了低维直觉放在高维中很可能是错误的，高维统计中还有很多这样的例子。&lt;/p&gt;
 &lt;p&gt;Tip: 由于正态分布的样本均值仍服从正态分布，为简便起见，后文中如若未做特别说明，则只考虑$n=1$的情况，不再区分$\bar{\boldsymbol{X}}$与$\boldsymbol{X}$。&lt;/p&gt;
 &lt;h2 id="james-stein型估计的风险"&gt;James-Stein型估计的风险&lt;/h2&gt;
-&lt;p&gt;这里将按照赵世舜在其&lt;a href="%E7%9F%A9%E9%98%B5%E5%8A%A0%E6%9D%83%E4%BC%B0%E8%AE%A1%E5%8F%8AJames-Stein%E4%BC%B0%E8%AE%A1%E7%9A%84%E5%86%8D%E7%A0%94%E7%A9%B6_%E8%B5%B5%E4%B8%96%E8%88%9C.pdf"&gt;博士学位论文&lt;/a&gt;中所给出的，仿照1981年Stein、1990年Brandwein与Strawderman给出的较为简单的证明，证明当$0&lt;a&lt;2(p-2)$、$p&gt;2$且$b\geqslant0$时，&lt;strong&gt;James-Stein型估计&lt;/strong&gt;$\left(1-\frac{a\sigma^2}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)\boldsymbol{X}$的风险一致小于$\boldsymbol{X}$的；并且，当$a=p-2$时，估计的风险达到最小，若进一步$b=0$，这时估计正是JSE，即$\hat{\delta}_{p-2,0}=\hat{\boldsymbol{\mu}}^{(JSE)}$。&lt;/p&gt;
+&lt;p&gt;这里将按照赵世舜在其&lt;a href="https://kns.cnki.net/kcms2/article/abstract?v=8kKd7LBMH3xSSIdWhiWufGGufLtiCY9_i6PAIy8YMJi9mj6z-4S-MOuoWjC2hhtf7728Texzwk9TsPJ3u0exI2NEXEHOP1rNLe4XZuuh9Aad-4qjZHUpLc-CXUyV3UyY8djmVWIY6pWTdQnEq_aypoCrslrtUk8gc-c1rw5uBQ_LX7XPYaWURA==&amp;amp;uniplatform=NZKPT&amp;amp;language=CHS"&gt;博士学位论文&lt;/a&gt;中所给出的，仿照1981年Stein、1990年Brandwein与Strawderman给出的较为简单的证明，证明当$0&lt;a&lt;2(p-2)$、$p&gt;2$且$b\geqslant0$时，&lt;strong&gt;James-Stein型估计&lt;/strong&gt;$\left(1-\frac{a\sigma^2}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)\boldsymbol{X}$的风险一致小于$\boldsymbol{X}$的；并且，当$a=p-2$时，估计的风险达到最小，若进一步$b=0$，这时估计正是JSE，即$\hat{\delta}_{p-2,0}=\hat{\boldsymbol{\mu}}^{(JSE)}$。&lt;/p&gt;
 &lt;p&gt;&lt;del&gt;看过1961年Willard James与Charles Stein的论文原文，这部分没有看懂，所以不按那最古老的方法证明风险一致地小了。&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;&lt;font size="5"&gt;引理 1    &lt;/font&gt;&lt;/b&gt;(成平 等，1985) 当$X\sim N(\mu,\sigma^2)$，$h(x)$可微且$\lim\limits_{x\to\infty}\frac{h(x)}{e^{\frac12(x-\mu)^2}}$，有
 &lt;/p&gt;
