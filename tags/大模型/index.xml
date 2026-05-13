@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>大模型 on 二三事</title><link>https://iharee.github.io/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link><description>Recent content in 大模型 on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Tue, 08 Dec 2026 06:10:23 +0000</lastBuildDate><atom:link href="https://iharee.github.io/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>大语言模型 Reasoning 综述：从 CoT 到 Reasoning Model（2026）</title><link>https://iharee.github.io/algorithms/llm_reasoning/</link><pubDate>Tue, 08 Dec 2026 06:10:23 +0000</pubDate><guid>https://iharee.github.io/algorithms/llm_reasoning/</guid><description>&lt;p&gt;待完成&lt;/p&gt;
+&lt;h1 id="emergent-in-context-learning"&gt;Emergent In-Context Learning&lt;/h1&gt;
+&lt;p&gt;GPT-3，2020，Language Models are Few-Shot Learners&lt;/p&gt;
+&lt;h1 id="chain-of-thought-prompting"&gt;Chain-of-Thought Prompting&lt;/h1&gt;
+&lt;p&gt;2022，Chain-of-Thought Prompting Elicits Reasoning in Large Language Models&lt;/p&gt;
+&lt;p&gt;2022，Self-Consistency Improves Chain of Thought Reasoning&lt;/p&gt;
+&lt;p&gt;2022，Least-to-Most Prompting&lt;/p&gt;
+&lt;h1 id="tree-of-thoughts--graphic-of-thoughts"&gt;Tree of Thoughts &amp;amp; Graphic of Thoughts&lt;/h1&gt;
+&lt;p&gt;Search-Based Reasoning&lt;/p&gt;
+&lt;h1 id="react"&gt;ReAct&lt;/h1&gt;
+&lt;p&gt;ReAct: Synergizing Reasoning and Acting in Language Models&lt;/p&gt;
+&lt;h1 id="lets-verify-step-by-step--prm"&gt;Let&amp;rsquo;s Verify Step by Step &amp;amp; PRM&lt;/h1&gt;
+&lt;p&gt;2023，Let&amp;rsquo;s Verify Step by Step&lt;/p&gt;
+&lt;p&gt;Process Reward Model&lt;/p&gt;
+&lt;h1 id="deepseek-r1-时刻"&gt;DeepSeek-R1 时刻&lt;/h1&gt;
+&lt;p&gt;2025，DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning&lt;/p&gt;</description></item></channel></rss>
