@@ -660,7 +660,7 @@ $$
 \begin{align}&amp;(1)\ \ \ \hat{\beta}_0\sim N\left(\beta_0,\left(\frac1n+\frac{\bar{x}^2}{l_{xx}}\right)\sigma^2\right),\ \ \hat{\beta}_1\sim N(\beta_1,\frac{\sigma^2}{l_{xx}})\\&amp;(2)\ \ \ \mathrm{Cov}(\hat{\beta}_0,\hat{\beta}_1)=-\frac{\bar{x}}{l_{xx}}\sigma^2\\&amp;(3)\ \ \ \hat{y}_0=\hat{\beta}_0+\hat{\beta}_1x_0\sim N\left(\beta_0+\beta_1x_0,\left(\frac1n+\frac{(x_0-\bar{x})^2}{l_{xx}}\right)\sigma^2\right)\\&amp;(4)\ \ \ \hat{\sigma}^2=\frac{SSE}{n-2}\text{，这是无偏估计}\\&amp;(5)\ \ \ \mathbb{E}(SSR)=\sigma^2+\beta^2_1l_{xx},\ \ \mathbb{E}(SSE)=(n-2)\sigma^2\\&amp;(6)\ \ \ \text{当}\beta_1=0\text{，有}\frac{SST}{\sigma^2}\sim\chi^2(n-1),\ \frac{SSR}{\sigma^2}\sim\chi^2(1),\ \frac{SSE}{\sigma^2}\sim\chi^2(n-2)\end{align}
 $$&lt;p&gt;
 &lt;em&gt;相应的，$SST=l_{yy}$，$SSR=\hat{\beta}^2_1l_{xx}=\frac{l^2_{xy}}{l_{xx}}$，$SSE=SST-SSR$，在此一并给出参数显著性检验统计量：&lt;/em&gt;
-&lt;/p&gt;</description></item><item><title>关于</title><link>https://iharee.github.io/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/about/</guid><description>&lt;p&gt;一只硕士生。找婆娘。&lt;/p&gt;
+&lt;/p&gt;</description></item><item><title>关于</title><link>https://iharee.github.io/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/about/</guid><description>&lt;p&gt;一只硕士生。&lt;/p&gt;
 &lt;div class="about-links"&gt;
  &lt;a class="about-link" href="https://github.com/iharee"&gt;
  &lt;span class="about-link-icon"&gt;
