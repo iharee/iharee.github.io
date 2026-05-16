@@ -7,6 +7,7 @@
 &lt;/p&gt;
 $$
 Loss(C) \approx \left( \frac{C_{\text{min}}}{C} \right)^{\alpha}
+\tag{1}
 $$&lt;p&gt;
 其中 $C$ 表示训练计算量（FLOPs），$\alpha$ 为缩放指数（通常取值 $0.05\sim0.1$），$C_{\text{min}}$ 则为一个常数。Scaling Law 表明，要提升模型的性能，一个可行的方案就是提高模型的参数规模。但同时 Scaling Law 也为我们估计了一个残酷的代价：要使损失降低 $n$ 倍，需要付出 $n^{\frac1{\alpha}}$ 倍的计算开销。即，参数规模的边际收益是递减的，但我们又不得不面对这个现实。&lt;/p&gt;</description></item><item><title>经典注意力与经典 Transformer 的数学原理</title><link>https://iharee.github.io/algorithms/attention_and_transformer/</link><pubDate>Sun, 22 Mar 2026 22:55:00 +0000</pubDate><guid>https://iharee.github.io/algorithms/attention_and_transformer/</guid><description>&lt;p&gt;* 本文的部分示意图使用了 AI 辅助创作，其余有明确标注的示意图则引用自参考文献。&lt;/p&gt;
 &lt;hr&gt;
