@@ -20,7 +20,7 @@ $$<p>其中第 $t$ 时间步的损失 $\mathcal{L}_t$ 不直接依赖于 $\bolds
 \bar{\boldsymbol{h}}_t\triangleq\frac{\partial\mathcal{L}}{\partial\boldsymbol{h}_t}
 \tag{5}
 $$<p>接下来我们先推导出 $\bar{\boldsymbol{h}}_t$ 与 $\boldsymbol{\delta}_t$ 的形式——这是 BPTT 数学推导中最重要的一环。</p><hr><p>这里要明确根据式子 $\boldsymbol{h}_t=\varphi(\boldsymbol{a}_t)$ 可知，总损失 $\mathcal{L}$ 对 $\boldsymbol{a}_t$ 的直接依赖路径是唯一的，即通过第 $t$ 时间步的隐状态 $\boldsymbol{h}_t$；而 $\boldsymbol{h}_t$ 又通过两种路径影响 $\mathcal{L}$：</p><ol><li><p>直接影响路径：$\boldsymbol{h}_t$ 直接影响当前时刻的损失 $\mathcal{L}_t$，进而影响总损失 $\mathcal{L}$；</p></li><li><p>间接影响路径（通过递归关系）：$\boldsymbol{h}_t$ 作为下一时刻的输入，间接影响后续时刻的所有损失 $\mathcal{L}_{t+1},\mathcal{L}_{t+2},\cdots,\mathcal{L}_{T}$，进而影响总损失 $\mathcal{L}$。这类影响路径是 RNN 所特有的，是时间依赖的体现。</p><p>然而，我们不能直接计算出 $\forall i>t,\frac{\partial\mathcal{L}_i}{\partial\boldsymbol{h}_t}$，因为若将所有 $\forall i>t,\mathcal{L}_i$ 直接展开到 $\boldsymbol{h}_t$，我们将得到一个指数爆炸的间接路径数量；故我们应考虑藉由递归式 $\boldsymbol{a}_{t+1}=\boldsymbol{W}_h\boldsymbol{h}_{t}+\boldsymbol{W}_x\boldsymbol{x}_{t+1}+\boldsymbol{b}$，通过中间变量 $\boldsymbol{a}_{t+1}$ 表示 $\boldsymbol{h}_t$ 对总损失 $\mathcal{L}$ 造成的所有间接影响。</p></li></ol><p>因此，我们根据链式法则，先有</p>$$
-\begin{align}
+\begin{aligned}
 \bar{\boldsymbol{h}}_t
 &=\frac{\partial\mathcal{L}}{\partial\boldsymbol{h}_t}\\
 &=\frac{\partial\mathcal{L}_t}{\partial\boldsymbol{h}_t}
@@ -28,16 +28,16 @@ $$<p>接下来我们先推导出 $\bar{\boldsymbol{h}}_t$ 与 $\boldsymbol{\delt
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{a}_{t+1}}\\
 &=\frac{\partial\mathcal{L}_t}{\partial\boldsymbol{h}_t}
 +\boldsymbol{W}_h^T\boldsymbol{\delta}_{t+1}
-\end{align}
+\end{aligned}
 \tag{6}
 $$<p>进一步，</p>$$
-\begin{align}
+\begin{aligned}
 \boldsymbol{\delta}_t
 &=\frac{\partial\mathcal{L}}{\partial\boldsymbol{a}_t}\\
 &=\left(\frac{\partial\boldsymbol{h}_t}{\partial\boldsymbol{a}_t}\right)^T\bar{\boldsymbol{h}}_t\\
 &=\mathrm{diag}\big(\varphi'(\boldsymbol{a}_t)\big)\bar{\boldsymbol{h}}_t\\
 &=\Bigg(\frac{\partial\mathcal{L}_t}{\partial\boldsymbol{h}_t}+\boldsymbol{W}^{T}_{h}\boldsymbol{\delta}_{t+1}\Bigg)\odot\varphi'(\boldsymbol{a}_t)
-\end{align}
+\end{aligned}
 \tag{7}
 $$<p>这里先把梯度回传到 $\boldsymbol{h}_t$，再由 $\boldsymbol{h}_t=\varphi(\boldsymbol{a}_t)$ 回传到 $\boldsymbol{a}_t$，这样各项的行/列维度始终一致。</p><hr><p>计算出 $\boldsymbol{\delta}_t$ 后，我们就可以方便地表示出总损失 $\mathcal{L}$ 对 $\boldsymbol{W}_h,\boldsymbol{W}_x,\boldsymbol{b}$ 的梯度了。</p>$$
 \boxed{\frac{\partial\mathcal{L}}{\partial\boldsymbol{W}_h}=\sum^T_{t=1}\frac{\partial\mathcal{L}}{\partial\boldsymbol{a}_t}\frac{\partial\boldsymbol{a}_t}{\partial\boldsymbol{W}_h}=\sum^T_{t=1}\boldsymbol{\delta}_t\frac{\partial(\boldsymbol{W}_h\boldsymbol{h}_{t-1}+\boldsymbol{W}_x\boldsymbol{x}_t+\boldsymbol{b})}{\partial\boldsymbol{W}_h}=\sum^T_{t=1}\boldsymbol{\delta}_t\boldsymbol{h}^T_{t-1}}
@@ -73,13 +73,13 @@ $$<p>于是结合 $(6)$ 式，完整的 $\boldsymbol{\delta}_t$ 仍满足</p>$$
 \boldsymbol{\delta}_t=\Big(\boldsymbol{g}_t+\boldsymbol{W}^{T}_{h}\boldsymbol{\delta}_{t+1}\Big)\odot\varphi'(\boldsymbol{a}_t)
 \tag{18}
 $$<p>可以看到，在上述前提下，BPTT 针对回归任务与分类任务的梯度计算在形式上是十分相似的，仅在误差项的来源上有所差异。</p><blockquote><p>交叉熵损失（Cross-Entropy Loss）是多分类任务中最常见的损失函数，用于衡量模型预测概率分布与真实标签分布之间的差异。从信息论的角度看，交叉熵 $H(P,Q)=-\sum\limits_{x}P(x)\log Q(x)$ 意味着当真实分布为 $P$ 时基于预测分布 $Q$ 编码所需的平均信息量。对于 one-hot 标签分类任务，由于真实分布 $P$ 退化为 one-hot 分布，交叉熵损失最终会退化为 $-\log Q(y_{\text{true}})$，即最大化真实类别的预测概率。</p><p>KL 散度（Kullback-Leibler Divergence）$D_{\text{KL}}(P||Q)=H(P,Q)-H(P)$ 表示使用预测分布 $Q$ 所需要付出的额外成本， 其中 $H(P)$ 为真实分布 $P$ 的香农熵 $-\sum\limits_{x}P(x)\log P(x)$，代表最优编码信息量。因此，在监督学习下最小化交叉熵等价于最小化 KL 散度，即最小化额外编码成本。</p></blockquote><h2 id=局限>局限</h2><p>RNN 的循环结构使得模型具备了跨时间维度共享状态的能力。我们可以列举出 RNN 的若干优点：</p><ul><li>能够轻松地处理可变长序列输入；</li><li>参数量与序列长度无关；</li><li>具备一定程度的「记忆」能力，因为任何时刻的隐状态在理论上都蕴含了过去时间步的历史信息；</li><li>……</li></ul><blockquote><p>虽然 RNN 的参数量不随序列长度改变，但从其原理不难看到前向计算量与训练开销仍会随序列长度线性增长。</p></blockquote><p>RNN 的设计的确十分优雅，然而从上述推导中，我们能够发现 RNN 依然存在着若干缺陷：</p><ul><li>没有解决长期依赖（Long-term Dependency）的问题，因为 RNN 内部存在梯度爆炸 / 梯度消失的现象，这使得早期信息难以长期保留；</li><li>无法直接访问全部的历史信息：当前时间步 $t$ 只利用了上一时间步输出的隐状态 $\boldsymbol{h}_{t-1}$，尽管 $\boldsymbol{h}_{t-1}$ 理论上蕴含了过去的历史信息，但终归是将所有历史信息全部压缩编码到 $\boldsymbol{h}_{t-1}$ 这一个量中了，而无法直接利用过去完整的历史信息 $\{\boldsymbol{h}_i\}^{t-1}_{i=1}$。注意力（Attention）机制解决了这个问题，使得模型在任意时间步都能够完整访问并利用过去某一时间步的信息；</li><li>串行计算：在计算隐状态时，RNN 只能按时间步顺序串行化计算，因为 $\forall t,\boldsymbol{h}_{t}$ 依赖于 $\boldsymbol{h}_{t-1}$。Transformer 彻底解决了这个问题，实现了隐状态的并行计算（但推理时输出 token 仍按时间步顺序进行）。</li></ul><hr><p>这里从数学上简要说明 RNN 为什么存在梯度爆炸 / 梯度消失的风险。我们讨论早期隐状态 $\boldsymbol{h}_k$ 对总损失 $\mathcal{L}$ 的影响程度，这在数值上等价于关注 $\frac{\partial\mathcal{L}}{\partial\boldsymbol{h}_k}$。在列向量约定下，根据链式法则有</p>$$
-\begin{align}
+\begin{aligned}
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{h}_k}&=\sum^T_{t=k}\frac{\partial\mathcal{L}_t}{\partial\boldsymbol{h}_k}\\
 &=\sum^T_{t=k}\left(\frac{\partial\boldsymbol{h}_t}{\partial\boldsymbol{h}_k}\right)^T\frac{\partial\mathcal{L}_t}{\partial\boldsymbol{h}_t}\\
 &=\sum^T_{t=k}\left(\prod^t_{i=k+1}\frac{\partial\boldsymbol{h}_i}{\partial\boldsymbol{h}_{i-1}}\right)^T\frac{\partial\mathcal{L}_t}{\partial\boldsymbol{h}_t}\\
 &=\sum^T_{t=k}\left(\prod^t_{i=k+1}\mathrm{diag}\big(\varphi'(\boldsymbol{a}_i)\big)\boldsymbol{W}_h\right)^T\frac{\partial\mathcal{L}_t}{\partial\boldsymbol{h}_t}\\
 &=\sum^T_{t=k}\Big(\boldsymbol{W}_h^T\mathrm{diag}\big(\varphi'(\boldsymbol{a}_t)\big)\cdots\boldsymbol{W}_h^T\mathrm{diag}\big(\varphi'(\boldsymbol{a}_{k+1})\big)\Big)\frac{\partial\mathcal{L}_t}{\partial\boldsymbol{h}_t}
-\end{align}
+\end{aligned}
 \tag{19}
 $$<p>其中当 $t=k$ 时，上式中的空乘积按单位矩阵理解。因此，$\frac{\partial\mathcal{L}}{\partial\boldsymbol{h}_k}$ 可以被分解为若干矩阵连乘的和，并且跨越的时间步愈长，连乘的矩阵愈多。</p><p>Hochreiter 与 Schmidhuber 在 1997 年指出，保持时间依赖性的必要条件是长期保持梯度。然而，</p>$$
 \big\Vert\boldsymbol{W}_h^T\mathrm{diag}\big(\varphi'(\boldsymbol{a}_i)\big)\big\Vert\leqslant\Vert\boldsymbol{W}_h\Vert\big\Vert\mathrm{diag}\big(\varphi'(\boldsymbol{a}_i)\big)\big\Vert
