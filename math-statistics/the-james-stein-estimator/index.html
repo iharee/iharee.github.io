@@ -13,25 +13,25 @@ $$<p>在后文的证明中只会用到$\sigma^2=1$的情形。</p><p><b><font si
 $$
 \mathrm{MSE}(\hat{\delta}_{a,b})=p\sigma^2+\left(a^2-2a(p-2)\right)\sigma^4\mathbb{E}\left(\frac{1}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)-b(a^2+4a)\sigma^4\mathbb{E}\left(\frac{1}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)^2\tag{4}
 $$<p>易见当$a=p-2$、$b=0$，$\hat{\delta}_{a,b}=\hat{\boldsymbol{\mu}}^{(JSE)}$，该定理更具有一般性。</p><p><font size=4>证明：</font></p><p>首先容易知道，</p>$$
-\begin{aligned}
+\begin{align*}
 \mathrm{MSE}(\hat{\delta}_{a,b})&=\mathbb{E}\big[(\hat{\delta}_{a,b}-\boldsymbol{\mu})^T(\hat{\delta}_{a,b}-\boldsymbol{\mu})\big]\tag{5}\\
 &=p\sigma^2+a^2\sigma^4\mathbb{E}\left(\frac{\boldsymbol{X}^T\boldsymbol{X}}{(b+\boldsymbol{X}^T\boldsymbol{X})^2}\right)-2a\sigma^2\mathbb{E}\left(\frac{\boldsymbol{X}^T(\boldsymbol{X}-\boldsymbol{\mu})}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)\tag{6}
-\end{aligned}
+\end{align*}
 $$<p>观察$\mathbb{E}\left(\frac{\boldsymbol{X}^T(\boldsymbol{X}-\boldsymbol{\mu})}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)$，根据引理 1，有</p>$$
-\begin{aligned}
+\begin{align*}
 \mathbb{E}\left(\frac{\boldsymbol{X}^T(\boldsymbol{X}-\boldsymbol{\mu})}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)&=\sum^p_{i=1}\mathbb{E}\left(\frac{\boldsymbol{X}_i^T(\boldsymbol{X}_i-\boldsymbol{\mu}_i)}{b+\sum\limits^p_{j=1}\boldsymbol{X}^2_j}\right)\tag{7}\\
 &=\sum^p_{i=1}\sigma^2\mathbb{E}\left(\frac{\mathrm{d}}{\mathrm{d}x_i}\left(\frac{\boldsymbol{X}_i}{b+\sum\limits^p_{j=1}\boldsymbol{X}^2_j}\right)\right)\tag{8}\\
 &=\sigma^2\sum^p_{i=1}\mathbb{E}\left(\frac{b+\sum\limits^p_{j=1}\boldsymbol{X}^2_j-2\boldsymbol{X}^2_i}{\left(b+\sum\limits^p_{j=1}\boldsymbol{X}^2_j\right)^2}\right)\tag{9}\\
 &=\sigma^2\mathbb{E}\left(\frac{p(b+\boldsymbol{X}^T\boldsymbol{X})-2\boldsymbol{X}^T\boldsymbol{X}}{(b+\boldsymbol{X}^T\boldsymbol{X})^2}\right)\tag{10}\\
 &=\sigma^2\mathbb{E}\left(\frac{p-2}{b+\boldsymbol{X}^T\boldsymbol{X}}+\frac{2b}{(b+\boldsymbol{X}^T\boldsymbol{X})^2}\right)\tag{11}
-\end{aligned}
+\end{align*}
 $$<p>将$(11)$式代入$(6)$式，则</p>$$
-\begin{aligned}
+\begin{align*}
 &\ \ \,\,\,\,\,\mathrm{MSE}(\hat{\delta}_{a,b})\nonumber\\
 &=p\sigma^2+a^2\sigma^4\mathbb{E}\left(\frac{1}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)a^2b\sigma^4\mathbb{E}\left(\frac{1}{(b+\boldsymbol{X}^T\boldsymbol{X})^2}\right)\nonumber\\&\ \ \ \ \ -2a(p-2)\sigma^4\mathbb{E}\left(\frac{1}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)-4ab\sigma^2\mathbb{E}\left(\frac{1}{(b+\boldsymbol{X}^T\boldsymbol{X})^2}\right)\tag{12}\\
 &=p\sigma^2+\left(a^2-2a(p-2)\right)\sigma^4\mathbb{E}\left(\frac{1}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)-b(a^2+4a)\sigma^4\mathbb{E}\left(\frac{1}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)^2\tag{13}\\
 &\lt p\sigma^2=\mathrm{MSE}(\boldsymbol{X})\tag{14}\\
-\end{aligned}
+\end{align*}
 $$<p>不过，至今没有很好的办法确定最佳的$a$、$b$。赵世舜在他的<a href="https://kns.cnki.net/kcms2/article/abstract?v=8kKd7LBMH3xSSIdWhiWufGGufLtiCY9_i6PAIy8YMJi9mj6z-4S-MOuoWjC2hhtf7728Texzwk9TsPJ3u0exI2NEXEHOP1rNLe4XZuuh9Aad-4qjZHUpLc-CXUyV3UyY8djmVWIY6pWTdQnEq_aypoCrslrtUk8gc-c1rw5uBQ_LX7XPYaWURA==&amp;uniplatform=NZKPT&amp;language=CHS">博士学位论文</a>中指出，有理由认为选择合适的$b$是比取$b=0$更“好”的，尽管JSE中取$b=0$。</p><p>值得说明的是，即使$\sigma^2$是未知的，用$\sigma^2$的估计$\hat{\sigma}^2$代替$\sigma^2$，James-Stein型估计的风险依然一致小于$\boldsymbol{X}$，这就不再赘述了。</p><h2 id=可视化jse与mle的估计效果>可视化JSE与MLE的估计效果</h2><p>通过下述代码直观地可视化JSE与MLE估计效果上的差异，</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Python data-lang=Python><span style=display:flex><span><span style=color:#f92672>import</span> numpy <span style=color:#66d9ef>as</span> np
 </span></span><span style=display:flex><span>np<span style=color:#f92672>.</span>random<span style=color:#f92672>.</span>seed(<span style=color:#ae81ff>1</span>)
 </span></span><span style=display:flex><span>
@@ -116,18 +116,18 @@ $$
 收缩程度由收缩因子 $c$ 决定：</li><li>相较于样本均值将每个维度的分量分开计算均值，JSE把分量们整合起来进行估计.</li></ul><p>尽管JSE如此“年迈”，但在很多情景下仍发挥着不可或缺的重要作用，后续提出的许多新压缩估计也是基于JSE的。不过据李婷婷老师所言，似乎收缩估计这块并没有太多人在研究了。看起来，起码是我校是没有老师在做的。</p><h2 id=jse的经验bayes推导与解释>JSE的经验Bayes推导与解释</h2><p>最初JSE是由Willard James和Charles Stein通过经验Bayes估计(empirical Bayes methods)导出的，正如前文所述，那时还没有诞生shrinkage的概念。在此，我希望通过经验Bayes的解释，让JSE在Bayes框架里看起来更自然。这也说明，选择合适的先验，Bayes估计可以比MLE更“好”——尽管MLE本身也和Bayes框架是兼容的。</p><p>与前文类似地，只考虑$n=1$的情况，若$n>1$将$\boldsymbol X$替换为$\bar{\boldsymbol{X}}$即可。假设观测值$\boldsymbol{x}$来自总体期望为$\boldsymbol{\mu}$的正态分布，在$\boldsymbol{\mu}$的条件下$\boldsymbol{x}|\boldsymbol{\mu}\sim f(\boldsymbol{x}|\boldsymbol{\mu})$；而$\boldsymbol{\mu}$本身服从某种分布，记为$\boldsymbol{\mu}\sim g(\boldsymbol{\mu})$，根据Bayes公式，有</p>$$
 \overbrace{g(\boldsymbol\mu|\boldsymbol x)}^{\text{后验概率\,}}=\frac{\overbrace{g(\boldsymbol\mu)}^{\text{先验概率}}\cdot\overbrace{f(\boldsymbol{x}|\boldsymbol{\mu})}^{\text{似然}}}{\underbrace{\displaystyle{\int g(\boldsymbol\mu)f(\boldsymbol x|\boldsymbol{\mu})}\mathrm{d}\boldsymbol\mu}_{\text{边际概率}}}\tag{15}
 $$<p>其中，先验(prior)是事先给定信息，是试验前已知的信息；似然(likelihood)则是在$\boldsymbol{\mu}$条件下$\boldsymbol{x}$的分布，是观测值，是试验中获取的信息；边际概率$f(\boldsymbol x)=\int g(\boldsymbol\mu)f(\boldsymbol x|\boldsymbol{\mu})\mathrm{d}\boldsymbol\mu$又称边缘概率，可以视作排除了$\boldsymbol\mu$的影响后$\boldsymbol{x}$的分布，即无论$\boldsymbol\mu$取何值$\boldsymbol{x}$的“平均”的分布(想想看，这不就是在求期望么？)；后验(posterior)则正是经过试验后对先验的更新与调整，在先验信息下经过试验获得并加入更多的信息后，得到了更准确的估计，这便是后验信息，正是当下所需要的。</p><p>既然$\boldsymbol{x}$服从正态分布，$\boldsymbol{x}$的MLE——样本均值也服从正态分布，那么有理由假设$\boldsymbol{\mu}$亦服从正态分布。若令$\boldsymbol{x}|\boldsymbol{\mu}\sim N_p(\boldsymbol\mu,\sigma^2\boldsymbol{I})$，取先验$\boldsymbol{\mu}\sim N_p(\boldsymbol0,\varsigma^2\boldsymbol{I})$，则可以计算后验$\boldsymbol{\mu}|\boldsymbol{x}$的分布，</p>$$
-\begin{aligned}&\ \ \ \ \,\,g(\boldsymbol\mu|\boldsymbol x)\nonumber\\&=\frac{g(\boldsymbol\mu)\cdot f(\boldsymbol{x}|\boldsymbol{\mu})}{\displaystyle{\int g(\boldsymbol\mu)f(\boldsymbol x)}\mathrm{d}\boldsymbol\mu}\tag{16}\\&\propto g(\boldsymbol\mu)\cdot f(\boldsymbol{x}|\boldsymbol{\mu})\tag{17}\\&=\frac{1}{(2\pi\varsigma\sigma)^p}\exp\left[-\frac{1}{2}\left(\frac{1}{\sigma^2}(\boldsymbol x-\boldsymbol\mu)^T(\boldsymbol x-\boldsymbol\mu)+\frac{1}{\varsigma^2}\boldsymbol\mu^T\boldsymbol\mu\right)\right]\tag{18}\\&=\frac{\exp\left(-\frac{1}{2(\varsigma^2+\sigma^2)}\boldsymbol\mu^T\boldsymbol\mu\right)}{(2\pi\varsigma\sigma)^p}\exp\left[-\frac{1}{2}\left(
+\begin{align*}&\ \ \ \ \,\,g(\boldsymbol\mu|\boldsymbol x)\nonumber\\&=\frac{g(\boldsymbol\mu)\cdot f(\boldsymbol{x}|\boldsymbol{\mu})}{\displaystyle{\int g(\boldsymbol\mu)f(\boldsymbol x)}\mathrm{d}\boldsymbol\mu}\tag{16}\\&\propto g(\boldsymbol\mu)\cdot f(\boldsymbol{x}|\boldsymbol{\mu})\tag{17}\\&=\frac{1}{(2\pi\varsigma\sigma)^p}\exp\left[-\frac{1}{2}\left(\frac{1}{\sigma^2}(\boldsymbol x-\boldsymbol\mu)^T(\boldsymbol x-\boldsymbol\mu)+\frac{1}{\varsigma^2}\boldsymbol\mu^T\boldsymbol\mu\right)\right]\tag{18}\\&=\frac{\exp\left(-\frac{1}{2(\varsigma^2+\sigma^2)}\boldsymbol\mu^T\boldsymbol\mu\right)}{(2\pi\varsigma\sigma)^p}\exp\left[-\frac{1}{2}\left(
 \left(\boldsymbol{\mu}-\frac{\varsigma^2}{\varsigma^2+\sigma^2}\boldsymbol{x}\right)^T
 \left(\frac{\varsigma^2\sigma^2}{\varsigma^2+\sigma^2}\boldsymbol{I}\right)^{-1}\left(\boldsymbol{\mu}-
-\frac{\varsigma^2}{\varsigma^2+\sigma^2}\boldsymbol{x}\right)\right)\right]\tag{19}\end{aligned}
+\frac{\varsigma^2}{\varsigma^2+\sigma^2}\boldsymbol{x}\right)\right)\right]\tag{19}\end{align*}
 $$<p>因此$\boldsymbol{\mu}|\boldsymbol{x}\sim N_p\big(\frac{\varsigma^2}{\varsigma^2+\sigma^2}\boldsymbol{x},\frac{\varsigma^2\sigma^2}{\varsigma^2+\sigma^2}\boldsymbol{I}\big)$，另外可以解出边际概率$f(\boldsymbol x)=\int g(\boldsymbol\mu)f(\boldsymbol x|\boldsymbol{\mu})\mathrm{d}\boldsymbol\mu\sim N_p\big(\boldsymbol0,(\varsigma^2+\sigma^2)\boldsymbol I\big)$。边际概率的积分计算需要一些积分技巧，具体推导可以类比<a href=http://bayes-stat.github.io/download/chapte1.pdf>讨论班给出的过程</a>。</p><p>根据解出的后验分布，可以得出在先验$\boldsymbol{\mu}\sim N_p(\boldsymbol0,\varsigma^2\boldsymbol{I})$下，总体期望$\boldsymbol\mu$的Bayes估计为</p>$$
 \hat{\boldsymbol{\mu}}^{(Bayes)}=\frac{\varsigma^2}{\varsigma^2+\sigma^2}\boldsymbol{x}=\left(1-\frac{\sigma^2}{\varsigma^2+\sigma^2}\right)\boldsymbol{x}\tag{20}
 $$<p>接下来的问题是，$\varsigma^2$也是未知的，所以应当寻找一个对$\varsigma^2$的恰当的估计，于是很自然地想到利用方差的无偏估计代替方差，这一方法在构造多种正态检验统计量中是关键中的关键。</p><p>现构造$\frac{\sigma^2}{\varsigma^2+\sigma^2}$的估计，利用前文给出的边际概率$\boldsymbol{X}\sim N_p\big(\boldsymbol0,(\varsigma^2+\sigma^2)\boldsymbol I\big)$，容易知道$\Vert \boldsymbol{X}\Vert^2\sim(\varsigma^2+\sigma^2)\chi^2(p)$，因此$\frac{\sigma^2}{\Vert\boldsymbol{X}\Vert^2}\sim\frac{\sigma^2}{(\varsigma^2+\sigma^2)}\text{inv-}\chi^2(p)$。根据逆$\chi^2$分布的性质，从$\chi^2$分布出发，利用$\Gamma(x)=\displaystyle{\int^\infty_0t^{x-1}e^{-t}\mathrm{d}t}$可以导出：</p>$$
-\begin{aligned}\sigma^2\;\mathbb{E}\left(\frac{1}{\Vert\boldsymbol{X}\Vert^2}\right)&=\frac{\sigma^2}{(\varsigma^2+\sigma^2)}\cdot\int^\infty_0\frac{1}{x}\frac{1}{2^{\frac{v}{2}}\Gamma\left(\frac{v}{2}\right)}e^{-\frac{x}{2}}x^{\frac{v}{2}-1}\mathrm{d}x\tag{21}\\
+\begin{align*}\sigma^2\;\mathbb{E}\left(\frac{1}{\Vert\boldsymbol{X}\Vert^2}\right)&=\frac{\sigma^2}{(\varsigma^2+\sigma^2)}\cdot\int^\infty_0\frac{1}{x}\frac{1}{2^{\frac{v}{2}}\Gamma\left(\frac{v}{2}\right)}e^{-\frac{x}{2}}x^{\frac{v}{2}-1}\mathrm{d}x\tag{21}\\
 &=\frac{\sigma^2}{(\varsigma^2+\sigma^2)}\cdot\frac{1}{2^{\frac{v}{2}}\Gamma\left(\frac{v}{2}\right)}\int^\infty_0e^{-\frac{x}{2}}x^{\frac{v}{2}-2}\mathrm{d}x\tag{22}\\
 &=\frac{\sigma^2}{(\varsigma^2+\sigma^2)}\cdot\frac{2^{\frac{v}{2}-1}\Gamma\left(\frac{v}{2}-1\right)}{2^{\frac{v}{2}}\Gamma\left(\frac{v}{2}\right)},\ \ \ \ \ \ (when\ \ v>2)\tag{23}\\
 &=\frac{\sigma^2}{(\varsigma^2+\sigma^2)(p-2)}\tag{24}
-\end{aligned}
+\end{align*}
 $$<p>即：</p>$$
 \frac{\sigma^2}{(\varsigma^2+\sigma^2)}=\mathbb{E}\left(\frac{(p-2)\sigma^2}{\Vert\boldsymbol{X}\Vert^2}\right)\tag{25$^\ast$}
 $$<p>将$(25^\ast)$式代入$(20)$式，得</p>$$
