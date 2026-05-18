@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on 二三事</title><link>https://iharee.github.io/others/</link><description>Recent content in Others on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 07 May 2026 16:20:46 +0000</lastBuildDate><atom:link href="https://iharee.github.io/others/index.xml" rel="self" type="application/rss+xml"/><item><title>文献解读：Deep quantile and deep composite triplet regression</title><link>https://iharee.github.io/others/%E6%96%87%E7%8C%AE%E8%A7%A3%E8%AF%BBdeep_quantile_and_deep_composite_triplet_regression/</link><pubDate>Thu, 07 May 2026 16:20:46 +0000</pubDate><guid>https://iharee.github.io/others/%E6%96%87%E7%8C%AE%E8%A7%A3%E8%AF%BBdeep_quantile_and_deep_composite_triplet_regression/</guid><description>&lt;h1 id="文献解读背景"&gt;文献解读背景&lt;/h1&gt;
-&lt;p&gt;Tobias Fissler、Michael Merz 与 Mario V. Wüthrich 于 2021 年首先在 arXiv 发布预印本论文 &lt;a href="https://arxiv.org/abs/2112.03075"&gt;Deep Quantile and Deep Composite Model Regression&lt;/a&gt;。随后于 2023 年正式发表于期刊 Insurance: Mathematics and Economics 第 109 卷（2023 年 3 月，Pages 94–112），论文标题调整为 &lt;a href="https://www.sciencedirect.com/science/article/pii/S0167668723000070"&gt;Deep quantile and deep composite triplet regression&lt;/a&gt;。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;带有 “补充” 的标题，是本文额外补充的内容；反之，则属于原文献中的内容。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id="其他方法的局限"&gt;其他方法的局限&lt;/h1&gt;
-&lt;p&gt;OLS 以最小二乘函数作为损失函数，即 MSE，最优解为&lt;mark&gt;&lt;strong&gt;条件均值&lt;/strong&gt;&lt;/mark&gt;。&lt;/p&gt;
-&lt;p&gt;但金融和保险数据往往是重尾且偏态的，均值的代表性不足。&lt;/p&gt;
-&lt;p&gt;且最小二乘回归（OLS）假定上下误差对称，在该类数据场景下同样适用性有限。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;对于 GLM，通常假设 $y$ 服从某个指数族分布（或 tweedie），相当于预先给定了条件分布的函数形式。&lt;/p&gt;
-&lt;p&gt;文献提到，真实保险理赔数据中，&lt;mark&gt;&lt;strong&gt;bulk 和 tail 从机制上有根本不同&lt;/strong&gt;&lt;/mark&gt;，以单一参数分布统一刻画二者并不恰当，比如没有考虑到协变量对 bulk 与 tail 的不同影响。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;例如，保单持有人的年龄变量也许是解释小额赔案系统性影响的重要变量，但在解释大额赔案时却可能无关紧要。这种现象可能由从小额赔案到大额赔案时伤害类型的变化所隐含（事故保险），也可能由从小额保额到大额保额时行业细分的变化所隐含（工业火灾保险）；一个明确的例子见 &lt;a href="https://www.sciencedirect.com/science/article/pii/S0167668723000070#br0180"&gt;Fung et al. (2022)&lt;/a&gt; 第 5.3 节。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;而且 GLM 能直接指导的也是均值。&lt;/p&gt;</description></item><item><title>Spring 框架学习研究札记</title><link>https://iharee.github.io/others/spring-%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</link><pubDate>Wed, 28 May 2025 03:29:00 +0000</pubDate><guid>https://iharee.github.io/others/spring-%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</guid><description>&lt;!--
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on 二三事</title><link>https://iharee.github.io/others/</link><description>Recent content in Others on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 28 May 2025 03:29:00 +0000</lastBuildDate><atom:link href="https://iharee.github.io/others/index.xml" rel="self" type="application/rss+xml"/><item><title>Spring 框架学习研究札记</title><link>https://iharee.github.io/others/spring-%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</link><pubDate>Wed, 28 May 2025 03:29:00 +0000</pubDate><guid>https://iharee.github.io/others/spring-%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%9C%AD%E8%AE%B0/</guid><description>&lt;!--
 
 学习视频：&lt;a href="https://www.bilibili.com/video/BV14WtLeDEit"&gt;尚硅谷最新版SSM教程，基于AI的全新ssm框架实战&lt;/a&gt;，强烈推荐！
 
