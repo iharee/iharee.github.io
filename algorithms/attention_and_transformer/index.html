@@ -2,7 +2,7 @@
 <a href=/friends/>友链</a>
 <a href=/about/>关于</a></nav><div class=post-layout><aside class=post-toc-sidebar id=tocSidebar><div class=toc-header><span class=toc-title>目录</span>
 <button class=toc-close-btn id=tocCloseBtn aria-label="Close TOC">
-<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="15" y2="15"/><line x1="15" y1="3" x2="3" y2="15"/></svg></button></div><nav class=toc-nav id=tocNav><ul><li><a href=#rnn>RNN</a><ul><li><a href=#背景引入>背景引入</a></li><li><a href=#基本结构>基本结构</a></li><li><a href=#bptt-算法>BPTT 算法</a></li><li><a href=#局限>局限</a></li></ul></li><li><a href=#attention>Attention</a><ul><li><a href=#经典-encoderdecoder-的瓶颈>经典 Encoder–Decoder 的瓶颈</a></li><li><a href=#seq2seq--bahdanau-attention>Seq2Seq + Bahdanau Attention</a></li><li><a href=#attention-的一般数学形式>Attention 的一般数学形式</a></li><li><a href=#attention-的反向传播算法>Attention 的反向传播算法</a></li><li><a href=#基础-attention-结构范式>基础 Attention 结构范式</a><ul><li><a href=#cross-attention>Cross-Attention</a></li><li><a href=#self-attention>Self-Attention</a></li><li><a href=#multi-head-attention>Multi-Head Attention</a></li></ul></li></ul></li><li><a href=#transformer>Transformer</a><ul><li><a href=#经典-encoder-decoder-架构>经典 Encoder-Decoder 架构</a><ul><li><a href=#encoder>Encoder</a></li><li><a href=#decoder-与-kv-cache>Decoder 与 KV Cache</a></li><li><a href=#encoder--decoder-的关系>Encoder & Decoder 的关系</a></li></ul></li><li><a href=#最优化问题与反向传播算法>最优化问题与反向传播算法</a></li></ul></li></ul></nav></aside><main class=post-main><a href=/ class=post-back>返回</a><article><header class=post-header><div class=post-category-label>algorithms</div><h1 class=post-title-main>经典注意力与经典 Transformer 的数学原理</h1><div class=post-meta>2026.03.22
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="15" y2="15"/><line x1="15" y1="3" x2="3" y2="15"/></svg></button></div><nav class=toc-nav id=tocNav><ul><li><a href=#rnn>RNN</a><ul><li><a href=#背景引入>背景引入</a></li><li><a href=#基本结构>基本结构</a></li><li><a href=#bptt-算法>BPTT 算法</a></li><li><a href=#局限>局限</a></li></ul></li><li><a href=#attention>Attention</a><ul><li><a href=#经典-encoderdecoder-的瓶颈>经典 Encoder–Decoder 的瓶颈</a></li><li><a href=#seq2seq--bahdanau-attention>Seq2Seq + Bahdanau Attention</a></li><li><a href=#attention-的一般数学形式>Attention 的一般数学形式</a></li><li><a href=#attention-的反向传播算法>Attention 的反向传播算法</a></li><li><a href=#基础-attention-结构范式>基础 Attention 结构范式</a><ul><li><a href=#cross-attention>Cross-Attention</a></li><li><a href=#self-attention>Self-Attention</a></li><li><a href=#multi-head-attention>Multi-Head Attention</a></li></ul></li><li><a href=#附一个简单的计算示例>附：一个简单的计算示例</a></li></ul></li><li><a href=#transformer>Transformer</a><ul><li><a href=#经典-encoder-decoder-架构>经典 Encoder-Decoder 架构</a><ul><li><a href=#encoder>Encoder</a></li><li><a href=#decoder-与-kv-cache>Decoder 与 KV Cache</a></li><li><a href=#encoder--decoder-的关系>Encoder & Decoder 的关系</a></li></ul></li><li><a href=#最优化问题与反向传播算法>最优化问题与反向传播算法</a></li></ul></li></ul></nav></aside><main class=post-main><a href=/ class=post-back>返回</a><article><header class=post-header><div class=post-category-label>algorithms</div><h1 class=post-title-main>经典注意力与经典 Transformer 的数学原理</h1><div class=post-meta>2026.03.22
 &#183; #Transformer</div></header><div class=post-body><p>* 本文的部分示意图使用了 AI 辅助创作，其余有明确标注的示意图则引用自参考文献。</p><hr><p>若无特别说明，本文中的单个向量默认视为列向量。比如，在 RNN、BPTT 与 Bahdanau Attention 部分，$\boldsymbol{x}_t,\boldsymbol{h}_t,\boldsymbol{s}_t,\boldsymbol{a}_t$ 等单个向量都按列向量书写。</p><p>而在 attention 与 Transformer 章节的矩阵记号中，为便于书写整段序列的矩阵乘法，序列矩阵统一按行堆叠：若第 $i$ 个 token 的表示向量为列向量 $\boldsymbol{x}_i$，则矩阵 $\boldsymbol{X}$ 的第 $i$ 行为 $\boldsymbol{x}_i^T$。相应地，$\boldsymbol{Q},\boldsymbol{K},\boldsymbol{V}$ 的第 $i$ 行分别记为 $\boldsymbol{q}_i^T,\boldsymbol{k}_i^T,\boldsymbol{v}_i^T$。</p><blockquote><p>Token 指模型处理数据的最小单位。在 CV（Computer Vision，计算机视觉）中常指图像切分后的 patch，在音频中指离散化的特征片段，而在 NLP（Natural Language Processing，自然语言处理）中则是指文本分词（字、词或子词）。本文后续所指的 token 均可以被理解为 NLP 范畴下的文本单元，token embedding 则是通过嵌入层将 token ID 映射至连续向量空间中的稠密语义表示。</p></blockquote><h1 id=rnn>RNN</h1><h2 id=背景引入>背景引入</h2><p>在前文 <a href=/2024/12/08/computational_graphs_and_mlp style="color:#79b;font-weight:700;&:active{color:#0066cc;} &:focus{color:#0066cc;}">MLP 与 BP 算法的数学原理</a> 中，我们从数学上推导了普通 FFN（Feed-Forward Network，前馈神经网络）的误差反向传播算法，并最终编码实现了一个能够训练并完成分类任务的 MLP。</p><p>MLP（Multi-Layer Perceptron，多层感知机）是最经典、最基础的一种前馈神经网络，它只接受固定维度的张量 $\boldsymbol{x}$，并在经过内部若干层全连接层的非线性变换 $f(\boldsymbol{x})=\varphi(\boldsymbol{Wx}+\boldsymbol{b})$ 后，最终输出固定维度的张量 $\boldsymbol{y}$。对于能够确定输入与输出张量维度的任务，例如图像识别、缺陷检测等，输入输出张量维度固定是能够接受的。但是，对于序列数据，特别是那些具有强时间相关性的序列数据，譬如股票指数的时间序列、自然语言等，MLP 便显得力不从心了，主要体现在：</p><ul><li>输入维度固定，意味着无法处理可变长序列；</li><li>固定维度与无记忆性的假设，使得模型更难捕捉到序列元素间的依赖关系。</li></ul><p>一个简单的改进就是 RNN（Recurrent Neural Network，循环神经网络）。RNN 是一种基本的序列模型，下面介绍 RNN，并做简要的数学推导。</p><hr><p>参考文献：</p><ol><li>Y. Bengio, P. Simard and P. Frasconi, &ldquo;Learning long-term dependencies with gradient descent is difficult,&rdquo; in IEEE Transactions on Neural Networks, vol. 5, no. 2, pp. 157-166, March 1994, doi: 10.1109/72.279181.</li></ol><h2 id=基本结构>基本结构</h2><p>RNN 的核心公式是如下的递归表达式，</p>$$
 \boldsymbol{h}_t=\varphi(\boldsymbol{W}_h\boldsymbol{h}_{t-1}+\boldsymbol{W}_x\boldsymbol{x}_{t}+\boldsymbol{b})
 \tag{1}
@@ -111,7 +111,7 @@ P(y_t)=\mathrm{Softmax}\big(\boldsymbol{W}[\boldsymbol{s}_t;\boldsymbol{c}_t]+\b
 $$<p>其中 $[\boldsymbol{a};\boldsymbol{b}]$ 表示将两个向量按特征维拼接（concat），例如 $\boldsymbol{a}\in\mathbb{R}^p,\boldsymbol{b}\in\mathbb{R}^q$，则 $[\boldsymbol{a};\boldsymbol{b}]\in\mathbb{R}^{p+q}$。</p><hr><p>参考文献：</p><ol><li>Bahdanau, Dzmitry, Kyunghyun Cho and Yoshua Bengio. “Neural Machine Translation by Jointly Learning to Align and Translate.” <em>CoRR</em> abs/1409.0473 (2014): n. pag.</li></ol><h2 id=attention-的一般数学形式>Attention 的一般数学形式</h2><p>现在我们来把 Bahdanau Attention 的狭隘视角推广到更一般、更抽象的 attention 视角。</p><p>在更一般的 attention 视角下不存在 RNN 中时间步的概念，取而代之的是 token 序列的位置索引。</p><blockquote><p>RNN 的时间步可以被视为某种 token 的位置索引，只不过计算时必须按 token 顺序（时序）递归进行；就 attention 本身而言，是完全可以同时并行计算任意位置 token 间的相关性的，因为他关注的只是 token 间的关系。因此，Bahdanau Attention 也可以被纳入到该体系下。</p></blockquote><p>因此这里事先约定记号的写法：对于第 $i$ 个 token，我们分别用列向量 $\boldsymbol{q}_i,\boldsymbol{k}_i,\boldsymbol{v}_i$ 表示其 query、key、value。当我们把整段序列写成矩阵时，则将这些列向量的转置按行排列；例如，若把全部 value 向量收集成矩阵 $\boldsymbol{V}$，则 $\boldsymbol{V}$ 的第 $i$ 行为 $\boldsymbol{v}_i^T$。</p><ul><li><p>在 Bahdanau Attention 中，公式 $\boldsymbol{c}_t=\sum\limits^{T}_{i=1}\alpha_{t,i}\boldsymbol{h}_i$ 的本质是对历史信息作加权和。Bahdanau Attention 所选取的被加权向量是 RNN 的隐状态，在更一般 attention 形式中，被加权的向量称为 value，将多个 $\boldsymbol{v}_i^T$ 按行排布为矩阵即为所谓的 value 矩阵，记为 $\boldsymbol{V}$。</p></li><li><p>在 Bahdanau Attention 中，被归一化的权重系数是 $e_{t,i}=\boldsymbol{\omega}^T\tanh(\boldsymbol{W}_s\boldsymbol{s}_{t-1}+\boldsymbol{W}_h\boldsymbol{h}_i+\boldsymbol{b}_a)$，该系数衡量了当前位置的输入信息（$\boldsymbol{h}_i$，encoder 的隐状态）与当前解码状态（$\boldsymbol{s}_{t-1}$，decoder 的隐状态）间的相关程度。在更一般的 attention 形式中，「当前解码状态 $i$」意味着查询者，即 query；「当前位置的输入信息 $j$」意味着被查询的内容，即 key。类似地，query 矩阵记为 $\boldsymbol{Q}$，key 矩阵记为 $\boldsymbol{K}$，它们的第 $i,j$ 行分别为对应 token 的 query 与 key 向量的转置，即 $\boldsymbol{q}_i^T,\boldsymbol{k}_j^T$。</p><p>回到 Bahdanau Attention 的框架中也不难理解，在 Bahdanau Attention 的设计中，我们希望模型能够根据「当前解码状态，$\boldsymbol{s}_{t-1}$，query」查询「当前位置的输入信息，$\boldsymbol{h}_i$，key」得到权重系数，然后根据权重系数对「（历史编码）信息，$\boldsymbol{h}_j$，value」进行加权求和，从而给予一些对当前解码十分重要的信息更多关注，并在一定程度上看轻对当前解码不重要的信息。</p></li><li><p>我们希望通过 $\boldsymbol{q}_i,\boldsymbol{k}_j$ 计算以得到一个具体的数值，该数值应能够从数值上体现出第 $i$ 个 token 作为 query 与第 $j$ 个 token 作为 key 时的相关程度，就像 Bahdanau Attention 计算匹配分数那样。我们把该矩阵称为 score 或 attention score，记作 $\boldsymbol{S}$，有</p>$$
 \boldsymbol{S}_{ij}=\mathrm{score}(\boldsymbol{q}_i,\boldsymbol{k}_j)
 \tag{29}
-$$<p>不难看出，在 Bahdanau Attention 中，$\boldsymbol{S}_{ij}=\boldsymbol{\omega}^T\tanh(\boldsymbol{W}_s\boldsymbol{s}_{i-1}+\boldsymbol{W}_h\boldsymbol{h}_j+\boldsymbol{b}_a)$。</p><p>下面是一些经典的 score 设计：</p><ul><li>Additive Attention (Bahdanau Attention)：$\boldsymbol{S}_{ij}=\boldsymbol{\omega}^T\tanh(\boldsymbol{W}_q\boldsymbol{q}_{i}+\boldsymbol{W}_k\boldsymbol{k}_j+\boldsymbol{b})$</li><li>Dot-Product Attention (Luong Attention，内积相似度)：$\boldsymbol{S}_{ij}=\boldsymbol{q}_i^T\boldsymbol{k}_j$</li><li>Bilinear Attention：$\boldsymbol{S}_{ij}=\boldsymbol{q}_i^T\boldsymbol{W}\boldsymbol{k}_j$，其中 $\boldsymbol{W}$ 是可学习的参数</li><li>Scaled Dot-Product Attention：$\boldsymbol{S}_{ij}=\frac{\boldsymbol{q}_i^T\boldsymbol{k}_j}{\sqrt{d_k}}$（$d_k$ 为 key 的维度）</li></ul></li></ul><blockquote><p>可以简化地认为 attention 的本质是根据 query 与 key 间的匹配关系为一组 value 向量计算权重系数，随后使用这些权重系数为 value 向量进行加权求和，从而得到一个能够突出（对当前 query 位置而言重要的）相关信息的新表示向量。</p><p>而至于如何利用 attention、如何利用新表示向量，这就是上层的模型需要考虑的事了。</p></blockquote><p>现在，我们可以给出 attention 的标准抽象形式了：</p>$$
+$$<p><strong>$\boldsymbol{S}_{ij}$ 表示第 $i$ 个 token 对第 $j$ 个 token 的 attention score，该得分越高，表示第 $i$ 个 token 在编码自己时更应关注第 $j$ 个 token。</strong>不难看出，在 Bahdanau Attention 中，$\boldsymbol{S}_{ij}=\boldsymbol{\omega}^T\tanh(\boldsymbol{W}_s\boldsymbol{s}_{i-1}+\boldsymbol{W}_h\boldsymbol{h}_j+\boldsymbol{b}_a)$。</p><p>下面是一些经典的 score 设计：</p><ul><li>Additive Attention (Bahdanau Attention)：$\boldsymbol{S}_{ij}=\boldsymbol{\omega}^T\tanh(\boldsymbol{W}_q\boldsymbol{q}_{i}+\boldsymbol{W}_k\boldsymbol{k}_j+\boldsymbol{b})$</li><li>Dot-Product Attention (Luong Attention，内积相似度)：$\boldsymbol{S}_{ij}=\boldsymbol{q}_i^T\boldsymbol{k}_j$</li><li>Bilinear Attention：$\boldsymbol{S}_{ij}=\boldsymbol{q}_i^T\boldsymbol{W}\boldsymbol{k}_j$，其中 $\boldsymbol{W}$ 是可学习的参数</li><li>Scaled Dot-Product Attention：$\boldsymbol{S}_{ij}=\frac{\boldsymbol{q}_i^T\boldsymbol{k}_j}{\sqrt{d_k}}$（$d_k$ 为 key 的维度）</li></ul></li></ul><blockquote><p>可以简化地认为 attention 的本质是根据 query 与 key 间的匹配关系为一组 value 向量计算权重系数，随后使用这些权重系数为 value 向量进行加权求和，从而得到一个能够突出（对当前 query 位置而言重要的）相关信息的新表示向量。</p><p>而至于如何利用 attention、如何利用新表示向量，这就是上层的模型需要考虑的事了。</p></blockquote><p>现在，我们可以给出 attention 的标准抽象形式了：</p>$$
 \mathrm{Attention}(\boldsymbol{Q},\boldsymbol{K},\boldsymbol{V})=\mathrm{Softmax}_{\text{over key}}(\boldsymbol{S})\boldsymbol{V},\ \ \ \ \boldsymbol{S}_{ij}=\mathrm{score}(\boldsymbol{q}_i,\boldsymbol{k}_j)
 \tag{30}
 $$<p>也可以显式地写为加权和的形式，这样更符合上文的推导流程，也更能体现「注意力的本质是对 value 加权求和」：</p>$$
@@ -230,121 +230,185 @@ $$<p>将所有 head 的结果按特征维拼接后，再经一次线性变换，
 $$<p>其中 $\boldsymbol{W}_{O}$ 为输出投影矩阵。</p><p>若模型隐状态维度（模型中每个位置 token 对应的向量的维度）为 $d$，通常取</p>$$
 d_k=d_v=\frac{d}{h}
 \tag{60}
-$$<p>此时每个 head 只负责总表示空间中的一个子空间，将所有 head 拼接后便能够得到与原模型维度 $d$ 相匹配的表示空间。</p><p>若序列长度为 $n$，则单个 head 的 attention 计算复杂度约为 $O\big(n^2(\frac{d}{h})\big)$；将 $h$ 个 head 并行合并后，总复杂度仍保持在 $O(n^2d)$ 的量级。因此，在固定模型维度 $d$ 的前提下，Multi-Head Attention 相较于 Single-Head Attention 的主要收益在于表示能力的提升，而非渐近复杂度阶的降低。</p><hr><p>在经典文献《Attention Is All You Need》中，原作者曾给出过如下可视化示意图，意在表明某些 head 会专门学习「代词 → 先行词」的指代关系（注意：这属于跨位置的语义绑定，而非简单的局部语法关系），并且 attention 值十分突出，意味着这并非随机行为。更进一步地，这体现出多个 head 存在功能分化的现象，部分 head 可能专门负责捕获某种深刻关系。下图中，上半部分为某个 head 的完整 attention 分布，下半部分为该 head 对 token「its」 的 attention 连接。</p><img src=/images/attention_and_transformer/Figure_anaphora_resolution.jpg alt="anaphora resolution"><p>原作者在文献中也给出过另一张可视化示意图，如下图所示，这更加直观地体现了不同 head 能够学习到不同的句法结构。下图中，上半部分绿色标记的 head 更多在捕获语义或结构上的关键节点，例如主语、宾语与从句关键词等，而下半部分红色标记的 head 则主要在关注局部语法，侧重于 token 自身及其相邻 token。</p><img src=/images/attention_and_transformer/Figure_attending_to_head.jpg alt="attending to head"><p>除此之外，文献中还给出了一张可视化示意图，如下图所示，这直观地表明 Transformer 能够学习到长距离语法依赖，因为有多个 head（不同颜色标记）都自 token「making」建立了至不同距离的不同 token 的连接。不难看出，这实际上表示的是动词与补语间的结构关系。</p><img src=/images/attention_and_transformer/Figure_making_more_difficult.jpg alt="making more difficult"><h1 id=transformer>Transformer</h1><h2 id=经典-encoder-decoder-架构>经典 Encoder-Decoder 架构</h2><p>至此，Transformer 所需的关键部件其实已经齐备：attention 的一般形式给出了统一的计算框架，Self-Attention 使序列中任意两个位置能够直接交互，Multi-Head Attention 提升了模型的表示能力，位置编码则为原本对顺序不敏感的 attention 注入了位置信息。本质上，所谓 Transformer 正是将这些部件按 Encoder–Decoder 的方式组织拼接起来，同时彻底抛弃 RNN。</p><p>在接下来的两个小节中，我们将介绍《Attention Is All You Need》中所提出的首个 Transformer 模型（典型 Encoder-Decoder 架构），该模型可被视为经典 Seq2Seq 的改进或升级，依然属于 Encoder-Decoder 架构。相较于经典 Seq2Seq，这一模型不再依赖 RNN 逐步传递隐状态，而是以 attention 为核心构造 encoder 与 decoder，从而在获得更强的并行计算能力的同时也拥有更灵活的长程依赖建模能力。因此才有所谓的「Attention is all you need」——我们并不需要 RNN，只需要 attention 便能完成数据建模，而且还能取得更好的效果。这在 2017 年是极具开创性的工作。</p><img src=/images/attention_and_transformer/transformer.svg alt=Transformer><p>如上图所示，该模型的 encoder 与 decoder 都不再含有 RNN，而是由若干个结构相同的层堆叠而成。在原论文中，encoder 与 decoder 各自堆叠了 6 层，分别称为编码器层与解码器层。</p><hr><p>在经典文献《Attention Is All You Need》中，原作者给出的是如下示意图。该示意图相对精简，没有刻画出 dropout 等子结构。</p><img src=/images/attention_and_transformer/ModalNet-21.png alt=ModalNet-21><h3 id=encoder>Encoder</h3><p>首先讨论 encoder。Encoder 的输入是完整源序列的 token embedding 矩阵经位置编码后所得到输入表示</p>$$
-\boldsymbol{X}^{(0)}=\boldsymbol{E}+\boldsymbol{P}
+$$<p>此时每个 head 只负责总表示空间中的一个子空间，将所有 head 拼接后便能够得到与原模型维度 $d$ 相匹配的表示空间。</p><p>若序列长度为 $n$，则单个 head 的 attention 计算复杂度约为 $O\big(n^2(\frac{d}{h})\big)$；将 $h$ 个 head 并行合并后，总复杂度仍保持在 $O(n^2d)$ 的量级。因此，在固定模型维度 $d$ 的前提下，Multi-Head Attention 相较于 Single-Head Attention 的主要收益在于表示能力的提升，而非渐近复杂度阶的降低。</p><hr><p>在经典文献《Attention Is All You Need》中，原作者曾给出过如下可视化示意图，意在表明某些 head 会专门学习「代词 → 先行词」的指代关系（注意：这属于跨位置的语义绑定，而非简单的局部语法关系），并且 attention 值十分突出，意味着这并非随机行为。更进一步地，这体现出多个 head 存在功能分化的现象，部分 head 可能专门负责捕获某种深刻关系。下图中，上半部分为某个 head 的完整 attention 分布，下半部分为该 head 对 token「its」 的 attention 连接。</p><img src=/images/attention_and_transformer/Figure_anaphora_resolution.jpg alt="anaphora resolution"><p>原作者在文献中也给出过另一张可视化示意图，如下图所示，这更加直观地体现了不同 head 能够学习到不同的句法结构。下图中，上半部分绿色标记的 head 更多在捕获语义或结构上的关键节点，例如主语、宾语与从句关键词等，而下半部分红色标记的 head 则主要在关注局部语法，侧重于 token 自身及其相邻 token。</p><img src=/images/attention_and_transformer/Figure_attending_to_head.jpg alt="attending to head"><p>除此之外，文献中还给出了一张可视化示意图，如下图所示，这直观地表明 Transformer 能够学习到长距离语法依赖，因为有多个 head（不同颜色标记）都自 token「making」建立了至不同距离的不同 token 的连接。不难看出，这实际上表示的是动词与补语间的结构关系。</p><img src=/images/attention_and_transformer/Figure_making_more_difficult.jpg alt="making more difficult"><h2 id=附一个简单的计算示例>附：一个简单的计算示例</h2><p>让我们来构造一个简单的演示案例，以更直观地感受 Self-Attention 是如何计算的。</p><p>假设现在我们有三个 token：<code>["I", "love", "U"]</code>，分别对应 3 维的 embedding 向量 $[1,0,0]$、$[0,1,1]$ 与 $[-1,0,0]$，则 batch 大小为 1 的输入矩阵为</p>$$
+\boldsymbol{X}=\left(\begin{matrix}
+1&0&-1\\
+0&1&0\\
+0&1&0
+\end{matrix}\right)
 \tag{61}
+$$<p>模型需要学习三个权重矩阵 $\boldsymbol{W}_{Q},\boldsymbol{W}_{K},\boldsymbol{W}_{V}$，假设分别为</p>$$
+\boldsymbol{W}_{Q}=\left(\begin{matrix}
+-1&0&1\\
+0&1&0\\
+1&0&-1
+\end{matrix}\right)\quad\boldsymbol{W}_{K}=\left(\begin{matrix}
+1&0&0\\
+0&1&1\\
+0&1&1
+\end{matrix}\right)\quad\boldsymbol{W}_{V}=\left(\begin{matrix}
+1&0&0\\
+0&-2&0\\
+0&0&2
+\end{matrix}\right)
+\tag{62}
+$$<p>分别计算 $\boldsymbol{Q},\boldsymbol{K},\boldsymbol{V}$，有</p>$$
+\boldsymbol{Q}=\boldsymbol{XW}_{Q}=\begin{pmatrix}
+-2 & 0 & 2 \\
+0 & 1 & 0 \\
+0 & 1 & 0
+\end{pmatrix}
+\tag{63}
+$$$$
+\boldsymbol{K}=\boldsymbol{XW}_{K}=\begin{pmatrix}
+1 & -1 & -1 \\
+0 & 1 & 1 \\
+0 & 1 & 1
+\end{pmatrix}
+\tag{64}
+$$$$
+\boldsymbol{V}=\boldsymbol{XW}_{V}=\begin{pmatrix}
+1 & 0 & -2 \\
+0 & -2 & 0 \\
+0 & -2 & 0
+\end{pmatrix}
+\tag{65}
+$$<p>现在计算各 token 间的 attention score，考虑 Scaled Dot-Product Attention，则</p>$$
+\boldsymbol{S}=\frac{1}{\sqrt{3}}\boldsymbol{QK}^T=\begin{pmatrix}
+-\frac{2}{\sqrt{3}} & \frac{4}{\sqrt{3}} & \frac{4}{\sqrt{3}} \\
+0 & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \\
+0 & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}}
+\end{pmatrix}
+\tag{66}
+$$<p>按 $\boldsymbol{S}$ 的行做 Softmax 归一化，近似有</p>$$
+\hat{\boldsymbol{S}}\approx\begin{pmatrix}
+0.015 & 0.492 & 0.492 \\
+0.219 & 0.390 & 0.390 \\
+0.219 & 0.390 & 0.390
+\end{pmatrix}
+\tag{67}
+$$<p>计算 attention，有</p>$$
+\mathrm{Attentnon}=\hat{\boldsymbol{S}}\boldsymbol{V}=\begin{pmatrix}
+0.015 & -1.968 & -0.03 \\
+0.219 & -1.56 & -0.438 \\
+0.219 & -1.56 & -0.438
+\end{pmatrix}
+\tag{68}
+$$<blockquote><p>再次强调，$\mathrm{Attentnon}$ 是 $\boldsymbol{V}$ 按 $\hat{\boldsymbol{S}}$ 的加权和。</p></blockquote><blockquote><p>对于 Transformer 而言，下一步是将 $\mathrm{Attentnon}$ 作为 FNN 子层的输入，得到输出。然后，再将输出作为下一层的输入，重复操作——详见下一章。</p></blockquote><h1 id=transformer>Transformer</h1><h2 id=经典-encoder-decoder-架构>经典 Encoder-Decoder 架构</h2><p>至此，Transformer 所需的关键部件其实已经齐备：attention 的一般形式给出了统一的计算框架，Self-Attention 使序列中任意两个位置能够直接交互，Multi-Head Attention 提升了模型的表示能力，位置编码则为原本对顺序不敏感的 attention 注入了位置信息。本质上，所谓 Transformer 正是将这些部件按 Encoder–Decoder 的方式组织拼接起来，同时彻底抛弃 RNN。</p><p>在接下来的两个小节中，我们将介绍《Attention Is All You Need》中所提出的首个 Transformer 模型（典型 Encoder-Decoder 架构），该模型可被视为经典 Seq2Seq 的改进或升级，依然属于 Encoder-Decoder 架构。相较于经典 Seq2Seq，这一模型不再依赖 RNN 逐步传递隐状态，而是以 attention 为核心构造 encoder 与 decoder，从而在获得更强的并行计算能力的同时也拥有更灵活的长程依赖建模能力。因此才有所谓的「Attention is all you need」——我们并不需要 RNN，只需要 attention 便能完成数据建模，而且还能取得更好的效果。这在 2017 年是极具开创性的工作。</p><img src=/images/attention_and_transformer/transformer.svg alt=Transformer><p>如上图所示，该模型的 encoder 与 decoder 都不再含有 RNN，而是由若干个结构相同的层堆叠而成。在原论文中，encoder 与 decoder 各自堆叠了 6 层，分别称为编码器层与解码器层。</p><hr><p>在经典文献《Attention Is All You Need》中，原作者给出的是如下示意图。该示意图相对精简，没有刻画出 dropout 等子结构。</p><img src=/images/attention_and_transformer/ModalNet-21.png alt=ModalNet-21><h3 id=encoder>Encoder</h3><p>首先讨论 encoder。Encoder 的输入是完整源序列的 token embedding 矩阵经位置编码后所得到输入表示</p>$$
+\boldsymbol{X}^{(0)}=\boldsymbol{E}+\boldsymbol{P}
+\tag{69}
 $$<p>其中 $\boldsymbol{E}$ 为源序列的 token embedding 矩阵，$\boldsymbol{P}$ 为位置编码矩阵。Encoder 共包含六个子层（编码器层），并且每一层都以上一层的输出作为当前层输入，每个编码器层又可以按前馈顺序被进一步分解为两个子层：</p><ol><li>Multi-Head Self-Attention 子层；</li><li>逐位置独立作用的 FFN 子层。</li></ol><p>在原论文的实现中，每一个子层外都包裹着残差连接（Residual Connection）与层归一化（Layer Normalization）。记第 $l$ 层 encoder 的输入为 $\boldsymbol{X}^{(l-1)}$，$1\leqslant l\leqslant 6$，则编码器层的每一层计算的数学表示为</p>$$
 \tilde{\boldsymbol{X}}^{(l)}=\mathrm{LayerNorm}\big(\underbrace{\boldsymbol{X}^{(l-1)}}_{\text{Residual}}+\mathrm{MultiHeadAttention}(\boldsymbol{X}^{(l-1)},\boldsymbol{X}^{(l-1)},\boldsymbol{X}^{(l-1)})\big)
-\tag{62}
+\tag{70}
 $$$$
 \boldsymbol{X}^{(l)}=\mathrm{LayerNorm}\big(\underbrace{\tilde{\boldsymbol{X}}^{(l)}}_{\text{Residual}}+\mathrm{FFN}(\tilde{\boldsymbol{X}}^{(l)})\big)
-\tag{63}
+\tag{71}
 $$<p>其中 $\mathrm{FFN}$ 通常由两层线性变换与中间的逐元素非线性激活函数构成，并且对每一个位置的 token 独立地作用，即</p>$$
 \mathrm{FFN}(\tilde{\boldsymbol{X}}^{(l)})
 =\varphi(\tilde{\boldsymbol{X}}^{(l)}\boldsymbol{W}_1+\boldsymbol{b}_1)\boldsymbol{W}_2+\boldsymbol{b}_2
-\tag{64}
+\tag{72}
 $$<p>这里残差连接的目的是保留子层输入的原始信息，同时为梯度提供一条更直接的传播路径，缓解深层堆叠时的优化困难；层归一化的作用则是对每个位置上的表示作归一化处理，使得不同层之间的数值尺度相对稳定，减轻训练过程中参数的数值不稳定现象。二者相互配合，是 Transformer 能够稳定堆叠多层结构的重要原因。</p><p>在 encoder 中，由于 $\boldsymbol{Q},\boldsymbol{K},\boldsymbol{V}$ 均来自同一个输入序列，因此这里使用的 attention 是典型的 Self-Attention。</p><p>若源序列长度为 $n$、模型维度为 $d$、FFN 的中间层维度为 $d_{\text{ff}}$，则单个编码器层的计算复杂度大致可分解为两部分：Multi-Head Self-Attention 子层的 $O(n^2d)$ 与 FFN 子层的 $O(ndd_{\text{ff}})$。因此，当序列较长时，attention 的二次复杂度往往是 encoder 的主要计算瓶颈。</p><p>尽管 encoder 包含 6 层编码器层，但从单层的结构上看，第一层、中间层与最后一层的编码器并无结构上的区别，它们只是参数各自独立并且输入输出所处的抽象层次不同。</p><p>经过 6 层编码器层后，最终 encoder 将输出一组上下文表示 $\boldsymbol{X}^{(6)}$，我们将其称为 Encoder Memory，这组表示稍后将同时作为 decoder 中 Cross-Attention 的 key 与 value。可见，encoder 依然是「信息提取者」的角色，能够「总结」上下文。</p><blockquote><p>这暗示了 decoder 包含 Cross-Attention。实际上，原论文中的 encoder 使用的是纯粹的 Self-Attention，而 decoder 同时使用了 Causal Masked Self-Attention 与 Cross-Attention（Encoder–Decoder Attention）；二者均应用了 Multi-Head Attention。</p></blockquote><p>要特别说明的是，训练时与推理时 encoder 均仅并行计算一次，由 decoder 多次进行自回归以生成全部输出。因此若考虑 Encoder-Decoder LLM，则 encoder 只会计算一次输入 prompt 与上下文，不会在随后 decoder 每一次自回归生成 token 输出时都进行重复计算。</p><blockquote><p>但现在许多 LLM 已经没有了 encoder 的设计，只有 decoder 了。后文会展开这一点。</p></blockquote><h3 id=decoder-与-kv-cache>Decoder 与 KV Cache</h3><p>接着讨论 decoder。Decoder 的输入在训练与推理时略有不同，为了在训练时达到推理输出的等价效果，需要对目标序列显式右移。所谓右移，设训练时原始的目标序列为 $(y_1,y_2,\cdots,y_T)$，我们在目标序列头部插入起始标记 token $\langle BOS\rangle$ 并移除最后一个 token，便得到了右移后的序列 $\big(\langle BOS\rangle,y_1,y_2,\cdots,y_{T-1}\big)$，其中原本的最后一个 token $y_T$ 用于计算训练时的误差以便反向传播梯度并使用优化算法更新参数。</p><blockquote><p>$y_T$ 也可以是终止标记 token $\langle EOS\rangle$。</p></blockquote><p>这种做法本质上就是 Transformer 在训练阶段所采用的 Teacher Forcing：在预测第 $t$ 个 token 时，decoder 所接收到的是真实的前缀序列 $\big(\langle BOS\rangle,y_1,y_2,\cdots,y_{t-1}\big)$，而非模型在前面各步自行生成的 token。这样做的好处是能够并行地计算所有位置上的条件概率分布，并显著提升训练的稳定性与效率。</p><p>记 $\boldsymbol{E}_{\text{target}}$ 为输入目标序列（对于训练时，为右移后的原始目标序列；对于推理时，为自回归输入）、$\boldsymbol{P}_{\text{target}}$ 为位置编码矩阵，则 decoder 的输入为</p>$$
 \boldsymbol{Y}^{(0)}=\boldsymbol{E}_{\text{target}}+\boldsymbol{P}_{\text{target}}
-\tag{65}
+\tag{73}
 $$<p>与 encoder 相比，decoder 也有六个解码器层，但其每个解码器层相比编码器层都多出一个用于注入 encoder 所提供的上下文表示的额外 attention 子层。解码器层由如下三个子层组成，按前馈顺序：</p><ol><li>Masked Multi-Head Self-Attention 子层，通过因果掩码确保自回归生成时当前位置只能访问到自身及其之前的位置，避免标签泄漏；</li><li>Multi-Head Cross-Attention 子层，用于注入 encoder 的上下文表示，query 来自 decoder 当前隐状态（即 Masked Multi-Head Self-Attention 子层的输出）；</li><li>逐位置独立作用的 FFN 子层。</li></ol><p>若记第 $l$ 层 decoder 的输入为 $\boldsymbol{Y}^{(l-1)}$、encoder 的最终输出为 $\boldsymbol{X}^{(6)}$，$1\leqslant l\leqslant 6$，则解码器层的每一层计算的数学表示为</p>$$
 \tilde{\boldsymbol{Y}}^{(l)}=\mathrm{LayerNorm}\big(\underbrace{\boldsymbol{Y}^{(l-1)}}_{\text{Residual}}+\mathrm{MaskedMultiHeadAttention}(\boldsymbol{Y}^{(l-1)},\boldsymbol{Y}^{(l-1)},\boldsymbol{Y}^{(l-1)})\big)
-\tag{66}
+\tag{74}
 $$$$
 \hat{\boldsymbol{Y}}^{(l)}=\mathrm{LayerNorm}\big(\underbrace{\tilde{\boldsymbol{Y}}^{(l)}}_{\text{Residual}}+\mathrm{MultiHeadAttention}(\tilde{\boldsymbol{Y}}^{(l)},\boldsymbol{X}^{(6)},\boldsymbol{X}^{(6)})\big)
-\tag{67}
+\tag{75}
 $$$$
 \boldsymbol{Y}^{(l)}=\mathrm{LayerNorm}\big(\underbrace{\hat{\boldsymbol{Y}}^{(l)}}_{\text{Residual}}+\mathrm{FFN}(\hat{\boldsymbol{Y}}^{(l)})\big)
-\tag{68}
+\tag{76}
 $$<p>当最后一层解码器层输出 $\boldsymbol{Y}^{(6)}$ 后，模型再通过线性层与 Softmax 函数得到每一个位置的下一个 token 的预测概率分布，即</p>$$
 \underbrace{\boldsymbol{Z}}_{\text{logits}}=\boldsymbol{Y}^{(6)}\boldsymbol{W}+\boldsymbol{b}
-\tag{69}
+\tag{77}
 $$$$
 \boldsymbol{P}=\mathrm{Softmax}_{\text{over vocabulary}}(\boldsymbol{Z})
-\tag{70}
+\tag{78}
 $$<blockquote><p>得到预测概率分布后，我们根据预测概率分布通过采样技术得到具体的 token。</p><p>许多 LLM 的 API 都支持 Temperature 超参数，实际上该参数只对基座模型计算得到的 logits 进行缩放，与基座模型内部的计算过程无关。记 Temperature 超参数为 $Temp$，则一种常见的支持 Temperature 参数的采样方式是</p>$$
 \boldsymbol{P}_{Temp}=\mathrm{Softmax}_{\text{over vocabulary}}\bigg(\frac{\boldsymbol{Z}}{Temp}\bigg)
-\tag{71}
+\tag{79}
 $$<p>通常 Temperature 被设定为非负数（取 0 时特殊考虑贪心策略），该值越大越容易得到小 logits 的 token。例如，当 Temperature 被设定为 0 时，采样时直接选取 logits 最大的 token，即 $\mathrm{token}_i={\arg\max}_{j}\boldsymbol{P}_{ij}$，于是模型的输出完全确定唯一、高度一致；反之，若 Temperature 较大，则会得到更多样多元、更不可控甚至上下文不连贯的输出。</p><p>根据目前为止的工程经验，对多数实践中的常见推荐 $Temp$ 取 $[0.5,0.9]$ 内的数，比如 $0.7$。</p></blockquote><p>若源序列长度为 $n$、目标序列长度为 $m$、模型维度为 $d$、FFN 的中间层维度为 $d_{\text{ff}}$，则单个解码器层的计算复杂度可近似写为</p>$$
 O(m^2d)+O(mnd)+O(mdd_{\text{ff}})
-\tag{72}
+\tag{80}
 $$<p>其中第一项来自 Masked Self-Attention，第二项来自 Cross-Attention，第三项来自 FFN。可见，相较于 encoder，decoder 每层多出了一项与源序列长度和目标序列长度同时相关的 Cross-Attention 代价。</p><p>不过，尽管模型在每个位置都可以给出下一个 token 的概率分布，但我们真正关心的是当前已生成序列（本轮自回归过程的输入）的下一个 token 的概率，即输出序列的最后一个位置所对应的预测分布 $P(y_t|y_1,y_2,\cdots,y_{t-1})$。通过采样得到 $y_t$ 后，我们把它插入到已生成序列并将更新后的已生成序列再次作为输入，然后重复该过程，直到某轮自回归过程计算出下一个 token 为终止标记 token $\langle EOS\rangle$。这就是 decoder 自回归生成的基本方式，通过这样一步步迭代，最终输出一个完整的序列。</p><p>自回归过程的概率模型为</p>$$
 P(y_1,y_2,\cdots,y_T)=\prod^{T}_{t=1}P(y_t|y_1,y_2,\cdots,y_{t-1})
-\tag{73}
-$$<p>因此，尽管 encoder 与 decoder 内计算 attention 是并行的，但 decoder 生成结果时仍然是以自回归的方式逐个输出 token 的。</p><hr><p>如上文所述，decoder 在推理阶段以自回归的方式逐个输出 token，因此若未采取任何优化措施，每个 token 的生成都是十分昂贵的。所幸，KV Cache 可以帮助我们避免大量重复计算，从而极大地降低计算量。</p><blockquote><p>早在 2017 年的《Attention Is All You Need》中在首次提出 Transformer 时就已经蕴含了这一设计，只不过那时该机制还没有被系统化整理，也没有如今这个如雷贯耳的名字。</p></blockquote><p>所谓 KV Cache，其实就是使用缓存存储自回归中先前时间步中已计算的 $\boldsymbol{K},\boldsymbol{V}$ 以避免重复计算。本质上 KV Cache 只是一个普通的缓存，但它在自回归中 attention 计算上太过于重要，以至于我们特别提出 KV Cache 这一术语。今天，KV Cache 已经成为了 LLM 推理能够顺利落地的核心优化措施。</p><p>现在我们分析为什么自回归时可以缓存 $\boldsymbol{K},\boldsymbol{V}$ 以降低计算量，同时不必缓存 $\boldsymbol{Q}$。</p><ol><li>从 $(65),(66),(67),(31)$ 式可以看出，对于 decoder 的第 $l$ 层，考虑自回归过程的先后两次当前层的输入序列 $(y_1,y_2,\cdots,y_T)$ 与 $(y_1,y_2,\cdots,y_{T+1})$，不难知道两个序列的前 $T$ 个元素都是相同的（提示：第一数学归纳法易证）；</li><li>因果掩码的加入，使得 attention 是单向的，即 $\forall i\lt T+1$，$\boldsymbol{\mathrm{attention}}_{i}$ 与 $y_{T+1}$ 无关；又由第一点可知，两个输入序列前 $T$ 个元素也是相同的，故两序列的前 $T$ 个 attention 的值也是恒定不变的。综上，我们只需要计算 $\boldsymbol{\mathrm{attention}}_{T+1}$，然后将 $\boldsymbol{\mathrm{attention}}_{T+1}$ 插入到上一轮自回归得到的 attention 序列 $\{\boldsymbol{\mathrm{attention}}_{i}\}^{T}_{i=1}$，这一技巧称为 incremental decoding；</li><li>根据 $(30)$ 式 $\boldsymbol{\mathrm{attention}}_{T+1}=\sum\limits^{T+1}_{i=1}a_{T+1,i}\boldsymbol{v}_i$、$a_{T+1,i}=\frac{\exp(\boldsymbol{S}_{T+1,i})}{\sum\limits^{T+1}_{j=1}\exp(\boldsymbol{S}_{T+1,j})}$ 与 $\boldsymbol{S}_{T+1,j}=\mathrm{score}(\boldsymbol{q}_{T+1},\boldsymbol{k}_j)$ 可以知道，$\boldsymbol{\mathrm{attention}}_{T+1}$ 的值仅与 $\boldsymbol{q}_{T+1},\{\boldsymbol{v}_i\}^{T+1}_{i=1},\{\boldsymbol{k}_i\}^{T+1}_{i=1}$ 有关，而与 $\{\boldsymbol{q}_i\}^{T}_{i=1}$ 无关，加之两个输入序列的前 $T$ 个元素是相同的，因此 $\{\boldsymbol{v}_i\}^{T}_{i=1},\{\boldsymbol{k}_i\}^{T}_{i=1}$ 也是固定的、可复用的，这就是为什么我们可以缓存 $\boldsymbol{K},\boldsymbol{V}$ 而不必缓存 $\boldsymbol{Q}$ 的根本原因。</li></ol><p>在明确了为什么 KV Cache 需要且仅需要缓存 $\boldsymbol{K},\boldsymbol{V}$ 且没有必要缓存 $\boldsymbol{Q}$ 后，我们对 KV Cache 进行复杂度分析，以推导其「究竟用多少空间换了多少时间」。下文若未特别说明，均只讨论 decoder 自回归推理阶段中单层 Self-Attention 的主导项复杂度，并忽略线性投影、FFN 与常数项。</p><p>以《Attention Is All You Need》中提出的 Transformer 为例，如上文所述，在 Self-Attention 的场景下若输入序列长度为 $n$，则并行地计算一次 attention 的时间复杂度为 $O(n^2d)$。在自回归推理阶段，若未使用 KV Cache，则在生成第 $t$ 个 token 时需要对当前长度为 $t$ 的完整前缀重新计算一次 attention，故此时第 $t$ 步的时间复杂度为 $O(t^2d)$；将各步求和后，最终生成长度为 $T$ 的序列的总时间复杂度为 $\sum_{t=1}^{T}O(t^2d)=O(T^3d)$。</p><p>而若应用 KV Cache，计 decoder 共堆叠 $L$ 层，则在生成到第 $t$ 步时，为了存储每一层中 $t\times d$ 形状的 key 矩阵与 value 矩阵，我们需要付出 $O(Ltd)$ 的空间开销；当完整生成长度为 $T$ 的序列后，总空间复杂度来到 $O(LTd)$。但这或许是值得的，因为我们在第 $t$ 步只需要计算新位置 $\boldsymbol{\mathrm{attention}}_{t}$，该步时间复杂度为 $O(td)$——开销主要来自于 $\boldsymbol{q}_t\boldsymbol{K}$ 的计算；将各步求和后，最终总时间复杂度从 $O(T^3d)$ 降至 $\sum_{t=1}^{T}O(td)=O(T^2d)$。</p><blockquote><p>KV Cache 仅在推理阶段有效。</p></blockquote><hr><p>我们通常将现代 Transformer LLM 推理的生成过程拆分为 prefill 与 decode 两个阶段，其中 prefill 是指模型首次读取整段输入 prompt 并建立 KV Cache 的阶段（即生成第一个 token 前的阶段），而 decode 阶段则是模型自回归生成新 token 的阶段。也就是说，KV Cache 通常被认为是属于 decoder 的结构（更准确地讲，属于 decoder self-attention），在 prefill 阶段根据输入 prompt 批量构建，并在随后的 decode 阶段 incremental decoding 继续增量扩展。</p><p>通常而言，prefill 阶段的总计算量会更大，因为此时尚未建立可复用的 KV Cache——毕竟建立 KV Cache 本身也是 prefill 阶段的工作内容之一，故 attention 计算相对于输入长度通常呈平方级别增长；而来到自回归 decode 阶段，由于 KV Cache 的存在，每生成一个新 token 时，attention 计算相对于当前上下文长度通常是线性级别的，计算成本相对更低。</p><p>有趣的是，尽管 prefill 阶段计算量更大，但 prefill 阶段往往能够让 GPU、TPU 等并行计算设备更充分地发挥性能，这是因为输入 prompt 是固定的、确定的，模型不必等待自回归过程输出新 token，因此同一层内不同 token 的 Q/K/V、attention 的计算以及 KV Cache 的构建都是可以并行进行的。</p><p>综上所述，在衡量现代 Transformer LLM 推理速度的时候，我们通常会分别考察 prefill 与 decode 两个阶段的耗时。</p><blockquote><p>所谓的 TTFT（Time To First Token，首 token 响应延迟）是 LLM 供应商最看重的用户体验指标之一，该指标的值受到网络延迟、服务器负载、请求排队、tokenizer 开销等多方面的影响，而其中最耗时的环节往往正是 prefill 阶段——尤其是在 prompt 较长的场景下。</p><p>相应的，所谓的 TPOT（Time Per Output Token）则指后续 token 的生成平均耗时；TPS（Tokens Per Second）则是 TPOT 的近似倒数，表示平均每秒生成的 token 数。</p><p>这些性能指标可被归类为 throughput（吞吐量指标，包括 TPS）与 latency（延迟指标，包括 TTFT、TPOT）两大类。关于其他衡量用户体验的大模型性能指标，这里就不再展开了，它们不是本文的主要介绍内容。</p></blockquote><h3 id=encoder--decoder-的关系>Encoder & Decoder 的关系</h3><p>今天，基于 Transformer 的主流 LLM 移除了 encoder 的设计，几乎都可以认为是 Decoder-only 的架构，比如 GPT、Claude、GLM、DeepSeek 与 Gemini（截止至 2026/3/30，其中 Gemini 在视觉与音频多模态存在 encoder 设计）。</p><p>是 encoder 不被需要了吗？至少在纯文本自回归生成的场景下，Decoder-only 往往被认为比 Full Encoder-Decoder 更高效，这或许是今天 Decoder-only 成为生成式 AI 主流设计的一种原因，不过我没有找到能支撑这个观点的权威文献。但不管怎样，文本生成的确是一类典型的长序列建模问题。</p><blockquote><p>源序列与目标不一致时，即类似 $P(\boldsymbol{y}|\boldsymbol{x})$ 的「Seq2Seq」问题，或许依然适合 Full Encoder-Decoder？</p></blockquote><p>2019 年 OpenAI 为发布 GPT-2 撰写的论文《<a href=https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf>Language Models are Unsupervised Multitask Learners</a>》中指出，统一使用自回归语言建模目标 $P(y_1,y_2,\cdots,y_T)=\prod\limits^{T}_{t=1}P(y_t|y_{\lt t})$ 可以让模型在多种任务上均获得强泛化能力。Decoder-only 能在今天大行其道，至少说明这种统一的自回归建模方式在 LLM 时代有充分的实践价值。</p><p>但这并不意味着 encoder 是毫无用处的，</p><ul><li>Google 在 2025 年发布的生成式 LLM T5Gemma 便重新引入了 encoder，一个可能的目的是为了大幅缩减 decoder 的参数量，降低 KV Cache 的空间开销，从而支持侧端 AI 部署；</li><li>在生成式 AI 以外的场景，甚至出现了像 2024 年 ModernBERT 这样的 Encoder-only 模型——不过它并不是生成式 LLM，其职责是将文本「深度理解」后进行分类，在情感分析、代码检索等任务上有亮眼的能力。</li></ul><p>在当下（截止至 2026/3/30），纯文本生成式 AI 普遍已将 encoder 排除在主架构之外，而多模态 AI 则通常具有 encoder，甚至为处理多种类型的输入（如图片、视频、音频、激光信号等）而具有多种 encoder。这有个很形象的直观：Decoder 越来越像「大脑」，而 encoder 越来越像「传感器」。</p><hr><p>参考文献：</p><ol><li>Radford, Alec, Jeff Wu, Rewon Child, David Luan, Dario Amodei and Ilya Sutskever. “Language Models are Unsupervised Multitask Learners.” (2019).</li></ol><h2 id=最优化问题与反向传播算法>最优化问题与反向传播算法</h2><p><span style=color:#757575;font-weight:700;font-size:1em;font-style:italic> * 如果对经典 Transformer 的梯度推导不感兴趣或者有「数学公式恐惧症」，则可以略过本小节。</span></p><p>上文已经给出了经典 Transformer 在训练与推理时的前向结构，即 decoder 以右移后的目标序列作为输入，首先经由 $(65),(66),(67)$ 三式得到最后一层解码器层所输出的 $\boldsymbol{Y}^{(6)}$，再经由 $(68),(69)$ 二式得到各位置上的 logits 与相应的预测概率分布。现在我们重点在梯度的数学形式上分析一下经典 Transformer 中的最优化问题及 BP 算法。</p><div style="border-top:1px solid #e0e0e0;margin:20px 0"></div><span style=display:flex;justify-content:center;align-items:center;font-size:1.2em;font-weight:700>条件语言建模目标</span><p>对于源序列 $\boldsymbol{x}=(x_1,x_2,\cdots,x_n)$ 与目标序列 $\boldsymbol{y}=(y_1,y_2,\cdots,y_m)$，经典 Encoder-Decoder Transformer 在训练时的优化目标是典型的条件自回归语言建模目标</p>$$
+\tag{81}
+$$<p>因此，尽管 encoder 与 decoder 内计算 attention 是并行的，但 decoder 生成结果时仍然是以自回归的方式逐个输出 token 的。</p><hr><p>如上文所述，decoder 在推理阶段以自回归的方式逐个输出 token，因此若未采取任何优化措施，每个 token 的生成都是十分昂贵的。所幸，KV Cache 可以帮助我们避免大量重复计算，从而极大地降低计算量。</p><blockquote><p>早在 2017 年的《Attention Is All You Need》中在首次提出 Transformer 时就已经蕴含了这一设计，只不过那时该机制还没有被系统化整理，也没有如今这个如雷贯耳的名字。</p></blockquote><p>所谓 KV Cache，其实就是使用缓存存储自回归中先前时间步中已计算的 $\boldsymbol{K},\boldsymbol{V}$ 以避免重复计算。本质上 KV Cache 只是一个普通的缓存，但它在自回归中 attention 计算上太过于重要，以至于我们特别提出 KV Cache 这一术语。今天，KV Cache 已经成为了 LLM 推理能够顺利落地的核心优化措施。</p><p>现在我们分析为什么自回归时可以缓存 $\boldsymbol{K},\boldsymbol{V}$ 以降低计算量，同时不必缓存 $\boldsymbol{Q}$。</p><ol><li>从 $(73),(74),(75),(31)$ 式可以看出，对于 decoder 的第 $l$ 层，考虑自回归过程的先后两次当前层的输入序列 $(y_1,y_2,\cdots,y_T)$ 与 $(y_1,y_2,\cdots,y_{T+1})$，不难知道两个序列的前 $T$ 个元素都是相同的（提示：第一数学归纳法易证）；</li><li>因果掩码的加入，使得 attention 是单向的，即 $\forall i\lt T+1$，$\boldsymbol{\mathrm{attention}}_{i}$ 与 $y_{T+1}$ 无关；又由第一点可知，两个输入序列前 $T$ 个元素也是相同的，故两序列的前 $T$ 个 attention 的值也是恒定不变的。综上，我们只需要计算 $\boldsymbol{\mathrm{attention}}_{T+1}$，然后将 $\boldsymbol{\mathrm{attention}}_{T+1}$ 插入到上一轮自回归得到的 attention 序列 $\{\boldsymbol{\mathrm{attention}}_{i}\}^{T}_{i=1}$，这一技巧称为 incremental decoding；</li><li>根据 $(30)$ 式 $\boldsymbol{\mathrm{attention}}_{T+1}=\sum\limits^{T+1}_{i=1}a_{T+1,i}\boldsymbol{v}_i$、$a_{T+1,i}=\frac{\exp(\boldsymbol{S}_{T+1,i})}{\sum\limits^{T+1}_{j=1}\exp(\boldsymbol{S}_{T+1,j})}$ 与 $\boldsymbol{S}_{T+1,j}=\mathrm{score}(\boldsymbol{q}_{T+1},\boldsymbol{k}_j)$ 可以知道，$\boldsymbol{\mathrm{attention}}_{T+1}$ 的值仅与 $\boldsymbol{q}_{T+1},\{\boldsymbol{v}_i\}^{T+1}_{i=1},\{\boldsymbol{k}_i\}^{T+1}_{i=1}$ 有关，而与 $\{\boldsymbol{q}_i\}^{T}_{i=1}$ 无关，加之两个输入序列的前 $T$ 个元素是相同的，因此 $\{\boldsymbol{v}_i\}^{T}_{i=1},\{\boldsymbol{k}_i\}^{T}_{i=1}$ 也是固定的、可复用的，这就是为什么我们可以缓存 $\boldsymbol{K},\boldsymbol{V}$ 而不必缓存 $\boldsymbol{Q}$ 的根本原因。</li></ol><p>在明确了为什么 KV Cache 需要且仅需要缓存 $\boldsymbol{K},\boldsymbol{V}$ 且没有必要缓存 $\boldsymbol{Q}$ 后，我们对 KV Cache 进行复杂度分析，以推导其「究竟用多少空间换了多少时间」。下文若未特别说明，均只讨论 decoder 自回归推理阶段中单层 Self-Attention 的主导项复杂度，并忽略线性投影、FFN 与常数项。</p><p>以《Attention Is All You Need》中提出的 Transformer 为例，如上文所述，在 Self-Attention 的场景下若输入序列长度为 $n$，则并行地计算一次 attention 的时间复杂度为 $O(n^2d)$。在自回归推理阶段，若未使用 KV Cache，则在生成第 $t$ 个 token 时需要对当前长度为 $t$ 的完整前缀重新计算一次 attention，故此时第 $t$ 步的时间复杂度为 $O(t^2d)$；将各步求和后，最终生成长度为 $T$ 的序列的总时间复杂度为 $\sum_{t=1}^{T}O(t^2d)=O(T^3d)$。</p><p>而若应用 KV Cache，计 decoder 共堆叠 $L$ 层，则在生成到第 $t$ 步时，为了存储每一层中 $t\times d$ 形状的 key 矩阵与 value 矩阵，我们需要付出 $O(Ltd)$ 的空间开销；当完整生成长度为 $T$ 的序列后，总空间复杂度来到 $O(LTd)$。但这或许是值得的，因为我们在第 $t$ 步只需要计算新位置 $\boldsymbol{\mathrm{attention}}_{t}$，该步时间复杂度为 $O(td)$——开销主要来自于 $\boldsymbol{q}_t\boldsymbol{K}$ 的计算；将各步求和后，最终总时间复杂度从 $O(T^3d)$ 降至 $\sum_{t=1}^{T}O(td)=O(T^2d)$。</p><blockquote><p>KV Cache 仅在推理阶段有效。</p></blockquote><hr><p>我们通常将现代 Transformer LLM 推理的生成过程拆分为 prefill 与 decode 两个阶段，其中 prefill 是指模型首次读取整段输入 prompt 并建立 KV Cache 的阶段（即生成第一个 token 前的阶段），而 decode 阶段则是模型自回归生成新 token 的阶段。也就是说，KV Cache 通常被认为是属于 decoder 的结构（更准确地讲，属于 decoder self-attention），在 prefill 阶段根据输入 prompt 批量构建，并在随后的 decode 阶段 incremental decoding 继续增量扩展。</p><p>通常而言，prefill 阶段的总计算量会更大，因为此时尚未建立可复用的 KV Cache——毕竟建立 KV Cache 本身也是 prefill 阶段的工作内容之一，故 attention 计算相对于输入长度通常呈平方级别增长；而来到自回归 decode 阶段，由于 KV Cache 的存在，每生成一个新 token 时，attention 计算相对于当前上下文长度通常是线性级别的，计算成本相对更低。</p><p>有趣的是，尽管 prefill 阶段计算量更大，但 prefill 阶段往往能够让 GPU、TPU 等并行计算设备更充分地发挥性能，这是因为输入 prompt 是固定的、确定的，模型不必等待自回归过程输出新 token，因此同一层内不同 token 的 Q/K/V、attention 的计算以及 KV Cache 的构建都是可以并行进行的。</p><p>综上所述，在衡量现代 Transformer LLM 推理速度的时候，我们通常会分别考察 prefill 与 decode 两个阶段的耗时。</p><blockquote><p>所谓的 TTFT（Time To First Token，首 token 响应延迟）是 LLM 供应商最看重的用户体验指标之一，该指标的值受到网络延迟、服务器负载、请求排队、tokenizer 开销等多方面的影响，而其中最耗时的环节往往正是 prefill 阶段——尤其是在 prompt 较长的场景下。</p><p>相应的，所谓的 TPOT（Time Per Output Token）则指后续 token 的生成平均耗时；TPS（Tokens Per Second）则是 TPOT 的近似倒数，表示平均每秒生成的 token 数。</p><p>这些性能指标可被归类为 throughput（吞吐量指标，包括 TPS）与 latency（延迟指标，包括 TTFT、TPOT）两大类。关于其他衡量用户体验的大模型性能指标，这里就不再展开了，它们不是本文的主要介绍内容。</p></blockquote><h3 id=encoder--decoder-的关系>Encoder & Decoder 的关系</h3><p>今天，基于 Transformer 的主流 LLM 移除了 encoder 的设计，几乎都可以认为是 Decoder-only 的架构，比如 GPT、Claude、GLM、DeepSeek 与 Gemini（截止至 2026/3/30，其中 Gemini 在视觉与音频多模态存在 encoder 设计）。</p><p>是 encoder 不被需要了吗？至少在纯文本自回归生成的场景下，Decoder-only 往往被认为比 Full Encoder-Decoder 更高效，这或许是今天 Decoder-only 成为生成式 AI 主流设计的一种原因，不过我没有找到能支撑这个观点的权威文献。但不管怎样，文本生成的确是一类典型的长序列建模问题。</p><blockquote><p>源序列与目标不一致时，即类似 $P(\boldsymbol{y}|\boldsymbol{x})$ 的「Seq2Seq」问题，或许依然适合 Full Encoder-Decoder？</p></blockquote><p>2019 年 OpenAI 为发布 GPT-2 撰写的论文《<a href=https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf>Language Models are Unsupervised Multitask Learners</a>》中指出，统一使用自回归语言建模目标 $P(y_1,y_2,\cdots,y_T)=\prod\limits^{T}_{t=1}P(y_t|y_{\lt t})$ 可以让模型在多种任务上均获得强泛化能力。Decoder-only 能在今天大行其道，至少说明这种统一的自回归建模方式在 LLM 时代有充分的实践价值。</p><p>但这并不意味着 encoder 是毫无用处的，</p><ul><li>Google 在 2025 年发布的生成式 LLM T5Gemma 便重新引入了 encoder，一个可能的目的是为了大幅缩减 decoder 的参数量，降低 KV Cache 的空间开销，从而支持侧端 AI 部署；</li><li>在生成式 AI 以外的场景，甚至出现了像 2024 年 ModernBERT 这样的 Encoder-only 模型——不过它并不是生成式 LLM，其职责是将文本「深度理解」后进行分类，在情感分析、代码检索等任务上有亮眼的能力。</li></ul><p>在当下（截止至 2026/3/30），纯文本生成式 AI 普遍已将 encoder 排除在主架构之外，而多模态 AI 则通常具有 encoder，甚至为处理多种类型的输入（如图片、视频、音频、激光信号等）而具有多种 encoder。这有个很形象的直观：Decoder 越来越像「大脑」，而 encoder 越来越像「传感器」。</p><hr><p>参考文献：</p><ol><li>Radford, Alec, Jeff Wu, Rewon Child, David Luan, Dario Amodei and Ilya Sutskever. “Language Models are Unsupervised Multitask Learners.” (2019).</li></ol><h2 id=最优化问题与反向传播算法>最优化问题与反向传播算法</h2><p><span style=color:#757575;font-weight:700;font-size:1em;font-style:italic> * 如果对经典 Transformer 的梯度推导不感兴趣或者有「数学公式恐惧症」，则可以略过本小节。</span></p><p>上文已经给出了经典 Transformer 在训练与推理时的前向结构，即 decoder 以右移后的目标序列作为输入，首先经由 $(73),(74),(75)$ 三式得到最后一层解码器层所输出的 $\boldsymbol{Y}^{(6)}$，再经由 $(76),(77)$ 二式得到各位置上的 logits 与相应的预测概率分布。现在我们重点在梯度的数学形式上分析一下经典 Transformer 中的最优化问题及 BP 算法。</p><div style="border-top:1px solid #e0e0e0;margin:20px 0"></div><span style=display:flex;justify-content:center;align-items:center;font-size:1.2em;font-weight:700>条件语言建模目标</span><p>对于源序列 $\boldsymbol{x}=(x_1,x_2,\cdots,x_n)$ 与目标序列 $\boldsymbol{y}=(y_1,y_2,\cdots,y_m)$，经典 Encoder-Decoder Transformer 在训练时的优化目标是典型的条件自回归语言建模目标</p>$$
 P(y_1,y_2,\cdots,y_m|\boldsymbol{x})=\prod_{t=1}^{m}P(y_t|y_1,y_2,\cdots,y_{t-1},\boldsymbol{x})
-\tag{74}
-$$<p>这与上文所给出的 decoder 自回归概率分解 $(72)$ 式在形式上是完全一致的，只不过明确了对源序列 $\boldsymbol{x}$ 的条件依赖。对于 Text-to-Text 的条件语言建模任务，本质上是「输入 token → 预测输出 token」的监督学习任务，即概率分布预测任务，因此顶层的损失函数一般考虑交叉熵。</p><p>在 Teacher Forcing 下，decoder 的输入是右移后的目标前缀，而监督信号则是不右移的真实目标序列本身。记词表大小为 $V$，并记</p><ul><li>$\boldsymbol{Y}'\in\mathbb{R}^{m\times V}$ 为标签矩阵，其第 $t$ 行为真实目标 token $y_t$ 对应 one-hot 向量的转置；</li><li>$\boldsymbol{P}\in\mathbb{R}^{m\times V}$ 为 $(69)$ 式得到的预测概率矩阵，其第 $t$ 行给出位置 $t$ 上下一个 token 的预测分布。</li></ul><p>若暂不考虑 padding 掩码，则经典 Transformer 在单个样本上的交叉熵损失为</p>$$
+\tag{82}
+$$<p>这与上文所给出的 decoder 自回归概率分解 $(80)$ 式在形式上是完全一致的，只不过明确了对源序列 $\boldsymbol{x}$ 的条件依赖。对于 Text-to-Text 的条件语言建模任务，本质上是「输入 token → 预测输出 token」的监督学习任务，即概率分布预测任务，因此顶层的损失函数一般考虑交叉熵。</p><p>在 Teacher Forcing 下，decoder 的输入是右移后的目标前缀，而监督信号则是不右移的真实目标序列本身。记词表大小为 $V$，并记</p><ul><li>$\boldsymbol{Y}'\in\mathbb{R}^{m\times V}$ 为标签矩阵，其第 $t$ 行为真实目标 token $y_t$ 对应 one-hot 向量的转置；</li><li>$\boldsymbol{P}\in\mathbb{R}^{m\times V}$ 为 $(77)$ 式得到的预测概率矩阵，其第 $t$ 行给出位置 $t$ 上下一个 token 的预测分布。</li></ul><p>若暂不考虑 padding 掩码，则经典 Transformer 在单个样本上的交叉熵损失为</p>$$
 \mathcal{L}_{\text{CE}}=-\sum_{t=1}^{m}\sum_{c=1}^{V}Y'_{t,c}\log P_{t,c}
-\tag{75}
-$$<p>由于在批次训练中不同序列的长度可能不同，在实现中常常使用 padding 标志 $\langle PAD\rangle$ 将短序列尾填充至与长序列相同的长度。</p><p>显然，在模型的训练中应当忽视没有语义的 padding 标志，因此实际的损失函数通常还会在上式上额外再乘以 loss 掩码，其作用是标记有效 token 位置，从而使最后计算损失时仅对有效 token 求和或求平均。不过，这并不会改变下文将要推导的梯度形式，只会将被掩码所作用的对应位置梯度置零。</p><div style="border-top:1px solid #e0e0e0;margin:20px 0"></div><span style=display:flex;justify-content:center;align-items:center;font-size:1.2em;font-weight:700>输出层梯度</span><p>由于 $(69)$ 式仍是 “线性层 + Softmax + 交叉熵” 的组合，因此其局部梯度与上在 RNN 章节的 $(15),(16)$ 式推导是完全一致的，于是有</p>$$
+\tag{83}
+$$<p>由于在批次训练中不同序列的长度可能不同，在实现中常常使用 padding 标志 $\langle PAD\rangle$ 将短序列尾填充至与长序列相同的长度。</p><p>显然，在模型的训练中应当忽视没有语义的 padding 标志，因此实际的损失函数通常还会在上式上额外再乘以 loss 掩码，其作用是标记有效 token 位置，从而使最后计算损失时仅对有效 token 求和或求平均。不过，这并不会改变下文将要推导的梯度形式，只会将被掩码所作用的对应位置梯度置零。</p><div style="border-top:1px solid #e0e0e0;margin:20px 0"></div><span style=display:flex;justify-content:center;align-items:center;font-size:1.2em;font-weight:700>输出层梯度</span><p>由于 $(77)$ 式仍是 “线性层 + Softmax + 交叉熵” 的组合，因此其局部梯度与上在 RNN 章节的 $(15),(16)$ 式推导是完全一致的，于是有</p>$$
 \frac{\partial\mathcal{L}_{\text{CE}}}{\partial\boldsymbol{Z}}=\boldsymbol{P}-\boldsymbol{Y}'
-\tag{76}
-$$<p>再由 $(68)$ 式 $\boldsymbol{Z}=\boldsymbol{Y}^{(6)}\boldsymbol{W}+\boldsymbol{b}$，求导立即得</p>$$
+\tag{84}
+$$<p>再由 $(76)$ 式 $\boldsymbol{Z}=\boldsymbol{Y}^{(6)}\boldsymbol{W}+\boldsymbol{b}$，求导立即得</p>$$
 \boxed{\frac{\partial\mathcal{L}_{\text{CE}}}{\partial\boldsymbol{W}}=(\boldsymbol{Y}^{(6)})^T(\boldsymbol{P}-\boldsymbol{Y}')},\qquad
 \boxed{\frac{\partial\mathcal{L}_{\text{CE}}}{\partial\boldsymbol{b}}=\boldsymbol{1}_m^T(\boldsymbol{P}-\boldsymbol{Y}')},\qquad
 \boxed{\frac{\partial\mathcal{L}_{\text{CE}}}{\partial\boldsymbol{Y}^{(6)}}=(\boldsymbol{P}-\boldsymbol{Y}')\boldsymbol{W}^T}
-\tag{77}
-$$<p>其中 $\boldsymbol{1}_m\in\mathbb{R}^{m\times1}$。若实际训练中对有效 token 数作平均，则只需在上式右侧整体再除以有效 token 数。</p><div style="border-top:1px solid #e0e0e0;margin:20px 0"></div><span style=display:flex;justify-content:center;align-items:center;font-size:1.2em;font-weight:700>内部梯度</span><p>现在我们从输出层逐步向底层分析经典 Transformer 内部的梯度流动。</p><p>由 $(76)$ 式，最后一层解码器层输出的上游梯度为</p>$$
+\tag{85}
+$$<p>其中 $\boldsymbol{1}_m\in\mathbb{R}^{m\times1}$。若实际训练中对有效 token 数作平均，则只需在上式右侧整体再除以有效 token 数。</p><div style="border-top:1px solid #e0e0e0;margin:20px 0"></div><span style=display:flex;justify-content:center;align-items:center;font-size:1.2em;font-weight:700>内部梯度</span><p>现在我们从输出层逐步向底层分析经典 Transformer 内部的梯度流动。</p><p>由 $(84)$ 式，最后一层解码器层输出的上游梯度为</p>$$
 \bar{\boldsymbol{Y}}^{(6)}\triangleq\frac{\partial\mathcal{L}_{\text{CE}}}{\partial\boldsymbol{Y}^{(6)}}=(\boldsymbol{P}-\boldsymbol{Y}')\boldsymbol{W}^T
-\tag{78}
+\tag{86}
 $$<p>这里及下文统一用上划线表示对相应变量的梯度。又由于各子层外都包裹了残差连接与 LayerNorm，为简洁起见，对于 $\boldsymbol{R}=\mathrm{LayerNorm}(\boldsymbol{U})$，记</p>$$
 \mathcal{D}_{\mathrm{LN}}(\boldsymbol{U},\bar{\boldsymbol{R}})
 \triangleq
 \mathrm{VJP}_{\mathrm{LayerNorm},\boldsymbol{U}}(\boldsymbol{U};\bar{\boldsymbol{R}})
-\tag{79}
+\tag{87}
 $$<p>这里 $\mathrm{VJP}$ 表示 LayerNorm 关于输入 $\boldsymbol{U}$ 的 Jacobian 与上游梯度 $\bar{\boldsymbol{R}}$ 的缩并结果，即 LayerNorm 对上游梯度的回传结果；若 LayerNorm 含可学习参数，则可以通过按逐元素仿射变换得到其参数梯度。</p><blockquote><p>VJP 全称 Vector-Jacobian Product，该算子的具体推导与形式请查阅现代自动微分理论的相关文献。LayerNorm 的前向计算包含均值中心化和方差归一化，这导致它的 Jacobian 矩阵非常复杂，所以 VJP 的形式也异常冗长，简洁起见，本文不对 VJP 做推导。</p></blockquote><p>对任意一个 Multi-Head Attention 模块，记</p>$$
 \boldsymbol{H}=\mathrm{Concat}(\mathrm{head}_1,\mathrm{head}_2,\cdots,\mathrm{head}_h),\qquad
 \mathrm{MHA}(\boldsymbol{X}_Q,\boldsymbol{X}_K,\boldsymbol{X}_V)=\boldsymbol{H}\boldsymbol{W}_O
-\tag{80}
+\tag{88}
 $$<p>若其输出的上游梯度为 $\bar{\boldsymbol{M}}$，则由输出投影得到</p>$$
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{W}_O}=\boldsymbol{H}^T\bar{\boldsymbol{M}},\qquad
 \bar{\boldsymbol{H}}=\bar{\boldsymbol{M}}\boldsymbol{W}_O^T
-\tag{81}
+\tag{89}
 $$<p>接着，再将 $\bar{\boldsymbol{H}}$ 按特征维切分到各个 head，并对每个 head 引用上文 attention 章节推导出的 $(37),(42),(44),(46),(47)$ 式，便得到其对 $\boldsymbol{X}_Q,\boldsymbol{X}_K,\boldsymbol{X}_V$ 以及 $\boldsymbol{W}_Q^{(r)},\boldsymbol{W}_K^{(r)},\boldsymbol{W}_V^{(r)}$ 的梯度，最后将各 head 对同一输入的梯度相加即可。若带因果掩码或 padding 掩码，则只需将被掩码所作用的对应 score 位置对应的 $\frac{\partial\mathcal{L}}{\partial S_{ij}}$ 置零。</p><p>然后，梯度按 $l=6,5,\cdots,1$ 的顺序在 decoder 内反向传播。对于第 $l$ 层 decoder 的 FFN 子层，记</p>$$
 \boldsymbol{A}_f^{(l)}=\hat{\boldsymbol{Y}}^{(l)}\boldsymbol{W}_1^{(l)}+\boldsymbol{b}_1^{(l)},\qquad
 \boldsymbol{F}^{(l)}=\varphi(\boldsymbol{A}_f^{(l)})\boldsymbol{W}_2^{(l)}+\boldsymbol{b}_2^{(l)},\qquad
 \boldsymbol{U}_f^{(l)}=\hat{\boldsymbol{Y}}^{(l)}+\boldsymbol{F}^{(l)}
-\tag{82}
-$$<p>则由 $(67)$ 式有</p>$$
+\tag{90}
+$$<p>则由 $(75)$ 式有</p>$$
 \bar{\boldsymbol{U}}_f^{(l)}=\mathcal{D}_{\mathrm{LN}}(\boldsymbol{U}_f^{(l)},\bar{\boldsymbol{Y}}^{(l)}),\qquad
 \boldsymbol{\Delta}_f^{(l)}\triangleq\Big(\bar{\boldsymbol{U}}_f^{(l)}(\boldsymbol{W}_2^{(l)})^T\Big)\odot\varphi'(\boldsymbol{A}_f^{(l)})
-\tag{83}
+\tag{91}
 $$<p>于是</p>$$
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{W}_2^{(l)}}=\varphi(\boldsymbol{A}_f^{(l)})^T\bar{\boldsymbol{U}}_f^{(l)},\quad
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{b}_2^{(l)}}=\boldsymbol{1}_m^T\bar{\boldsymbol{U}}_f^{(l)},\quad
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{W}_1^{(l)}}=(\hat{\boldsymbol{Y}}^{(l)})^T\boldsymbol{\Delta}_f^{(l)},\quad
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{b}_1^{(l)}}=\boldsymbol{1}_m^T\boldsymbol{\Delta}_f^{(l)}
-\tag{84}
+\tag{92}
 $$<p>考虑残差链接，将残差支路与 FFN 支路的梯度相加，从而有</p>$$
 \bar{\hat{\boldsymbol{Y}}}^{(l)}=\bar{\boldsymbol{U}}_f^{(l)}+\boldsymbol{\Delta}_f^{(l)}(\boldsymbol{W}_1^{(l)})^T
-\tag{85}
+\tag{93}
 $$<p>对于 Cross-Attention 子层，记</p>$$
 \boldsymbol{U}_c^{(l)}=\tilde{\boldsymbol{Y}}^{(l)}+\mathrm{MultiHeadAttention}(\tilde{\boldsymbol{Y}}^{(l)},\boldsymbol{X}^{(6)},\boldsymbol{X}^{(6)})
-\tag{86}
-$$<p>由 $(66)$ 式与 $(79)$ 式，进一步可得</p>$$
+\tag{94}
+$$<p>由 $(74)$ 式与 $(87)$ 式，进一步可得</p>$$
 \bar{\boldsymbol{U}}_c^{(l)}=\mathcal{D}_{\mathrm{LN}}(\boldsymbol{U}_c^{(l)},\bar{\hat{\boldsymbol{Y}}}^{(l)}),\qquad
 \bar{\tilde{\boldsymbol{Y}}}^{(l)}=\bar{\boldsymbol{U}}_c^{(l)}+\bar{\boldsymbol{X}}_{Q}^{(l,\mathrm{ca})}
-\tag{87}
+\tag{95}
 $$<p>其中 $\bar{\boldsymbol{X}}_{Q}^{(l,\mathrm{ca})},\bar{\boldsymbol{X}}_{K}^{(l,\mathrm{ca})},\bar{\boldsymbol{X}}_{V}^{(l,\mathrm{ca})}$ 分别表示该 Cross-Attention 模块对 query、key、value 输入的梯度。由于 $\boldsymbol{X}^{(6)}$ 同时充当 key 与 value，因此所有 decoder 层对 encoder 输出的梯度应累加为</p>$$
 \bar{\boldsymbol{X}}^{(6)}=\sum_{l=1}^{6}\Big(\bar{\boldsymbol{X}}_{K}^{(l,\mathrm{ca})}+\bar{\boldsymbol{X}}_{V}^{(l,\mathrm{ca})}\Big)
-\tag{88}
+\tag{96}
 $$<p>对于 Masked Self-Attention 子层，记</p>$$
 \boldsymbol{U}_s^{(l)}=\boldsymbol{Y}^{(l-1)}+\mathrm{MaskedMultiHeadAttention}(\boldsymbol{Y}^{(l-1)},\boldsymbol{Y}^{(l-1)},\boldsymbol{Y}^{(l-1)})
-\tag{89}
-$$<p>则由 $(65)$ 式与 $(79)$ 式，有</p>$$
+\tag{97}
+$$<p>则由 $(73)$ 式与 $(87)$ 式，有</p>$$
 \bar{\boldsymbol{U}}_s^{(l)}=\mathcal{D}_{\mathrm{LN}}(\boldsymbol{U}_s^{(l)},\bar{\tilde{\boldsymbol{Y}}}^{(l)}),\qquad
 \bar{\boldsymbol{Y}}^{(l-1)}=\bar{\boldsymbol{U}}_s^{(l)}+\bar{\boldsymbol{X}}_{Q}^{(l,\mathrm{sa})}+\bar{\boldsymbol{X}}_{K}^{(l,\mathrm{sa})}+\bar{\boldsymbol{X}}_{V}^{(l,\mathrm{sa})}
-\tag{90}
-$$<p>其中，$(90)$ 式之所以要将三条梯度路径与残差路径全部相加以计算 $\bar{\boldsymbol{Y}}^{(l-1)}$，是因为在 Self-Attention 中 $\boldsymbol{Y}^{(l-1)}$ 同时作为 query、key 与 value 输入。</p><p>对于 encoder，反向传播是完全同理的：FFN 子层的梯度依然按 $(85)$ 式计算，Self-Attention 子层的梯度依然按 $(90)$ 式计算，只需将 $\boldsymbol{Y}$ 全部替换为 $\boldsymbol{X}$ 并不再考虑因果掩码，在编码器层自 $l=6$ 递推至 $l=1$，直至回到模型的输入端。</p><p>这里直接给出结果。此处 $\boldsymbol{E}$ 与 $\boldsymbol{E}_{\text{target}}$ 均表示经 embedding lookup 后按行堆叠得到的序列表示矩阵，而非词表级的 embedding 参数表；同时，为避免与预测概率矩阵 $\boldsymbol{P}$ 混淆，此处将 $(60)$ 式中的源侧位置编码临时记为 $\boldsymbol{P}_{\text{src}}$。由 $(60),(64)$ 式，有</p>$$
+\tag{98}
+$$<p>其中，$(98)$ 式之所以要将三条梯度路径与残差路径全部相加以计算 $\bar{\boldsymbol{Y}}^{(l-1)}$，是因为在 Self-Attention 中 $\boldsymbol{Y}^{(l-1)}$ 同时作为 query、key 与 value 输入。</p><p>对于 encoder，反向传播是完全同理的：FFN 子层的梯度依然按 $(93)$ 式计算，Self-Attention 子层的梯度依然按 $(98)$ 式计算，只需将 $\boldsymbol{Y}$ 全部替换为 $\boldsymbol{X}$ 并不再考虑因果掩码，在编码器层自 $l=6$ 递推至 $l=1$，直至回到模型的输入端。</p><p>这里直接给出结果。此处 $\boldsymbol{E}$ 与 $\boldsymbol{E}_{\text{target}}$ 均表示经 embedding lookup 后按行堆叠得到的序列表示矩阵，而非词表级的 embedding 参数表；同时，为避免与预测概率矩阵 $\boldsymbol{P}$ 混淆，此处将 $(69)$ 式中的源侧位置编码临时记为 $\boldsymbol{P}_{\text{src}}$。由 $(69),(73)$ 式，有</p>$$
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{E}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{X}^{(0)}},\qquad
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{P}_{\text{src}}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{X}^{(0)}},\qquad
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{E}_{\text{target}}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{Y}^{(0)}}
-\tag{91}
+\tag{99}
 $$<p>若进一步回传至词表级 embedding 参数，则需要将同一 token 在序列中各位置上的梯度离散累加；例如对源序列中第 $v$ 个词对应的 embedding 向量 $\boldsymbol{e}_v$，有</p>$$
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{e}_v}
 =\sum_{t:x_t=v}\frac{\partial\mathcal{L}}{\partial\boldsymbol{E}_t}
 =\sum_{t:x_t=v}\frac{\partial\mathcal{L}}{\partial\boldsymbol{X}^{(0)}_t}
-\tag{92}
+\tag{100}
 $$<p>这与 decoder 在输入侧的梯度是完全类似的。若目标侧位置编码也是可学习参数，则同样有 $\frac{\partial\mathcal{L}}{\partial\boldsymbol{P}_{\text{target}}}=\frac{\partial\mathcal{L}}{\partial\boldsymbol{Y}^{(0)}}$。</p><blockquote><p>相较于 BPTT，RNN 的梯度需要沿隐状态链 $\boldsymbol{h}_1\to\boldsymbol{h}_2\to\cdots\to\boldsymbol{h}_T$ 在时间维度上递推，这决定了 BPTT 必然存在无法根本优化的递归结构；而 Transformer 在 Teacher Forcing 下却并不存在这样的时间递归链，所有位置的损失可以一次性并行计算，梯度通过 attention 所建立的全连接依赖图在层间与位置间传播，并不需要通过时间递推回传。</p><p>这也更深刻地解释了上文在分析 attention 时强调的「任意两个 token 间都至少存在一条长度为 1 的梯度路径」：在训练经典 Transformer 时，长程依赖的优化正是通过这样的全连接梯度路径完成的，而非像 RNN 那样被迫经过一长串递归状态。</p></blockquote></div></article></main></div><button class=toc-fab id=tocFab aria-label=目录>
 <svg width="16" height="13" viewBox="0 0 16 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="0" y1=".5" x2="16" y2=".5"/><line x1="0" y1="6.5" x2="16" y2="6.5"/><line x1="0" y1="12.5" x2="16" y2="12.5"/></svg>
 目录</button><div class=toc-overlay id=tocOverlay></div><footer class=site-footer><p class=footer-text>&copy; <span id=this-year></span> Hare &#183; built with Hugo</p></footer><script src=/js/main.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".post-body");e&&(e.innerHTML=e.innerHTML.replace(/(\$\$)([\s\S]*?)(\$\$)/g,function(e,t,n,s){return t+n.replace(/(^|\n)[ \t]*(?:&gt;|>)[ \t]?/gm,"$1")+s})),renderMathInElement(document.querySelector(".post-body"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script></html>
