@@ -1,0 +1,138 @@
+<!doctype html><html lang=zh-CN><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="在泛函分析与测度论的高观点上，重新讨论五种方差缩减技术：控制变量、对偶变量、分层抽样、Rao-Blackwellization 与重要性采样。"><meta name=author content="Hare"><link rel=canonical href=https://iharee.github.io/math-statistics/vrt/><meta property="og:url" content="https://iharee.github.io/math-statistics/vrt/"><meta property="og:site_name" content="二三事"><meta property="og:title" content="泛函分析与测度论视角下的方差缩减技术"><meta property="og:description" content="在泛函分析与测度论的高观点上，重新讨论五种方差缩减技术：控制变量、对偶变量、分层抽样、Rao-Blackwellization 与重要性采样。"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="math-statistics"><meta property="article:published_time" content="2026-05-27T10:01:26+00:00"><meta property="article:modified_time" content="2026-05-27T10:01:26+00:00"><meta property="article:tag" content="方差缩减技术"><meta property="og:image" content="https://iharee.github.io/og-image.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://iharee.github.io/og-image.png"><meta name=twitter:title content="泛函分析与测度论视角下的方差缩减技术"><meta name=twitter:description content="在泛函分析与测度论的高观点上，重新讨论五种方差缩减技术：控制变量、对偶变量、分层抽样、Rao-Blackwellization 与重要性采样。"><title>泛函分析与测度论视角下的方差缩减技术 — 二三事</title><link rel=icon type=image/png sizes=32x32 href=/favicon.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:opsz@9..40&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css crossorigin=anonymous></head><body><header class=site-header><h1 class=site-title><a href=/>二三事</a></h1><p class=site-subtitle>Hare's Notebook</p><hr class=header-rule></header><nav class=category-nav><a href=/>Articles</a>
+<a href=/friends/>友链</a>
+<a href=/about/>关于</a></nav><div class=post-layout><aside class=post-toc-sidebar id=tocSidebar><div class=toc-header><span class=toc-title>目录</span>
+<button class=toc-close-btn id=tocCloseBtn aria-label="Close TOC">
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="3" x2="15" y2="15"/><line x1="15" y1="3" x2="3" y2="15"/></svg></button></div><nav class=toc-nav id=tocNav><ul><li><a href=#引言>引言</a></li><li><a href=#1-控制变量-control-variates>1. 控制变量 Control Variates</a></li><li><a href=#2-对偶变量-antithetic-variates>2. 对偶变量 Antithetic Variates</a></li><li><a href=#3-分层抽样-stratified-sampling>3. 分层抽样 Stratified Sampling</a></li><li><a href=#4-rao-blackwellization>4. Rao-Blackwellization</a></li><li><a href=#5-重要性采样-importance-sampling>5. 重要性采样 Importance Sampling</a></li><li><a href=#方差缩减机制总结>方差缩减机制总结</a></li></ul></nav></aside><main class=post-main><a href=/ class=post-back>返回</a><article><header class=post-header><div class=post-category-label>math-statistics</div><h1 class=post-title-main>泛函分析与测度论视角下的方差缩减技术</h1><div class=post-meta>2026.05.27
+&#183; #方差缩减技术</div></header><div class=post-body><h1 id=引言>引言</h1><p>方差缩减技术（VRT, Variance Reduction Techniques）是应用在蒙特卡洛方法（MC, Monte Carlo Method）中的一系列技术，旨在不单纯增大样本量而是通过统计技巧以降低估计量的方差，从而在相同计算量下提高估计精度。</p><p>设随机向量 $\boldsymbol{x}$ 的概率分布为 $p(\boldsymbol{x})$、被估计期望值等于 $\mu$ 的目标函数为 $f(\boldsymbol{x})$、样本总数为 $N$、$\boldsymbol{x}_i$ 为从总体 $\boldsymbol{X}$ 中独立抽取的第 $i$ 份样本，则蒙特卡洛模拟为</p>$$
+\mu=\int f(\boldsymbol{x})p(\boldsymbol{x})\mathrm{d}\boldsymbol{x}\approx\frac1{N}\sum^N_{i=1}f(\boldsymbol{x}_i)=\hat{\mu}_{\text{MC}}
+$$<p>蒙特卡洛方法的成立是由辛钦大数定律（Khinchin&rsquo;s Law）、科尔莫戈罗夫强大数定律（Kolmogorov&rsquo;s Strong Law）与遍历定理（Ergodic Theorem）等大数定律所严格保证的。蒙特卡洛方法的本质思想十分朴素：用随机样本的平均值逼近总体的期望。</p><p>然而，许多情况下，或许是因为样本难以获得，或许是因为样本的采集成本昂贵，加之估计量的标准误 $\varepsilon\propto\frac1{\sqrt{N}}$ 的数学规律决定了单纯增加样本量对精度改进的效率低下，迫使我们考虑通过方差缩减技术以获得更精确的估计。</p><p>作为一系列诞生于统计计算领域的方法，方差缩减技术在供应链管理、期权定价与强化学习等诸多场景下被广泛使用。</p><p>对于蒙特卡洛方法而言，误差源于 $f(\boldsymbol{X})$ 的波动，而这种波动可被分解为函数值本身的随机性与采样测度、积分贡献区域的不匹配两种来源。站在更高的观点（泛函分析与测度论）下看，方差缩减机制可被归结为两类：</p><ol><li><strong>利用子空间中的向量抵消原向量中的一部分残差波动，降低不可解释的随机性；</strong></li><li><strong>测度变换，降低采样机制带来的随机性（重要性采样）。</strong></li></ol><p>而第一种方差缩减机制也可以被进一步区分为两种：</p><ol><li><strong>丢弃子空间的投影（控制变量、对偶变量、分层抽样）；</strong></li><li><strong>保留子空间的投影（Rao-Blackwellization）。</strong></li></ol><blockquote><p>撰写本文的动机，是发现 PPO 中大量使用了重要性采样。</p></blockquote><p>此外，若无特别说明，本文允许 $\boldsymbol{X}$ 为多维随机向量，但默认目标函数 $f(\boldsymbol{X})$ 为实值函数。</p><h1 id=1-控制变量-control-variates>1. 控制变量 Control Variates</h1><p>如果我们事先知道一个与 $f(\boldsymbol{X})$ 相关且期望 $\mu_g$ 已知的变量 $g(\boldsymbol{X})$，那么就可以从 $f(\boldsymbol{X})$ 估计量的波动中剔除能被 $g$ 解释的部分。</p><p>设 $\beta\in\mathbb{R}$ 为人为设定的系数，则修正估计量为</p>$$
+\hat{\mu}_{\text{CV}}=\frac1{N}\sum^N_{i=1}\Big(f(\boldsymbol{X}_i)-\beta\big(g(\boldsymbol{X}_i)-\mu_g\big)\Big)
+$$<p>不难知道，</p>$$
+\mathbb{E}[\hat{\mu}_{\text{CV}}]=\mathbb{E}\bigg[\frac1{N}\sum^N_{i=1}f(\boldsymbol{x}_i)\bigg]=\mu
+$$$$
+\begin{aligned}\mathrm{Var}(\hat{\mu}_{\text{CV}})&=\mathrm{Var}\bigg(\frac1{N}\sum^N_{i=1}f(\boldsymbol{x}_i)-\beta g(\boldsymbol{x}_i)\bigg)\\&=\frac1{N}\Big[\mathrm{Var}\big(f(\boldsymbol{X})\big)+\beta^2\mathrm{Var}\big(g(\boldsymbol{X})\big)-2\beta\mathrm{Cov}\big(f(\boldsymbol{X}),g(\boldsymbol{X})\big)\Big]\end{aligned}
+$$<p>考虑最优系数 $\displaystyle\beta^{\ast}=\arg\min_{\beta}\mathrm{Var}(\hat{\mu}_{\text{CV}})$，令 $\frac{\mathrm{d}\mathrm{Var}(\hat{\mu}_{\text{CV}})}{\mathrm{d}\beta}=0$，得</p>$$
+\beta^{\ast}=\frac{\mathrm{Cov}\big(f(\boldsymbol{X}),g(\boldsymbol{X})\big)}{\mathrm{Var}\big(g(\boldsymbol{X})\big)}
+$$<p>记 $\rho$ 为 $f(\boldsymbol{X})$ 与 $g(\boldsymbol{X})$ 的皮尔逊相关系数（Pearson correlation coefficient），则代入最优系数，可得到最优修正估计量的方差</p>$$
+\mathrm{Var}(\hat{\mu}^{\ast}_{\text{CV}})=\frac{1-\rho^2}{N}\mathrm{Var}\big(f(\boldsymbol{X})\big)
+$$<p>可见，$f(\boldsymbol{X})$ 与 $g(\boldsymbol{X})$ 的相关性越强，相关系数的绝对值越接近 $1$，则方差缩减程度越大。当完全相关时，方差为 $0$。</p><p>在期权定价问题中，控制变量被广泛使用。例如，以标的资产价格本身或一个与待定价期权高度相关且有解析价格的衍生品（如欧式期权）作为控制变量，可以显著降低蒙特卡洛模拟的方差。</p><hr><p>从泛函分析的视角看，控制变量本质上是一个 $L^2$ 空间的正交投影，最优系数本质上是该希尔伯特空间中的最小二乘投影系数。</p><p>对于概率空间 $(\Omega,\mathcal{F},P)$，考虑一切实值平方可积的随机变量</p>$$
+L^2(P)=\{\boldsymbol{X}:\Omega\to\mathbb{R}\mid\mathbb{E}[\boldsymbol{X}^2]<\infty\}
+$$<p>定义内积</p>$$
+\langle\boldsymbol{X},\boldsymbol{Y}\rangle=\mathbb{E}[\boldsymbol{XY}]
+$$<p>诱导范数 $\Vert\boldsymbol{X}\Vert=\sqrt{\mathbb{E}[\boldsymbol{X}^2]}$，因此 $L^2(P)$ 是一个希尔伯特空间。</p><p>定义两个中心化的辅助函数 $F(\boldsymbol{X})=f(\boldsymbol{X})-\mu$，$G(\boldsymbol{X})=g(\boldsymbol{X})-\mu_g$，易见 $F,G\in L^2(P)$，则</p>$$
+\mathrm{Var}(\hat{\mu}_{\text{CV}})=\frac1{N}\Vert F-\beta G\Vert^2
+$$<p>要最小化 $\Vert F-\beta G\Vert^2$，等价于在 $G$ 张成的一维子空间 $\mathcal{M}=\mathrm{span}\{G\}\sub L^2(P)$ 中寻找 $F$ 的最佳逼近。换言之，需要使让 $F$ 减去其在 $\mathcal{M}$ 上的投影（因为投影带来的方差是能被 $\mathcal{M}$ 所解释的），剩余残差的方差即为修正估计量的方差。这是一类经典的希尔伯特空间中的投影问题。</p><p>由于 $\mathcal{M}$ 是 $L^2(P)$ 的闭子空间，根据投影定理，$\forall F\in L^2(P)$，存在唯一的 $\beta^{\ast}G\in\mathcal{M}$ 使得</p>$$
+\Vert F-\beta^{\ast}G\Vert=\inf_{\beta G\in\mathcal{M}}\Vert F-\beta G\Vert
+$$<p>因此 $\beta^{\ast}G$ 即为 $F$ 在 $\mathcal{M}$ 上的正交投影，满足正交性条件</p>$$
+F-\beta^{\ast}G\perp\mathcal{M}
+$$<p>这意味着 $\langle F-\beta^{\ast}G,G\rangle=0$，立即有</p>$$
+\beta^{\ast}=\frac{\langle F,G\rangle}{\langle G,G\rangle}
+$$<p>在这个视角下，可以很自然地推广至多个控制变量——</p>$$
+\hat{\mu}_{\text{CV}}=\frac1{N}\sum^N_{i=1}\bigg(f(\boldsymbol{X}_i)-\sum^k_{j=1}\beta_j\Big(g_j(\boldsymbol{X}_i)-\mathbb{E}[g_j(\boldsymbol{X})]\Big)\bigg)
+$$<p>记 $G_j=g_j-\mathbb{E}[g_j(\boldsymbol{X})]$，这一情况下 $\mathcal{M}=\mathrm{span}\{G_1,G_2,\cdots,G_k\}$，最优系数向量 $\boldsymbol{\beta}^{\ast}$ 通过下述正规方程求解</p>$$
+\forall i,\quad\sum^k_{j=1}\mathbb{E}[G_iG_j]\boldsymbol{\beta}_j=\mathbb{E}[FG_i]\Leftrightarrow\boldsymbol{\Sigma}_{GG}\boldsymbol{\beta}=\boldsymbol{\Sigma}_{FG}
+$$<p>即</p>$$
+\boldsymbol{\beta}^{\ast}=\boldsymbol{\Sigma}^{-1}_{GG}\boldsymbol{\Sigma}_{FG}
+$$<p>这里 $\boldsymbol{\beta}^{\ast}$ 正是 $G_1,G_2,\cdots,G_k$ 对 $F$ 的多元线性回归最小二乘估计系数。</p><h1 id=2-对偶变量-antithetic-variates>2. 对偶变量 Antithetic Variates</h1><p>对偶变量是一种特殊的控制变量，因此完全能在控制变量的研究框架下类推对偶变量。如果能在生成样本时成对地生成负相关样本，就能相互抵消一定的波动。</p><p>首先定义对偶对，若 $\boldsymbol{X}=F^{-1}(\boldsymbol{U})$，其中 $F^{-1}(\boldsymbol{U})$ 是分布 $F$ 的逆变换，则定义对偶对 $(\boldsymbol{X},\boldsymbol{X}')$</p>$$
+\boldsymbol{X}=F^{-1}(\boldsymbol{U}),\quad\boldsymbol{X}'=F^{-1}(\boldsymbol{1}-\boldsymbol{U})
+$$<p>对于共 $\frac{N}2$ 对的对偶对样本，修正估计量为</p>$$
+\hat{\mu}_{\text{AV}}=\frac2{N}\sum^{\frac{N}2}_{i=1}\frac{f(\boldsymbol{X}_i)+f(\boldsymbol{X}_i')}2
+$$<p>易证该估计量无偏。利用 $\boldsymbol{X}$ 与 $\boldsymbol{X}'$ 同分布，不难计算出 $\hat{\mu}_{\text{AV}}$ 的方差为</p>$$
+\mathrm{Var}(\hat{\mu}_{\text{AV}})=\frac1{N}\Big(\mathrm{Var}\big(f(\boldsymbol{X})\big)+\mathrm{Cov}\big(f(\boldsymbol{X}),f(\boldsymbol{X}')\big)\Big)
+$$<p>可见，当且仅当 $\boldsymbol{X}$ 与 $\boldsymbol{X}'$ 负相关时，修正估计量的方差优于独立抽样的平均数估计量。</p><p>一般而言，对偶变量对一元随机变量的适用性较广，但对多元随机向量的应用受限，因为难以保证单调函数的负相关性。由 Hoeffding 协方差恒等式可知，对于一元随机变量 $X$，若 $X$ 与 $X'$ 负象限相依且 $f$ 单调，则必有 $\mathrm{Cov}\big(f(X),f(X')\big)\leqslant0$，此时可以保证修正估计量不劣于独立抽样的平均数估计量。</p><p>当已知一元随机变量总体分布对称且均值已知时，构造 $X'=2\,\mathbb{E}[X]-X$ 便能十分自然地得到对偶变量——说 $X'$ 是控制变量也是完全等价的。</p><blockquote><p>Hoeffding 协方差恒等式：对随机变量 $X,Y$，若 $\mathbb{E}[X],\mathbb{E}[Y],\mathbb{E}[XY]$ 存在，则：</p>$$
+\mathrm{Cov}(X,Y) = \int\int\big( F_{X,Y}(x,y) - F_X(x)F_Y(y) \big) \, \mathrm{d}x\,\mathrm{d}y
+$$<p>证明的思路是将协方差定义内的期望写为积分的形式，然后交换最外层期望与积分的顺序，从而将内部的表达式改写为分布函数的形式。</p></blockquote><h1 id=3-分层抽样-stratified-sampling>3. 分层抽样 Stratified Sampling</h1><p>分层抽样是应用统计抽样调查中常见的抽样方法之一。该方法之所以行之有效，背后正是方差缩减技术的理论所保证的。分层抽样对多元场景存在维数灾难，因为多元场景的样本空间划分工作量是指数级增长的，所以下面考虑一元的情形。</p><p>分层抽样方法将整个样本空间划分为 $K$ 个互不相交且完全覆盖空间的子区域（称为「层」，译自 Stratum）$S_1, S_2, \dots, S_K$，每个层在总体分布中所占的概率权重为</p>$$
+w_k = P(X\in S_k) = \int_{S_k} p(x)\mathrm{d}x
+$$<p>显然有 $\displaystyle\sum_{k=1}^K w_k = 1$。在具体抽样时，在每个层 $S_k$ 内部独立地按照条件概率密度 $p(x\mid X \in S_k)$ 抽取 $N_k$ 个样本 $X_{k,i}$（$i=1,2,\dots,N_k$），有 $\displaystyle\sum_{k=1}^K N_k = N$。由此构建的分层抽样估计量</p>$$
+\hat{\mu}_{\text{SS}} = \sum_{k=1}^K w_k \left( \frac1{N_k} \sum_{i=1}^{N_k} f(X_{k,i}) \right)
+$$<p>由于各层之间的抽样过程相互独立，利用全期望公式易证该估计量无偏</p>$$
+\mathbb{E}[\hat{\mu}_{\text{SS}}] = \sum_{k=1}^K w_k \mathbb{E}\big[f(X) \mid X \in S_k\big] = \sum_{k=1}^K \int_{S_k} f(x) p(x) \mathrm{d}\boldsymbol{x} = \mu
+$$<p>记第 $k$ 层内目标函数的条件方差为 $\sigma_k^2 = \mathrm{Var}\big(f(X) \mid X \in S_k\big)$。由于各层独立抽样，协方差项均为 $0$，因此分层抽样估计量的方差为</p>$$
+\mathrm{Var}(\hat{\mu}_{\text{SS}}) = \sum_{k=1}^K w_k^2 \frac{\sigma_k^2}{N_k}
+$$<p>利用方差分解公式，总体的方差 $\mathrm{Var}\big(f(X)\big)$ 可以被分解为层内方差的期望与层间方差的平方和。相比未分层的简单随机抽样估计量的方差</p>$$
+\mathrm{Var}\big(f(X)\big) = \sum_{k=1}^K w_k \sigma_k^2 + \sum_{k=1}^K w_k (\mu_k - \mu)^2,\quad\mu_k = \mathbb{E}[f(X) \mid X \in S_k]
+$$<p>可见，分层抽样通过固定各层样本量，降低了层间随机波动造成的额外方差。</p><hr><p>最简单的分配方案是按数量比例分配（Proportional Allocation），令每一层的样本量与其权重成正比，即 $N_k=\omega_k N$，此时分层抽样估计量的方差为</p>$$
+\mathrm{Var}(\hat{\mu}_{\text{SS-prop}}) = \frac1{N} \sum_{k=1}^K w_k \sigma_k^2
+$$<p>不难导出该策略下分层抽样估计量与传统蒙特卡洛方法的方差间的关系</p>$$
+\mathrm{Var}(\hat{\mu}_{\text{MC}}) = \mathrm{Var}(\hat{\mu}_{\text{SS-prop}}) + \frac1{N} \sum_{k=1}^K w_k (\mu_k - \mu)^2
+$$<p>这意味着，只要各层之间的均值存在差异（即层间方差不为零），分层抽样就能获得比传统蒙特卡洛方法更低的方差。</p><hr><p>更进一步地，如果已知或可以预估各层内的方差 $\sigma_k$，则还可以令 $N_k \propto w_k \sigma_k$，这被称为奈曼最优分配策略（Neyman Allocation），这种策略不仅考虑了各层的概率大小，还将层内的波动剧烈程度纳入考量，使得在相同计算资源下系统方差达到极限缩减。</p><p>考虑构造下述优化问题</p>$$
+\begin{aligned}
+\min_{N_1, N_2, \dots, N_K} \quad & \mathrm{Var}(\hat{\mu}_{\text{SS}}) = \sum_{k=1}^K w_k^2 \frac{\sigma_k^2}{N_k} \\
+\text{s.t.} \quad & \sum_{k=1}^K N_k = N
+\end{aligned}
+$$<p>构造拉格朗日函数</p>$$
+\mathcal{L}(N_1, \dots, N_K, \lambda) = \sum_{k=1}^K w_k^2 \frac{\sigma_k^2}{N_k} + \lambda \left( \sum_{k=1}^K N_k - N \right)
+$$<p>利用最优性的一阶必要条件令 $\frac{\partial\mathcal{L}}{\partial N_k}=0$，解得</p>$$
+N_k=\frac{\omega_k \sigma_k}{\sqrt{\lambda}}
+$$<p>因此 $N_k \propto w_k \sigma_k$ 是最优分配策略，能够获得理论最小的分层抽样方差。</p><hr><p>分层抽样也可以被视为一类特殊的控制变量，引入离散特征随机变量 $Y$，当 $X\in S_k$ 时 $Y=k$，则 $Y$ 所张成的闭子空间 $\mathcal{M}_0$ 为 $\mathrm{span}\{I_{S_1},I_{S_2},\cdots,I_{S_K}\}$——这是一个简单的 $K$ 维有限维子空间，其中的向量均为阶梯函数。</p><p>在这个视角下，方差分解公式实际上是这一希尔伯特空间下的「勾股定理」：</p>$$
+\begin{array}{c}
+\mathrm{Var}\big(f(X)\big)=\overbrace{\mathrm{Var}\big(\mathbb{E}[f(X)\mid Y]\big)}^{\text{between-strata variance}}+\overbrace{\mathbb{E}\big[\mathrm{Var}\big(f(X)\mid Y\big)\big]}^{\text{within-stratum variance}}\\
+\Leftrightarrow\\
+\big\Vert f(X)-\mathbb{E}[f(X)]\big\Vert^2=\underbrace{\big\Vert\mathbb{E}[f(X)\mid Y]-\mathbb{E}[f(X)]\big\Vert^2}_{\text{length of the projection}}+\underbrace{\big\Vert f(X)-\mathbb{E}[f(X)\mid Y]\big\Vert^2}_{\text{length of the residual}}
+\end{array}
+$$<p>于是，分层抽样便类似引入控制变量 $Y$，并在 $L^2(P)$ 中找出 $f(X)-\mathbb{E}[f(x)]$ 到 $\mathcal{M}_0$ 的最佳逼近。</p><h1 id=4-rao-blackwellization>4. Rao-Blackwellization</h1><p>利用数理统计中的 Rao-Blackwell 定理，如果在模拟中能够求出条件期望，则用 $\mathbb{E}[f(\boldsymbol{X})\mid\boldsymbol{Y}]$ 的样本代替 $f(\boldsymbol{X})$ 的样本，就可以得到方差更小的估计。Rao-Blackwellization 是天然的多元方法，适合高维状态空间模型、概率图模型与 MCMC（如 Gibbs 采样）等场景。</p><p>Rao-Blackwell 定理表明，对于待估参数 $\mu$，设 $T$ 为 $\mu$ 的一个充分统计量，若 $\hat{\mu}$ 是 $\mu$ 的一个具有有限方差的估计量，则估计量 $\hat{\mu}^{\ast}=\mathbb{E}[\hat{\mu}\mid T]$ 具有下述性质：</p><ul><li>$\hat{\mu}^{\ast}$ 是 $T$ 的函数，即不依赖原始数据而只依赖充分统计量 $T$；</li><li>$\mathbb{E}[\hat{\mu}^{\ast}]=\mathbb{E}[\hat{\mu}]$，无论 $\hat{\mu}$ 是否有偏；</li><li>$\mathrm{Var}(\hat{\mu}^{\ast})\leqslant\mathrm{Var}(\hat{\mu})$，当且仅当 $\hat{\mu}$ 几乎处处是 $T$ 的函数时等号成立。</li></ul><blockquote><p>在数理统计中，Rao-Blackwell 定理是构造 UMVUE 的第一步。Lehmann–Scheffé 定理表明，如果 $T$ 还是完全统计量，则改进后的估计量是唯一的 UMVUE。</p></blockquote><p>在 Rao-Blackwellization 方差缩减技术中，通常令 $T(\boldsymbol{Y})=\mathbb{E}[f(\boldsymbol{X})\mid\boldsymbol{Y}]$，因为条件期望算子会将 $f(\boldsymbol{X})$ 投影到由 $\boldsymbol{Y}$ 所生成的子 $\sigma$-代数对应的闭子空间上，从而消除与 $\boldsymbol{Y}$ 无关的条件噪声。</p><blockquote><p>条件期望一定是统计量 $T$ 的函数，这是 Doob–Dynkin 引理所保证的。</p></blockquote><p>根据全方差公式，有</p>$$
+\mathrm{Var}\big(f(\boldsymbol{X})\big)=\mathrm{Var}\Big(\mathbb{E}\big[f(\boldsymbol{X})\mid\boldsymbol{Y}\big]\Big)+\mathbb{E}\Big[\mathrm{Var}\big(f(\boldsymbol{X})\mid\boldsymbol{Y}\big)\Big]
+$$<p>可见，上式中等号右侧的第一项 $\mathrm{Var}\Big(\mathbb{E}\big[f(\boldsymbol{X})\mid\boldsymbol{Y}\big]\Big)$ 正是 $T(\boldsymbol{Y})$ 的方差。所以，如果我们能够求解出 $\mathbb{E}[f(\boldsymbol{X})\mid\boldsymbol{Y}]$ 的解析形式，就能利用全期望公式 $\mu=\mathbb{E}[f(\boldsymbol{X})]=\mathbb{E}_{\boldsymbol{Y}}\big[\mathbb{E}_{\boldsymbol{X}}[f(\boldsymbol{X})\mid\boldsymbol{Y}]\big]$（这只要求 $f(\boldsymbol{X})$ 的期望绝对收敛）得到 Rao-Blackwellization 修正估计量</p>$$
+\hat{\mu}_{\text{RB}}=\frac1{N}\sum^N_{i=1}T(\boldsymbol{Y}_i)
+$$<p>相较于传统的蒙特卡洛方法，Rao-Blackwellization 的方差在理论上缩减 $\mathbb{E}\Big[\mathrm{Var}\big(f(\boldsymbol{X})\mid\boldsymbol{Y}\big)\Big]$。</p><blockquote><p>关于 Rao-Blackwell 定理的证明，请查阅任意一本数理统计教材。</p></blockquote><hr><p>上文介绍的若干方法本质上都是剔除估计量在控制变量所张成的有限维子空间上的投影。Rao-Blackwellization 的思路则不同，其考虑的子空间是由充分统计量 $T$ 生成的 $\sigma$-代数 $\sigma(T)$ 上的所有可测函数构成的空间</p>$$
+\mathcal{H}=\big\{g(T):g\text{ 可测},\mathbb{E}[g^2(T)]<\infty\big\}\sub L^2
+$$<p>该子空间是相当之大的，包含了 $T$ 的所有线性的、非线性的、有限维的与无穷维的变换。充分统计量 $T$ 提供了样本中关于参数的全部信息，因此可以认为 $\mathcal{H}$ 上 $f$ 的投影包含了参数的全部内容，而残差则是与参数无关的噪声。所以，我们保留投影，丢弃噪声——这与上文介绍的若干方法所对子空间投影做的处理，是相反的。</p><p>对 $L^2(P)$ 而言，$\mathbb{E}\big[f(\boldsymbol{X})\mid T\big]$ 就是 $f(\boldsymbol{X})$ 在 $\mathcal{H}$ 上的一个投影。更一般地，对于子 $\sigma$-代数 $\mathcal{G}\sub\mathcal{F}$，若 $L^2(\mathcal{G})=\{Y\in L^2:Y\text{ 是 }\mathcal{G}\text{-可测的}\}$ 是 $L^2(\mathcal{F})$ 的闭子空间，则 $\mathbb{E}[\boldsymbol{Z}\mid\mathcal{G}]$ 是 $\boldsymbol{Z}$ 在 $L^2(\mathcal{G})$ 上的唯一正交投影：</p>$$
+\boldsymbol{Z}-\mathbb{E}[\boldsymbol{Z}\mid\mathcal{G}]\perp L^2(\mathcal{G})
+$$<p>即，条件期望是最优投影。</p><h1 id=5-重要性采样-importance-sampling>5. 重要性采样 Importance Sampling</h1><p>重要性采样本质上通过测度变换降低方差。如果只从积分的形式上看，若积分的主要贡献来自于状态空间中的少数区域，则继续按原分布均匀随机采样将造成大量样本的浪费，因此借助测度变换实现提高对积分贡献更大区域的采样率、降低对积分贡献更小的区域的采样率，达成「重要的地方多采样，不重要的地方少采样」的效果，进而缩减方差。</p><p>设 $\boldsymbol{X}\sim p$，一个易于采样的提议分布为 $q(\boldsymbol{x})$，要求 $\vert f\vert p$ 关于 $q$ 绝对连续（即 $fp$ 的支撑集必须被包含于 $q$ 的支撑集，记作 $\vert f\vert p\ll q$），则有下述恒等变换</p>$$
+\mu=\mathbb{E}_p[f(\boldsymbol{X})]=\int f(\boldsymbol{x})\frac{p(\boldsymbol{x})}{q(\boldsymbol{x})}q(\boldsymbol{x})\mathrm{d}\boldsymbol{x}=\mathbb{E}_q\bigg[f(\boldsymbol{X})\frac{p(\boldsymbol{X})}{q(\boldsymbol{X})}\bigg]
+$$<p>实际上这是测度论中 Radon-Nikodym 定理的运用，$\frac{p}{q}$ 即为 Radon-Nikodym 导数。Radon-Nikodym 定理表明积分可以在不同的 $\sigma$-有限测度间自由变换，这是重要性采样的理论基础。</p><blockquote><p>Radon-Nikodym 定理：可测空间 $(X,\mathcal{F})$ 上的两个 $\sigma$-有限测度 $\mu,\nu$，若 $\nu\ll\mu$，则存在一个非负可测函数 $f:X\to[0,+\infty)$ 使得任意可测集 $A\in\mathcal{F}$ 有 $\displaystyle\nu(A)=\int_A f\mathrm{d}\mu$，且 $f$ 在 $\mu$-意义下几乎处处唯一，称为 $\nu$ 关于 $\mu$ 的 Radon-Nikodym 导数，记作 $f=\frac{\mathrm{d}\nu}{\mathrm{d}\mu}$。</p></blockquote><p>称 $\omega(\boldsymbol{x})=\frac{p(\boldsymbol{x})}{q(\boldsymbol{x})}$ 为似然比权重，可以认为上式表示在提议分布 $q(\boldsymbol{x})$ 所诱导出的测度下经似然比权重 $\omega(\boldsymbol{x})$ 加权以「恢复」值为 $\mu$ 的期望，或者讲为了保持测度变换下积分不变的而产生的校正因子。</p><p>相应地，未自归一化的修正估计量为</p>$$
+\hat{\mu}_{\text{IS}}=\frac1{N}\sum^N_{i=1}f(\boldsymbol{X}_i)\omega(\boldsymbol{X}_i),\quad \boldsymbol{X}_i\sim q
+$$<p>由于重要性采样实质是基于测度的恒等变换，因此该估计的均值仍为 $\mu$。</p><p>现讨论该估计的方差，</p>$$
+\begin{aligned}
+\mathrm{Var}_q(\hat{\mu}_{\text{IS}})&=\frac1{N}\mathrm{Var}_q\big(f(\boldsymbol{X})\omega(\boldsymbol{X})\big)\\
+&=\frac1{N}\Big(\mathbb{E}_q\big[f^2(\boldsymbol{X})\omega^2(\boldsymbol{X})\big]-\mu^2\Big)\\
+&=\frac1{N}\bigg(\int\frac{f^2(\boldsymbol{x})p^2(\boldsymbol{x})}{q(\boldsymbol{x})}\mathrm{d}\boldsymbol{x}-\mu^2\bigg)
+\end{aligned}
+$$<blockquote><p>由此可见，如果不要求 $\vert f\vert p$ 关于 $q$ 绝对连续，那么修正估计量的方差可能会剧烈增长，甚至无穷大——不过，从 Radon-Nikodym 定理的角度出发或许更直观。</p></blockquote><p>对比该形式下蒙特卡洛模拟的方差，</p>$$
+\begin{aligned}
+\mathrm{Var}_p(\hat{\mu}_{\text{MC}})&=\frac1{N}\mathrm{Var}_p\big(f(\boldsymbol{X})\big)\\
+&=\frac1{N}\Big(\mathbb{E}_p\big[f^2(\boldsymbol{X})\big]-\mu^2\Big)\\
+&=\frac1{N}\Big(\mathbb{E}_q\big[f^2(\boldsymbol{X})\omega(\boldsymbol{X})\big]-\mu^2\Big)\\
+&=\frac1{N}\bigg(\int f^2(\boldsymbol{x})p(\boldsymbol{x})\mathrm{d}\boldsymbol{x}-\mu^2\bigg)
+\end{aligned}
+$$<p>因此，要使 $\hat{\mu}_{\text{IS}}$ 拥有比 $\hat{\mu}_{\text{MC}}$ 更小的方差，最直接的要求是</p>$$
+\mathbb{E}_q\big[f^2(\boldsymbol{X})\omega^2(\boldsymbol{X})\big]<\mathbb{E}_q\big[f^2(\boldsymbol{X})\omega(\boldsymbol{X})\big]
+$$<p>这意味着 $q$ 在 $f^2p$ 较大的区域需要具有更高的密度以使得在这部分区域上 $\omega<1$，这样才能压缩 $f\omega$ 的波动，获得更小的估计量方差。</p><p>特别地，若提议分布 $q$ 的尾部衰减快于 $p$ 或 $\vert f\vert p$，那么即使尾部样本被采样概率低，可尾部样本一旦出现便会对应极大的似然比权重 $\omega(\boldsymbol{x})$，导致 $\frac{f^2(\boldsymbol{x})p^2(\boldsymbol{x})}{q(\boldsymbol{x})}$ 在尾部产生巨大贡献，造成估计量的方差急剧增大，甚至发散。因此，部分教材要求重要性采样中的提议分布通常需要具有不弱于目标分布的尾部。</p><p>值得一提的是，许多方差缩减技术在高维统计中会变得极其困难甚至失效，这是高维概率论中的经典结论：高维概率质量往往集中于体积极小但概率质量较高的区域，导致采样困难。对于重要性采样而言亦是如此，$q$ 应更加厚尾就是这一点在低维下的表现。在高维统计中，$p$ 与 $q$ 的典型集应高度重合，才能取得不错的方差缩减效果。</p><hr><p>称使得 $\mathrm{Var}_q(\hat{\mu}_{\text{IS}})$ 最小的提议分布为最优提议分布。最小化 $\mathrm{Var}_q(\hat{\mu}_{\text{IS}})$ 等价于最小化 $\mathbb{E}_q\big[f^2(\boldsymbol{X})\omega^2(\boldsymbol{X})\big]$，当 $f(\boldsymbol{x})\geqslant 0$ 时，有</p>$$
+\begin{aligned}
+\mathbb{E}_q\big[f^2(\boldsymbol{X})\omega^2(\boldsymbol{X})\big]
+&= \int \frac{f^2(\boldsymbol{x})p^2(\boldsymbol{x})}{q(\boldsymbol{x})}\mathrm{d}\boldsymbol{x} \\
+&= \mu^2 \int \frac{\Big(\frac{f(\boldsymbol{x})p(\boldsymbol{x})}{\mu}\Big)^2}{q(\boldsymbol{x})}\mathrm{d}\boldsymbol{x} \\
+&= \mu^2\,\mathbb{E}_{\pi}\bigg[\frac{\pi(\boldsymbol{X})}{q(\boldsymbol{X})} \bigg]
+\end{aligned}
+$$<p>其中 $\pi(\boldsymbol{x})=\frac{f(\boldsymbol{x})p(\boldsymbol{x})}{\mu}$ 在 $f$ 非负时为某个概率密度。由于函数 $t \mapsto \frac1{t}$ 在 $(0,\infty)$ 上是凸的，故由 Jensen 不等式有</p>$$
+\mathbb{E}_{\pi}\bigg[ \frac{\pi(\boldsymbol{X})}{q(\boldsymbol{X})} \bigg]
+\geqslant\frac{1}{\mathbb{E}_{\pi}\Big[ \frac{q(\boldsymbol{X})}{\pi(\boldsymbol{X})}\Big]}
+= \frac{1}{\displaystyle\int q(\boldsymbol{x})\mathrm{d}\boldsymbol{x}} = 1
+$$<p>该不等式当且仅当 $\frac{q}{\pi}$ 恒为常数——即 $q(\boldsymbol{x})\propto f(\boldsymbol{x})p(\boldsymbol{x})$ 时取等，因此最优提议分布为</p>$$
+q^{\ast}(\boldsymbol{x})=\tilde{p}(\boldsymbol{x})=\frac{f(\boldsymbol{x})p(\boldsymbol{x})}{\mu}
+$$<p>若 $f$ 可能取负值，则在 $q(\boldsymbol{x})\propto\vert f(\boldsymbol{x})\vert p(\boldsymbol{x})$ 时取等。</p><p>最优提议分布通常难以直接采样或依赖于待估计量 $\mu$，但最优提议分布为设计提议分布提供了指导：$q$ 应尽可能接近 $\vert f\vert p$ 的形状。</p><hr><p>标准的重要性采样修正估计量要求 $\omega$ 是已知的，这要求目标分布 $p$ 与提议分布 $q$ 均已知且可精确计算密度值——这一点在实践中往往很难做到。在大多数情况下，$p$ 的精确形式不完全已知，或难以计算。</p><p>例如，当 $p$ 是某种贝叶斯后验分布时</p>$$
+p(\boldsymbol{\theta}\mid\mathcal{D})=\frac{p(\mathcal{D}\mid\boldsymbol{\theta})p(\boldsymbol{\theta})}{p(\mathcal{D})}
+$$<p>归一化常数（证据）$p(\mathcal{D})$ 便是一类高维积分，这是很难计算的。</p><p>记 $\tilde{p}$ 为 $p$ 的某个未归一化函数，假设 $q$ 是归一化的，记未归一化似然比为 $\tilde{\omega}=\frac{\tilde{p}}{q}$，则自归一化（Self-normalization）的修正估计量为</p>$$
+\hat{\mu}_{\text{SNIS}}=\frac{\sum\limits^N_{i=1}f(\boldsymbol{X}_i)\tilde{\omega}(\boldsymbol{X}_i)}{\sum\limits^N_{i=1}\tilde{\omega}(\boldsymbol{X}_i)},\quad \boldsymbol{X}_i\sim q
+$$<p>对于有限样本而言，$\hat{\mu}_{\text{SNIS}}$ 通常是一个有偏但渐进无偏的估计量，这主要是因为比率估计量的期望通常不等于期望之比，即</p>$$
+\mathbb{E}\left[\frac{\sum\limits^N_{i=1}f(\boldsymbol{X}_i)\tilde{\omega}(\boldsymbol{X}_i)}{\sum\limits^N_{i=1}\tilde{\omega}(\boldsymbol{X}_i)}\right]\neq\frac{\mathbb{E}\bigg[\sum\limits^N_{i=1}f(\boldsymbol{X}_i)\tilde{\omega}(\boldsymbol{X}_i)\bigg]}{\mathbb{E}\bigg[\sum\limits^N_{i=1}\tilde{\omega}(\boldsymbol{X}_i)\bigg]}
+$$<p>下面证明右边的式子等于 $\mu$，而左边的式子与 $\mu$ 间存在偏差，但渐进无偏。</p><p>对于右边的式子，有</p>$$
+\begin{aligned}\frac{\mathbb{E}\bigg[\sum\limits^N_{i=1}f(\boldsymbol{X}_i)\tilde{\omega}(\boldsymbol{X}_i)\bigg]}{\mathbb{E}\bigg[\sum\limits^N_{i=1}\tilde{\omega}(\boldsymbol{X}_i)\bigg]}&=\frac{N\displaystyle\int \tilde{\omega}(\boldsymbol{x})f(\boldsymbol{x})q(\boldsymbol{x})\mathrm{d}\boldsymbol{x}}{\displaystyle N\int\tilde{\omega}(\boldsymbol{x})q(\boldsymbol{x})\mathrm{d}\boldsymbol{x}}\\&=\frac{N\displaystyle\int \tilde{p}(\boldsymbol{x})f(\boldsymbol{x})\mathrm{d}\boldsymbol{x}}{\displaystyle N\int\tilde{p}(\boldsymbol{x})\mathrm{d}\boldsymbol{x}}\\&=\frac{N\,\mathbb{E}_p[f(\boldsymbol{X})]\displaystyle\int\tilde{p}(\boldsymbol{x})\mathrm{d}\boldsymbol{x}}{N\displaystyle\int\tilde{p}(\boldsymbol{x})\mathrm{d}\boldsymbol{x}}\\&=\mu\end{aligned}
+$$<p>对于左边的式子，记 $U = \frac{1}{N}\sum\limits_{i=1}^N f(\boldsymbol{X}_i)\tilde{\omega}(\boldsymbol{X}_i)$，$V = \frac{1}{N}\sum\limits_{i=1}^N \tilde{\omega}(\boldsymbol{X}_i)$，$\mu_U = \mathbb{E}[U] = \mu\,\mathbb{E}_q[\tilde{\omega}(\boldsymbol{X})]$，$\mu_V = \mathbb{E}[V] = \mathbb{E}_q[\tilde{\omega}(\boldsymbol{X})]$。由前一步结果知 $\frac{\mu_U}{\mu_V}=\mu$。将比值函数 $\frac{U}{V}$ 在 $(\mu_U,\mu_V)$ 处进行二阶泰勒展开，有</p>$$
+\frac{U}{V} = \frac{\mu_U}{\mu_V} + \frac{1}{\mu_V}(U-\mu_U) - \frac{\mu_U}{\mu_V^2}(V-\mu_V) + \frac{\mu_U}{\mu_V^3}(V-\mu_V)^2 - \frac{1}{\mu_V^2}(U-\mu_U)(V-\mu_V) + R
+$$<p>于是</p>$$
+\begin{aligned}
+\mathbb{E}\left[\hat{\mu}_{\text{SNIS}}\right]
+&= \mathbb{E}\left[ \frac{\frac{1}{N}\sum\limits_{i=1}^N f(\boldsymbol{X}_i)\tilde{\omega}(\boldsymbol{X}_i)}{\frac{1}{N}\sum\limits_{i=1}^N \tilde{\omega}(\boldsymbol{X}_i)} \right] \\
+&= \mathbb{E}\left[ \frac{U}{V} \right]\\
+&= \frac{\mu_U}{\mu_V} + \frac{\mu_U}{\mu_V^3}\mathrm{Var}(V) - \frac{1}{\mu_V^2}\mathrm{Cov}(U,V) + \mathbb{E}[R] \\
+&= \mu + \frac{1}{\mu_V^3}\Bigl(\mu_U\,\mathrm{Var}(V) - \mu_V\mathrm{Cov}(U,V)\Bigr) + \mathbb{E}[R]\\
+&= \mu + \frac{1}{\mu_V^3}\Bigl(\mu_U\frac{1}{N}\mathrm{Var}(\tilde{\omega}(\boldsymbol{X})) - \mu_V\frac{1}{N}\mathrm{Cov}\big(f(\boldsymbol{X})\tilde{\omega}(\boldsymbol{X}), \tilde{\omega}(\boldsymbol{X})\big)\Bigr) + \mathbb{E}[R]
+\end{aligned}
+$$<p>可见，$\hat{\mu}_{\text{SNIS}}$ 有偏，但渐进无偏。</p><hr><p>如果提议分布与目标分布差异过大，重要性权重 $\omega$ 将变得极不平衡，导致估计的方差巨大甚至失效。因此，需要某种办法对重要性采样的质量进行诊断。最常用的指标是有效样本量（Effective Sample Size, ESS），该指标反映了样本的实际利用率。</p><p>记归一化权重为</p>$$
+\bar{\omega}_i=\frac{\omega_i}{\sum\limits_{j=1}^N\omega_j}
+$$<p>则 ESS 的定义为</p>$$
+\mathrm{ESS}=\frac1{\sum\limits_{i=1}^N\bar{\omega}_i^2}=\frac{\Big(\sum\limits_{i=1}^N\omega_i\Big)^2}{\sum\limits_{i=1}^N\omega_i^2}
+$$<p>ESS 介于 $1$ 至 $N$ 之间。当 $\forall i,\ \bar{\omega}_i=\frac1N$ 时，ESS 等于 $N$，表示所有样本贡献均衡、信息利用最充分；当 ESS 等于 $1$ 时，意味着某一个样本的权重接近 $1$ 而其余样本权重接近 $0$，表示几乎只有一个样本真正起作用。ESS 越小，说明权重越集中，重要性采样的质量越差。</p><p>实际上，ESS 约等于等价的独立同分布的样本数，衡量了权重是否集中在少数样本上。</p><h1 id=方差缩减机制总结>方差缩减机制总结</h1><table><thead><tr><th style=text-align:left>方法</th><th>方差缩减机制</th></tr></thead><tbody><tr><td style=text-align:left>控制变量</td><td>正交投影（利用控制变量张成有限维仿射子空间，丢弃能被该子空间投影所解释的波动）</td></tr><tr><td style=text-align:left>对偶变量</td><td>负协方差正交投影（利用对偶变量张成有限维仿射子空间，丢弃能被该子空间投影所解释的波动）</td></tr><tr><td style=text-align:left>分层抽样</td><td>有限维条件期望正交投影（利用示性函数张成有限维仿射子空间，丢弃能被该子空间投影所解释的波动）</td></tr><tr><td style=text-align:left>Rao-Blackwellization</td><td>无限维条件期望正交投影（利用充分统计量生成的 $\sigma$-代数子空间，保留该子空间下的投影）</td></tr><tr><td style=text-align:left>重要性采样</td><td>测度变换</td></tr></tbody></table></div></article></main></div><button class=toc-fab id=tocFab aria-label=目录>
+<svg width="16" height="13" viewBox="0 0 16 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="0" y1=".5" x2="16" y2=".5"/><line x1="0" y1="6.5" x2="16" y2="6.5"/><line x1="0" y1="12.5" x2="16" y2="12.5"/></svg>
+目录</button><div class=toc-overlay id=tocOverlay></div><footer class=site-footer><p class=footer-text>&copy; <span id=this-year></span> Hare &#183; built with Hugo</p></footer><script src=/js/main.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".post-body");e&&(e.innerHTML=e.innerHTML.replace(/(\$\$)([\s\S]*?)(\$\$)/g,function(e,t,n,s){return t+n.replace(/(^|\n)[ \t]*(?:&gt;|>)[ \t]?/gm,"$1")+s})),renderMathInElement(document.querySelector(".post-body"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})})</script></html>

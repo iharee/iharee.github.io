@@ -1,4 +1,36 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Math-Statistics on 二三事</title><link>https://iharee.github.io/math-statistics/</link><description>Recent content in Math-Statistics on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Mon, 10 Jul 2023 13:17:56 +0000</lastBuildDate><atom:link href="https://iharee.github.io/math-statistics/index.xml" rel="self" type="application/rss+xml"/><item><title>矩阵基础</title><link>https://iharee.github.io/math-statistics/matrix/</link><pubDate>Mon, 10 Jul 2023 13:17:56 +0000</pubDate><guid>https://iharee.github.io/math-statistics/matrix/</guid><description>&lt;p&gt;&lt;font color='red'&gt;&lt;b&gt;本文主要是一些关于矩阵的相对初等的内容，是考研期间做的完整考研线性代数归纳总结，目的是方便查阅。&lt;/b&gt;&lt;/font&gt;现在来看，这篇文章的主要任务是收纳若干关于矩阵的初级线性代数知识与技巧，对于线性空间、线性变换等内容，暂不涉及。在作者看来，这一部分的知识里理论的成分居多，读者如有需求，还是直接参考专业的线性代数或高等代数教材为好。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Math-Statistics on 二三事</title><link>https://iharee.github.io/math-statistics/</link><description>Recent content in Math-Statistics on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 27 May 2026 10:01:26 +0000</lastBuildDate><atom:link href="https://iharee.github.io/math-statistics/index.xml" rel="self" type="application/rss+xml"/><item><title>泛函分析与测度论视角下的方差缩减技术</title><link>https://iharee.github.io/math-statistics/vrt/</link><pubDate>Wed, 27 May 2026 10:01:26 +0000</pubDate><guid>https://iharee.github.io/math-statistics/vrt/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
+&lt;p&gt;方差缩减技术（VRT, Variance Reduction Techniques）是应用在蒙特卡洛方法（MC, Monte Carlo Method）中的一系列技术，旨在不单纯增大样本量而是通过统计技巧以降低估计量的方差，从而在相同计算量下提高估计精度。&lt;/p&gt;
+&lt;p&gt;设随机向量 $\boldsymbol{x}$ 的概率分布为 $p(\boldsymbol{x})$、被估计期望值等于 $\mu$ 的目标函数为 $f(\boldsymbol{x})$、样本总数为 $N$、$\boldsymbol{x}_i$ 为从总体 $\boldsymbol{X}$ 中独立抽取的第 $i$ 份样本，则蒙特卡洛模拟为
+&lt;/p&gt;
+$$
+\mu=\int f(\boldsymbol{x})p(\boldsymbol{x})\mathrm{d}\boldsymbol{x}\approx\frac1{N}\sum^N_{i=1}f(\boldsymbol{x}_i)=\hat{\mu}_{\text{MC}}
+$$&lt;p&gt;
+蒙特卡洛方法的成立是由辛钦大数定律（Khinchin&amp;rsquo;s Law）、科尔莫戈罗夫强大数定律（Kolmogorov&amp;rsquo;s Strong Law）与遍历定理（Ergodic Theorem）等大数定律所严格保证的。蒙特卡洛方法的本质思想十分朴素：用随机样本的平均值逼近总体的期望。&lt;/p&gt;
+&lt;p&gt;然而，许多情况下，或许是因为样本难以获得，或许是因为样本的采集成本昂贵，加之估计量的标准误 $\varepsilon\propto\frac1{\sqrt{N}}$ 的数学规律决定了单纯增加样本量对精度改进的效率低下，迫使我们考虑通过方差缩减技术以获得更精确的估计。&lt;/p&gt;
+&lt;p&gt;作为一系列诞生于统计计算领域的方法，方差缩减技术在供应链管理、期权定价与强化学习等诸多场景下被广泛使用。&lt;/p&gt;
+&lt;p&gt;对于蒙特卡洛方法而言，误差源于 $f(\boldsymbol{X})$ 的波动，而这种波动可被分解为函数值本身的随机性与采样测度、积分贡献区域的不匹配两种来源。站在更高的观点（泛函分析与测度论）下看，方差缩减机制可被归结为两类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;利用子空间中的向量抵消原向量中的一部分残差波动，降低不可解释的随机性；&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;测度变换，降低采样机制带来的随机性（重要性采样）。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;而第一种方差缩减机制也可以被进一步区分为两种：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;丢弃子空间的投影（控制变量、对偶变量、分层抽样）；&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保留子空间的投影（Rao-Blackwellization）。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;撰写本文的动机，是发现 PPO 中大量使用了重要性采样。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;此外，若无特别说明，本文允许 $\boldsymbol{X}$ 为多维随机向量，但默认目标函数 $f(\boldsymbol{X})$ 为实值函数。&lt;/p&gt;
+&lt;h1 id="1-控制变量-control-variates"&gt;1. 控制变量 Control Variates&lt;/h1&gt;
+&lt;p&gt;如果我们事先知道一个与 $f(\boldsymbol{X})$ 相关且期望 $\mu_g$ 已知的变量 $g(\boldsymbol{X})$，那么就可以从 $f(\boldsymbol{X})$ 估计量的波动中剔除能被 $g$ 解释的部分。&lt;/p&gt;
+&lt;p&gt;设 $\beta\in\mathbb{R}$ 为人为设定的系数，则修正估计量为
+&lt;/p&gt;
+$$
+\hat{\mu}_{\text{CV}}=\frac1{N}\sum^N_{i=1}\Big(f(\boldsymbol{X}_i)-\beta\big(g(\boldsymbol{X}_i)-\mu_g\big)\Big)
+$$&lt;p&gt;
+不难知道，
+&lt;/p&gt;</description></item><item><title>矩阵基础</title><link>https://iharee.github.io/math-statistics/matrix/</link><pubDate>Mon, 10 Jul 2023 13:17:56 +0000</pubDate><guid>https://iharee.github.io/math-statistics/matrix/</guid><description>&lt;p&gt;&lt;font color='red'&gt;&lt;b&gt;本文主要是一些关于矩阵的相对初等的内容，是考研期间做的完整考研线性代数归纳总结，目的是方便查阅。&lt;/b&gt;&lt;/font&gt;现在来看，这篇文章的主要任务是收纳若干关于矩阵的初级线性代数知识与技巧，对于线性空间、线性变换等内容，暂不涉及。在作者看来，这一部分的知识里理论的成分居多，读者如有需求，还是直接参考专业的线性代数或高等代数教材为好。&lt;/p&gt;
 &lt;p&gt;作者本科专业是数学与应用数学，后在学院内转去了统计学 (数理方向)，有一定的数学基础，所以最基本的概念等本文就不再赘述了😊例如矩阵转置及其性质、矩阵逆的定义等等。&lt;/p&gt;
 &lt;p&gt;本文集作者所学同时参考了大量的文献和网络资料，在整理和归纳时难免有所纰漏，如果发现有错误的内容可以邮件联系我以订正。&lt;/p&gt;
 &lt;p&gt;本文中凡是没有特别指明的，都限制在实数域上讨论。如果需要在线做一些矩阵运算，个人推荐 &lt;a href="https://www.wolframalpha.com/"&gt;&lt;b&gt;WolframApha&lt;/b&gt;&lt;/a&gt;；如果需要做一系列复杂矩阵运算，个人推荐 Mathematica。&lt;/p&gt;
