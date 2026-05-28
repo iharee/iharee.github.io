@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>二三事</title><link>https://iharee.github.io/</link><description>Recent content on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 27 May 2026 10:01:26 +0000</lastBuildDate><atom:link href="https://iharee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>泛函分析与测度论视角下的方差缩减技术</title><link>https://iharee.github.io/math-statistics/vrt/</link><pubDate>Wed, 27 May 2026 10:01:26 +0000</pubDate><guid>https://iharee.github.io/math-statistics/vrt/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
 &lt;p&gt;方差缩减技术（VRT, Variance Reduction Techniques）是应用在蒙特卡洛方法（MC, Monte Carlo Method）中的一系列技术，旨在不单纯增大样本量而是通过统计技巧以降低估计量的方差，从而在相同计算量下提高估计精度。&lt;/p&gt;
-&lt;p&gt;设随机向量 $\boldsymbol{x}$ 的概率分布为 $p(\boldsymbol{x})$、被估计期望值等于 $\mu$ 的目标函数为 $f(\boldsymbol{x})$、样本总数为 $N$、$\boldsymbol{x}_i$ 为从总体 $\boldsymbol{X}$ 中独立抽取的第 $i$ 份样本，则蒙特卡洛模拟为
+&lt;p&gt;设随机向量 $\boldsymbol{x}$ 的概率分布为 $p(\boldsymbol{x})$、被估计期望值等于 $\mu$ 的目标函数为 $f(\boldsymbol{x})$、样本总数为 $N$、$\boldsymbol{X}_i$ 为从总体 $\boldsymbol{X}$ 中独立抽取的第 $i$ 份样本，则蒙特卡洛模拟为
 &lt;/p&gt;
 $$
-\mu=\int f(\boldsymbol{x})p(\boldsymbol{x})\mathrm{d}\boldsymbol{x}\approx\frac1{N}\sum^N_{i=1}f(\boldsymbol{x}_i)=\hat{\mu}_{\text{MC}}
+\mu=\int f(\boldsymbol{x})p(\boldsymbol{x})\mathrm{d}\boldsymbol{x}\approx\frac1{N}\sum^N_{i=1}f(\boldsymbol{X}_i)=\hat{\mu}_{\text{MC}}
 $$&lt;p&gt;
 蒙特卡洛方法的成立是由辛钦大数定律（Khinchin&amp;rsquo;s Law）、科尔莫戈罗夫强大数定律（Kolmogorov&amp;rsquo;s Strong Law）与遍历定理（Ergodic Theorem）等大数定律所严格保证的。蒙特卡洛方法的本质思想十分朴素：用随机样本的平均值逼近总体的期望。&lt;/p&gt;
 &lt;p&gt;然而，许多情况下，或许是因为样本难以获得，或许是因为样本的采集成本昂贵，加之估计量的标准误 $\varepsilon\propto\frac1{\sqrt{N}}$ 的数学规律决定了单纯增加样本量对精度改进的效率低下，迫使我们考虑通过方差缩减技术以获得更精确的估计。&lt;/p&gt;
@@ -13,10 +13,15 @@ $$&lt;p&gt;
 &lt;li&gt;&lt;strong&gt;利用子空间中的向量抵消原向量中的一部分残差波动，降低不可解释的随机性；&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;测度变换，降低采样机制带来的随机性（重要性采样）。&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;而第一种方差缩减机制也可以被进一步区分为两种：&lt;/p&gt;
+&lt;p&gt;第一种方差缩减机制可以按丢弃还是保留子空间的投影被进一步区分为两种：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;丢弃子空间的投影（控制变量、对偶变量、分层抽样）；&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;保留子空间的投影（Rao-Blackwellization）。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;第一种方差缩减机制还可以按如何如何生成子空间分类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;利用条件期望（分层抽样/Rao-Blackwellization）&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;其他（控制变量、对偶变量）&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
 &lt;p&gt;撰写本文的动机，是发现 PPO 中大量使用了重要性采样。&lt;/p&gt;
@@ -25,11 +30,6 @@ $$&lt;p&gt;
 &lt;h1 id="1-控制变量-control-variates"&gt;1. 控制变量 Control Variates&lt;/h1&gt;
 &lt;p&gt;如果我们事先知道一个与 $f(\boldsymbol{X})$ 相关且期望 $\mu_g$ 已知的变量 $g(\boldsymbol{X})$，那么就可以从 $f(\boldsymbol{X})$ 估计量的波动中剔除能被 $g$ 解释的部分。&lt;/p&gt;
 &lt;p&gt;设 $\beta\in\mathbb{R}$ 为人为设定的系数，则修正估计量为
-&lt;/p&gt;
-$$
-\hat{\mu}_{\text{CV}}=\frac1{N}\sum^N_{i=1}\Big(f(\boldsymbol{X}_i)-\beta\big(g(\boldsymbol{X}_i)-\mu_g\big)\Big)
-$$&lt;p&gt;
-不难知道，
 &lt;/p&gt;</description></item><item><title>Mixture of Experts 的数学原理（~2026 文献综述）</title><link>https://iharee.github.io/algorithms/moe/</link><pubDate>Tue, 12 May 2026 13:23:57 +0000</pubDate><guid>https://iharee.github.io/algorithms/moe/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
 &lt;p&gt;在第一篇文章 &lt;a href="https://iharee.github.io/2024/12/08/computational_graphs_and_mlp" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;MLP 与 BP 算法的数学原理&lt;/a&gt; 中，我们简单地推导并实践了神经网络的基础——BP 算法。&lt;/p&gt;
 &lt;p&gt;在第二篇文章 &lt;a href="https://iharee.github.io/algorithms/attention_and_transformer" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;经典注意力与经典 Transformer 的数学原理&lt;/a&gt; 中，我们梳理了从 RNN &amp;amp; BPTT、Seq2Seq、注意力机制再到经典 Transformer 的时间线，并详细地在其底层数学原理的层次上进行了推导与分析。&lt;/p&gt;
