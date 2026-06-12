@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initFooterYear();
   initTOC();
   initMoreToggles();
+  initCosplay();
 });
 
 /* ============================================================
@@ -94,6 +95,104 @@ function initTOC() {
 
   // Responsive TOC toggle for mobile
   initResponsiveTOC();
+}
+
+/* ============================================================
+   COSPLAY — VIEW TOGGLE, GALLERY EXPAND, LIGHTBOX
+   ============================================================ */
+function initCosplay() {
+  initCosplayViewToggle();
+  initCosplayGalleryExpand();
+  initCosplayLightbox();
+}
+
+function initCosplayViewToggle() {
+  var toggleBtns = document.querySelectorAll('.view-toggle-btn');
+  if (toggleBtns.length === 0) return;
+
+  var timelineView = document.getElementById('cosplay-timeline');
+  var galleryView = document.getElementById('cosplay-gallery');
+
+  toggleBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var view = btn.getAttribute('data-view');
+
+      toggleBtns.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      if (view === 'timeline') {
+        timelineView.classList.remove('cosplay-hidden');
+        galleryView.classList.add('cosplay-hidden');
+      } else {
+        timelineView.classList.add('cosplay-hidden');
+        galleryView.classList.remove('cosplay-hidden');
+      }
+    });
+  });
+}
+
+function initCosplayGalleryExpand() {
+  var cards = document.querySelectorAll('.cosplay-gallery-card');
+
+  cards.forEach(function (card) {
+    var preview = card.querySelector('.gallery-card-preview');
+    var info = card.querySelector('.gallery-card-info');
+
+    function toggleCard() {
+      card.classList.toggle('expanded');
+    }
+
+    if (preview) {
+      preview.addEventListener('click', toggleCard);
+    }
+    if (info) {
+      info.addEventListener('click', toggleCard);
+    }
+  });
+}
+
+function initCosplayLightbox() {
+  var overlay = document.getElementById('lightboxOverlay');
+  if (!overlay) return;
+
+  var img = document.getElementById('lightboxImg');
+  var downloadLink = document.getElementById('lightboxDownload');
+  var closeBtn = document.getElementById('lightboxClose');
+
+  // Open lightbox on photo click
+  document.addEventListener('click', function (e) {
+    var photoItem = e.target.closest('.cosplay-photo-item');
+    if (!photoItem) return;
+
+    var fullUrl = photoItem.getAttribute('data-full');
+    if (!fullUrl) return;
+
+    img.src = fullUrl;
+    downloadLink.href = fullUrl;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Close handlers
+  function closeLightbox() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    img.src = '';
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) {
+      closeLightbox();
+    }
+  });
 }
 
 /**

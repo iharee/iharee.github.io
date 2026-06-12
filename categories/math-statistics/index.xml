@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Math-Statistics on 二三事</title><link>https://iharee.github.io/categories/math-statistics/</link><description>Recent content in Math-Statistics on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 27 May 2026 10:01:26 +0000</lastBuildDate><atom:link href="https://iharee.github.io/categories/math-statistics/index.xml" rel="self" type="application/rss+xml"/><item><title>泛函分析与测度论视角下的方差缩减技术</title><link>https://iharee.github.io/math-statistics/vrt/</link><pubDate>Wed, 27 May 2026 10:01:26 +0000</pubDate><guid>https://iharee.github.io/math-statistics/vrt/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;要完全阅读完这篇文章，可能需要读者有一定的统计计算、泛函分析与测度论基础。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;方差缩减技术（VRT, Variance Reduction Techniques）是应用在蒙特卡洛方法（MC, Monte Carlo Method）中的一系列技术，旨在不单纯增大样本量而是通过统计技巧以降低估计量的方差，从而在相同计算量下提高估计精度。&lt;/p&gt;
 &lt;p&gt;设随机向量 $\boldsymbol{x}$ 的概率分布为 $p(\boldsymbol{x})$、被估计期望值等于 $\mu$ 的目标函数为 $f(\boldsymbol{x})$、样本总数为 $N$、$\boldsymbol{X}_i$ 为从总体 $\boldsymbol{X}$ 中独立抽取的第 $i$ 份样本，则蒙特卡洛模拟为
 &lt;/p&gt;

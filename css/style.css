@@ -847,6 +847,337 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================================
+   COSPLAY PAGE
+   ============================================================ */
+.cosplay-main {
+  max-width: var(--home-width);
+  margin: 0 auto;
+  padding: var(--gap-2xl) var(--gap-lg) var(--gap-2xl);
+}
+
+.cosplay-main .page-header {
+  text-align: center;
+  margin-bottom: var(--gap-xl);
+}
+
+.cosplay-main .page-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  margin-bottom: 0;
+}
+
+.cosplay-main .page-header .header-rule {
+  margin-top: var(--gap-sm);
+}
+
+.cosplay-intro {
+  max-width: var(--content-width);
+  margin: 0 auto var(--gap-xl);
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.cosplay-intro p {
+  margin-bottom: var(--gap-sm);
+}
+
+/* ---- View Toggle ---- */
+.cosplay-view-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-xs);
+  margin-bottom: var(--gap-xl);
+}
+
+.view-toggle-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-right: var(--gap-sm);
+}
+
+.view-toggle-btn {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 4px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.view-toggle-btn:hover {
+  color: var(--ink);
+  border-color: var(--faint);
+}
+
+.view-toggle-btn.active {
+  color: var(--paper);
+  background: var(--vermilion);
+  border-color: var(--vermilion);
+}
+
+.cosplay-hidden {
+  display: none !important;
+}
+
+/* ---- Entry (Timeline) ---- */
+.cosplay-entry {
+  margin-bottom: var(--gap-2xl);
+  padding-bottom: var(--gap-xl);
+  border-bottom: 1px solid var(--border);
+}
+
+.cosplay-entry:last-child {
+  border-bottom: none;
+}
+
+.cosplay-entry-header {
+  margin-bottom: var(--gap-md);
+}
+
+.cosplay-entry-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-xs);
+}
+
+.cosplay-character {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.cosplay-franchise {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  color: var(--vermilion);
+  letter-spacing: 0.04em;
+  padding: 1px 8px;
+  border: 1px solid var(--vermilion-dim);
+  border-radius: 3px;
+  opacity: 0.75;
+}
+
+.cosplay-entry-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.cosplay-entry-meta .cosplay-location::before {
+  content: '@';
+  opacity: 0.5;
+  margin-right: 2px;
+}
+
+.cosplay-count {
+  color: var(--faint);
+}
+
+/* ---- Photo Grid ---- */
+.cosplay-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--gap-sm);
+}
+
+.cosplay-photo-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  aspect-ratio: 3/4;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cosplay-photo-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.cosplay-photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---- Gallery View ---- */
+.cosplay-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--gap-md);
+}
+
+.cosplay-gallery-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cosplay-gallery-card:hover {
+  border-color: var(--faint);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.gallery-card-preview {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--border);
+}
+
+.gallery-card-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.cosplay-gallery-card:hover .gallery-card-preview img {
+  transform: scale(1.03);
+}
+
+.gallery-card-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.gallery-card-info {
+  padding: var(--gap-sm) var(--gap-md);
+  cursor: pointer;
+}
+
+.gallery-card-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-sm);
+  margin-bottom: 2px;
+}
+
+.gallery-card-title .cosplay-character {
+  font-size: 1rem;
+}
+
+.gallery-card-title .cosplay-franchise {
+  font-size: 0.65rem;
+}
+
+.gallery-card-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  display: flex;
+  gap: var(--gap-md);
+}
+
+/* Hidden photos inside gallery card */
+.gallery-card-photos {
+  display: none;
+  padding: var(--gap-sm) var(--gap-md) var(--gap-md);
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.cosplay-gallery-card.expanded .gallery-card-photos {
+  display: grid;
+  animation: fadeSlide 0.35s ease both;
+}
+
+/* ---- Lightbox ---- */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.88);
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.lightbox-overlay.open {
+  display: flex;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  z-index: 2001;
+  line-height: 1;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+}
+
+.lightbox-download {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: #fff;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.lightbox-download:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* ============================================================
    RESPONSIVE — TABLET (max-width: 768px)
    ============================================================ */
 @media (max-width: 768px) {
@@ -942,8 +1273,20 @@ img { max-width: 100%; height: auto; display: block; }
 
   .post-title-main { font-size: 1.4rem; }
 
-  .friends-main, .about-main {
+  .friends-main, .about-main, .cosplay-main {
     padding: var(--gap-xl) var(--gap-md) var(--gap-xl);
+  }
+
+  .cosplay-photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .cosplay-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  .lightbox-overlay {
+    padding: 24px;
   }
 }
 
@@ -985,6 +1328,19 @@ img { max-width: 100%; height: auto; display: block; }
   .about-link {
     width: 100%;
     justify-content: center;
+  }
+
+  .cosplay-photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+
+  .cosplay-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cosplay-entry-meta {
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
   }
 }
 
