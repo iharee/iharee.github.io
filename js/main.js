@@ -101,8 +101,9 @@ function initTOC() {
    COSPLAY — VIEW TOGGLE, GALLERY EXPAND, LIGHTBOX
    ============================================================ */
 function initCosplay() {
+  if (initCosplayEntryDetail()) return;
   initCosplayViewToggle();
-  initCosplayGalleryExpand();
+  initCosplayGalleryNav();
   initCosplayLightbox();
 }
 
@@ -113,42 +114,143 @@ function initCosplayViewToggle() {
   var timelineView = document.getElementById('cosplay-timeline');
   var galleryView = document.getElementById('cosplay-gallery');
 
+  function setView(view, updateUrl) {
+    toggleBtns.forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-view') === view);
+    });
+
+    if (view === 'timeline') {
+      timelineView.classList.remove('cosplay-hidden');
+      galleryView.classList.add('cosplay-hidden');
+    } else {
+      timelineView.classList.add('cosplay-hidden');
+      galleryView.classList.remove('cosplay-hidden');
+    }
+
+    if (updateUrl !== false) {
+      var target = view === 'timeline' ? '/cosplay/' : '/cosplay/list/';
+      window.location.href = target;
+    }
+  }
+
+  // Init from URL path
+  var isList = /\/list\/?$/.test(window.location.pathname);
+  setView(isList ? 'list' : 'timeline', false);
+
   toggleBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      var view = btn.getAttribute('data-view');
-
-      toggleBtns.forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-
-      if (view === 'timeline') {
-        timelineView.classList.remove('cosplay-hidden');
-        galleryView.classList.add('cosplay-hidden');
-      } else {
-        timelineView.classList.add('cosplay-hidden');
-        galleryView.classList.remove('cosplay-hidden');
-      }
+      setView(btn.getAttribute('data-view'));
     });
   });
 }
 
-function initCosplayGalleryExpand() {
+function initCosplayGalleryNav() {
   var cards = document.querySelectorAll('.cosplay-gallery-card');
-
   cards.forEach(function (card) {
-    var preview = card.querySelector('.gallery-card-preview');
-    var info = card.querySelector('.gallery-card-info');
-
-    function toggleCard() {
-      card.classList.toggle('expanded');
-    }
-
-    if (preview) {
-      preview.addEventListener('click', toggleCard);
-    }
-    if (info) {
-      info.addEventListener('click', toggleCard);
-    }
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return;
+      var slug = card.getAttribute('data-slug');
+      if (!slug) return;
+      var url = new URL('/cosplay/', window.location.origin);
+      url.searchParams.set('entry', slug);
+      url.searchParams.delete('display');
+      window.open(url.toString(), '_blank');
+    });
   });
+}
+
+function initCosplayEntryDetail() {
+  var params = new URLSearchParams(window.location.search);
+  var entryKey = params.get('entry');
+  if (!entryKey) return false;
+
+  var dataEl = document.getElementById('cosplay-data');
+  if (!dataEl) return false;
+
+  var data;
+  try {
+    data = JSON.parse(dataEl.textContent);
+  } catch (e) {
+    return false;
+  }
+
+  var entry = null;
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].slug === entryKey) {
+      entry = data.entries[i];
+      break;
+    }
+  }
+  if (!entry) return false;
+
+  // Hide toggle, timeline, gallery
+  var toggle = document.querySelector('.cosplay-view-toggle');
+  if (toggle) toggle.style.display = 'none';
+
+  var timeline = document.getElementById('cosplay-timeline');
+  if (timeline) timeline.classList.add('cosplay-hidden');
+
+  var gallery = document.getElementById('cosplay-gallery');
+  if (gallery) gallery.classList.add('cosplay-hidden');
+
+  // Show and populate detail
+  var detailView = document.getElementById('cosplay-entry-detail');
+  if (!detailView) return false;
+  detailView.classList.remove('cosplay-hidden');
+
+  var photoCount = entry.photos.length;
+  var html = '';
+
+  // Back button
+  html += '<div class="entry-detail-back">';
+  html += '<button class="back-btn" id="entryBackBtn">← 返回图集</button>';
+  html += '</div>';
+
+  // Header
+  html += '<div class="entry-detail-header">';
+  html += '<h1 class="entry-detail-character">';
+  html += escapeHtml(entry.character);
+  if (entry.franchise) {
+    html += ' <span class="cosplay-franchise">' + escapeHtml(entry.franchise) + '</span>';
+  }
+  html += '</h1>';
+  html += '<div class="entry-detail-meta">';
+  html += '<span class="cosplay-date">' + escapeHtml(entry.date) + '</span>';
+  if (entry.location) {
+    html += '<span class="cosplay-location">' + escapeHtml(entry.location) + '</span>';
+  }
+  html += '<span class="cosplay-count">' + photoCount + ' 张</span>';
+  html += '</div>';
+  if (entry.note) {
+    html += '<div class="cosplay-entry-note">' + escapeHtml(entry.note) + '</div>';
+  }
+  html += '</div>';
+
+  // Photo grid
+  html += '<div class="cosplay-photo-grid entry-detail-grid">';
+  for (var j = 0; j < photoCount; j++) {
+    var photo = entry.photos[j];
+    var thumb = photo.thumb || (photo.full + '?imageMogr2/thumbnail/1080x/format/webp');
+    html += '<div class="cosplay-photo-item" data-full="' + escapeAttr(photo.full) + '">';
+    html += '<img src="' + escapeAttr(thumb) + '" alt="" loading="lazy"';
+    html += ' onerror="this.onerror=null;this.src=\'' + escapeAttr(photo.full) + '\'">';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  detailView.innerHTML = html;
+
+  // Back button handler
+  document.getElementById('entryBackBtn').addEventListener('click', function () {
+    window.location.href = '/cosplay/list/';
+  });
+
+  // Page title
+  var siteTitle = document.title.split(' — ').slice(-1)[0];
+  document.title = entry.character + ' — Cosplay — ' + siteTitle;
+
+  return true;
 }
 
 function initCosplayLightbox() {
@@ -274,4 +376,22 @@ function initMoreToggles() {
       }
     });
   });
+}
+
+/* ============================================================
+   UTILITY — HTML / attribute escaping
+   ============================================================ */
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function escapeAttr(str) {
+  if (!str) return '';
+  return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }

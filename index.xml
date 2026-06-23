@@ -47,7 +47,42 @@
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;em&gt;文献索引：&lt;/em&gt; [DQP] &lt;a href="https://arxiv.org/abs/2604.18143"&gt;https://arxiv.org/abs/2604.18143&lt;/a&gt; · [NF] &lt;a href="https://jmlr.org/papers/v22/19-1028.html"&gt;https://jmlr.org/papers/v22/19-1028.html&lt;/a&gt; · [CDE] &lt;a href="https://arxiv.org/abs/2511.18530"&gt;https://arxiv.org/abs/2511.18530&lt;/a&gt; · [DIFF] &lt;a href="https://arxiv.org/abs/2502.17119"&gt;https://arxiv.org/abs/2502.17119&lt;/a&gt; · [ACT] 2026 Actuaries Institute All-Actuaries Summit&lt;/p&gt;</description></item><item><title>Mixture of Experts 的数学原理（~2026 文献综述）</title><link>https://iharee.github.io/algorithms/moe/</link><pubDate>Tue, 12 May 2026 13:23:57 +0000</pubDate><guid>https://iharee.github.io/algorithms/moe/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;文献索引：&lt;/em&gt; [DQP] &lt;a href="https://arxiv.org/abs/2604.18143"&gt;https://arxiv.org/abs/2604.18143&lt;/a&gt; · [NF] &lt;a href="https://jmlr.org/papers/v22/19-1028.html"&gt;https://jmlr.org/papers/v22/19-1028.html&lt;/a&gt; · [CDE] &lt;a href="https://arxiv.org/abs/2511.18530"&gt;https://arxiv.org/abs/2511.18530&lt;/a&gt; · [DIFF] &lt;a href="https://arxiv.org/abs/2502.17119"&gt;https://arxiv.org/abs/2502.17119&lt;/a&gt; · [ACT] 2026 Actuaries Institute All-Actuaries Summit&lt;/p&gt;</description></item><item><title>泛函分析与测度论视角下的方差缩减技术</title><link>https://iharee.github.io/math-statistics/vrt/</link><pubDate>Wed, 27 May 2026 10:01:26 +0000</pubDate><guid>https://iharee.github.io/math-statistics/vrt/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;要完全阅读完这篇文章，可能需要读者有一定的统计计算、泛函分析与测度论基础。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;方差缩减技术（VRT, Variance Reduction Techniques）是应用在蒙特卡洛方法（MC, Monte Carlo Method）中的一系列技术，旨在不单纯增大样本量而是通过统计技巧以降低估计量的方差，从而在相同计算量下提高估计精度。&lt;/p&gt;
+&lt;p&gt;设随机向量 $\boldsymbol{x}$ 的概率分布为 $p(\boldsymbol{x})$、被估计期望值等于 $\mu$ 的目标函数为 $f(\boldsymbol{x})$、样本总数为 $N$、$\boldsymbol{X}_i$ 为从总体 $\boldsymbol{X}$ 中独立抽取的第 $i$ 份样本，则蒙特卡洛模拟为
+&lt;/p&gt;
+$$
+\mu=\int f(\boldsymbol{x})p(\boldsymbol{x})\mathrm{d}\boldsymbol{x}\approx\frac1{N}\sum^N_{i=1}f(\boldsymbol{X}_i)=\hat{\mu}_{\text{MC}}
+$$&lt;p&gt;
+蒙特卡洛方法的成立是由辛钦大数定律（Khinchin&amp;rsquo;s Law）、科尔莫戈罗夫强大数定律（Kolmogorov&amp;rsquo;s Strong Law）与遍历定理（Ergodic Theorem）等大数定律所严格保证的。蒙特卡洛方法的本质思想十分朴素：用随机样本的平均值逼近总体的期望。&lt;/p&gt;
+&lt;p&gt;然而，许多情况下，或许是因为样本难以获得，或许是因为样本的采集成本昂贵，加之估计量的标准误 $\varepsilon\propto\frac1{\sqrt{N}}$ 的数学规律决定了单纯增加样本量对精度改进的效率低下，迫使我们考虑通过方差缩减技术以获得更精确的估计。&lt;/p&gt;
+&lt;p&gt;作为一系列诞生于统计计算领域的方法，方差缩减技术在供应链管理、期权定价与强化学习等诸多场景下被广泛使用。&lt;/p&gt;
+&lt;p&gt;对于蒙特卡洛方法而言，误差源于 $f(\boldsymbol{X})$ 的波动，而这种波动可被分解为函数值本身的随机性与采样测度、积分贡献区域的不匹配两种来源。站在更高的观点（泛函分析与测度论）下看，方差缩减机制可被归结为两类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;利用子空间中的向量抵消原向量中的一部分残差波动，降低不可解释的随机性；&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;测度变换，降低采样机制带来的随机性（重要性采样）。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;第一种方差缩减机制可以按丢弃还是保留子空间的投影被进一步区分为两种：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;丢弃子空间的投影（控制变量、对偶变量、分层抽样）；&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保留子空间的投影（Rao-Blackwellization）。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;第一种方差缩减机制还可以按如何生成子空间分类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;利用条件期望（分层抽样、Rao-Blackwellization）&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;其他（控制变量、对偶变量）&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;撰写本文的动机，是发现 PPO 中大量使用了重要性采样。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;此外，若无特别说明，本文允许 $\boldsymbol{X}$ 为多维随机向量，但默认目标函数 $f(\boldsymbol{X})$ 为实值函数。&lt;/p&gt;
+&lt;h1 id="1-控制变量-control-variates"&gt;1. 控制变量 Control Variates&lt;/h1&gt;
+&lt;p&gt;如果我们事先知道一个与 $f(\boldsymbol{X})$ 相关且期望 $\mu_g$ 已知的变量 $g(\boldsymbol{X})$，那么就可以从 $f(\boldsymbol{X})$ 估计量的波动中剔除能被 $g$ 解释的部分。&lt;/p&gt;
+&lt;p&gt;设 $\beta\in\mathbb{R}$ 为人为设定的系数，则修正估计量为
+&lt;/p&gt;</description></item><item><title>Mixture of Experts 的数学原理（~2026 文献综述）</title><link>https://iharee.github.io/algorithms/moe/</link><pubDate>Tue, 12 May 2026 13:23:57 +0000</pubDate><guid>https://iharee.github.io/algorithms/moe/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
 &lt;p&gt;在第一篇文章 &lt;a href="https://iharee.github.io/2024/12/08/computational_graphs_and_mlp" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;MLP 与 BP 算法的数学原理&lt;/a&gt; 中，我们简单地推导并实践了神经网络的基础——BP 算法。&lt;/p&gt;
 &lt;p&gt;在第二篇文章 &lt;a href="https://iharee.github.io/algorithms/attention_and_transformer" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;经典注意力与经典 Transformer 的数学原理&lt;/a&gt; 中，我们梳理了从 RNN &amp;amp; BPTT、Seq2Seq、注意力机制再到经典 Transformer 的时间线，并详细地在其底层数学原理的层次上进行了推导与分析。&lt;/p&gt;
 &lt;p&gt;本文将在前两篇文章的基础上，借助多篇或经典或前沿的文献梳理 MoE（Mixture of Experts，混合专家模型）的基础理论。如果说，BP 算法使得我们能够构造可训练的前馈神经网络，注意力与 Transformer 使得我们拥有了一种强大的序列模型范式，那么 MoE 就是 Transformer 从「小模型」真正迈向「大模型」的关键一招。&lt;/p&gt;
@@ -712,46 +747,7 @@ $$
 \begin{align}&amp;(1)\ \ \ \hat{\beta}_0\sim N\left(\beta_0,\left(\frac1n+\frac{\bar{x}^2}{l_{xx}}\right)\sigma^2\right),\ \ \hat{\beta}_1\sim N(\beta_1,\frac{\sigma^2}{l_{xx}})\\&amp;(2)\ \ \ \mathrm{Cov}(\hat{\beta}_0,\hat{\beta}_1)=-\frac{\bar{x}}{l_{xx}}\sigma^2\\&amp;(3)\ \ \ \hat{y}_0=\hat{\beta}_0+\hat{\beta}_1x_0\sim N\left(\beta_0+\beta_1x_0,\left(\frac1n+\frac{(x_0-\bar{x})^2}{l_{xx}}\right)\sigma^2\right)\\&amp;(4)\ \ \ \hat{\sigma}^2=\frac{SSE}{n-2}\text{，这是无偏估计}\\&amp;(5)\ \ \ \mathbb{E}(SSR)=\sigma^2+\beta^2_1l_{xx},\ \ \mathbb{E}(SSE)=(n-2)\sigma^2\\&amp;(6)\ \ \ \text{当}\beta_1=0\text{，有}\frac{SST}{\sigma^2}\sim\chi^2(n-1),\ \frac{SSR}{\sigma^2}\sim\chi^2(1),\ \frac{SSE}{\sigma^2}\sim\chi^2(n-2)\end{align}
 $$&lt;p&gt;
 &lt;em&gt;相应的，$SST=l_{yy}$，$SSR=\hat{\beta}^2_1l_{xx}=\frac{l^2_{xy}}{l_{xx}}$，$SSE=SST-SSR$，在此一并给出参数显著性检验统计量：&lt;/em&gt;
-&lt;/p&gt;</description></item><item><title/><link>https://iharee.github.io/math-statistics/vrt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/math-statistics/vrt/</guid><description>&lt;p&gt;title: 泛函分析与测度论视角下的方差缩减技术
-date: 2026-05-27 10:01:26
-tags: 方差缩减技术
-description: 在泛函分析与测度论的高观点上，重新讨论五种方差缩减技术：控制变量、对偶变量、分层抽样、Rao-Blackwellization 与重要性采样。
-categories: math-statistics
-mathjax: true&lt;/p&gt;
-&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;要完全阅读完这篇文章，可能需要读者有一定的统计计算、泛函分析与测度论基础。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;方差缩减技术（VRT, Variance Reduction Techniques）是应用在蒙特卡洛方法（MC, Monte Carlo Method）中的一系列技术，旨在不单纯增大样本量而是通过统计技巧以降低估计量的方差，从而在相同计算量下提高估计精度。&lt;/p&gt;
-&lt;p&gt;设随机向量 $\boldsymbol{x}$ 的概率分布为 $p(\boldsymbol{x})$、被估计期望值等于 $\mu$ 的目标函数为 $f(\boldsymbol{x})$、样本总数为 $N$、$\boldsymbol{X}_i$ 为从总体 $\boldsymbol{X}$ 中独立抽取的第 $i$ 份样本，则蒙特卡洛模拟为
-&lt;/p&gt;
-$$
-\mu=\int f(\boldsymbol{x})p(\boldsymbol{x})\mathrm{d}\boldsymbol{x}\approx\frac1{N}\sum^N_{i=1}f(\boldsymbol{X}_i)=\hat{\mu}_{\text{MC}}
-$$&lt;p&gt;
-蒙特卡洛方法的成立是由辛钦大数定律（Khinchin&amp;rsquo;s Law）、科尔莫戈罗夫强大数定律（Kolmogorov&amp;rsquo;s Strong Law）与遍历定理（Ergodic Theorem）等大数定律所严格保证的。蒙特卡洛方法的本质思想十分朴素：用随机样本的平均值逼近总体的期望。&lt;/p&gt;
-&lt;p&gt;然而，许多情况下，或许是因为样本难以获得，或许是因为样本的采集成本昂贵，加之估计量的标准误 $\varepsilon\propto\frac1{\sqrt{N}}$ 的数学规律决定了单纯增加样本量对精度改进的效率低下，迫使我们考虑通过方差缩减技术以获得更精确的估计。&lt;/p&gt;
-&lt;p&gt;作为一系列诞生于统计计算领域的方法，方差缩减技术在供应链管理、期权定价与强化学习等诸多场景下被广泛使用。&lt;/p&gt;
-&lt;p&gt;对于蒙特卡洛方法而言，误差源于 $f(\boldsymbol{X})$ 的波动，而这种波动可被分解为函数值本身的随机性与采样测度、积分贡献区域的不匹配两种来源。站在更高的观点（泛函分析与测度论）下看，方差缩减机制可被归结为两类：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;利用子空间中的向量抵消原向量中的一部分残差波动，降低不可解释的随机性；&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;测度变换，降低采样机制带来的随机性（重要性采样）。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;第一种方差缩减机制可以按丢弃还是保留子空间的投影被进一步区分为两种：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;丢弃子空间的投影（控制变量、对偶变量、分层抽样）；&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;保留子空间的投影（Rao-Blackwellization）。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;第一种方差缩减机制还可以按如何生成子空间分类：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;利用条件期望（分层抽样、Rao-Blackwellization）&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;其他（控制变量、对偶变量）&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;撰写本文的动机，是发现 PPO 中大量使用了重要性采样。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;此外，若无特别说明，本文允许 $\boldsymbol{X}$ 为多维随机向量，但默认目标函数 $f(\boldsymbol{X})$ 为实值函数。&lt;/p&gt;
-&lt;h1 id="1-控制变量-control-variates"&gt;1. 控制变量 Control Variates&lt;/h1&gt;
-&lt;p&gt;如果我们事先知道一个与 $f(\boldsymbol{X})$ 相关且期望 $\mu_g$ 已知的变量 $g(\boldsymbol{X})$，那么就可以从 $f(\boldsymbol{X})$ 估计量的波动中剔除能被 $g$ 解释的部分。&lt;/p&gt;</description></item><item><title>Cosplay</title><link>https://iharee.github.io/cosplay/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/cosplay/</guid><description>&lt;p&gt;低脂 cos，出点自己想出的、&lt;/p&gt;</description></item><item><title>关于</title><link>https://iharee.github.io/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/about/</guid><description>&lt;p&gt;具备一定编码能力的数理背景的统计硕士生，研究兴趣是统计学习与大模型算法。&lt;/p&gt;
+&lt;/p&gt;</description></item><item><title>Cosplay</title><link>https://iharee.github.io/cosplay/list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/cosplay/list/</guid><description/></item><item><title>Cosplay</title><link>https://iharee.github.io/cosplay/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/cosplay/</guid><description>&lt;p&gt;低脂 cos，出点自己想出的、&lt;/p&gt;</description></item><item><title>关于</title><link>https://iharee.github.io/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/about/</guid><description>&lt;p&gt;具备一定编码能力的数理背景的统计硕士生，研究兴趣是统计学习与大模型算法。&lt;/p&gt;
 &lt;p&gt;近期关注：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;RLHF&lt;/li&gt;
