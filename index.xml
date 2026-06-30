@@ -53,7 +53,7 @@ $$&lt;p&gt;
 &lt;/p&gt;</description></item><item><title>Mixture of Experts 的数学原理（~2026 文献综述）</title><link>https://iharee.github.io/algorithms/moe/</link><pubDate>Tue, 12 May 2026 13:23:57 +0000</pubDate><guid>https://iharee.github.io/algorithms/moe/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
 &lt;p&gt;在第一篇文章 &lt;a href="https://iharee.github.io/2024/12/08/computational_graphs_and_mlp" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;MLP 与 BP 算法的数学原理&lt;/a&gt; 中，我们简单地推导并实践了神经网络的基础——BP 算法。&lt;/p&gt;
 &lt;p&gt;在第二篇文章 &lt;a href="https://iharee.github.io/algorithms/attention_and_transformer" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;经典注意力与经典 Transformer 的数学原理&lt;/a&gt; 中，我们梳理了从 RNN &amp;amp; BPTT、Seq2Seq、注意力机制再到经典 Transformer 的时间线，并详细地在其底层数学原理的层次上进行了推导与分析。&lt;/p&gt;
-&lt;p&gt;本文将在前两篇文章的基础上，借助多篇或经典或前沿的文献梳理 MoE（Mixture of Experts，混合专家模型）的基础理论。如果说，BP 算法使得我们能够构造可训练的前馈神经网络，注意力与 Transformer 使得我们拥有了一种强大的序列模型范式，那么 MoE 就是 Transformer 从「小模型」真正迈向「大模型」的关键一招。&lt;/p&gt;
+&lt;p&gt;本文将在前两篇文章的基础上，借助多篇或经典或前沿的文献梳理 MoE（Mixture of Experts，混合专家模型）的基础理论。如果说，BP 算法使得我们能够构造可训练的前馈神经网络，注意力与 Transformer 使得我们拥有了一种强大的序列模型范式，那么 Sparse MoE 就是 Transformer 从「小模型」真正迈向「大模型」的关键一招。&lt;/p&gt;
 &lt;h1 id="dense-scaling-的瓶颈"&gt;Dense Scaling 的瓶颈&lt;/h1&gt;
 &lt;p&gt;在大模型领域，有一条被称为 Scaling Law（缩放定律，参见 2020 年 Kaplan 等人的研究 &lt;a href="https://arxiv.org/abs/2001.08361"&gt;Scaling Laws for Neural Language Models&lt;/a&gt;）的经验定律：模型性能（例如训练损失）随投入资源（例如参数量）的增加而平滑提升，且遵循幂律关系。这是在众多大型实验室的实践中得出的经验总结。
 &lt;/p&gt;
@@ -61,22 +61,7 @@ $$
 Loss(C) \approx \left( \frac{C_{\text{min}}}{C} \right)^{\alpha}
 \tag{1}
 $$&lt;p&gt;
-其中 $C$ 表示训练计算量（FLOPs），$\alpha$ 为缩放指数（通常取值 $0.05\sim0.1$），$C_{\text{min}}$ 则为一个常数。Scaling Law 表明，要提升模型的性能，一个可行的方案就是提高模型的参数规模。但同时 Scaling Law 也为我们估计了一个残酷的代价：要使损失降低 $n$ 倍，需要付出 $n^{\frac1{\alpha}}$ 倍的计算开销。即，参数规模的边际收益是递减的，但我们又不得不面对这个现实。&lt;/p&gt;</description></item><item><title>组会讲稿节选：Deep quantile and deep composite triplet regression</title><link>https://iharee.github.io/others/report__deep_quantile_and_deep_composite_triplet_regression/</link><pubDate>Thu, 07 May 2026 16:20:46 +0000</pubDate><guid>https://iharee.github.io/others/report__deep_quantile_and_deep_composite_triplet_regression/</guid><description>&lt;h1 id="文献解读背景"&gt;文献解读背景&lt;/h1&gt;
-&lt;p&gt;Tobias Fissler、Michael Merz 与 Mario V. Wüthrich 于 2021 年首先在 arXiv 发布预印本论文 &lt;a href="https://arxiv.org/abs/2112.03075"&gt;Deep Quantile and Deep Composite Model Regression&lt;/a&gt;。随后于 2023 年正式发表于期刊 Insurance: Mathematics and Economics 第 109 卷（2023 年 3 月，Pages 94–112），论文标题调整为 &lt;a href="https://www.sciencedirect.com/science/article/pii/S0167668723000070"&gt;Deep quantile and deep composite triplet regression&lt;/a&gt;。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;带有 “补充” 的标题，是本文额外补充的内容；反之，则属于原文献中的内容。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id="其他方法的局限"&gt;其他方法的局限&lt;/h1&gt;
-&lt;p&gt;OLS 以最小二乘函数作为损失函数，即 MSE，最优解为&lt;mark&gt;&lt;strong&gt;条件均值&lt;/strong&gt;&lt;/mark&gt;。&lt;/p&gt;
-&lt;p&gt;但金融和保险数据往往是重尾且偏态的，均值的代表性不足。&lt;/p&gt;
-&lt;p&gt;且最小二乘回归（OLS）假定上下误差对称，在该类数据场景下同样适用性有限。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;对于 GLM，通常假设 $y$ 服从某个指数族分布（或 tweedie），相当于预先给定了条件分布的函数形式。&lt;/p&gt;
-&lt;p&gt;文献提到，真实保险理赔数据中，&lt;mark&gt;&lt;strong&gt;bulk 和 tail 从机制上有根本不同&lt;/strong&gt;&lt;/mark&gt;，以单一参数分布统一刻画二者并不恰当，比如没有考虑到协变量对 bulk 与 tail 的不同影响。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;例如，保单持有人的年龄变量也许是解释小额赔案系统性影响的重要变量，但在解释大额赔案时却可能无关紧要。这种现象可能由从小额赔案到大额赔案时伤害类型的变化所隐含（事故保险），也可能由从小额保额到大额保额时行业细分的变化所隐含（工业火灾保险）；一个明确的例子见 &lt;a href="https://www.sciencedirect.com/science/article/pii/S0167668723000070#br0180"&gt;Fung et al. (2022)&lt;/a&gt; 第 5.3 节。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;而且 GLM 能直接指导的也是均值。&lt;/p&gt;</description></item><item><title>经典注意力与经典 Transformer 的数学原理</title><link>https://iharee.github.io/algorithms/attention_and_transformer/</link><pubDate>Sun, 22 Mar 2026 22:55:00 +0000</pubDate><guid>https://iharee.github.io/algorithms/attention_and_transformer/</guid><description>&lt;p&gt;* 本文的部分示意图使用了 AI 辅助创作，其余有明确标注的示意图则引用自参考文献。&lt;/p&gt;
+其中 $C$ 表示训练计算量（FLOPs），$\alpha$ 为缩放指数（通常取值 $0.05\sim0.1$），$C_{\text{min}}$ 则为一个常数。Scaling Law 表明，要提升模型的性能，一个可行的方案就是提高模型的参数规模。但同时 Scaling Law 也为我们估计了一个残酷的代价：要使损失降低 $n$ 倍，需要付出 $n^{\frac1{\alpha}}$ 倍的计算开销。即，参数规模的边际收益是递减的，但我们又不得不面对这个现实。&lt;/p&gt;</description></item><item><title>经典注意力与经典 Transformer 的数学原理</title><link>https://iharee.github.io/algorithms/attention_and_transformer/</link><pubDate>Sun, 22 Mar 2026 22:55:00 +0000</pubDate><guid>https://iharee.github.io/algorithms/attention_and_transformer/</guid><description>&lt;p&gt;* 本文的部分示意图使用了 AI 辅助创作，其余有明确标注的示意图则引用自参考文献。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;若无特别说明，本文中的单个向量默认视为列向量。比如，在 RNN、BPTT 与 Bahdanau Attention 部分，$\boldsymbol{x}_t,\boldsymbol{h}_t,\boldsymbol{s}_t,\boldsymbol{a}_t$ 等单个向量都按列向量书写。&lt;/p&gt;
 &lt;p&gt;而在 attention 与 Transformer 章节的矩阵记号中，为便于书写整段序列的矩阵乘法，序列矩阵统一按行堆叠：若第 $i$ 个 token 的表示向量为列向量 $\boldsymbol{x}_i$，则矩阵 $\boldsymbol{X}$ 的第 $i$ 行为 $\boldsymbol{x}_i^T$。相应地，$\boldsymbol{Q},\boldsymbol{K},\boldsymbol{V}$ 的第 $i$ 行分别记为 $\boldsymbol{q}_i^T,\boldsymbol{k}_i^T,\boldsymbol{v}_i^T$。&lt;/p&gt;
