@@ -619,6 +619,128 @@ img { max-width: 100%; height: auto; display: block; }
 .post-body pre code {
   background: none;
   padding: 0;
+  font-size: inherit;
+}
+
+/* ---- Chroma Syntax Highlighting ---- */
+
+.chroma { color: var(--ink); background: var(--code-bg); }
+.chroma .l { color: var(--ink); }
+
+/* Keywords */
+.chroma .k,  .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kp { font-weight: 600; color: var(--ink); }
+.chroma .kr { font-weight: 600; color: var(--ink-soft); }
+.chroma .kt { color: var(--vermilion); }       /* keyword type (int, str…) */
+
+/* Names */
+.chroma .n,  .chroma .na, .chroma .ni, .chroma .nl, .chroma .nn, .chroma .nx { color: var(--ink); }
+.chroma .nb, .chroma .bp { color: var(--ink-soft); }   /* builtins (self, np…) */
+.chroma .nc { color: var(--vermilion); }                /* class name */
+.chroma .nf, .chroma .fm { color: #9b95c9; }            /* functions — 藤紫 */
+.chroma .nd { color: #9b95c9; }                         /* decorator — 藤紫 */
+.chroma .no { color: var(--ink); }                      /* constants */
+.chroma .ne { color: var(--vermilion); }                /* exceptions */
+.chroma .nt { color: var(--vermilion); }                /* HTML/XML tags */
+
+/* Strings */
+.chroma .s,  .chroma .s1, .chroma .s2, .chroma .sa, .chroma .sb, .chroma .sc,
+.chroma .sd, .chroma .se, .chroma .sh, .chroma .si, .chroma .sx, .chroma .sr,
+.chroma .ss, .chroma .dl { color: #8b5c5e; }  /* warm muted red */
+
+/* Numbers */
+.chroma .m,  .chroma .mb, .chroma .mf, .chroma .mh,
+.chroma .mi, .chroma .il, .chroma .mo { color: #a0853c; }  /* muted gold */
+
+/* Comments */
+.chroma .c,  .chroma .c1, .chroma .ch, .chroma .cm,
+.chroma .cs, .chroma .cp, .chroma .cpf { color: var(--faint); font-style: italic; }
+
+/* Operators & Punctuation */
+.chroma .o, .chroma .p { color: var(--ink-soft); }
+
+/* Generic (diffs) */
+.chroma .gd { color: var(--vermilion); }
+.chroma .ge { font-style: italic; }
+.chroma .gi { color: #5a8a5a; }
+.chroma .gs { font-weight: 600; }
+.chroma .gu { font-weight: 600; }
+
+/* Line numbers */
+.chroma .ln {
+  color: var(--faint);
+  user-select: none;
+  -webkit-user-select: none;
+  display: inline-block;
+  min-width: 2.25ch;
+  text-align: right;
+  border-right: 1px solid var(--border);
+  padding-right: 0.65rem;
+  margin-right: 0.65rem;
+}
+
+.chroma .line {
+  display: block;
+  width: 100%;
+}
+
+/* ---- Code Block Wrapper ---- */
+
+.code-block-wrapper {
+  position: relative;
+  margin-bottom: var(--gap-sm);
+}
+
+.code-block-wrapper .highlight,
+.code-block-wrapper pre {
+  margin-bottom: 0;
+}
+
+/* ---- Copy Button ---- */
+
+.copy-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.2s, color 0.2s;
+  line-height: 1;
+  z-index: 1;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+  color: var(--ink);
+}
+
+.copy-btn:focus-visible {
+  opacity: 1;
+  outline: 1px solid var(--faint);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+.copy-btn.copied {
+  opacity: 1;
+  color: var(--vermilion);
+}
+
+.copy-btn-icon {
+  display: flex;
+  align-items: center;
+}
+
+@media print {
+  .copy-btn { display: none; }
 }
 
 .post-body blockquote {

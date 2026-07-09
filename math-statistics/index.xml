@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Math-Statistics on 二三事</title><link>https://iharee.github.io/math-statistics/</link><description>Recent content in Math-Statistics on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 27 May 2026 10:01:26 +0000</lastBuildDate><atom:link href="https://iharee.github.io/math-statistics/index.xml" rel="self" type="application/rss+xml"/><item><title>泛函分析与测度论视角下的方差缩减技术</title><link>https://iharee.github.io/math-statistics/vrt/</link><pubDate>Wed, 27 May 2026 10:01:26 +0000</pubDate><guid>https://iharee.github.io/math-statistics/vrt/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Math-Statistics on 二三事</title><link>https://iharee.github.io/math-statistics/</link><description>Recent content in Math-Statistics on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Wed, 27 May 2026 10:01:26 +0800</lastBuildDate><atom:link href="https://iharee.github.io/math-statistics/index.xml" rel="self" type="application/rss+xml"/><item><title>泛函分析与测度论视角下的方差缩减技术</title><link>https://iharee.github.io/math-statistics/vrt/</link><pubDate>Wed, 27 May 2026 10:01:26 +0800</pubDate><guid>https://iharee.github.io/math-statistics/vrt/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;要完全阅读完这篇文章，可能需要读者有一定的统计计算、泛函分析与测度论基础。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -33,7 +33,7 @@ $$&lt;p&gt;
 &lt;h1 id="1-控制变量-control-variates"&gt;1. 控制变量 Control Variates&lt;/h1&gt;
 &lt;p&gt;如果我们事先知道一个与 $f(\boldsymbol{X})$ 相关且期望 $\mu_g$ 已知的变量 $g(\boldsymbol{X})$，那么就可以从 $f(\boldsymbol{X})$ 估计量的波动中剔除能被 $g$ 解释的部分。&lt;/p&gt;
 &lt;p&gt;设 $\beta\in\mathbb{R}$ 为人为设定的系数，则修正估计量为
-&lt;/p&gt;</description></item><item><title>矩阵基础</title><link>https://iharee.github.io/math-statistics/matrix/</link><pubDate>Mon, 10 Jul 2023 13:17:56 +0000</pubDate><guid>https://iharee.github.io/math-statistics/matrix/</guid><description>&lt;p&gt;&lt;font color='red'&gt;&lt;b&gt;本文主要是一些关于矩阵的相对初等的内容，是考研期间做的完整考研线性代数归纳总结，目的是方便查阅。&lt;/b&gt;&lt;/font&gt;现在来看，这篇文章的主要任务是收纳若干关于矩阵的初级线性代数知识与技巧，对于线性空间、线性变换等内容，暂不涉及。在作者看来，这一部分的知识里理论的成分居多，读者如有需求，还是直接参考专业的线性代数或高等代数教材为好。&lt;/p&gt;
+&lt;/p&gt;</description></item><item><title>矩阵基础</title><link>https://iharee.github.io/math-statistics/matrix/</link><pubDate>Mon, 10 Jul 2023 13:17:56 +0800</pubDate><guid>https://iharee.github.io/math-statistics/matrix/</guid><description>&lt;p&gt;&lt;font color='red'&gt;&lt;b&gt;本文主要是一些关于矩阵的相对初等的内容，是考研期间做的完整考研线性代数归纳总结，目的是方便查阅。&lt;/b&gt;&lt;/font&gt;现在来看，这篇文章的主要任务是收纳若干关于矩阵的初级线性代数知识与技巧，对于线性空间、线性变换等内容，暂不涉及。在作者看来，这一部分的知识里理论的成分居多，读者如有需求，还是直接参考专业的线性代数或高等代数教材为好。&lt;/p&gt;
 &lt;p&gt;作者本科专业是数学与应用数学，后在学院内转去了统计学 (数理方向)，有一定的数学基础，所以最基本的概念等本文就不再赘述了😊例如矩阵转置及其性质、矩阵逆的定义等等。&lt;/p&gt;
 &lt;p&gt;本文集作者所学同时参考了大量的文献和网络资料，在整理和归纳时难免有所纰漏，如果发现有错误的内容可以邮件联系我以订正。&lt;/p&gt;
 &lt;p&gt;本文中凡是没有特别指明的，都限制在实数域上讨论。如果需要在线做一些矩阵运算，个人推荐 &lt;a href="https://www.wolframalpha.com/"&gt;&lt;b&gt;WolframApha&lt;/b&gt;&lt;/a&gt;；如果需要做一系列复杂矩阵运算，个人推荐 Mathematica。&lt;/p&gt;
@@ -116,7 +116,7 @@ $$
 &lt;p&gt;相似必然合同，但合同不一定相似&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;在欧氏空间中，合同变换体现为在平面到自身的一一变换下，任意线段的长和它的像的长总相等&lt;/p&gt;</description></item><item><title>考研数学（微积分）（下）</title><link>https://iharee.github.io/math-statistics/calculus-b/</link><pubDate>Tue, 16 May 2023 13:17:56 +0000</pubDate><guid>https://iharee.github.io/math-statistics/calculus-b/</guid><description>&lt;p&gt;  part Ⅱ主要内容为 &lt;b&gt;不等式&lt;/b&gt;、&lt;b&gt;常微分方程 (ODE)&lt;/b&gt;、&lt;b&gt;级数理论&lt;/b&gt; 和 &lt;b&gt;多元函数微积分&lt;/b&gt;，包括工具定理、计算方法与部分证明，以例题辅助解释。&lt;/p&gt;
+&lt;p&gt;在欧氏空间中，合同变换体现为在平面到自身的一一变换下，任意线段的长和它的像的长总相等&lt;/p&gt;</description></item><item><title>考研数学（微积分）（下）</title><link>https://iharee.github.io/math-statistics/calculus-b/</link><pubDate>Tue, 16 May 2023 13:17:56 +0800</pubDate><guid>https://iharee.github.io/math-statistics/calculus-b/</guid><description>&lt;p&gt;  part Ⅱ主要内容为 &lt;b&gt;不等式&lt;/b&gt;、&lt;b&gt;常微分方程 (ODE)&lt;/b&gt;、&lt;b&gt;级数理论&lt;/b&gt; 和 &lt;b&gt;多元函数微积分&lt;/b&gt;，包括工具定理、计算方法与部分证明，以例题辅助解释。&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;hr&gt;
 &lt;h1 id="常用常数"&gt;常用常数&lt;/h1&gt;
@@ -197,7 +197,7 @@ $$&lt;p&gt;
 其中$\{b_{k_i}\}$是$\{b_i\}$中元素的任意乱序排列。&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://zhuanlan.zhihu.com/p/296227985"&gt;&lt;font color="#EEAEEE"&gt;排序不等式的证明（配合Abel变换）&lt;/font&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id="切比雪夫的和不等式"&gt;切比雪夫的和不等式&lt;/h3&gt;
-&lt;p&gt;切比雪夫不等式的离散形式是排序不等式的推广。&lt;/p&gt;</description></item><item><title>The James-Stein Estimator</title><link>https://iharee.github.io/math-statistics/james-stein_estimator/</link><pubDate>Wed, 26 Apr 2023 16:15:23 +0000</pubDate><guid>https://iharee.github.io/math-statistics/james-stein_estimator/</guid><description>&lt;p&gt;  本人没有能力开拓什么，只能综合前辈们的观点尽量感悟；没有打算、更没有能力深入研究收缩估计，不过是对Stein&amp;rsquo;s paradox的奇怪现象感到诧异，来了兴趣，所以查阅多手资料后写下了本文。&lt;/p&gt;
+&lt;p&gt;切比雪夫不等式的离散形式是排序不等式的推广。&lt;/p&gt;</description></item><item><title>The James-Stein Estimator</title><link>https://iharee.github.io/math-statistics/james-stein_estimator/</link><pubDate>Wed, 26 Apr 2023 16:15:23 +0800</pubDate><guid>https://iharee.github.io/math-statistics/james-stein_estimator/</guid><description>&lt;p&gt;  本人没有能力开拓什么，只能综合前辈们的观点尽量感悟；没有打算、更没有能力深入研究收缩估计，不过是对Stein&amp;rsquo;s paradox的奇怪现象感到诧异，来了兴趣，所以查阅多手资料后写下了本文。&lt;/p&gt;
 &lt;hr&gt;
 &lt;center&gt;&lt;font size="5.5"&gt;本文主要参考文献&lt;/font&gt;&lt;/center&gt;&lt;br&gt;&lt;center&gt;把他们列在文首，只因为我看来这些文章比本文更有价值，推荐参考&lt;/center&gt;
 &lt;p&gt;&lt;a href="https://projecteuclid.org/proceedings/berkeley-symposium-on-mathematical-statistics-and-probability/Proceedings-of-the-Fourth-Berkeley-Symposium-on-Mathematical-Statistics-and/Chapter/Estimation-with-Quadratic-Loss/bsmsp/1200512173"&gt;Estimation with Quadratic Loss&lt;/a&gt;&lt;/p&gt;
@@ -236,7 +236,7 @@ $$
 $$&lt;p&gt;
 在后文的证明中只会用到$\sigma^2=1$的情形。&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;&lt;font size="5"&gt;定理 1    &lt;/font&gt;&lt;/b&gt;以二次损失定义风险，设$\boldsymbol{X}\sim N_p(\boldsymbol{\mu},\sigma^2\boldsymbol{I}_p)$，则当$0&lt;a&lt;2(p-2)$、$p\geqslant3$且$b\geqslant0$时，估计$\hat{\delta}_{a,b}=\left(1-\frac{a\sigma^2}{b+\boldsymbol{X}^T\boldsymbol{X}}\right)\boldsymbol{X}$的风险均小于$\boldsymbol{X}$的风险，且$\hat{\delta}_{a,b}$的风险为
-&lt;/p&gt;</description></item><item><title>考研数学（微积分）（上）</title><link>https://iharee.github.io/math-statistics/calculus-a/</link><pubDate>Thu, 06 Apr 2023 18:23:33 +0000</pubDate><guid>https://iharee.github.io/math-statistics/calculus-a/</guid><description>&lt;p&gt;  想了想，还是写Markdown更容易保存；作为考研高数的完整笔记，内容多了以后电子文档增删查改起来容易些。&lt;/p&gt;
+&lt;/p&gt;</description></item><item><title>考研数学（微积分）（上）</title><link>https://iharee.github.io/math-statistics/calculus-a/</link><pubDate>Thu, 06 Apr 2023 18:23:33 +0800</pubDate><guid>https://iharee.github.io/math-statistics/calculus-a/</guid><description>&lt;p&gt;  想了想，还是写Markdown更容易保存；作为考研高数的完整笔记，内容多了以后电子文档增删查改起来容易些。&lt;/p&gt;
 &lt;p&gt;  part Ⅰ主要内容为 &lt;b&gt;极限&lt;/b&gt; 与 &lt;b&gt;一元微积分&lt;/b&gt;，涉及较多方面。&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;hr&gt;
@@ -297,7 +297,7 @@ $$
  &amp;\ \ \ \ (x,y,1)\boldsymbol{B}\left(\begin{array}{c}x\\y\\1\end{array}\right)=0
  \end{aligned}\right.
  $$&lt;p&gt;
-其中$\boldsymbol{A},\boldsymbol{B}$是三阶实对称矩阵，&lt;/p&gt;</description></item><item><title>回归分析</title><link>https://iharee.github.io/math-statistics/regression/</link><pubDate>Sun, 08 Jan 2023 18:11:25 +0000</pubDate><guid>https://iharee.github.io/math-statistics/regression/</guid><description>&lt;p&gt;方便起见，本文用$\Vert\cdot\Vert^2$代表$\Vert\cdot\Vert_2^2$，其中$\Vert\cdot\Vert_2$是$l^2$或$L^2$范数，用RSS或SSE表示残差平方和，用SSR表示回归平方和，用SST表示总平方和，用OLS表示最小二乘法，用MLE表示极大似然估计，并采用下分位数的记号。&lt;/p&gt;
+其中$\boldsymbol{A},\boldsymbol{B}$是三阶实对称矩阵，&lt;/p&gt;</description></item><item><title>回归分析</title><link>https://iharee.github.io/math-statistics/regression/</link><pubDate>Sun, 08 Jan 2023 18:11:25 +0800</pubDate><guid>https://iharee.github.io/math-statistics/regression/</guid><description>&lt;p&gt;方便起见，本文用$\Vert\cdot\Vert^2$代表$\Vert\cdot\Vert_2^2$，其中$\Vert\cdot\Vert_2$是$l^2$或$L^2$范数，用RSS或SSE表示残差平方和，用SSR表示回归平方和，用SST表示总平方和，用OLS表示最小二乘法，用MLE表示极大似然估计，并采用下分位数的记号。&lt;/p&gt;
 &lt;p&gt;本文最初是作为本科阶段期末考试的复习总结，★代表考试中重要程度，●代表不会刻意作为考点，◆代表只考察解读或名词解释，不考察理论推导与证明，最后▲代表虽然是复习课上明确提到的必考内容，但会做变形或考察类似题目。由于本文作于作者大三时期，且原先的目的也只是系统地总结回归分析考试考点，所以本文不会十分深入地探究太多涉及底层理论的内容；文章侧重点更多的还是线性回归本身的理论，所以一些应用中的处理方法和可能遇到的问题并没有太多诠释。&lt;/p&gt;
 &lt;p&gt;&lt;u&gt;不过，后来断断续续扩写补充了相当一部分本科课程以外的内容，如果读者仅仅希望将本文作为（西南大学统计系）期末考试的复习笔记，则没有任何记号标记的标题下的内容，均可以忽略。&lt;/u&gt;&lt;/p&gt;
 &lt;p&gt;参考书目有：&lt;/p&gt;

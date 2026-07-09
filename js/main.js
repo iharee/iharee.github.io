@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initTOC();
   initMoreToggles();
   initCosplay();
+  initCodeBlocks();
 });
 
 /* ============================================================
@@ -394,4 +395,105 @@ function escapeHtml(str) {
 function escapeAttr(str) {
   if (!str) return '';
   return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
+/* ============================================================
+   CODE BLOCKS — COPY BUTTON + WRAPPER
+   ============================================================ */
+
+var COPY_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+var CHECK_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+function initCodeBlocks() {
+  var pres = document.querySelectorAll('.post-body pre');
+
+  for (var i = 0; i < pres.length; i++) {
+    var pre = pres[i];
+    var code = pre.querySelector(':scope > code');
+    if (!code) continue;
+
+    // Determine the root element to wrap.
+    // If pre's parent is .highlight, wrap the .highlight;
+    // otherwise wrap the pre itself.
+    var root = pre;
+    var parent = pre.parentElement;
+    if (parent && parent.classList.contains('highlight')) {
+      root = parent;
+    }
+
+    // Avoid double-wrapping
+    if (root.parentElement && root.parentElement.classList.contains('code-block-wrapper')) continue;
+
+    // Create wrapper and replace root with it
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-block-wrapper';
+
+    root.parentElement.replaceChild(wrapper, root);
+    wrapper.appendChild(root);
+
+    // Append copy button
+    var btn = createCopyButton(code);
+    wrapper.appendChild(btn);
+  }
+}
+
+function createCopyButton(codeElement) {
+  var btn = document.createElement('button');
+  btn.className = 'copy-btn';
+  btn.setAttribute('aria-label', '复制代码');
+  btn.type = 'button';
+
+  var iconSpan = document.createElement('span');
+  iconSpan.className = 'copy-btn-icon';
+  iconSpan.innerHTML = COPY_ICON;
+
+  var textSpan = document.createElement('span');
+  textSpan.className = 'copy-btn-text';
+  textSpan.textContent = '复制';
+
+  btn.appendChild(iconSpan);
+  btn.appendChild(textSpan);
+
+  btn.addEventListener('click', function () {
+    var text = getCodeText(codeElement);
+
+    navigator.clipboard.writeText(text).then(function () {
+      btn.classList.add('copied');
+      iconSpan.innerHTML = CHECK_ICON;
+      textSpan.textContent = '已复制';
+      btn.setAttribute('aria-label', '已复制');
+
+      setTimeout(function () {
+        btn.classList.remove('copied');
+        iconSpan.innerHTML = COPY_ICON;
+        textSpan.textContent = '复制';
+        btn.setAttribute('aria-label', '复制代码');
+      }, 1500);
+    });
+  });
+
+  return btn;
+}
+
+/**
+ * Extract clean code text from a <code> element, skipping line-number spans.
+ */
+function getCodeText(codeElement) {
+  // Prefer .cl spans (Chroma with line numbers) for clean line-by-line extraction
+  var codeLines = codeElement.querySelectorAll('.cl');
+  if (codeLines.length > 0) {
+    var lines = [];
+    for (var i = 0; i < codeLines.length; i++) {
+      lines.push(codeLines[i].textContent || '');
+    }
+    return lines.join('\n');
+  }
+
+  // Fallback: clone the element, strip .ln spans, get textContent
+  var clone = codeElement.cloneNode(true);
+  var lns = clone.querySelectorAll('.ln');
+  for (var j = 0; j < lns.length; j++) {
+    lns[j].remove();
+  }
+  return clone.textContent || '';
 }
