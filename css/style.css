@@ -512,7 +512,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 .post-back:hover { color: var(--ink); }
 
-.post-back::before { content: '\2190'; font-size: 0.85rem; }
+.post-back-icon {
+  flex-shrink: 0;
+}
 
 .post-header {
   margin-bottom: var(--gap-md);
@@ -551,8 +553,15 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--ink);
 }
 
-.post-body h2, .post-body h3, .post-body h4 {
+.post-body h1, .post-body h2, .post-body h3, .post-body h4 {
   scroll-margin-top: 180px;
+}
+
+.post-body h1 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  margin: var(--gap-lg) 0 var(--gap-xs);
+  color: var(--ink);
 }
 
 .post-body h2 {
