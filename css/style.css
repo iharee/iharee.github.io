@@ -1474,6 +1474,7 @@ img { max-width: 100%; height: auto; display: block; }
   }
 
   .post-title-main { font-size: 1.4rem; }
+.post-body h1 { font-size: 1.2rem; }
 
   .friends-main, .about-main, .cosplay-main {
     padding: var(--gap-xl) var(--gap-md) var(--gap-xl);
@@ -1512,6 +1513,7 @@ img { max-width: 100%; height: auto; display: block; }
   .header-nav { gap: var(--gap-md); }
 
   .post-title-main { font-size: 1.3rem; }
+.post-body h1 { font-size: 1.15rem; }
 
   .friends-grid {
     gap: var(--gap-sm);
