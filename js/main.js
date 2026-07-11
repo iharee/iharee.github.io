@@ -486,7 +486,7 @@ function getCodeText(codeElement) {
     for (var i = 0; i < codeLines.length; i++) {
       lines.push(codeLines[i].textContent || '');
     }
-    return lines.join('\n');
+    return lines.join('\n').replace(/\n+$/, '');
   }
 
   // Fallback: clone the element, strip .ln spans, get textContent
@@ -495,5 +495,5 @@ function getCodeText(codeElement) {
   for (var j = 0; j < lns.length; j++) {
     lns[j].remove();
   }
-  return clone.textContent || '';
+  return (clone.textContent || '').replace(/^\n+|\n+$/g, '');
 }
