@@ -102,10 +102,10 @@ function initTOC() {
    COSPLAY — VIEW TOGGLE, GALLERY EXPAND, LIGHTBOX
    ============================================================ */
 function initCosplay() {
+  initCosplayLightbox();
   if (initCosplayEntryDetail()) return;
   initCosplayViewToggle();
   initCosplayGalleryNav();
-  initCosplayLightbox();
 }
 
 function initCosplayViewToggle() {
