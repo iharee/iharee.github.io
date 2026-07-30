@@ -243,9 +243,13 @@ function initCosplayEntryDetail() {
 
   detailView.innerHTML = html;
 
-  // Back button handler
+  // Back button handler — return to the view the user came from
   document.getElementById('entryBackBtn').addEventListener('click', function () {
-    window.location.href = '/cosplay/list/';
+    var back = '/cosplay/';
+    if (document.referrer && /\/cosplay\/list\/?$/.test(document.referrer)) {
+      back = '/cosplay/list/';
+    }
+    window.location.href = back;
   });
 
   // Page title
