@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>二三事</title><link>https://iharee.github.io/</link><description>Recent content on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Jul 2026 22:34:36 +0800</lastBuildDate><atom:link href="https://iharee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>抽象文案</title><link>https://iharee.github.io/others/%E6%8A%BD%E8%B1%A1%E6%96%87%E6%A1%88/</link><pubDate>Thu, 09 Jul 2026 22:34:36 +0800</pubDate><guid>https://iharee.github.io/others/%E6%8A%BD%E8%B1%A1%E6%96%87%E6%A1%88/</guid><description>&lt;h1 id="我去宝宝原来你长这样"&gt;我去宝宝原来你长这样&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>二三事</title><link>https://iharee.github.io/</link><description>Recent content on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 30 Jul 2026 18:14:27 +0800</lastBuildDate><atom:link href="https://iharee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>对交叉熵损失的见解</title><link>https://iharee.github.io/math-statistics/ce/</link><pubDate>Thu, 30 Jul 2026 18:14:27 +0800</pubDate><guid>https://iharee.github.io/math-statistics/ce/</guid><description>&lt;h1 id="交叉熵损失的形式"&gt;交叉熵损失的形式&lt;/h1&gt;
+&lt;p&gt;对于回归任务，特别是简单的回归问题，我们通常 MSE（Mean Squared Error，均方误差）作为损失函数，少数情况下也使用 MAE（Mean Absolute Error）。MSE 有诸多优良性质，比如光滑、便于求导且导数仍光滑、在某些理想条件下具有凸性且等价于 MLE（Maximum Likelihood Estimation，极大似然估计）。此外，MSE 本身能被分解为偏差的平方、方差与噪声之和，这也为 MSE 提供了一种合理的解释。关于这部分内容，可见于另一篇我在本科时为《回归分析》课程所撰写的笔记：&lt;a href="https://iharee.github.io/math-statistics/regression/"&gt;回归分析&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;不过，今天我想分别从统计学与信息论两个角度分别讨论一个在分类任务中被广泛应用的损失函数——CE（Cross Entropy，交叉熵）损失。&lt;/p&gt;
+&lt;p&gt;CE 的形式十分简单，在 $M$ 分类问题中，对于输入样本 $x$ ，记模型对 $x$ 关于第 $m$ 个分类的输出预测概率为 $q_m(x)$ 或 $q(y_m\mid x)$，而真实的概率为 $p_m(x)$ 或 $p(y_m\mid x)$，则样本 $x$ 的 CE 为
+&lt;/p&gt;
+$$
+CE_x=-\sum^M_{i=1}p_i(x)\log_2q_i(x)
+$$&lt;p&gt;
+对于事先给出准确标签的有监督学习，在训练过程中往往有数据的真实标签，因此真实概率 $p$ 通常是 One-Hot 编码的，此时 CE 可简化为
+&lt;/p&gt;
+$$
+CE_x=-\log_2q_{y}(x)
+$$&lt;p&gt;
+若考虑全部的 $N$ 个样本，则取各样本的平均 CE 作为损失函数，即
+&lt;/p&gt;
+$$
+CE=-\frac{1}{N}\sum^N_{i=1}\sum^M_{j=1}p_j(x_i)\log_2q_j(x_i)
+$$&lt;p&gt;对于 One-Hot 编码，可进一步简化为
+&lt;/p&gt;
+$$
+CE=-\frac1{N}\sum_{i=1}^{N}\log_2q_{y_i}(x_i)
+$$&lt;p&gt;
+这应当是人尽皆知的故事，几乎是我们的常识。可是，为什么 CE 能够在（多）分类任务损失函数家族中占据统治地位呢？本文将从统计学与信息论两个视角分别讨论这一点，说明为什么 CE 适合分类任务。&lt;/p&gt;</description></item><item><title>抽象文案</title><link>https://iharee.github.io/others/%E6%8A%BD%E8%B1%A1%E6%96%87%E6%A1%88/</link><pubDate>Thu, 09 Jul 2026 22:34:36 +0800</pubDate><guid>https://iharee.github.io/others/%E6%8A%BD%E8%B1%A1%E6%96%87%E6%A1%88/</guid><description>&lt;h1 id="我去宝宝原来你长这样"&gt;我去宝宝原来你长这样&lt;/h1&gt;
 &lt;pre style="white-space:pre-wrap;overflow-wrap:break-word;font-family:DengXian,'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',system-ui,sans-serif;line-height:1.8"&gt;&lt;code&gt;我去宝宝原来你长这样，怎么没有早点发照片给我，之前没回你消息是因为我出车祸了，现在我病好了，我们重新来聊天吧，我觉得你长得挺可爱的。就是说真的长得好漂亮好漂亮，怎么能这么美呀，就是眼睛真的就是很大很圆，然后感觉眼睛里面有星星一样，真的特别特别的让人喜欢，而且特别特别的漂亮好吗？而且就是说鼻子真的很挺，就是完完全全就看上去那种很清纯，像校花的感觉一样，真的就是很纯欲，很让人喜欢，就是那种无辜可爱的那种大女主的感觉，就是说真的特别让人喜欢，而且整体来说就真的很有气质，很有气质就非常的漂亮，真的就是再加上这个发量，真的超级的让人羡慕好吗？特别的让人喜欢，然后拍起来就特别飘顺就直接就是完全那个氛围感直接拉满了，而且这个音乐也弹的很好，就是说跟你整个人整个气质都非常的搭好吧，就是说这个眼神，这个动作，每一个动作都感觉特别特别的清纯可爱好吗？真的就是好喜欢。
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id="我一直在哭我好脆弱"&gt;我一直在哭我好脆弱&lt;/h1&gt;
@@ -9,7 +31,15 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id="我真的不知道我一个普通的老百姓"&gt;我真的不知道我一个普通的老百姓&lt;/h1&gt;
 &lt;pre style="white-space:pre-wrap;overflow-wrap:break-word;font-family:DengXian,'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',system-ui,sans-serif;line-height:1.8"&gt;&lt;code&gt;我真的不知道我一个普通的老百姓勤勤恳恳老老实实为什么上天要这样对我我好崩溃已经累到不行了我真的好想哭我已经得抑郁症了我好崩溃我真的好绝望 我本来一直在哭看到这个后我一直笑我根本停不下来我一直在一边微笑一边流泪我真的笑吐了我好难受我笑哭了为什么会让我看到这种东西我笑的想死莫名其妙我笑的停不下来我好难受你别发了行吗我要笑死了我要死了好好笑啊莫名其妙的我要哭了我真的很崩溃我每次看到这种我都好想哭我不想再看到这些了我真的好想哭我过得一点也不好真的求你们了别再让我看到了为什么要我看到这种我到底做错了什么我真的要疯了我现在好痛苦好崩溃我的生活怎么会这么难看我在你们眼里到底是什么样的人我到底得罪你们什么了为什么要给我看这些为什么要给我看这些我刚才用体温计查出阳光抑郁症了为什么要给我看这个东西为什么要发给我为什么让我知道这些事情为什么让我有手机为什么让我去购买手机为什么让我出生我真的快哭了哭的我肚子疼我不行了为什么要让我这么崩溃我真的怀疑我是不是有点毛病我生理不适了我真的求你了我是个心灵脆弱的人我躯体化了
-&lt;/code&gt;&lt;/pre&gt;</description></item><item><title>请输入文本</title><link>https://iharee.github.io/essays/%E5%B9%BB%E6%A2%A6/</link><pubDate>Fri, 26 Jun 2026 00:00:00 +0800</pubDate><guid>https://iharee.github.io/essays/%E5%B9%BB%E6%A2%A6/</guid><description>&lt;blockquote&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id="女孩们别割手了"&gt;女孩们，别割手了&lt;/h1&gt;
+&lt;pre style="white-space:pre-wrap;overflow-wrap:break-word;font-family:DengXian,'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',system-ui,sans-serif;line-height:1.8"&gt;&lt;code&gt;女孩们，别割手了，血的颜色，是瓷爹的泪啊
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id="拿起xx就无法拥抱你"&gt;拿起xx就无法拥抱你&lt;/h1&gt;
+&lt;pre style="white-space:pre-wrap;overflow-wrap:break-word;font-family:DengXian,'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',system-ui,sans-serif;line-height:1.8"&gt;&lt;code&gt;拿起xx就无法拥抱你，放下xx就无法保护你
+&lt;/code&gt;&lt;/pre&gt;</description></item><item><title>请输入文本</title><link>https://iharee.github.io/essays/%E8%AF%B7%E8%BE%93%E5%85%A5%E6%96%87%E6%9C%AC/</link><pubDate>Fri, 26 Jun 2026 00:00:00 +0800</pubDate><guid>https://iharee.github.io/essays/%E8%AF%B7%E8%BE%93%E5%85%A5%E6%96%87%E6%9C%AC/</guid><description>&lt;h1 id="草稿"&gt;草稿&lt;/h1&gt;
+&lt;p&gt;本文仅为草稿，且待更新哦～&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;本文的时间线经过了聊天记录、照片、订单和说说的勘正。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="其一"&gt;其一&lt;/h1&gt;
