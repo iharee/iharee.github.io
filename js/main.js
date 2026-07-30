@@ -106,6 +106,7 @@ function initCosplay() {
   if (initCosplayEntryDetail()) return;
   initCosplayViewToggle();
   initCosplayGalleryNav();
+  initCosplayTimelineNav();
 }
 
 function initCosplayViewToggle() {
@@ -252,6 +253,22 @@ function initCosplayEntryDetail() {
   document.title = entry.character + ' — Cosplay — ' + siteTitle;
 
   return true;
+}
+
+function initCosplayTimelineNav() {
+  var headers = document.querySelectorAll('.cosplay-entry-header');
+  headers.forEach(function (header) {
+    header.style.cursor = 'pointer';
+    header.addEventListener('click', function () {
+      var entry = header.closest('.cosplay-entry');
+      if (!entry) return;
+      var slug = entry.getAttribute('data-slug');
+      if (!slug) return;
+      var url = new URL('/cosplay/', window.location.origin);
+      url.searchParams.set('entry', slug);
+      window.open(url.toString(), '_blank');
+    });
+  });
 }
 
 function initCosplayLightbox() {

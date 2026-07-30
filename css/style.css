@@ -1075,6 +1075,12 @@ img { max-width: 100%; height: auto; display: block; }
 
 .cosplay-entry-header {
   margin-bottom: var(--gap-md);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.cosplay-entry-header:hover {
+  opacity: 0.75;
 }
 
 .cosplay-entry-title {
