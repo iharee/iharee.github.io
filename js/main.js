@@ -218,7 +218,7 @@ function initCosplayEntryDetail() {
   }
   html += '</h1>';
   html += '<div class="entry-detail-meta">';
-  html += '<span class="cosplay-date">' + escapeHtml(entry.date) + '</span>';
+  html += '<span class="cosplay-date">' + escapeHtml(formatDate(entry.date)) + '</span>';
   if (entry.location) {
     html += '<span class="cosplay-location">' + escapeHtml(entry.location) + '</span>';
   }
@@ -411,6 +411,12 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+/* date may be a single string or an array (multi-day) */
+function formatDate(date) {
+  if (Array.isArray(date)) return date.join(' / ');
+  return date || '';
 }
 
 function escapeAttr(str) {
