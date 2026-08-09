@@ -7,6 +7,7 @@
  *   3. "Expand more" toggle for post cards
  *   4. Responsive TOC drawer on mobile
  *   5. Footer year
+ *   6. Cosplay video preview tiles + modal player
  */
 
 /* ============================================================
@@ -103,6 +104,7 @@ function initTOC() {
    ============================================================ */
 function initCosplay() {
   initCosplayLightbox();
+  initCosplayVideoModal();
   if (initCosplayEntryDetail()) return;
   initCosplayViewToggle();
   initCosplayGalleryNav();
@@ -121,12 +123,14 @@ function initCosplayViewToggle() {
       b.classList.toggle('active', b.getAttribute('data-view') === view);
     });
 
+    // "timeline" = card wall (default, /cosplay/); "list" = full-content
+    // flow (/cosplay/list/). The internal labels keep their historic names.
     if (view === 'timeline') {
-      timelineView.classList.remove('cosplay-hidden');
-      galleryView.classList.add('cosplay-hidden');
-    } else {
       timelineView.classList.add('cosplay-hidden');
       galleryView.classList.remove('cosplay-hidden');
+    } else {
+      timelineView.classList.remove('cosplay-hidden');
+      galleryView.classList.add('cosplay-hidden');
     }
 
     if (updateUrl !== false) {
@@ -195,7 +199,7 @@ function initCosplayEntryDetail() {
   }
 
   var entry = null;
-  for (var i = 0; i < data.entries.length; i++) {
+  for (var i = 0; i < (data.entries || []).length; i++) {
     if (data.entries[i].slug === entryKey) {
       entry = data.entries[i];
       break;
@@ -206,70 +210,40 @@ function initCosplayEntryDetail() {
     return false;
   }
 
-  // Hide toggle, timeline, gallery
-  var toggle = document.querySelector('.cosplay-view-toggle');
-  if (toggle) toggle.style.display = 'none';
+  // Detail mode = the entry's own timeline. The entry blocks are already
+  // server-rendered, so just hide everything else; lightbox and video modal
+  // are document-level delegates and keep working on the visible block.
+  var main = document.querySelector('main.cosplay-main');
+  if (!main) return false;
+  main.classList.add('cosplay-detail-mode');
 
+  var toggle = document.querySelector('.cosplay-view-toggle');
+  if (toggle) toggle.classList.add('cosplay-hidden');
+
+  // The full-content flow is hidden by default (card wall is the default
+  // view), so bring it back for the detail page before filtering entries.
   var timeline = document.getElementById('cosplay-timeline');
-  if (timeline) timeline.classList.add('cosplay-hidden');
+  if (timeline) timeline.classList.remove('cosplay-hidden');
 
   var gallery = document.getElementById('cosplay-gallery');
   if (gallery) gallery.classList.add('cosplay-hidden');
 
-  // Show and populate detail
-  var detailView = document.getElementById('cosplay-entry-detail');
-  if (!detailView) return false;
-  detailView.classList.remove('cosplay-hidden');
+  var entries = document.querySelectorAll('.cosplay-entry');
+  entries.forEach(function (el) {
+    if (el.getAttribute('data-slug') !== entryKey) el.classList.add('cosplay-hidden');
+  });
 
-  var photoCount = entry.photos.length;
-  var html = '';
-
-  // Back button
-  html += '<div class="entry-detail-back">';
-  html += '<button class="back-btn" id="entryBackBtn">← 返回图集</button>';
-  html += '</div>';
-
-  // Header
-  html += '<div class="entry-detail-header">';
-  html += '<h1 class="entry-detail-character">';
-  html += escapeHtml(entry.character);
-  if (entry.franchise) {
-    html += ' <span class="cosplay-franchise">' + escapeHtml(entry.franchise) + '</span>';
-  }
-  html += '</h1>';
-  html += '<div class="entry-detail-meta">';
-  html += '<span class="cosplay-date">' + escapeHtml(formatDate(entry.date)) + '</span>';
-  if (entry.location) {
-    html += '<span class="cosplay-location">' + escapeHtml(entry.location) + '</span>';
-  }
-  html += '<span class="cosplay-count">' + photoCount + ' 张</span>';
-  html += '</div>';
-  if (entry.note) {
-    html += '<div class="cosplay-entry-note">' + escapeHtml(entry.note) + '</div>';
-  }
-  html += '</div>';
-
-  // Photo grid
-  html += '<div class="cosplay-photo-grid entry-detail-grid">';
-  for (var j = 0; j < photoCount; j++) {
-    var photo = entry.photos[j];
-    var thumb = photo.thumb || (photo.full + '?imageMogr2/thumbnail/1080x/format/webp');
-    html += '<div class="cosplay-photo-item" data-full="' + escapeAttr(photo.full) + '">';
-    html += '<img src="' + escapeAttr(thumb) + '" alt="" loading="lazy"';
-    html += ' onerror="this.onerror=null;this.src=\'' + escapeAttr(photo.full) + '\'">';
-    html += '</div>';
-  }
-  html += '</div>';
-
-  detailView.innerHTML = html;
-
-  // Back button handler — return to the view the user came from
+  // Back button — return to the view the user came from (fixed string only)
+  var back = document.createElement('div');
+  back.className = 'entry-detail-back';
+  back.innerHTML = '<button class="back-btn" id="entryBackBtn">← 返回</button>';
+  main.insertBefore(back, main.firstChild);
   document.getElementById('entryBackBtn').addEventListener('click', function () {
-    var back = '/cosplay/';
+    var backUrl = '/cosplay/';
     if (document.referrer && /\/cosplay\/list\/?$/.test(document.referrer)) {
-      back = '/cosplay/list/';
+      backUrl = '/cosplay/list/';
     }
-    window.location.href = back;
+    window.location.href = backUrl;
   });
 
   // Page title
@@ -335,6 +309,45 @@ function initCosplayLightbox() {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && overlay.classList.contains('open')) {
       closeLightbox();
+    }
+  });
+}
+
+function initCosplayVideoModal() {
+  var overlay = document.getElementById('videoOverlay');
+  var player = document.getElementById('videoPlayer');
+  var closeBtn = document.getElementById('videoClose');
+  if (!overlay || !player || !closeBtn) return;
+
+  // Open modal player from timeline/gallery video preview tiles
+  document.addEventListener('click', function (e) {
+    var tile = e.target.closest('.cosplay-video-item');
+    if (!tile || !tile.hasAttribute('data-url')) return;
+    player.src = tile.getAttribute('data-url');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    player.play().catch(function () {});
+  });
+
+  function closePlayer() {
+    overlay.classList.remove('open');
+    player.pause();
+    player.removeAttribute('src');
+    player.load();
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closePlayer);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) {
+      closePlayer();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) {
+      closePlayer();
     }
   });
 }
@@ -418,30 +431,6 @@ function initMoreToggles() {
       }
     });
   });
-}
-
-/* ============================================================
-   UTILITY — HTML / attribute escaping
-   ============================================================ */
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-/* date may be a single string or an array (multi-day) */
-function formatDate(date) {
-  if (Array.isArray(date)) return date.join(' / ');
-  return date || '';
-}
-
-function escapeAttr(str) {
-  if (!str) return '';
-  return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 
 /* ============================================================

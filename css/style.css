@@ -1034,11 +1034,40 @@ img { max-width: 100%; height: auto; display: block; }
   display: none !important;
 }
 
+/* ---- Media Groups (formal / live inside each entry) ---- */
+.cosplay-group {
+  margin-bottom: var(--gap-lg);
+}
+
+.cosplay-group:last-child {
+  margin-bottom: 0;
+}
+
+.cosplay-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-sm);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 var(--gap-sm) var(--gap-md);
+}
+
+.cosplay-group-count {
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
 /* ---- Entry (Timeline) ---- */
 .cosplay-entry {
-  margin-bottom: var(--gap-2xl);
-  padding-bottom: var(--gap-xl);
-  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--gap-lg);
+  padding-bottom: var(--gap-lg);
+  /* one notch darker than --border so the timeline separators read as
+     section breaks instead of faint hairlines */
+  border-bottom: 1px solid #d9d2c6;
 }
 
 .cosplay-entry:last-child {
@@ -1107,11 +1136,14 @@ img { max-width: 100%; height: auto; display: block; }
   white-space: pre-line;
 }
 
-/* ---- Photo Grid ---- */
+/* ---- Photo Grid ----
+   Nested one level below the group title (which is itself indented from
+   the entry header), so the media visually sit "inside" their group. */
 .cosplay-photo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: var(--gap-sm);
+  margin-left: calc(var(--gap-md) * 3);
 }
 
 .cosplay-photo-item {
@@ -1135,6 +1167,57 @@ img { max-width: 100%; height: auto; display: block; }
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* ---- Video Preview Tile ---- */
+.cosplay-video-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  aspect-ratio: 3/4;
+  background: #101014;
+  border: 1px solid var(--border);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cosplay-video-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.cosplay-video-item img,
+.cosplay-video-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cosplay-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 0 3px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.cosplay-video-item:hover .cosplay-video-play {
+  background: rgba(0, 0, 0, 0.65);
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 /* ---- Gallery View ---- */
@@ -1175,6 +1258,19 @@ img { max-width: 100%; height: auto; display: block; }
 
 .cosplay-gallery-card:hover .gallery-card-preview img {
   transform: scale(1.03);
+}
+
+/* Fallback tile for entries with no cover image (video-only, no poster) */
+.gallery-card-media-tile {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #23232b, #101014);
+  color: var(--wisteria-dim);
+  font-size: 1.2rem;
+  padding: 0 0 0 4px;
 }
 
 .gallery-card-overlay {
@@ -1227,10 +1323,20 @@ img { max-width: 100%; height: auto; display: block; }
   white-space: pre-line;
 }
 
-/* ---- Entry Detail View ---- */
-#cosplay-entry-detail {
-  max-width: var(--content-width);
-  margin: 0 auto;
+/* ---- Entry Detail View ----
+   The detail page reuses the timeline's server-rendered entry block
+   (see main.js cosplay-detail-mode): only the target entry stays visible,
+   a back button is prepended, and the header loses its click affordance. */
+.cosplay-detail-mode .cosplay-intro {
+  display: none;
+}
+
+.cosplay-detail-mode .cosplay-entry-header {
+  cursor: default;
+}
+
+.cosplay-detail-mode .cosplay-entry-header:hover {
+  opacity: 1;
 }
 
 .entry-detail-back {
@@ -1252,45 +1358,6 @@ img { max-width: 100%; height: auto; display: block; }
 .back-btn:hover {
   color: var(--ink);
   border-color: var(--faint);
-}
-
-.entry-detail-header {
-  margin-bottom: var(--gap-lg);
-  padding-bottom: var(--gap-md);
-  border-bottom: 1px solid var(--border);
-}
-
-.entry-detail-character {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--ink);
-  margin: 0 0 var(--gap-xs) 0;
-  display: flex;
-  align-items: baseline;
-  gap: var(--gap-sm);
-  flex-wrap: wrap;
-}
-
-.entry-detail-meta {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-md);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin-bottom: var(--gap-xs);
-  flex-wrap: wrap;
-}
-
-.entry-detail-meta .cosplay-location::before {
-  content: '@';
-  opacity: 0.5;
-  margin-right: 2px;
-}
-
-.entry-detail-grid {
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
 /* ---- Lightbox ---- */
@@ -1355,6 +1422,15 @@ img { max-width: 100%; height: auto; display: block; }
 .lightbox-download:hover {
   background: rgba(255, 255, 255, 0.25);
   color: #fff;
+}
+
+/* ---- Video Player Modal ---- */
+.video-modal-player {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 2px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+  background: #000;
 }
 
 /* ============================================================
@@ -1466,10 +1542,6 @@ img { max-width: 100%; height: auto; display: block; }
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 
-  .entry-detail-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  }
-
   .lightbox-overlay {
     padding: 24px;
   }
@@ -1521,11 +1593,7 @@ img { max-width: 100%; height: auto; display: block; }
   }
 
   .cosplay-gallery-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .entry-detail-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .cosplay-entry-meta {
