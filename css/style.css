@@ -13,6 +13,7 @@
   --faint:      #c4bfb8;
   --wisteria:  #7e6ab8;
   --wisteria-dim: #a08dd1;
+  --wisteria-tint: #f2eff9;
   --gold:       #c4a44a;
   --border:     #e8e3db;
   --card-bg:    #faf8f3;
@@ -652,8 +653,8 @@ img { max-width: 100%; height: auto; display: block; }
 .chroma .n,  .chroma .na, .chroma .ni, .chroma .nl, .chroma .nn, .chroma .nx { color: var(--ink); }
 .chroma .nb, .chroma .bp { color: var(--ink-soft); }   /* builtins (self, np…) */
 .chroma .nc { color: var(--wisteria); }                /* class name */
-.chroma .nf, .chroma .fm { color: #9b95c9; }            /* functions — 藤紫 */
-.chroma .nd { color: #9b95c9; }                         /* decorator — 藤紫 */
+.chroma .nf, .chroma .fm { color: #9b95c9; }            /* functions — wisteria */
+.chroma .nd { color: #9b95c9; }                         /* decorator — wisteria */
 .chroma .no { color: var(--ink); }                      /* constants */
 .chroma .ne { color: var(--wisteria); }                /* exceptions */
 .chroma .nt { color: var(--wisteria); }                /* HTML/XML tags */
@@ -1025,8 +1026,8 @@ img { max-width: 100%; height: auto; display: block; }
 
 .view-toggle-btn.active {
   color: var(--paper);
-  background: var(--wisteria);
-  border-color: var(--wisteria);
+  background: var(--wisteria-dim);
+  border-color: var(--wisteria-dim);
 }
 
 .cosplay-hidden {
@@ -1587,3 +1588,56 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 0.85rem;
   padding: var(--gap-xl) 0;
 }
+
+/* ============================================================
+   COSPLAY ENTRY NOTICE (invalid ?entry=)
+   ============================================================ */
+.cosplay-entry-notice {
+  width: fit-content;
+  max-width: 100%;
+  margin: var(--gap-xs) auto var(--gap-md);
+  padding: var(--gap-sm) var(--gap-md);
+  border: 1px solid var(--wisteria);
+  border-radius: 4px;
+  background: var(--wisteria-tint);
+  color: var(--wisteria);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ============================================================
+   NOT FOUND (404)
+   ============================================================ */
+.notfound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.notfound-inner {
+  text-align: center;
+}
+
+.notfound-code {
+  font-family: var(--font-mono);
+  font-size: 4.5rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  color: var(--wisteria-dim);
+}
+
+.notfound-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: var(--gap-md) 0 var(--gap-xs);
+}
+
+.notfound-sub {
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+

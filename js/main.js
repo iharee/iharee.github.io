@@ -162,6 +162,23 @@ function initCosplayGalleryNav() {
   });
 }
 
+function showEntryNotFoundNotice(entryKey) {
+  var main = document.querySelector('main.cosplay-main');
+  if (!main) return;
+  if (document.getElementById('cosplay-entry-notice')) return;
+  var notice = document.createElement('p');
+  notice.id = 'cosplay-entry-notice';
+  notice.className = 'cosplay-entry-notice';
+  // textContent: entryKey comes from the URL, never via innerHTML
+  notice.textContent = '「' + entryKey + '」不存在——下方已展示全部的有效内容。';
+  var toggle = document.querySelector('.cosplay-view-toggle');
+  if (toggle) {
+    main.insertBefore(notice, toggle);
+  } else {
+    main.insertBefore(notice, main.firstChild);
+  }
+}
+
 function initCosplayEntryDetail() {
   var params = new URLSearchParams(window.location.search);
   var entryKey = params.get('entry');
@@ -184,7 +201,10 @@ function initCosplayEntryDetail() {
       break;
     }
   }
-  if (!entry) return false;
+  if (!entry) {
+    showEntryNotFoundNotice(entryKey);
+    return false;
+  }
 
   // Hide toggle, timeline, gallery
   var toggle = document.querySelector('.cosplay-view-toggle');
@@ -392,9 +412,9 @@ function initMoreToggles() {
       var arrowHTML = arrow ? arrow.outerHTML : '<span class="arrow">▾</span>';
 
       if (isExpanded) {
-        btn.innerHTML = '收起 ' + arrowHTML; // 收起
+        btn.innerHTML = '收起 ' + arrowHTML; // collapse
       } else {
-        btn.innerHTML = '展开剩余 ' + hiddenCards.length + ' 篇 ' + arrowHTML; // 展开剩余 N 篇
+        btn.innerHTML = '展开剩余 ' + hiddenCards.length + ' 篇 ' + arrowHTML; // expand remaining N posts
       }
     });
   });
