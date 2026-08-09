@@ -115,22 +115,22 @@ function initCosplayViewToggle() {
   var toggleBtns = document.querySelectorAll('.view-toggle-btn');
   if (toggleBtns.length === 0) return;
 
-  var timelineView = document.getElementById('cosplay-timeline');
-  var galleryView = document.getElementById('cosplay-gallery');
+  var fullView = document.getElementById('cosplay-full');
+  var cardsView = document.getElementById('cosplay-cards');
 
   function setView(view, updateUrl) {
     toggleBtns.forEach(function (b) {
       b.classList.toggle('active', b.getAttribute('data-view') === view);
     });
 
-    // "timeline" = card wall (default, /cosplay/); "list" = full-content
-    // flow (/cosplay/list/). The internal labels keep their historic names.
+    // "timeline" = card wall (default, /cosplay/);
+    // "full" = full-content flow (/cosplay/list/)
     if (view === 'timeline') {
-      timelineView.classList.add('cosplay-hidden');
-      galleryView.classList.remove('cosplay-hidden');
+      fullView.classList.add('cosplay-hidden');
+      cardsView.classList.remove('cosplay-hidden');
     } else {
-      timelineView.classList.remove('cosplay-hidden');
-      galleryView.classList.add('cosplay-hidden');
+      fullView.classList.remove('cosplay-hidden');
+      cardsView.classList.add('cosplay-hidden');
     }
 
     if (updateUrl !== false) {
@@ -141,7 +141,7 @@ function initCosplayViewToggle() {
 
   // Init from URL path
   var isList = /\/list\/?$/.test(window.location.pathname);
-  setView(isList ? 'list' : 'timeline', false);
+  setView(isList ? 'full' : 'timeline', false);
 
   toggleBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -222,11 +222,11 @@ function initCosplayEntryDetail() {
 
   // The full-content flow is hidden by default (card wall is the default
   // view), so bring it back for the detail page before filtering entries.
-  var timeline = document.getElementById('cosplay-timeline');
-  if (timeline) timeline.classList.remove('cosplay-hidden');
+  var full = document.getElementById('cosplay-full');
+  if (full) full.classList.remove('cosplay-hidden');
 
-  var gallery = document.getElementById('cosplay-gallery');
-  if (gallery) gallery.classList.add('cosplay-hidden');
+  var cards = document.getElementById('cosplay-cards');
+  if (cards) cards.classList.add('cosplay-hidden');
 
   var entries = document.querySelectorAll('.cosplay-entry');
   entries.forEach(function (el) {
@@ -240,7 +240,8 @@ function initCosplayEntryDetail() {
   main.insertBefore(back, main.firstChild);
   document.getElementById('entryBackBtn').addEventListener('click', function () {
     var backUrl = '/cosplay/';
-    if (document.referrer && /\/cosplay\/list\/?$/.test(document.referrer)) {
+    var referrerPath = document.referrer ? document.referrer.split('?')[0] : '';
+    if (/\/cosplay\/list\/?$/.test(referrerPath)) {
       backUrl = '/cosplay/list/';
     }
     window.location.href = backUrl;
@@ -256,7 +257,6 @@ function initCosplayEntryDetail() {
 function initCosplayTimelineNav() {
   var headers = document.querySelectorAll('.cosplay-entry-header');
   headers.forEach(function (header) {
-    header.style.cursor = 'pointer';
     header.addEventListener('click', function () {
       var entry = header.closest('.cosplay-entry');
       if (!entry) return;
