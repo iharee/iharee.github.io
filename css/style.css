@@ -1588,8 +1588,13 @@ img { max-width: 100%; height: auto; display: block; }
     justify-content: center;
   }
 
+  .cosplay-group-title {
+    margin-left: var(--gap-xs);
+  }
+
   .cosplay-photo-grid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: var(--gap-md);
   }
 
   .cosplay-gallery-grid {
