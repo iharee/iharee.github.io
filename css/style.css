@@ -1597,6 +1597,14 @@ img { max-width: 100%; height: auto; display: block; }
     margin-left: var(--gap-md);
   }
 
+  /* Odd-sized groups: let the last tile span the full row instead of
+     leaving a dangling half slot. Applies to photo and video tiles
+     (their DOM order is what counts, so mixed groups work too). */
+  .cosplay-photo-item:last-child:nth-child(odd),
+  .cosplay-video-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
   .cosplay-gallery-grid {
     grid-template-columns: repeat(2, 1fr);
   }
