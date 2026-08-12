@@ -282,7 +282,7 @@ function initCosplayLightbox() {
     var photoItem = e.target.closest('.cosplay-photo-item');
     if (!photoItem) return;
 
-    var fullUrl = photoItem.getAttribute('data-full');
+    var fullUrl = photoItem.getAttribute('data-url');
     if (!fullUrl) return;
 
     img.src = fullUrl;
