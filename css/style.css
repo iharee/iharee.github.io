@@ -624,7 +624,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .post-body pre {
-  background: var(--code-bg);
+  background: #1e1e1e; /* VSCode Dark+ editor bg — the one dark surface on the paper page */
+  color: #d4d4d4;
   padding: var(--gap-md);
   border-radius: 6px;
   overflow-x: auto;
@@ -637,60 +638,71 @@ img { max-width: 100%; height: auto; display: block; }
   background: none;
   padding: 0;
   font-size: inherit;
+  color: #d4d4d4;
+}
+
+.post-body pre ::selection {
+  background: #264f78; /* Dark+ selection */
 }
 
 /* ---- Chroma Syntax Highlighting ---- */
+/* Palette: VSCode Dark+ (the editor's default dark theme), so code on the
+   blog reads like code in a modern editor. Block bg lives on .post-body pre;
+   these rules only paint tokens. */
 
-.chroma { color: var(--ink); background: var(--code-bg); }
-.chroma .l { color: var(--ink); }
+.chroma { color: #d4d4d4; background: transparent; }
+.chroma .l { color: #d4d4d4; }
 
-/* Keywords */
-.chroma .k,  .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kp { font-weight: 600; color: var(--ink); }
-.chroma .kr { font-weight: 600; color: var(--ink-soft); }
-.chroma .kt { color: var(--wisteria); }       /* keyword type (int, str…) */
+/* Keywords — editor blue */
+.chroma .k,  .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kp { font-weight: 600; color: #569cd6; }
+.chroma .kr { font-weight: 600; color: #569cd6; }
+.chroma .kt { color: #4ec9b0; }       /* keyword type (int, str…) */
+.chroma .ow { color: #c586c0; }       /* operator words (and, or, not, in, is) — Dark+ control pink */
 
 /* Names */
-.chroma .n,  .chroma .na, .chroma .ni, .chroma .nl, .chroma .nn, .chroma .nx { color: var(--ink); }
-.chroma .nb, .chroma .bp { color: var(--ink-soft); }   /* builtins (self, np…) */
-.chroma .nc { color: var(--wisteria); }                /* class name */
-.chroma .nf, .chroma .fm { color: #9b95c9; }            /* functions — wisteria */
-.chroma .nd { color: #9b95c9; }                         /* decorator — wisteria */
-.chroma .no { color: var(--ink); }                      /* constants */
-.chroma .ne { color: var(--wisteria); }                /* exceptions */
-.chroma .nt { color: var(--wisteria); }                /* HTML/XML tags */
+.chroma .n,  .chroma .na, .chroma .ni, .chroma .nl, .chroma .nx { color: #9cdcfe; }  /* variables */
+.chroma .nb { color: #dcdcaa; }                /* builtins (print, len…) */
+.chroma .bp { color: #9cdcfe; }                /* self, cls */
+.chroma .nn { color: #4ec9b0; }                /* module/namespace */
+.chroma .nc { color: #4ec9b0; }                /* class name */
+.chroma .nf, .chroma .fm { color: #dcdcaa; }   /* functions */
+.chroma .nd { color: #dcdcaa; }                /* decorator */
+.chroma .no { color: #9cdcfe; }                /* constants */
+.chroma .ne { color: #4ec9b0; }                /* exceptions */
+.chroma .nt { color: #569cd6; }                /* HTML/XML tags */
 
-/* Strings */
+/* Strings — editor orange */
 .chroma .s,  .chroma .s1, .chroma .s2, .chroma .sa, .chroma .sb, .chroma .sc,
 .chroma .sd, .chroma .se, .chroma .sh, .chroma .si, .chroma .sx, .chroma .sr,
-.chroma .ss, .chroma .dl { color: #8b5c5e; }  /* warm muted red */
+.chroma .ss, .chroma .dl { color: #ce9178; }
 
-/* Numbers */
+/* Numbers — pale green */
 .chroma .m,  .chroma .mb, .chroma .mf, .chroma .mh,
-.chroma .mi, .chroma .il, .chroma .mo { color: #a0853c; }  /* muted gold */
+.chroma .mi, .chroma .il, .chroma .mo { color: #b5cea8; }
 
-/* Comments */
+/* Comments — editor green, upright like Dark+ */
 .chroma .c,  .chroma .c1, .chroma .ch, .chroma .cm,
-.chroma .cs, .chroma .cp, .chroma .cpf { color: var(--faint); font-style: italic; }
+.chroma .cs, .chroma .cp, .chroma .cpf { color: #6a9955; }
 
 /* Operators & Punctuation */
-.chroma .o, .chroma .p { color: var(--ink-soft); }
+.chroma .o, .chroma .p { color: #d4d4d4; }
 
 /* Generic (diffs) */
-.chroma .gd { color: var(--wisteria); }
+.chroma .gd { color: #f14c4c; }
 .chroma .ge { font-style: italic; }
-.chroma .gi { color: #5a8a5a; }
+.chroma .gi { color: #89d185; }
 .chroma .gs { font-weight: 600; }
 .chroma .gu { font-weight: 600; }
 
-/* Line numbers */
+/* Line numbers — like the editor gutter */
 .chroma .ln {
-  color: var(--faint);
+  color: #858585;
   user-select: none;
   -webkit-user-select: none;
   display: inline-block;
   min-width: 2.25ch;
   text-align: right;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
   padding-right: 0.65rem;
   margin-right: 0.65rem;
 }
@@ -720,16 +732,16 @@ img { max-width: 100%; height: auto; display: block; }
   right: 0;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 5px 10px;
+  gap: 5px;
+  padding: 6px 12px;
   font-family: var(--font-ui);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   color: var(--muted);
-  background: transparent;
+  background: #1e1e1e; /* solid: masks code that scrolls under the button on long first lines */
   border: none;
   cursor: pointer;
-  opacity: 0.55;
-  transition: opacity 0.2s, color 0.2s;
+  opacity: 1;
+  transition: color 0.2s;
   line-height: 1;
   z-index: 1;
 }
@@ -751,9 +763,20 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--wisteria);
 }
 
+/* Copy button sits on the dark code block — dark-aware colors */
+.code-block-wrapper .copy-btn { color: #9d9d9d; }
+.code-block-wrapper .copy-btn:hover { color: #d4d4d4; }
+.code-block-wrapper .copy-btn.copied { color: var(--wisteria-dim); }
+
 .copy-btn-icon {
   display: flex;
   align-items: center;
+}
+
+/* Icon scales with the button text (1.25em × 0.8rem ≈ 16px) */
+.copy-btn-icon svg {
+  width: 1.25em;
+  height: 1.25em;
 }
 
 @media print {
