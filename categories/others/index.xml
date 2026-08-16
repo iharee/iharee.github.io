@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on 二三事</title><link>https://iharee.github.io/categories/others/</link><description>Recent content in Others on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 16 Aug 2026 01:05:18 +0800</lastBuildDate><atom:link href="https://iharee.github.io/categories/others/index.xml" rel="self" type="application/rss+xml"/><item><title>Agent &amp; Harness 实用向快速入门使用</title><link>https://iharee.github.io/others/agent_doc/</link><pubDate>Sun, 16 Aug 2026 01:05:18 +0800</pubDate><guid>https://iharee.github.io/others/agent_doc/</guid><description>&lt;p&gt;本文最后更新于 2026 / 08 /16，希望对同学们有所帮助。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on 二三事</title><link>https://iharee.github.io/categories/others/</link><description>Recent content in Others on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 16 Aug 2026 01:05:18 +0800</lastBuildDate><atom:link href="https://iharee.github.io/categories/others/index.xml" rel="self" type="application/rss+xml"/><item><title>Agent &amp; Harness 实用向快速入门使用</title><link>https://iharee.github.io/others/agent_doc/</link><pubDate>Sun, 16 Aug 2026 01:05:18 +0800</pubDate><guid>https://iharee.github.io/others/agent_doc/</guid><description>&lt;p&gt;本文最后更新于 2026/08/16，希望对同学们有所帮助。&lt;/p&gt;
 &lt;p&gt;如果对编码智能体不熟悉，本文便是为你量身定做的！每个章节都很重要。如果对本文有任何疑问或建议，欢迎向我联系。&lt;/p&gt;
 &lt;h1 id="ai-时代的基本技能"&gt;AI 时代的基本技能&lt;/h1&gt;
 &lt;p&gt;在 LLM（Large Language Model，大语言模型）时代，能够灵活运用 AI 是一项基本技能。特别是对于我们数学与统计背景的研究生来说更是如此——我们的工作硬性地需要计算机，但多数数理背景的同学对计算机科学和软件技术又没有那么熟悉。AI 恰好能够补足这一块短板。&lt;/p&gt;
@@ -7,7 +7,7 @@
 &lt;p&gt;其实 AI 的运用规模可能远比我们所想的更大——在今天，就连相机都借助 AI 以实现更强大的自动对焦。诸如自动驾驶与天气预测等领域中 AI 的运用，更是司空见惯。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在一些软件研发的岗位面试中，面试官会直接问到平时如何使用 AI Coding 及其心得体会。这是来自我的真实见闻，并非凭空杜撰。坦诚地讲，我认为我现在的学习、生活与工作也离不开 AI，否则我需要花费更多的时间与精力才能完成任务。AI 能够帮助我们提升行事效率，已经逐渐成为一种重要的社会能力。&lt;/p&gt;
-&lt;p&gt;可以说，早在 LLM 爆发以前，AI 就完全进入了我们的生活。而在 Agent 大行其道的今天，这一现象只会有增无减。写代码、跑计算、改配置、画数据、做PPT、搞分析……Agent 可以在我们的设备上完成许多种任务。&lt;/p&gt;
+&lt;p&gt;可以说，早在 LLM 爆发以前，AI 就完全进入了我们的生活。而在 Agent 大行其道的今天，这一现象只会有增无减。写代码、跑计算、改配置、数据分析、绘图、做 PPT……Agent 可以在我们的设备上完成许多种任务。&lt;/p&gt;
 &lt;p&gt;因此，我撰写了本文，希望能够写下我的经验，帮助同学们快速掌握 Coding Agent 的使用方法，并在自己的生活与项目中实践。&lt;/p&gt;
 &lt;h1 id="大模型的基本概念"&gt;大模型的基本概念&lt;/h1&gt;
 &lt;p&gt;为了更好地熟悉我们所使用的工具，有必要先行介绍一下大模型相关的基本概念。这里只会介绍一些所涉及的基本概念，绝不会有任何深入的原理——如果对大模型已经有基本的认识，可以跳过本章节。&lt;/p&gt;
