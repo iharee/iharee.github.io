@@ -1,4 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on 二三事</title><link>https://iharee.github.io/others/</link><description>Recent content in Others on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Jul 2026 22:34:36 +0800</lastBuildDate><atom:link href="https://iharee.github.io/others/index.xml" rel="self" type="application/rss+xml"/><item><title>抽象文案</title><link>https://iharee.github.io/others/%E6%8A%BD%E8%B1%A1%E6%96%87%E6%A1%88/</link><pubDate>Thu, 09 Jul 2026 22:34:36 +0800</pubDate><guid>https://iharee.github.io/others/%E6%8A%BD%E8%B1%A1%E6%96%87%E6%A1%88/</guid><description>&lt;h1 id="我去宝宝原来你长这样"&gt;我去宝宝原来你长这样&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Others on 二三事</title><link>https://iharee.github.io/others/</link><description>Recent content in Others on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 16 Aug 2026 01:05:18 +0800</lastBuildDate><atom:link href="https://iharee.github.io/others/index.xml" rel="self" type="application/rss+xml"/><item><title>Agent &amp; Harness 实用向快速入门使用</title><link>https://iharee.github.io/others/agent_doc/</link><pubDate>Sun, 16 Aug 2026 01:05:18 +0800</pubDate><guid>https://iharee.github.io/others/agent_doc/</guid><description>&lt;p&gt;本文最后更新于 2026 / 08 /16，希望对同学们有所帮助。&lt;/p&gt;
+&lt;p&gt;如果对编码智能体不熟悉，本文便是为你量身定做的！每个章节都很重要。如果对本文有任何疑问或建议，欢迎向我联系。&lt;/p&gt;
+&lt;h1 id="ai-时代的基本技能"&gt;AI 时代的基本技能&lt;/h1&gt;
+&lt;p&gt;在 LLM（Large Language Model，大语言模型）时代，能够灵活运用 AI 是一项基本技能。特别是对于我们数学与统计背景的研究生来说更是如此——我们的工作硬性地需要计算机，但多数数理背景的同学对计算机科学和软件技术又没有那么熟悉。AI 恰好能够补足这一块短板。&lt;/p&gt;
+&lt;p&gt;事实上，AI 在各行各业已经有了十分广泛的运用，例如 AI 短剧。尤其对于互联网行业、研发岗位——我们的就业去向，以编码智能体（Coding Agent）为代表的智能体（Agent）已经彻底融入了工作流程中。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;其实 AI 的运用规模可能远比我们所想的更大——在今天，就连相机都借助 AI 以实现更强大的自动对焦。诸如自动驾驶与天气预测等领域中 AI 的运用，更是司空见惯。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在一些软件研发的岗位面试中，面试官会直接问到平时如何使用 AI Coding 及其心得体会。这是来自我的真实见闻，并非凭空杜撰。坦诚地讲，我认为我现在的学习、生活与工作也离不开 AI，否则我需要花费更多的时间与精力才能完成任务。AI 能够帮助我们提升行事效率，已经逐渐成为一种重要的社会能力。&lt;/p&gt;
+&lt;p&gt;可以说，早在 LLM 爆发以前，AI 就完全进入了我们的生活。而在 Agent 大行其道的今天，这一现象只会有增无减。写代码、跑计算、改配置、画数据、做PPT、搞分析……Agent 可以在我们的设备上完成许多种任务。&lt;/p&gt;
+&lt;p&gt;因此，我撰写了本文，希望能够写下我的经验，帮助同学们快速掌握 Coding Agent 的使用方法，并在自己的生活与项目中实践。&lt;/p&gt;
+&lt;h1 id="大模型的基本概念"&gt;大模型的基本概念&lt;/h1&gt;
+&lt;p&gt;为了更好地熟悉我们所使用的工具，有必要先行介绍一下大模型相关的基本概念。这里只会介绍一些所涉及的基本概念，绝不会有任何深入的原理——如果对大模型已经有基本的认识，可以跳过本章节。&lt;/p&gt;
+&lt;p&gt;如今的主流大模型均基于 Transformer 架构，使用注意力（Attention）机制。这里需要专业的理论与工程知识才能理解大模型的工作原理，我们略过这些复杂的概念。&lt;/p&gt;
+&lt;p&gt;LLM 本质上是一类自回归模型：LLM 利用当前输入的所有词预测下一个词，并将预测出的下一个词拼接到本轮输入，一同作为下一轮的输入。比如，对模型输入「我爱吃」，模型预测下一个词是「焦糖」，接着系统会将「我爱吃」与模型预测的输出「焦糖」拼接为「我爱吃焦糖」，作为模型下一轮的输入。在下一轮中对模型输入「我爱吃焦糖」，模型可能会预测下一词是「布丁」……重复这一过程，直至模型输出终止信号（即预测的下一词是终止标记）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;实际上模型预测的是下一 token，关于 token 的概念下文中很快就会介绍。为便于理解，上文暂时没有严谨地区分 token 与自然语言词汇。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;事实上，模型内部不可能完全以自然语言的形式直接处理文本。在 NLP（Natural Language Processing，自然语言处理）场景下，我们输入的文本首先会经过分词器（Tokenizer），分词器负责将文本映射为 token ID 数组，数组中的元素就是所谓的 token。不同系列的模型通常使用不同的分词器，分词的方式也不尽相同，但一个自然语言词汇可能会被切分为多个 token——词与 token 并不总是一一对应的。比如，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;【茉莉绿茶】可能被分词为【茉莉】、【绿】与【茶】&lt;/li&gt;
+&lt;li&gt;【clingy to me】可能被分词为【clin】、【gy】、【to】与【me】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接着，模型会将每个 token ID 映射至相应的多维浮点数向量，该过程被称为嵌入（Embedding）。模型内部的计算实际上都是在这些浮点数向量上进行的，而非原始文本。&lt;u&gt;商业模型在计费时，一种常见的计费方式就是按输入与输出 token 计费。&lt;/u&gt;&lt;/p&gt;</description></item><item><title>抽象文案</title><link>https://iharee.github.io/others/%E6%8A%BD%E8%B1%A1%E6%96%87%E6%A1%88/</link><pubDate>Thu, 09 Jul 2026 22:34:36 +0800</pubDate><guid>https://iharee.github.io/others/%E6%8A%BD%E8%B1%A1%E6%96%87%E6%A1%88/</guid><description>&lt;h1 id="我去宝宝原来你长这样"&gt;我去宝宝原来你长这样&lt;/h1&gt;
 &lt;pre style="white-space:pre-wrap;overflow-wrap:break-word;font-family:DengXian,'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',system-ui,sans-serif;line-height:1.8"&gt;&lt;code&gt;我去宝宝原来你长这样，怎么没有早点发照片给我，之前没回你消息是因为我出车祸了，现在我病好了，我们重新来聊天吧，我觉得你长得挺可爱的。就是说真的长得好漂亮好漂亮，怎么能这么美呀，就是眼睛真的就是很大很圆，然后感觉眼睛里面有星星一样，真的特别特别的让人喜欢，而且特别特别的漂亮好吗？而且就是说鼻子真的很挺，就是完完全全就看上去那种很清纯，像校花的感觉一样，真的就是很纯欲，很让人喜欢，就是那种无辜可爱的那种大女主的感觉，就是说真的特别让人喜欢，而且整体来说就真的很有气质，很有气质就非常的漂亮，真的就是再加上这个发量，真的超级的让人羡慕好吗？特别的让人喜欢，然后拍起来就特别飘顺就直接就是完全那个氛围感直接拉满了，而且这个音乐也弹的很好，就是说跟你整个人整个气质都非常的搭好吧，就是说这个眼神，这个动作，每一个动作都感觉特别特别的清纯可爱好吗？真的就是好喜欢。
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id="我一直在哭我好脆弱"&gt;我一直在哭我好脆弱&lt;/h1&gt;
