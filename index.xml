@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>二三事</title><link>https://iharee.github.io/</link><description>Recent content on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Sun, 16 Aug 2026 01:05:18 +0800</lastBuildDate><atom:link href="https://iharee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Agent &amp; Harness 实用向快速入门使用</title><link>https://iharee.github.io/others/agent_doc/</link><pubDate>Sun, 16 Aug 2026 01:05:18 +0800</pubDate><guid>https://iharee.github.io/others/agent_doc/</guid><description>&lt;p&gt;本文最后更新于 2026/08/16，希望对同学们有所帮助。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>二三事</title><link>https://iharee.github.io/</link><description>Recent content on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Mon, 17 Aug 2026 16:07:41 +0800</lastBuildDate><atom:link href="https://iharee.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>RLHF、PPO 与 DPO 的数学原理：语言模型的偏好优化</title><link>https://iharee.github.io/algorithms/rlhf/</link><pubDate>Mon, 17 Aug 2026 16:07:41 +0800</pubDate><guid>https://iharee.github.io/algorithms/rlhf/</guid><description>&lt;p&gt;本文的强化学习（Reinforcement Learning，RL）前置知识参考自 Sutton 的《&lt;a href="http://incompleteideas.net/book/RLbook2020.pdf"&gt;Reinforcement Learning: An Introduction&lt;/a&gt;》。&lt;/p&gt;
+&lt;h1 id="语言模型的训练过程"&gt;语言模型的训练过程&lt;/h1&gt;
+&lt;p&gt;在前几篇文章 &lt;a href="https://iharee.github.io/algorithms/computational_graphs_and_mlp" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;MLP 与 BP 算法的数学原理&lt;/a&gt;、&lt;a href="https://iharee.github.io/algorithms/attention_and_transformer" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;经典注意力与经典 Transformer 的数学原理&lt;/a&gt; 与 &lt;a href="https://iharee.github.io/algorithms/moe" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;Mixture of Experts 的数学原理（~2026 文献综述）&lt;/a&gt; 中，我们分别在理论上讨论了 BP 算法、注意力与 Transformer 以及 MoE 架构。本文希望进一步讨论语言模型中偏好优化的数学模型。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;一个现代 LLM 的典型训练过程可以被概括为以下几点关键步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Pretraining（预训练）：使用海量的文本语料作为训练样本，按自回归语言建模目标
+&lt;/p&gt;
+$$
+ P(\boldsymbol{x};\boldsymbol{\theta})=\prod_{t=1}^{T}P(x_t|\boldsymbol{x}_{&lt;t};\boldsymbol{\theta})
+ $$&lt;p&gt;
+训练模型，使模型学会根据已有上文预测下一个 token，获得基本的语言表达和推理能力。在完成这一步训练后，模型虽然已经具有大量语言、知识及一定的推理能力，但尚不能稳定地遵循人类指令或作为「AI 助手」。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mid-training（中训练）：可选的步骤，针对某些特定领域的数据继续进行预训练，例如编码、数学。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SFT（Supervised Fine-Tuning，监督微调）：使用高质量的「问题 → 回答」样本对模型进行微调训练，使模型学会遵循指令、遵循对话格式，从而与人类实现更高效的交互。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Preference Optimization（偏好优化）：通过 RL 或 DPO 等方法继续更新模型参数，使模型的输出更符合人类的预期。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其中，SFT 与偏好优化等对齐训练（Alignment）通常统称为 Post-training（后训练）。本质上，SFT 是语言模型在一种特殊的数据分布（问题-答案）上的继续训练与迁移学习，其训练目标与预训练基本一致，仍为自回归语言建模。在实现细节上可能存在差异，例如通过损失掩码（Loss Mask）消除掉 prompt 的影响，只计算来自回答的损失。&lt;/p&gt;
+&lt;p&gt;Alignment 则包含多种具体的优化方法，且在训练方式上与预训练有着显著不同，比如 RL 与 DPO。本文主要讨论该步骤中的 RL 方法。&lt;/p&gt;</description></item><item><title>Agent &amp; Harness 实用向快速入门使用</title><link>https://iharee.github.io/others/agent_doc/</link><pubDate>Sun, 16 Aug 2026 01:05:18 +0800</pubDate><guid>https://iharee.github.io/others/agent_doc/</guid><description>&lt;p&gt;本文最后更新于 2026/08/16，希望对同学们有所帮助。&lt;/p&gt;
 &lt;p&gt;如果对编码智能体不熟悉，本文便是为你量身定做的！每个章节都很重要。如果对本文有任何疑问或建议，欢迎向我联系。&lt;/p&gt;
 &lt;h1 id="ai-时代的基本技能"&gt;AI 时代的基本技能&lt;/h1&gt;
 &lt;p&gt;在 LLM（Large Language Model，大语言模型）时代，能够灵活运用 AI 是一项基本技能。特别是对于我们数学与统计背景的研究生来说更是如此——我们的工作硬性地需要计算机，但多数数理背景的同学对计算机科学和软件技术又没有那么熟悉。AI 恰好能够补足这一块短板。&lt;/p&gt;
@@ -777,5 +802,5 @@ $$&lt;p&gt;
 &lt;p&gt;愿诸事顺遂，愿身体健康。也希望大家都被温柔相待。&lt;/p&gt;
 &lt;p&gt;如果我在明天死去，会有人一直一直记得我吗？&lt;/p&gt;
 &lt;hr style="border: none; border-top: 1px solid var(--border); margin: var(--gap-xl) 0 var(--gap-lg);"&gt;
-&lt;p&gt;哦对了 ^ ^，扩列大大方方+，属性在日志&lt;/p&gt;
+&lt;p&gt;哦对了 ^ ^，扩列大大方方➕，属性在日志&lt;/p&gt;
 &lt;img src="https://iharee.github.io/img/qq-qrcode.png" alt="QQ 二维码" style="display: block; width: 240px; height: auto; border-radius: 4px; margin: 0 auto;"&gt;</description></item><item><title>友链</title><link>https://iharee.github.io/friends/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://iharee.github.io/friends/</guid><description/></item></channel></rss>

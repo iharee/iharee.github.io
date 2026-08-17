@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Algorithms on 二三事</title><link>https://iharee.github.io/categories/algorithms/</link><description>Recent content in Algorithms on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Tue, 12 May 2026 13:23:57 +0800</lastBuildDate><atom:link href="https://iharee.github.io/categories/algorithms/index.xml" rel="self" type="application/rss+xml"/><item><title>Mixture of Experts 的数学原理（~2026 文献综述）</title><link>https://iharee.github.io/algorithms/moe/</link><pubDate>Tue, 12 May 2026 13:23:57 +0800</pubDate><guid>https://iharee.github.io/algorithms/moe/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Algorithms on 二三事</title><link>https://iharee.github.io/categories/algorithms/</link><description>Recent content in Algorithms on 二三事</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Mon, 17 Aug 2026 16:07:41 +0800</lastBuildDate><atom:link href="https://iharee.github.io/categories/algorithms/index.xml" rel="self" type="application/rss+xml"/><item><title>RLHF、PPO 与 DPO 的数学原理：语言模型的偏好优化</title><link>https://iharee.github.io/algorithms/rlhf/</link><pubDate>Mon, 17 Aug 2026 16:07:41 +0800</pubDate><guid>https://iharee.github.io/algorithms/rlhf/</guid><description>&lt;p&gt;本文的强化学习（Reinforcement Learning，RL）前置知识参考自 Sutton 的《&lt;a href="http://incompleteideas.net/book/RLbook2020.pdf"&gt;Reinforcement Learning: An Introduction&lt;/a&gt;》。&lt;/p&gt;
+&lt;h1 id="语言模型的训练过程"&gt;语言模型的训练过程&lt;/h1&gt;
+&lt;p&gt;在前几篇文章 &lt;a href="https://iharee.github.io/algorithms/computational_graphs_and_mlp" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;MLP 与 BP 算法的数学原理&lt;/a&gt;、&lt;a href="https://iharee.github.io/algorithms/attention_and_transformer" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;经典注意力与经典 Transformer 的数学原理&lt;/a&gt; 与 &lt;a href="https://iharee.github.io/algorithms/moe" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;Mixture of Experts 的数学原理（~2026 文献综述）&lt;/a&gt; 中，我们分别在理论上讨论了 BP 算法、注意力与 Transformer 以及 MoE 架构。本文希望进一步讨论语言模型中偏好优化的数学模型。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;一个现代 LLM 的典型训练过程可以被概括为以下几点关键步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Pretraining（预训练）：使用海量的文本语料作为训练样本，按自回归语言建模目标
+&lt;/p&gt;
+$$
+ P(\boldsymbol{x};\boldsymbol{\theta})=\prod_{t=1}^{T}P(x_t|\boldsymbol{x}_{&lt;t};\boldsymbol{\theta})
+ $$&lt;p&gt;
+训练模型，使模型学会根据已有上文预测下一个 token，获得基本的语言表达和推理能力。在完成这一步训练后，模型虽然已经具有大量语言、知识及一定的推理能力，但尚不能稳定地遵循人类指令或作为「AI 助手」。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mid-training（中训练）：可选的步骤，针对某些特定领域的数据继续进行预训练，例如编码、数学。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SFT（Supervised Fine-Tuning，监督微调）：使用高质量的「问题 → 回答」样本对模型进行微调训练，使模型学会遵循指令、遵循对话格式，从而与人类实现更高效的交互。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Preference Optimization（偏好优化）：通过 RL 或 DPO 等方法继续更新模型参数，使模型的输出更符合人类的预期。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其中，SFT 与偏好优化等对齐训练（Alignment）通常统称为 Post-training（后训练）。本质上，SFT 是语言模型在一种特殊的数据分布（问题-答案）上的继续训练与迁移学习，其训练目标与预训练基本一致，仍为自回归语言建模。在实现细节上可能存在差异，例如通过损失掩码（Loss Mask）消除掉 prompt 的影响，只计算来自回答的损失。&lt;/p&gt;
+&lt;p&gt;Alignment 则包含多种具体的优化方法，且在训练方式上与预训练有着显著不同，比如 RL 与 DPO。本文主要讨论该步骤中的 RL 方法。&lt;/p&gt;</description></item><item><title>Mixture of Experts 的数学原理（~2026 文献综述）</title><link>https://iharee.github.io/algorithms/moe/</link><pubDate>Tue, 12 May 2026 13:23:57 +0800</pubDate><guid>https://iharee.github.io/algorithms/moe/</guid><description>&lt;h1 id="引言"&gt;引言&lt;/h1&gt;
 &lt;p&gt;在第一篇文章 &lt;a href="https://iharee.github.io/2024/12/08/computational_graphs_and_mlp" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;MLP 与 BP 算法的数学原理&lt;/a&gt; 中，我们简单地推导并实践了神经网络的基础——BP 算法。&lt;/p&gt;
 &lt;p&gt;在第二篇文章 &lt;a href="https://iharee.github.io/algorithms/attention_and_transformer" style="color:#7799bb; font-weight: bold; &amp;:active{color:#0066cc;} &amp;:focus{color:#0066cc;}"&gt;经典注意力与经典 Transformer 的数学原理&lt;/a&gt; 中，我们梳理了从 RNN &amp;amp; BPTT、Seq2Seq、注意力机制再到经典 Transformer 的时间线，并详细地在其底层数学原理的层次上进行了推导与分析。&lt;/p&gt;
 &lt;p&gt;本文将在前两篇文章的基础上，借助多篇或经典或前沿的文献梳理 MoE（Mixture of Experts，混合专家模型）的基础理论。如果说，BP 算法使得我们能够构造可训练的前馈神经网络，注意力与 Transformer 使得我们拥有了一种强大的序列模型范式，那么 Sparse MoE 就是 Transformer 从「小模型」真正迈向「大模型」的关键一招。&lt;/p&gt;
