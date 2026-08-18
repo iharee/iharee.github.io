@@ -22,5 +22,5 @@ $$
 &lt;p&gt;Preference Optimization（偏好优化）：通过 RL 或 DPO 等方法继续更新模型参数，使模型的输出更符合人类的预期。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;其中，SFT 与偏好优化等对齐训练（Alignment）通常统称为 Post-training（后训练）。本质上，SFT 是语言模型在一种特殊的数据分布（问题-答案）上的继续训练与迁移学习，其训练目标与预训练基本一致，仍为自回归语言建模。在实现细节上可能存在差异，例如通过损失掩码（Loss Mask）消除掉 prompt 的影响，只计算来自回答的损失。&lt;/p&gt;
-&lt;p&gt;Alignment 则包含多种具体的优化方法，且在训练方式上与预训练有着显著不同，比如 RL 与 DPO。本文主要讨论该步骤中的 RL 方法。&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;其中，Post-training（后训练）通常包括 SFT 与偏好优化，二者都可以服务于 Alignment（对齐）这一目标。本质上，SFT 是语言模型在一种特殊的数据分布（问题-答案）上的继续训练与迁移学习，其训练目标与预训练基本一致，仍为自回归语言建模。在实现细节上可能存在差异，例如通过损失掩码（Loss Mask）消除掉 prompt 的影响，只计算来自回答的损失。&lt;/p&gt;
+&lt;p&gt;偏好优化则包含多种具体方法，且在训练方式上与预训练有着显著不同，比如 RL 与 DPO。本文先讨论依赖奖励模型的 RLHF 与 PPO，再讨论不显式训练奖励模型的 DPO。&lt;/p&gt;</description></item></channel></rss>

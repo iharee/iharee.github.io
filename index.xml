@@ -22,8 +22,8 @@ $$
 &lt;p&gt;Preference Optimization（偏好优化）：通过 RL 或 DPO 等方法继续更新模型参数，使模型的输出更符合人类的预期。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;其中，SFT 与偏好优化等对齐训练（Alignment）通常统称为 Post-training（后训练）。本质上，SFT 是语言模型在一种特殊的数据分布（问题-答案）上的继续训练与迁移学习，其训练目标与预训练基本一致，仍为自回归语言建模。在实现细节上可能存在差异，例如通过损失掩码（Loss Mask）消除掉 prompt 的影响，只计算来自回答的损失。&lt;/p&gt;
-&lt;p&gt;Alignment 则包含多种具体的优化方法，且在训练方式上与预训练有着显著不同，比如 RL 与 DPO。本文主要讨论该步骤中的 RL 方法。&lt;/p&gt;</description></item><item><title>Agent &amp; Harness 实用向快速入门使用</title><link>https://iharee.github.io/others/agent_doc/</link><pubDate>Sun, 16 Aug 2026 01:05:18 +0800</pubDate><guid>https://iharee.github.io/others/agent_doc/</guid><description>&lt;p&gt;本文最后更新于 2026/08/16，希望对同学们有所帮助。&lt;/p&gt;
+&lt;p&gt;其中，Post-training（后训练）通常包括 SFT 与偏好优化，二者都可以服务于 Alignment（对齐）这一目标。本质上，SFT 是语言模型在一种特殊的数据分布（问题-答案）上的继续训练与迁移学习，其训练目标与预训练基本一致，仍为自回归语言建模。在实现细节上可能存在差异，例如通过损失掩码（Loss Mask）消除掉 prompt 的影响，只计算来自回答的损失。&lt;/p&gt;
+&lt;p&gt;偏好优化则包含多种具体方法，且在训练方式上与预训练有着显著不同，比如 RL 与 DPO。本文先讨论依赖奖励模型的 RLHF 与 PPO，再讨论不显式训练奖励模型的 DPO。&lt;/p&gt;</description></item><item><title>Agent &amp; Harness 实用向快速入门使用</title><link>https://iharee.github.io/others/agent_doc/</link><pubDate>Sun, 16 Aug 2026 01:05:18 +0800</pubDate><guid>https://iharee.github.io/others/agent_doc/</guid><description>&lt;p&gt;本文最后更新于 2026/08/16，希望对同学们有所帮助。&lt;/p&gt;
 &lt;p&gt;如果对编码智能体不熟悉，本文便是为你量身定做的！每个章节都很重要。如果对本文有任何疑问或建议，欢迎向我联系。&lt;/p&gt;
 &lt;h1 id="ai-时代的基本技能"&gt;AI 时代的基本技能&lt;/h1&gt;
 &lt;p&gt;在 LLM（Large Language Model，大语言模型）时代，能够灵活运用 AI 是一项基本技能。特别是对于我们数学与统计背景的研究生来说更是如此——我们的工作硬性地需要计算机，但多数数理背景的同学对计算机科学和软件技术又没有那么熟悉。AI 恰好能够补足这一块短板。&lt;/p&gt;
