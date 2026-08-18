@@ -1,8 +1,6 @@
 /* ============================================================
    TYPOGRAPHY
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:opsz@9..40&display=swap');
-
 :root {
   /* Palette */
   --paper:      #fdfbf7;
@@ -21,6 +19,7 @@
 
   /* Typography */
   --font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'SimSun', 'Songti SC', serif;
+  --font-body:  'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
   --font-mono:  'DM Mono', 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace;
   --font-ui:    'DM Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
 
@@ -555,13 +554,14 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* ---- Post Body Typography ---- */
 .post-body {
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.85;
   color: var(--ink);
 }
 
 .post-body h1, .post-body h2, .post-body h3, .post-body h4 {
+  font-family: var(--font-serif);
   scroll-margin-top: 180px;
 }
 
@@ -1744,4 +1744,3 @@ img { max-width: 100%; height: auto; display: block; }
   font-family: var(--font-ui);
   font-size: 0.9rem;
 }
-
