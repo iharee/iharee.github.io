@@ -1,0 +1,1 @@
+(function(e,t){var n=t.documentElement.getAttribute("data-site-base-url");e.siteUrl=function(e){var t=String(e||"").replace(/^\/+/,"");return new URL(t,n).toString()}})(window,document)
