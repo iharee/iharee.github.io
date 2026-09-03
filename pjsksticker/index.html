@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Project Sekai 风格贴纸生成器：选底图、写文字、一键生成。纯前端、无广告、无追踪。">
+  <link rel="canonical" href="https://iharee.github.io/pjsksticker/">
+  <title>PJSK 贴纸生成器</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>PJSK 贴纸生成器</h1>
+    <p>汪大吼</p>
+  </header>
+
+  <main class="layout">
+    <section class="preview-pane" aria-label="预览">
+      <div class="canvas-box">
+        <canvas id="stage" width="296" height="256">你的浏览器不支持 Canvas。</canvas>
+      </div>
+      <p class="size-info" id="sizeInfo" aria-live="polite"></p>
+      <div class="actions">
+        <button id="copyBtn" class="btn primary" type="button">复制</button>
+        <button id="downloadBtn" class="btn" type="button">下载</button>
+        <button id="resetBtn" class="btn ghost" type="button" title="恢复当前角色的默认文字与位置">重置本角色默认</button>
+      </div>
+    </section>
+
+    <section class="controls-pane" aria-label="编辑">
+      <nav class="unit-tabs" id="unitTabs" aria-label="选择团体"></nav>
+      <div class="char-grid" id="charGrid" aria-label="选择角色"></div>
+      <div class="sticker-grid" id="stickerGrid" aria-label="选择底图"></div>
+
+      <label class="field">
+        <span class="field-label">请输入文本（支持换行、emoji）</span>
+        <textarea id="textInput" rows="2" spellcheck="false" placeholder="请输入文本（支持换行、emoji）"></textarea>
+      </label>
+
+      <div class="sliders">
+        <div class="slider-row">
+          <label for="xSlider">X 位置</label>
+          <input type="range" id="xSlider" min="0" max="1" step="0.005" value="0.5">
+          <output id="xOut" for="xSlider">0.500</output>
+        </div>
+        <div class="slider-row">
+          <label for="ySlider">Y 位置</label>
+          <input type="range" id="ySlider" min="0" max="1" step="0.005" value="0.6">
+          <output id="yOut" for="ySlider">0.600</output>
+        </div>
+        <div class="slider-row">
+          <label for="rotSlider">旋转</label>
+          <input type="range" id="rotSlider" min="-10" max="10" step="0.2" value="1">
+          <output id="rotOut" for="rotSlider">1.0</output>
+        </div>
+        <div class="slider-row">
+          <label for="sizeSlider">字号</label>
+          <input type="range" id="sizeSlider" min="10" max="120" step="1" value="42">
+          <output id="sizeOut" for="sizeSlider">42</output>
+        </div>
+        <div class="slider-row" id="spaceRow" hidden>
+          <label for="spaceSlider">行距</label>
+          <input type="range" id="spaceSlider" min="10" max="120" step="1" value="42">
+          <output id="spaceOut" for="spaceSlider">42</output>
+        </div>
+      </div>
+
+      <div class="options">
+        <label class="check">
+          <input type="checkbox" id="curveToggle">
+          <span>曲线排列</span>
+        </label>
+        <label class="field inline">
+          <span class="field-label">字体</span>
+          <select id="fontSelect">
+            <option value="auto">自动</option>
+            <option value="YurukaStd">ゆるかわ字体</option>
+            <option value="SSFangTangTi">方糖字体</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="field">
+        <span class="field-label">背景</span>
+        <div class="seg" id="bgSeg" role="group" aria-label="背景类型">
+          <button type="button" data-bg="none" class="active" aria-pressed="true">无</button>
+          <button type="button" data-bg="solid" aria-pressed="false">纯色</button>
+          <button type="button" data-bg="gradient" aria-pressed="false">渐变</button>
+        </div>
+        <div class="colors" id="bgColors">
+          <label>颜色 1<input type="color" id="c1" value="#ffffff"></label>
+          <label>颜色 2<input type="color" id="c2" value="#333333"></label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="loading-overlay" id="loading"><span>正在加载字体与素材…</span></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+{
+    "バーチャル・シンガー": {
+        "name": "バーチャル・シンガー",
+        "shortname": "vs",
+        "names": [
+            "バーチャル・シンガー",
+            "Virtual Singer",
+            "VIRTUAL SINGER",
+            "vs"
+        ],
+        "characters": [
+            {
+                "name": "初音ミク",
+                "roma": "miku",
+                "names": [
+                    "初音ミク",
+                    "ミク",
+                    "miku"
+                ]
+            },
+            {
+                "name": "鏡音リン",
+                "roma": "rin",
+                "names": [
+                    "鏡音リン",
+                    "リン",
+                    "rin"
+                ]
+            },
+            {
+                "name": "鏡音レン",
+                "roma": "len",
+                "names": [
+                    "鏡音レン",
+                    "レン",
+                    "len"
+                ]
+            },
+            {
+                "name": "巡音ルカ",
+                "roma": "luka",
+                "names": [
+                    "巡音ルカ",
+                    "ルカ",
+                    "luka"
+                ]
+            },
+            {
+                "name": "MEIKO",
+                "roma": "meiko",
+                "names": [
+                    "MEIKO",
+                    "メイコ",
+                    "meiko"
+                ]
+            },
+            {
+                "name": "KAITO",
+                "roma": "kaito",
+                "names": [
+                    "KAITO",
+                    "カイト",
+                    "kaito"
+                ]
+            }
+        ]
+    },
+    "Leo/need": {
+        "name": "Leo/need",
+        "shortname": "ln",
+        "names": [
+            "Leo/need",
+            "レオニード",
+            "レオニ",
+            "ln"
+        ],
+        "characters": [
+            {
+                "name": "星乃一歌",
+                "roma": "ichika",
+                "names": [
+                    "星乃一歌",
+                    "いちか",
+                    "一歌",
+                    "ichika",
+                    "ick"
+                ]
+            },
+            {
+                "name": "天馬咲希",
+                "roma": "saki",
+                "names": [
+                    "天馬咲希",
+                    "さき",
+                    "咲希",
+                    "saki"
+                ]
+            },
+            {
+                "name": "望月穂波",
+                "roma": "honami",
+                "names": [
+                    "望月穂波",
+                    "ほなみ",
+                    "穂波",
+                    "honami",
+                    "hnm"
+                ]
+            },
+            {
+                "name": "日野森志歩",
+                "roma": "shiho",
+                "names": [
+                    "日野森志歩",
+                    "しほ",
+                    "志歩",
+                    "shiho"
+                ]
+            }
+        ]
+    },
+    "MORE MORE JUMP!": {
+        "name": "MORE MORE JUMP!",
+        "shortname": "mmj",
+        "names": [
+            "MORE MORE JUMP!",
+            "モアモアジャンプ！",
+            "モモジャン",
+            "mmj"
+        ],
+        "characters": [
+            {
+                "name": "花里みのり",
+                "roma": "minori",
+                "names": [
+                    "花里みのり",
+                    "みのり",
+                    "みのりん",
+                    "minori",
+                    "mnr"
+                ]
+            },
+            {
+                "name": "桐谷遥",
+                "roma": "haruka",
+                "names": [
+                    "桐谷遥",
+                    "はるか",
+                    "遥",
+                    "haruka",
+                    "hrk"
+                ]
+            },
+            {
+                "name": "桃井愛莉",
+                "roma": "airi",
+                "names": [
+                    "桃井愛莉",
+                    "あいり",
+                    "愛莉",
+                    "airi"
+                ]
+            },
+            {
+                "name": "日野森雫",
+                "roma": "shizuku",
+                "names": [
+                    "日野森雫",
+                    "しずく",
+                    "雫",
+                    "shizuku",
+                    "szk"
+                ]
+            }
+        ]
+    },
+    "Vivid BAD SQUAD": {
+        "name": "Vivid BAD SQUAD",
+        "shortname": "vbs",
+        "names": [
+            "Vivid BAD SQUAD",
+            "ビビッドバッドスクワッド",
+            "ビビバス",
+            "vbs"
+        ],
+        "characters": [
+            {
+                "name": "小豆沢こはね",
+                "roma": "kohane",
+                "names": [
+                    "小豆沢こはね",
+                    "こはね",
+                    "心羽",
+                    "kohane",
+                    "khn"
+                ]
+            },
+            {
+                "name": "白石杏",
+                "roma": "an",
+                "names": [
+                    "白石杏",
+                    "あん",
+                    "杏",
+                    "an"
+                ]
+            },
+            {
+                "name": "東雲彰人",
+                "roma": "akito",
+                "names": [
+                    "東雲彰人",
+                    "あきと",
+                    "彰人",
+                    "akito",
+                    "akt"
+                ]
+            },
+            {
+                "name": "青柳冬弥",
+                "roma": "touya",
+                "names": [
+                    "青柳冬弥",
+                    "とうや",
+                    "冬弥",
+                    "touya",
+                    "toya"
+                ]
+            }
+        ]
+    },
+    "ワンダーランズ×ショウタイム": {
+        "name": "ワンダーランズ×ショウタイム",
+        "shortname": "ws",
+        "names": [
+            "ワンダーランズ×ショウタイム",
+            "ワンダショ",
+            "ws"
+        ],
+        "characters": [
+            {
+                "name": "天馬司",
+                "roma": "tsukasa",
+                "names": [
+                    "天馬司",
+                    "つかさ",
+                    "司",
+                    "tsukasa",
+                    "tks"
+                ]
+            },
+            {
+                "name": "鳳えむ",
+                "roma": "emu",
+                "names": [
+                    "鳳えむ",
+                    "えむ",
+                    "えむちゃん",
+                    "emu"
+                ]
+            },
+            {
+                "name": "草薙寧々",
+                "roma": "nene",
+                "names": [
+                    "草薙寧々",
+                    "ねね",
+                    "寧々",
+                    "nene"
+                ]
+            },
+            {
+                "name": "神代類",
+                "roma": "rui",
+                "names": [
+                    "神代類",
+                    "るい",
+                    "類",
+                    "rui"
+                ]
+            }
+        ]
+    },
+    "25時、ナイトコードで。": {
+        "name": "25時、ナイトコードで。",
+        "shortname": "25",
+        "names": [
+            "25時、ナイトコードで。",
+            "25点，在Nightcord见.",
+            "Nightcord at 25:00",
+            "25",
+            "25時",
+            "25时",
+            "25点",
+            "ニーゴ",
+            "nigo"
+        ],
+        "characters": [
+            {
+                "name": "宵崎奏",
+                "roma": "kanade",
+                "names": [
+                    "宵崎奏",
+                    "かなで",
+                    "奏",
+                    "kanade",
+                    "knd"
+                ]
+            },
+            {
+                "name": "朝比奈まふゆ",
+                "roma": "mafuyu",
+                "names": [
+                    "朝比奈まふゆ",
+                    "まふゆ",
+                    "真冬",
+                    "mafuyu",
+                    "mfy"
+                ]
+            },
+            {
+                "name": "東雲絵名",
+                "roma": "ena",
+                "names": [
+                    "東雲絵名",
+                    "えな",
+                    "絵名",
+                    "ena"
+                ]
+            },
+            {
+                "name": "暁山瑞希",
+                "roma": "mizuki",
+                "names": [
+                    "暁山瑞希",
+                    "みずき",
+                    "瑞希",
+                    "mizuki",
+                    "mzk"
+                ]
+            }
+        ]
+    }
+}
